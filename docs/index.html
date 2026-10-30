@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Muster: an AI engineering team you run from your phone</title>
+<meta name="description" content="Grokbot is the control layer. Claude Code, Pi and OpenCode agents on five model families design, build, review and ship, with every step recorded.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap">
+<style>
+:root{--bg:#F4F5F7;--ink:#0A1128;--panel:#fff;--line:#E4E7EC;--muted:#5A6E85;--copper:#B86A42;--hot:#FBEFE8}
+@media (prefers-color-scheme:dark){:root{--bg:#081421;--ink:#F4F5F7;--panel:#112233;--line:#22384d;--muted:#9fb0c3;--copper:#E0956D;--hot:#2a1d17;color-scheme:dark}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 Inter,system-ui,sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-left,0px))}
+header{background:linear-gradient(135deg,#0A1128,#13253d);color:#F4F5F7;padding:72px 0 56px}
+.eyebrow{color:#E0956D;font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:13px;margin:0 0 12px}
+h1{font:800 clamp(52px,10vw,104px)/1 'Plus Jakarta Sans',sans-serif;margin:0 0 18px;letter-spacing:-.03em}
+.lead{font-size:clamp(19px,2.4vw,24px);max-width:46ch;color:#dfe6ee;margin:0 0 28px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}.cta a{background:#C87D55;color:#fff;text-decoration:none;padding:12px 20px;border-radius:10px;font-weight:600}
+.cta a.alt{background:transparent;border:1px solid #3a5470;color:#F4F5F7}
+.stats{display:flex;gap:14px;flex-wrap:wrap;margin-top:36px}.stats div{background:#112233;border:1px solid #22384d;border-radius:12px;padding:16px 20px;flex:1 1 160px}
+.stats b{display:block;font:800 34px 'Plus Jakarta Sans',sans-serif;color:#E0956D}.stats span{color:#9fb0c3;font-size:14px}
+section{padding:56px 0;border-bottom:1px solid var(--line)}
+h2{font:800 clamp(28px,4vw,40px)/1.15 'Plus Jakarta Sans',sans-serif;margin:0 0 20px;text-wrap:balance}
+h3{font:700 18px 'Plus Jakarta Sans',sans-serif;margin:0 0 6px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px}.card p{margin:0;color:var(--muted)}
+.card.hot{background:var(--hot)}
+video{width:100%;border-radius:12px;border:1px solid var(--line);background:#000}
+.ps{display:grid;grid-template-columns:1fr 1fr;gap:24px}@media(max-width:720px){.ps{grid-template-columns:1fr}}
+ul{padding-left:1.2em}li{margin:6px 0}
+a{color:var(--copper)}
+.diag{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}.diag a{display:block;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;text-decoration:none;font-weight:600}
+footer{padding:32px 0;color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<p class="eyebrow">Open source · AI agent operations</p>
+<h1>Muster</h1>
+<p class="lead">An AI engineering team you run from your phone. <b>Grokbot is the control layer.</b> Claude Code, Pi and OpenCode agents on five model families design, build, review and ship, and every step is recorded.</p>
+<div class="cta"><a href="#video">Watch the 90-second walkthrough</a><a class="alt" href="presentation/muster-deck.pdf">Presentation (PDF)</a><a class="alt" href="https://github.com/apsisvictor-sys/muster-ai">Source code</a></div>
+<div class="stats"><div><b>~800</b><span>worker runs in October 2026</span></div><div><b>1,508</b><span>logged model-routing decisions</span></div><div><b>5</b><span>model families at work</span></div><div><b>1,800+</b><span>automated tests in CI</span></div></div>
+</div></header>
+
+<section><div class="wrap ps">
+<div><p class="eyebrow" style="color:var(--copper)">The problem</p><h2>One AI agent is a conversation. Shipping software takes a team.</h2>
+<ul><li>Real work needs design, building, independent review, integration and release, every time.</li>
+<li>A single agent forgets, stalls silently and grades its own work.</li>
+<li>One model or one vendor is a single point of failure and of cost.</li>
+<li>The person in charge ends up babysitting terminals instead of deciding outcomes.</li></ul></div>
+<div><p class="eyebrow" style="color:var(--copper)">The solution</p><h2>A bus that turns many agents into one accountable team</h2>
+<ul><li>You talk to <b>Grokbot</b> by chat or voice. It relays your exact words to the team and brings each decision back as one card.</li>
+<li>An architect seat writes reviewed blueprints, an orchestrator seat cuts them into briefs, routes each to the cheapest model that fits, verifies and merges.</li>
+<li>Every change is reviewed by a different model family from its author. Every status carries its proof.</li>
+<li>Spending, messages to real people and production data stay on your own tap.</li></ul></div>
+</div></section>
+
+<section id="video"><div class="wrap">
+<p class="eyebrow" style="color:var(--copper)">Walkthrough</p><h2>Muster in 90 seconds</h2>
+<video controls preload="metadata" poster="video/poster.png"><source src="video/muster-walkthrough.mp4" type="video/mp4"></video>
+</div></section>
+
+<section><div class="wrap">
+<p class="eyebrow" style="color:var(--copper)">Grokbot: the control layer</p><h2>You talk to Grokbot. Grokbot runs the team.</h2>
+<div class="grid">
+<div class="card hot"><h3>One front door</h3><p>Goals and answers by chat or voice, relayed word for word to the architect and orchestrator seats, which it wakes.</p></div>
+<div class="card hot"><h3>Live board, audited tools</h3><p>About 60 typed gateway tools with bearer roles and an audit log. No shell tool.</p></div>
+<div class="card hot"><h3>Decisions as one card</h3><p>Every question arrives prepared, with options and a recommendation, and closes with evidence.</p></div>
+<div class="card hot"><h3>Live intelligence from X</h3><p>Model launches, prices and terms become signals. A free model that passes a probe is offered with one tap.</p></div>
+<div class="card hot"><h3>Independent reviewer</h3><p>Grok reviews risky fixes as a different model family from the authors.</p></div>
+<div class="card hot"><h3>Guard rails stay human</h3><p>Grokbot prepares. Spending, outside messages and production data wait for the human's tap.</p></div>
+</div></div></section>
+
+<section><div class="wrap">
+<p class="eyebrow" style="color:var(--copper)">Who it is for</p><h2>Builders who want an AI team, not another chat window</h2>
+<div class="grid">
+<div class="card"><h3>Solo founders and small studios</h3><p>Run several products at once with agents that keep working while you are away.</p></div>
+<div class="card"><h3>Engineering leads</h3><p>AI agents behind the same process as people: briefs, cross-model review, proof before merge.</p></div>
+<div class="card"><h3>AI platform teams</h3><p>Mix harnesses and vendors, route by cost and quota, fail over when a provider walls.</p></div>
+</div></div></section>
+
+<section><div class="wrap">
+<p class="eyebrow" style="color:var(--copper)">Interactive diagrams</p><h2>How it fits together</h2>
+<div class="diag"><a href="diagrams/system-map.html">System map</a><a href="diagrams/end-to-end.html">End to end</a><a href="diagrams/one-piece-of-work.html">One piece of work</a><a href="diagrams/model-routing.html">Model routing</a><a href="diagrams/whole-system.html">The whole system</a></div>
+</div></section>
+
+<section><div class="wrap">
+<p class="eyebrow" style="color:var(--copper)">Built at Crossroads 2026</p><h2>What the event session added</h2>
+<p>Muster's core has run daily since September 2026. During the event session we built and shipped:</p>
+<ul><li>The public release: a clean export of the codebase with every personal and client detail removed and a secret scan on every push.</li>
+<li>Grokbot as the documented control layer, with each capability mapped to its code.</li>
+<li>CI green on the public repository, this live site, the presentation and the walkthrough video.</li>
+<li>A deployment plan for hosting Muster on Grokbot's own system.</li></ul>
+</div></section>
+<footer><div class="wrap">Muster · MIT licensed · <a href="https://github.com/apsisvictor-sys/muster-ai">github.com/apsisvictor-sys/muster-ai</a></div></footer>
+</body>
+</html>

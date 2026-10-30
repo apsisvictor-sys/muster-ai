@@ -4,7 +4,9 @@
 
 Muster has been in daily use on real product work since September 2026. One person runs it, with **Grokbot as the control layer** on the phone.
 
-**[Presentation (PDF, 13 slides)](docs/presentation/muster-deck.pdf)** · [Diagrams](docs/diagrams/) · [Architecture](#the-parts) · [Grokbot control layer](#grokbot-the-control-layer)
+**[Live site](https://apsisvictor-sys.github.io/muster-ai/)** · **[Walkthrough video (90 s)](docs/video/muster-walkthrough.mp4)** · **[Presentation (PDF, 13 slides)](docs/presentation/muster-deck.pdf)** · [Diagrams](docs/diagrams/) · [Architecture](#the-parts) · [Grokbot control layer](#grokbot-the-control-layer) · [Built at Crossroads 2026](#built-at-crossroads-2026)
+
+[![CI](https://github.com/apsisvictor-sys/muster-ai/actions/workflows/ci.yml/badge.svg)](https://github.com/apsisvictor-sys/muster-ai/actions/workflows/ci.yml) 1,800+ automated tests run on every push.
 
 | | |
 |---|---|
@@ -16,8 +18,9 @@ Muster has been in daily use on real product work since September 2026. One pers
 
 ![Muster system map](docs/diagrams/system-map.png)
 
-## Why
+## The problem and the solution
 
+**The problem.** 
 A single AI agent is a conversation. Real software needs a team and a process: a design, a plan cut into slices, builders, independent review, integration, release, and someone watching it all at night. Single agents forget, stall silently, grade their own work and depend on one vendor's quota. Muster fixes the process, not the model:
 
 - **Roles, not one big prompt.** An architect seat designs, an orchestrator seat plans, routes and merges, and lanes build. Each lane is one worker with one written brief in its own folder.
@@ -160,6 +163,14 @@ In late October the orchestrator seat ran for two days on a second harness. Ther
 - every guard decides from the seat record, never from another harness's signals.
 
 The rule that came out of it: **a change for one harness never breaks a working process on another.**
+
+## Built at Crossroads 2026
+
+Muster's core has run daily since September 2026. During the event session we built and shipped, in this repository's commits:
+- **The public release:** a clean export of the codebase with every personal and client detail removed, and a secret scan on every push.
+- **Grokbot as the control layer:** each capability documented and mapped to its code (above).
+- **Proof anyone can check:** CI green on this public repository, the [live site](https://apsisvictor-sys.github.io/muster-ai/), the [presentation](docs/presentation/muster-deck.pdf) and the [walkthrough video](docs/video/muster-walkthrough.mp4).
+- **The hosting plan** for running Muster on Grokbot's own system (above).
 
 ## Roadmap
 
