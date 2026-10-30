@@ -3418,7 +3418,7 @@ function vpsPath() {
  * Mutations (power state, snapshots, firewall, DNS, billing) are represented
  * and gated; the generated CLI refuses to execute them regardless.
  */
-function callVPS host(operation, args = {}, parsed = null) {
+function callVpsHost(operation, args = {}, parsed = null) {
 	const cli = vpsPath();
 	const safeOperations = ["status", "vps-list", "vps-get", "vps-metrics", "vps-backups", "vps-snapshot", "vps-actions", "vps-datacenters", "vps-templates", "vps-plans", "firewall-list", "firewall-get", "domains-list", "domains-get", "domains-availability", "dns-records", "dns-snapshots", "billing-subscriptions", "billing-catalog", "billing-orders"];
 	const mutatingOperations = ["vps-start", "vps-stop", "vps-restart", "vps-recreate", "vps-setup", "vps-hostname-set", "vps-root-password-set", "vps-nameservers-set", "vps-snapshot-create", "vps-snapshot-restore", "vps-snapshot-delete", "vps-backup-restore", "vps-backup-delete", "firewall-create", "firewall-delete", "firewall-activate", "firewall-deactivate", "firewall-rule-create", "firewall-rule-update", "firewall-rule-delete", "domains-purchase", "domains-renew", "domains-nameservers-set", "domains-privacy-enable", "domains-privacy-disable", "domains-lock", "domains-unlock", "dns-record-set", "dns-record-delete", "dns-snapshot-restore", "billing-order-create", "billing-subscription-cancel"];
@@ -4104,7 +4104,7 @@ async function callProvider(provider, operation, args, parsed) {
 		else if (canonical === "portal-bg") result = callPortalBg(operation, args, parsed);
 		else if (canonical === "pally") result = callPally(operation, args, parsed);
 		else if (canonical === "studio") result = callStudio(operation, args, parsed);
-		else if (canonical === "vps") result = callVPS host(operation, args, parsed);
+		else if (canonical === "vps") result = callVpsHost(operation, args, parsed);
 		else if (canonical === "infisical") result = callInfisical(operation, args);
 		else if (canonical === "claude-code") result = callClaudeCode(operation);
 		else if (canonical === "antigravity") result = callAntigravity(operation);

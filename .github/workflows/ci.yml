@@ -81,4 +81,4 @@ jobs:
           fi
           ./scripts/harness-secret-scan.sh "$range" \
             --allow scripts/harness-secret-scan-allow.txt \
-            --split-base 996266fc8c44b95d2b3ec3a2e63f6fecb735646c
+            --split-base 673ad769500c5e58aad57671dcb8f7726aca2308

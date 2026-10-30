@@ -454,8 +454,8 @@ test("(i) every reason code is a gate, and says who or what it waits on", () => 
 				["G-AFTER", "after:IDLE-METRIC", "evidence", false],
 				["G-CREDENTIAL", "needs-credential", "credential", false],
 				["G-DECISION", "needs-decision", "decision", false],
-				["G-OWNER", "wrong-owner", "another-owner", false],
 				["G-OPERATOR", "needs-operators-ok", "operator", false],
+				["G-OWNER", "wrong-owner", "another-owner", false],
 			],
 			"each code is a gate, with who it waits on",
 		);
