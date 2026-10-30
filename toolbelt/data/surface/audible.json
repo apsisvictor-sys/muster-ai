@@ -1,0 +1,174 @@
+{
+ "schemaVersion": 1,
+ "cli": "audible",
+ "cliVersion": "0.3.3",
+ "cliPath": "/home/operator/.local/bin/audible",
+ "cliMtimeMs": 1779734828543.415,
+ "generatedAt": "2026-08-29T13:00:53.787Z",
+ "leafCount": 16,
+ "leaves": [
+  {
+   "cmd": "activation-bytes",
+   "flags": [
+    "reload"
+   ],
+   "desc": "Get activation bytes."
+  },
+  {
+   "cmd": "api",
+   "flags": [
+    "body",
+    "country-code",
+    "format",
+    "indent",
+    "method",
+    "output",
+    "param"
+   ],
+   "desc": "Send requests to an Audible API endpoint"
+  },
+  {
+   "cmd": "download",
+   "flags": [
+    "aax",
+    "aax-fallback",
+    "aaxc",
+    "all",
+    "annotation",
+    "asin",
+    "bunch-size",
+    "chapter",
+    "chapter-type",
+    "cover",
+    "cover-size",
+    "end-date",
+    "filename-length",
+    "filename-mode",
+    "ignore-errors",
+    "ignore-podcasts",
+    "jobs",
+    "no-confirm",
+    "output-dir",
+    "overwrite",
+    "pdf",
+    "quality",
+    "resolve-podcasts",
+    "start-date",
+    "timeout",
+    "title"
+   ],
+   "desc": "download audiobook(s) from library"
+  },
+  {
+   "cmd": "library export",
+   "flags": [
+    "bunch-size",
+    "end-date",
+    "format",
+    "output",
+    "resolve-podcasts",
+    "start-date",
+    "timeout"
+   ],
+   "desc": "export library"
+  },
+  {
+   "cmd": "library list",
+   "flags": [
+    "bunch-size",
+    "end-date",
+    "resolve-podcasts",
+    "start-date",
+    "timeout"
+   ],
+   "desc": "list titles in library"
+  },
+  {
+   "cmd": "manage auth-file add",
+   "flags": [
+    "audible-password",
+    "audible-username",
+    "auth-file",
+    "country-code",
+    "external-login",
+    "password",
+    "with-username"
+   ],
+   "desc": "Register a new device and add an auth file to config dir"
+  },
+  {
+   "cmd": "manage auth-file remove",
+   "flags": [
+    "auth-file",
+    "password"
+   ],
+   "desc": "Deregister a device and remove auth file from config dir"
+  },
+  {
+   "cmd": "manage config edit",
+   "flags": [],
+   "desc": "Open the config file with default editor"
+  },
+  {
+   "cmd": "manage profile add",
+   "flags": [
+    "auth-file",
+    "country-code",
+    "is-primary",
+    "profile"
+   ],
+   "desc": "Adds a profile to config file"
+  },
+  {
+   "cmd": "manage profile list",
+   "flags": [],
+   "desc": "List all profiles in the config file"
+  },
+  {
+   "cmd": "manage profile remove",
+   "flags": [
+    "profile"
+   ],
+   "desc": "Remove one or multiple profile(s) from config file"
+  },
+  {
+   "cmd": "quickstart",
+   "flags": [],
+   "desc": "Quick setup audible"
+  },
+  {
+   "cmd": "wishlist add",
+   "flags": [
+    "asin",
+    "timeout",
+    "title"
+   ],
+   "desc": "add asin(s) to wishlist"
+  },
+  {
+   "cmd": "wishlist export",
+   "flags": [
+    "format",
+    "output",
+    "timeout"
+   ],
+   "desc": "export wishlist"
+  },
+  {
+   "cmd": "wishlist list",
+   "flags": [
+    "timeout"
+   ],
+   "desc": "list titles in wishlist"
+  },
+  {
+   "cmd": "wishlist remove",
+   "flags": [
+    "asin",
+    "timeout",
+    "title"
+   ],
+   "desc": "remove asin(s) from wishlist"
+  }
+ ]
+}

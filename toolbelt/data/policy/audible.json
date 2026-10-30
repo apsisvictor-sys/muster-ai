@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "provider": "audible",
+  "dryRunFlag": null,
+  "read": [],
+  "destructive": [],
+  "blocked": [],
+  "secretReturning": [
+    "^(activation-bytes|api)(\\s|$)"
+  ],
+  "exact": {
+    "activation-bytes": "sensitive",
+    "api": "sensitive",
+    "download": "mutate",
+    "library export": "mutate",
+    "manage config edit": "mutate",
+    "manage profile add": "mutate",
+    "quickstart": "mutate",
+    "wishlist add": "mutate",
+    "wishlist export": "mutate"
+  }
+}

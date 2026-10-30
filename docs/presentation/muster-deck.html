@@ -1,0 +1,72 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Muster deck</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap"><style>@page{size:1600px 900px;margin:0}
+:root{--bg:#F4F5F7;--ink:#0A1128;--panel:#fff;--line:#E4E7EC;--muted:#5A6E85;--copper:#B86A42;--hot:#FBEFE8}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font:22px/1.45 Inter,system-ui,sans-serif}
+section{width:1600px;height:900px;padding:70px 96px;position:relative;overflow:hidden;page-break-after:always;break-after:page;background:var(--bg)}
+section.hero{display:flex;flex-direction:column;justify-content:center;background:linear-gradient(135deg,#0A1128,#13253d);color:#F4F5F7}
+section.hero .lead{color:#dfe6ee}section.hero .stats div{background:#112233;border-color:#22384d}section.hero .stats span{color:#9fb0c3}
+.eyebrow{color:var(--copper);font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:18px;margin:0 0 14px}
+section.hero .eyebrow{color:#E0956D}
+h1{font:800 150px/1 'Plus Jakarta Sans',Inter,sans-serif;margin:0 0 24px;letter-spacing:-.03em}
+h2{font:800 52px/1.1 'Plus Jakarta Sans',Inter,sans-serif;margin:0 0 36px;letter-spacing:-.01em;max-width:28ch}
+h3{font:700 23px 'Plus Jakarta Sans',Inter,sans-serif;margin:0 0 8px}
+.lead{font-size:32px;max-width:44ch;margin:0 0 44px}
+.stats{display:flex;gap:20px}.stats div{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px 26px;flex:1}
+.stats b{display:block;font:800 50px 'Plus Jakarta Sans',sans-serif;color:#E0956D}.stats span{font-size:19px}
+ul.big,ol.big{font-size:30px;display:flex;flex-direction:column;gap:20px;padding-left:1.2em;max-width:52ch;margin:0}
+.grid{display:grid;gap:22px}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:1fr 1fr 1fr}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:24px 26px}.card p{margin:0;color:#33445a;font-size:20px}
+.card.hot{background:var(--hot);border-color:#efcfbd}
+.dense h2{margin-bottom:24px}.dense .grid{grid-template-columns:1fr 1fr 1fr;gap:18px}.dense .card{padding:20px 22px}.dense .card p{font-size:18.5px}
+.note{color:var(--muted);font-size:21px;margin-top:32px;max-width:70ch}
+.cols{display:grid;grid-template-columns:1.3fr 1fr;gap:56px}
+.bars{display:flex;flex-direction:column;gap:14px}.bar{display:grid;grid-template-columns:120px 1fr 60px;align-items:center;gap:14px;font-size:21px}
+.bar i{display:block;height:24px;background:#C87D55;border-radius:5px}.bar b{text-align:right}
+ul.plain{list-style:none;padding:0;margin:0;font-size:24px;display:flex;flex-direction:column;gap:12px}
+section.pic{padding:48px 70px}section.pic h2{margin-bottom:18px;font-size:42px}
+.frame{height:680px;background:var(--panel);border:1px solid var(--line);border-radius:14px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.frame img{max-width:100%;max-height:100%;object-fit:contain}
+pre{background:#081421;border:1px solid #22384d;border-radius:12px;padding:24px 30px;font-size:24px;color:#dfe6ee;max-width:900px}
+footer{position:absolute;bottom:28px;right:96px;color:var(--muted);font-size:15px}section.hero footer{display:none}</style></head><body><section class="hero"><p class="eyebrow">Open source · AI agent operations</p><h1>Muster</h1>
+ <p class="lead">An AI engineering team you run from your phone. <b>Grokbot is the control layer.</b> Claude Code, Pi and OpenCode agents on five model families design, build, review and ship, and every step is recorded.</p>
+ <div class="stats"><div><b>~800</b><span>worker runs in October 2026</span></div><div><b>1,508</b><span>logged model-routing decisions</span></div><div><b>5</b><span>model families at work</span></div><div><b>3</b><span>agent harnesses on one bus</span></div></div></section><section class=""><p class="eyebrow">The problem</p><h2>One AI agent is a conversation. Shipping software takes a team.</h2><ul class="big">
+ <li>Real work needs design, building, independent review, integration and release, every time.</li>
+ <li>A single agent forgets, stalls silently and grades its own work.</li>
+ <li>One model or one vendor is a single point of failure and of cost.</li>
+ <li>The person in charge ends up babysitting terminals instead of deciding outcomes.</li></ul><footer>Muster</footer></section><section class=""><p class="eyebrow">Who it is for</p><h2>Builders who want an AI team, not another chat window</h2><div class="grid g3">
+ <div class="card"><h3>Solo founders and small studios</h3><p>Run several products at once with a team of agents that works while you are away.</p></div>
+ <div class="card"><h3>Engineering leads</h3><p>Put AI agents behind the same process as people: briefs, review by another model, proof before merge.</p></div>
+ <div class="card"><h3>AI platform teams</h3><p>Mix harnesses and vendors, route by cost and quota, and fail over when a provider walls.</p></div></div><footer>Muster</footer></section><section class="dense"><p class="eyebrow">Grokbot: the control layer</p><h2>You talk to Grokbot. Grokbot runs the team.</h2><div class="grid g2">
+ <div class="card hot"><h3>One front door, chat or voice</h3><p>The human gives goals and answers to Grokbot on the phone. Grokbot relays the exact words to the architect and orchestrator seats and wakes them.</p></div>
+ <div class="card hot"><h3>Live board, audited tools</h3><p>Grokbot reads lanes, asks, goals and releases through the Muster gateway: about 60 typed tools, bearer roles, an audit log, and no shell tool.</p></div>
+ <div class="card hot"><h3>Decisions as one card</h3><p>Every question reaches the human prepared, with options and a recommendation. One tap answers it and the queue closes it with evidence.</p></div>
+ <div class="card hot"><h3>Live intelligence from X</h3><p>Grokbot reads X for model launches, prices and terms. Signals land in the research desk, and a free model that passes a probe is offered with one tap.</p></div>
+ <div class="card hot"><h3>Independent reviewer</h3><p>Grok is reserved to review risky fixes: a different model family from the author checks the impact map and the tests before merge.</p></div>
+ <div class="card hot"><h3>Guard rails stay human</h3><p>Spending, messages to real people and production data go out only on the human's own tap. Grokbot prepares, the human decides.</p></div></div><footer>Muster</footer></section><section class="pic"><p class="eyebrow">How it works</p><h2>The system at a glance</h2><div class="frame"><img src="../diagrams/system-map.png" alt="The system at a glance"></div><footer>Muster</footer></section><section class=""><p class="eyebrow">The pieces</p><h2>A bus that turns agents into an accountable team</h2><div class="grid g3">
+ <div class="card"><h3>Bus and ledger</h3><p>send, ask, report, wait. A daemon on a local socket with SQLite storage and a spool for restarts.</p></div>
+ <div class="card"><h3>Seats</h3><p>The architect turns goals into reviewed blueprints. The orchestrator writes briefs, routes, verifies and merges.</p></div>
+ <div class="card"><h3>Lanes</h3><p>One worker, one written brief, its own folder. Fast, cheap models by default.</p></div>
+ <div class="card"><h3>Model router</h3><p>Role chains per lane class, quota meters per provider, wall detection, fallbacks, and a logged reason for every placement.</p></div>
+ <div class="card"><h3>Command center</h3><p>One live page for phone, desktop and TV: goals, lanes with their model, what needs you, what shipped today.</p></div>
+ <div class="card"><h3>Out loop</h3><p>No model needed: a tick every 2 minutes, a doctor that turns each broken contract red, a janitor.</p></div></div><footer>Muster</footer></section><section class="pic"><p class="eyebrow">From a phone message to a merged release</p><h2>One piece of work, end to end</h2><div class="frame"><img src="../diagrams/one-piece-of-work.png" alt="One piece of work, end to end"></div><footer>Muster</footer></section><section class="pic"><p class="eyebrow">Cheapest model that fits, skipping quota walls</p><h2>The model router</h2><div class="frame"><img src="../diagrams/model-routing.png" alt="The model router"></div><footer>Muster</footer></section><section class="pic"><p class="eyebrow">Architecture</p><h2>Every component and how they connect</h2><div class="frame"><img src="../diagrams/end-to-end.png" alt="Every component and how they connect"></div><footer>Muster</footer></section><section class=""><p class="eyebrow">Proof, not a prototype</p><h2>In daily use on real product work since September 2026</h2><div class="cols">
+ <div><h3>Worker runs in October, by model family</h3><div class="bars">
+ <div class="bar"><span>DeepSeek</span><i style="width:100%"></i><b>298</b></div>
+ <div class="bar"><span>Claude</span><i style="width:60%"></i><b>179</b></div>
+ <div class="bar"><span>GLM</span><i style="width:12%"></i><b>36</b></div>
+ <div class="bar"><span>MiniMax</span><i style="width:8%"></i><b>25</b></div>
+ <div class="bar"><span>Grok</span><i style="width:7%"></i><b>22</b></div></div></div>
+ <div><h3>The codebase</h3><ul class="plain"><li><b>~94,500</b> lines of TypeScript</li><li><b>~60,000</b> lines of tests in <b>208</b> test files</li><li><b>4</b> packages with enforced import direction</li></ul></div></div>
+ <p class="note">Every fix passes a gate: an impact map, a test that fails before the fix, and a review on another model family. A status is shown only with its proof.</p><footer>Muster</footer></section><section class=""><p class="eyebrow">What we learned</p><h2>A change for one harness never breaks another</h2><ul class="big">
+ <li>The orchestrator ran for two days on a second harness. It went quiet there, and a fix made for that harness broke the first.</li>
+ <li>The answer is structural: one wake contract for every harness, each harness a thin adapter, one conformance suite run on both before any merge.</li>
+ <li>Reliability is designed, reviewed and tested like any feature.</li></ul><footer>Muster</footer></section><section class=""><p class="eyebrow">Next</p><h2>Hosting Muster on Grokbot itself</h2><ol class="big">
+ <li>Package the ledger daemon, gateway and out-loop timers as one service.</li>
+ <li>Give each lane its own sandbox behind the existing launch interface.</li>
+ <li>Point Grokbot's tool calls at the local gateway. Tools, roles and audit stay the same.</li>
+ <li>Add Grok models as builders as well as reviewers. The router already ranks and fails over.</li>
+ <li>Keep the approval rules: spending, outside messages and production data stay with the human.</li></ol>
+ <p class="note">Grokbot becomes the team's home, not only its messenger.</p><footer>Muster</footer></section><section class="hero"><p class="eyebrow">Try it</p><h1 style="font-size:84px">Muster</h1>
+ <p class="lead">Message Grokbot. The team builds, reviews and ships. You decide what matters.</p>
+ <pre>scripts/setup.sh
+muster lanes
+muster route pick --lane demo --task-kind research
+muster seat show orchestrator</pre></section></body></html>

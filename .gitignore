@@ -1,0 +1,13 @@
+# Installed dependencies: one install per package that declares its own (scripts/setup.sh).
+node_modules/
+
+# This repository's own code graph (regenerable; graph-refresh.sh writes it in the main checkout).
+graphify-out/
+
+# Test runs leave Python bytecode beside their fixtures.
+__pycache__/
+
+# Runtime state and logs never enter the tree.
+*.log
+*.jsonl
+.state/

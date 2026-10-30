@@ -1,0 +1,244 @@
+#!/usr/bin/env node
+"use strict";
+
+const API_URL_ENV = "STUDIO_API_URL";
+const API_KEY_ENV = "STUDIO_API_KEY";
+const OPERATIONS = [
+  "status",
+  "intelligence-start",
+  "intelligence-status",
+  "intelligence-get",
+  "opportunity-list",
+  "opportunity-get",
+  "opportunity-update",
+  "cost-summary",
+];
+
+function parseArgs(argv) {
+  const operation = argv[0] || "status";
+  const options = {};
+  for (let index = 1; index < argv.length; index += 1) {
+    const arg = argv[index];
+    if (!arg.startsWith("--")) continue;
+    const key = arg.slice(2);
+    const next = argv[index + 1];
+    if (next && !next.startsWith("--")) {
+      options[key] = next;
+      index += 1;
+    } else {
+      options[key] = true;
+    }
+  }
+  let args = {};
+  if (options.args) {
+    try {
+      args = JSON.parse(String(options.args));
+    } catch {
+      throw new Error("--args must be a JSON object");
+    }
+    if (!args || typeof args !== "object" || Array.isArray(args)) {
+      throw new Error("--args must be a JSON object");
+    }
+  }
+  return { operation, args };
+}
+
+function baseUrl() {
+  const raw = String(process.env[API_URL_ENV] || "").trim();
+  if (!raw) return null;
+  const parsed = new URL(raw);
+  if (!new Set(["http:", "https:"]).has(parsed.protocol)) {
+    throw new Error(`${API_URL_ENV} must use http or https`);
+  }
+  return parsed.toString().replace(/\/$/, "");
+}
+
+function authState() {
+  return {
+    apiUrlConfigured: Boolean(process.env[API_URL_ENV]),
+    apiKeyConfigured: Boolean(process.env[API_KEY_ENV]),
+    valuesPrinted: false,
+  };
+}
+
+function requiredString(args, names) {
+  for (const name of names) {
+    if (typeof args[name] === "string" && args[name].trim()) return args[name].trim();
+  }
+  throw new Error(`Missing required argument: ${names.join("|")}`);
+}
+
+function boundedLimit(value, fallback = 20) {
+  const parsed = Number(value ?? fallback);
+  if (!Number.isInteger(parsed) || parsed < 1) throw new Error("limit must be a positive integer");
+  return Math.min(parsed, 100);
+}
+
+async function apiRequest(path, options = {}) {
+  const url = baseUrl();
+  const apiKey = process.env[API_KEY_ENV]; // secretValuesAccepted: false
+  if (!url || !apiKey) {
+    const error = new Error("Studio API connection is not configured");
+    error.code = "provider_not_configured";
+    throw error;
+  }
+  const response = await fetch(`${url}${path}`, {
+    method: options.method || "GET",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      Accept: "application/json",
+      ...(options.body ? { "Content-Type": "application/json" } : {}),
+      ...(options.headers || {}),
+    },
+    body: options.body ? JSON.stringify(options.body) : undefined,
+    signal: AbortSignal.timeout(30_000),
+  });
+  const payload = await response.json().catch(() => null);
+  if (!response.ok) {
+    const error = new Error(payload?.error?.message || payload?.error || `Studio API returned HTTP ${response.status}`);
+    error.code = "api_error";
+    error.httpStatus = response.status;
+    throw error;
+  }
+  return payload?.data ?? payload;
+}
+
+async function execute(operation, args) {
+  if (!OPERATIONS.includes(operation)) {
+    return { ok: false, status: "unsupported_operation", operation, allowed: OPERATIONS, valuesPrinted: false };
+  }
+  if (operation === "status") {
+    return {
+      ok: true,
+      status: "ready",
+      operation,
+      configured: Boolean(process.env[API_URL_ENV] && process.env[API_KEY_ENV]),
+      auth: authState(),
+      safeOperations: ["status", "intelligence-status", "intelligence-get", "opportunity-list", "opportunity-get", "cost-summary"],
+      mutatingOperations: ["intelligence-start", "opportunity-update"],
+      valuesPrinted: false,
+    };
+  }
+
+  if (operation === "intelligence-start") {
+    const idempotencyKey = requiredString(args, ["idempotencyKey", "idempotency_key"]);
+    const body = {};
+    for (const key of ["businessName", "websiteUrl", "location", "platforms", "depth", "limits"]) {
+      if (args[key] !== undefined) body[key] = args[key];
+    }
+    return {
+      ok: true,
+      status: "accepted",
+      operation,
+      resourceType: "intelligence_run",
+      data: await apiRequest("/api/v1/intelligence/runs", {
+        method: "POST",
+        headers: { "Idempotency-Key": idempotencyKey },
+        body,
+      }),
+      valuesPrinted: false,
+    };
+  }
+
+  if (operation === "intelligence-status" || operation === "intelligence-get") {
+    const runId = requiredString(args, ["runId", "run_id", "id"]);
+    return {
+      ok: true,
+      status: "success",
+      operation,
+      resourceType: "intelligence_run",
+      data: await apiRequest(`/api/v1/intelligence/runs/${encodeURIComponent(runId)}`),
+      valuesPrinted: false,
+    };
+  }
+
+  if (operation === "opportunity-list") {
+    const query = new URLSearchParams({ limit: String(boundedLimit(args.limit)) });
+    if (args.stage) query.set("stage", String(args.stage));
+    return {
+      ok: true,
+      status: "success",
+      operation,
+      resourceType: "agency_opportunity_list",
+      data: await apiRequest(`/api/v1/intelligence/opportunities?${query}`),
+      valuesPrinted: false,
+    };
+  }
+
+  if (operation === "opportunity-get") {
+    const opportunityId = requiredString(args, ["opportunityId", "opportunity_id", "id"]);
+    return {
+      ok: true,
+      status: "success",
+      operation,
+      resourceType: "agency_opportunity",
+      data: await apiRequest(`/api/v1/intelligence/opportunities/${encodeURIComponent(opportunityId)}`),
+      valuesPrinted: false,
+    };
+  }
+
+  if (operation === "opportunity-update") {
+    const opportunityId = requiredString(args, ["opportunityId", "opportunity_id", "id"]);
+    const body = {};
+    for (const key of ["stage", "owner", "nextAction", "dueAt", "dismissedReason"]) {
+      if (args[key] !== undefined) body[key] = args[key];
+    }
+    return {
+      ok: true,
+      status: "success",
+      operation,
+      resourceType: "agency_opportunity",
+      data: await apiRequest(`/api/v1/intelligence/opportunities/${encodeURIComponent(opportunityId)}`, {
+        method: "PATCH",
+        body,
+      }),
+      valuesPrinted: false,
+    };
+  }
+
+  const runs = await apiRequest(`/api/v1/intelligence/runs?limit=${boundedLimit(args.limit, 100)}`);
+  const list = Array.isArray(runs) ? runs : [];
+  const byStatus = {};
+  let providerCostEstimate = 0;
+  let providerCostActual = 0;
+  for (const run of list) {
+    const status = String(run.status || "unknown");
+    byStatus[status] = (byStatus[status] || 0) + 1;
+    providerCostEstimate += Number(run.providerCostEstimate || 0);
+    providerCostActual += Number(run.providerCostActual || 0);
+  }
+  return {
+    ok: true,
+    status: "success",
+    operation,
+    resourceType: "intelligence_cost_summary",
+    data: {
+      runCount: list.length,
+      byStatus,
+      providerCostEstimate: Number(providerCostEstimate.toFixed(6)),
+      providerCostActual: Number(providerCostActual.toFixed(6)),
+      currency: "USD",
+    },
+    valuesPrinted: false,
+  };
+}
+
+async function main() {
+  try {
+    const { operation, args } = parseArgs(process.argv.slice(2));
+    const result = await execute(operation, args);
+    process.stdout.write(`${JSON.stringify(result)}\n`);
+    if (!result.ok) process.exitCode = 2;
+  } catch (error) {
+    process.stdout.write(`${JSON.stringify({
+      ok: false,
+      status: error.code || "error",
+      message: error instanceof Error ? error.message : String(error),
+      httpStatus: error.httpStatus || undefined,
+      valuesPrinted: false,
+    })}\n`);
+    process.exitCode = 1;
+  }
+}
+
+main();

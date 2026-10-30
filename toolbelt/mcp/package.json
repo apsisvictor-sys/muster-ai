@@ -1,0 +1,8 @@
+{
+  "name": "pi-toolbelt-mcp",
+  "private": true,
+  "description": "Dependency boundary for toolbelt/mcp/server.ts, the stdio MCP server over the pi-toolbelt CLI. Its own project so the server's SDK is installed into toolbelt/mcp/node_modules inside the checkout and never into a shared node_modules or into the CLI's own package.",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.0"
+  }
+}

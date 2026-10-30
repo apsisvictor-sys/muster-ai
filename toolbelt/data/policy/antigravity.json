@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "provider": "antigravity",
+  "dryRunFlag": null,
+  "read": [],
+  "destructive": [],
+  "blocked": [],
+  "secretReturning": [],
+  "exact": {
+    "agent": "read",
+    "agents": "read",
+    "changelog": "read",
+    "install": "mutate",
+    "mcp add": "mutate",
+    "mcp disable": "mutate",
+    "mcp enable": "mutate",
+    "mic-serve": "mutate",
+    "models": "read",
+    "plugin disable": "mutate",
+    "plugin enable": "mutate",
+    "plugin import": "mutate",
+    "plugin install": "mutate",
+    "plugin link": "mutate",
+    "plugin validate": "read",
+    "plugins disable": "mutate",
+    "plugins enable": "mutate",
+    "plugins import": "mutate",
+    "plugins install": "mutate",
+    "plugins link": "mutate",
+    "plugins validate": "read",
+    "update": "mutate"
+  }
+}

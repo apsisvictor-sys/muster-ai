@@ -1,0 +1,4633 @@
+{
+ "schemaVersion": 1,
+ "cli": "wrangler",
+ "cliVersion": "4.129.0",
+ "cliPath": "/home/operator/.nvm/versions/node/v24.18.0/bin/wrangler",
+ "cliMtimeMs": 1788542936363.5188,
+ "generatedAt": "2026-09-12T13:19:42.232Z",
+ "leafCount": 288,
+ "coverage": {
+  "source": "help_walk",
+  "maxDepth": 3,
+  "helpNodes": 361,
+  "complete": false,
+  "truncatedLeafCount": 18,
+  "truncatedLeaves": [
+   "email routing addresses",
+   "email routing dns",
+   "email routing rules",
+   "email sending dns",
+   "flagship flags rules",
+   "preview base-config secret",
+   "queues consumer http",
+   "queues consumer worker",
+   "r2 bucket catalog",
+   "r2 bucket cors",
+   "r2 bucket dev-url",
+   "r2 bucket domain",
+   "r2 bucket lifecycle",
+   "r2 bucket local-uploads",
+   "r2 bucket lock",
+   "r2 bucket notification",
+   "r2 bucket sippy",
+   "r2 bucket update"
+  ],
+  "unexpandedGroups": [
+   "email routing addresses",
+   "email routing dns",
+   "email routing rules",
+   "email sending dns",
+   "flagship flags rules",
+   "preview base-config secret",
+   "queues consumer http",
+   "queues consumer worker",
+   "r2 bucket catalog",
+   "r2 bucket cors",
+   "r2 bucket dev-url",
+   "r2 bucket domain",
+   "r2 bucket lifecycle",
+   "r2 bucket local-uploads",
+   "r2 bucket lock",
+   "r2 bucket notification",
+   "r2 bucket sippy",
+   "r2 bucket update"
+  ],
+  "repeatedParentLeaves": []
+ },
+ "leaves": [
+  {
+   "cmd": "agent-memory namespace create",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "Create a new Agent Memory namespace [private beta]"
+  },
+  {
+   "cmd": "agent-memory namespace delete",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "force",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Delete a given Agent Memory namespace [private beta]"
+  },
+  {
+   "cmd": "agent-memory namespace get",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "Get details for a given Agent Memory namespace [private beta]"
+  },
+  {
+   "cmd": "agent-memory namespace list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "List all Agent Memory namespaces associated with your account [private beta]"
+  },
+  {
+   "cmd": "ai finetune create",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Create finetune and upload assets"
+  },
+  {
+   "cmd": "ai finetune list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "List your finetune files"
+  },
+  {
+   "cmd": "ai models list",
+   "flags": [
+    "author",
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "hide-experimental",
+    "install-skills",
+    "json",
+    "profile",
+    "search",
+    "source",
+    "task"
+   ],
+   "desc": "List catalog models"
+  },
+  {
+   "cmd": "ai models schema",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Get model schema"
+  },
+  {
+   "cmd": "ai-search create",
+   "flags": [
+    "cache",
+    "chunk-overlap",
+    "chunk-size",
+    "config",
+    "custom-metadata",
+    "custom-metadata-schema",
+    "cwd",
+    "embedding-model",
+    "env",
+    "env-file",
+    "exclude-items",
+    "generation-model",
+    "hybrid-search",
+    "include-items",
+    "install-skills",
+    "json",
+    "max-num-results",
+    "namespace",
+    "parse-type",
+    "prefix",
+    "profile",
+    "reranking",
+    "reranking-model",
+    "score-threshold",
+    "source",
+    "source-jurisdiction",
+    "type"
+   ],
+   "desc": "Create a new AI Search instance [open beta]"
+  },
+  {
+   "cmd": "ai-search delete",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "force",
+    "install-skills",
+    "namespace",
+    "profile"
+   ],
+   "desc": "Delete an AI Search instance [open beta]"
+  },
+  {
+   "cmd": "ai-search get",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "namespace",
+    "profile"
+   ],
+   "desc": "Get details of an AI Search instance [open beta]"
+  },
+  {
+   "cmd": "ai-search jobs cancel",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "force",
+    "install-skills",
+    "namespace",
+    "profile"
+   ],
+   "desc": "Cancel an in-progress AI Search indexing job [open beta]"
+  },
+  {
+   "cmd": "ai-search jobs create",
+   "flags": [
+    "config",
+    "cwd",
+    "description",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "namespace",
+    "profile"
+   ],
+   "desc": "Trigger a new indexing job for an AI Search instance [open beta]"
+  },
+  {
+   "cmd": "ai-search jobs get",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "namespace",
+    "profile"
+   ],
+   "desc": "Get details of an AI Search indexing job [open beta]"
+  },
+  {
+   "cmd": "ai-search jobs list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "namespace",
+    "page",
+    "per-page",
+    "profile"
+   ],
+   "desc": "List indexing jobs for an AI Search instance [open beta]"
+  },
+  {
+   "cmd": "ai-search jobs logs",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "namespace",
+    "page",
+    "per-page",
+    "profile"
+   ],
+   "desc": "List log entries for an AI Search indexing job [open beta]"
+  },
+  {
+   "cmd": "ai-search list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "namespace",
+    "page",
+    "per-page",
+    "profile"
+   ],
+   "desc": "List all AI Search instances [open beta]"
+  },
+  {
+   "cmd": "ai-search namespace create",
+   "flags": [
+    "config",
+    "cwd",
+    "description",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "Create a new AI Search namespace [open beta]"
+  },
+  {
+   "cmd": "ai-search namespace delete",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "force",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Delete an AI Search namespace [open beta]"
+  },
+  {
+   "cmd": "ai-search namespace get",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "Get details of an AI Search namespace [open beta]"
+  },
+  {
+   "cmd": "ai-search namespace list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "page",
+    "per-page",
+    "profile",
+    "search"
+   ],
+   "desc": "List all AI Search namespaces [open beta]"
+  },
+  {
+   "cmd": "ai-search namespace update",
+   "flags": [
+    "config",
+    "cwd",
+    "description",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "Update an AI Search namespace [open beta]"
+  },
+  {
+   "cmd": "ai-search search",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "filter",
+    "install-skills",
+    "json",
+    "max-num-results",
+    "namespace",
+    "profile",
+    "query",
+    "reranking",
+    "score-threshold"
+   ],
+   "desc": "Execute a semantic search query against an AI Search instance [open beta]"
+  },
+  {
+   "cmd": "ai-search stats",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "namespace",
+    "profile"
+   ],
+   "desc": "Get usage statistics for an AI Search instance [open beta]"
+  },
+  {
+   "cmd": "ai-search update",
+   "flags": [
+    "cache",
+    "chunk-overlap",
+    "chunk-size",
+    "config",
+    "cwd",
+    "embedding-model",
+    "env",
+    "env-file",
+    "generation-model",
+    "hybrid-search",
+    "install-skills",
+    "json",
+    "max-num-results",
+    "namespace",
+    "paused",
+    "profile",
+    "reranking",
+    "reranking-model",
+    "score-threshold"
+   ],
+   "desc": "Update an AI Search instance configuration [open beta]"
+  },
+  {
+   "cmd": "artifacts namespaces get",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "Get an Artifacts namespace [private beta]"
+  },
+  {
+   "cmd": "artifacts namespaces list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "List Artifacts namespaces [private beta]"
+  },
+  {
+   "cmd": "artifacts repos create",
+   "flags": [
+    "config",
+    "cwd",
+    "default-branch",
+    "description",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "namespace",
+    "profile",
+    "read-only"
+   ],
+   "desc": "Create an Artifacts repository [private beta]"
+  },
+  {
+   "cmd": "artifacts repos delete",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "force",
+    "install-skills",
+    "json",
+    "namespace",
+    "profile"
+   ],
+   "desc": "Delete an Artifacts repository [private beta]"
+  },
+  {
+   "cmd": "artifacts repos get",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "namespace",
+    "profile"
+   ],
+   "desc": "Get an Artifacts repository [private beta]"
+  },
+  {
+   "cmd": "artifacts repos issue-token",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "namespace",
+    "profile",
+    "scope",
+    "ttl"
+   ],
+   "desc": "Issue a repo-scoped Artifacts token [private beta]"
+  },
+  {
+   "cmd": "artifacts repos list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "namespace",
+    "profile"
+   ],
+   "desc": "List Artifacts repositories in a namespace [private beta]"
+  },
+  {
+   "cmd": "auth activate",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills"
+   ],
+   "desc": "Bind a named auth profile to a directory [experimental]"
+  },
+  {
+   "cmd": "auth create",
+   "flags": [
+    "browser",
+    "callback-host",
+    "callback-port",
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "scopes"
+   ],
+   "desc": "Create or re-authenticate a named auth profile [experimental]"
+  },
+  {
+   "cmd": "auth deactivate",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills"
+   ],
+   "desc": "Remove the auth profile binding from a directory [experimental]"
+  },
+  {
+   "cmd": "auth delete",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Delete a named auth profile [experimental]"
+  },
+  {
+   "cmd": "auth keyring",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills"
+   ],
+   "desc": "🔐 Configure whether OAuth credentials are stored in the OS keychain"
+  },
+  {
+   "cmd": "auth list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills"
+   ],
+   "desc": "List all auth profiles [experimental]"
+  },
+  {
+   "cmd": "auth token",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "🔑 Retrieve the current authentication token or credentials"
+  },
+  {
+   "cmd": "browser close",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "Close a Browser Run session [open beta]"
+  },
+  {
+   "cmd": "browser create",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "keep",
+    "lab",
+    "open",
+    "profile"
+   ],
+   "desc": "Create a new Browser Run session [open beta]"
+  },
+  {
+   "cmd": "browser list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "List active Browser Run sessions [open beta]"
+  },
+  {
+   "cmd": "browser view",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "open",
+    "profile",
+    "target"
+   ],
+   "desc": "View a live browser session [open beta]"
+  },
+  {
+   "cmd": "cert delete",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "id",
+    "install-skills",
+    "name",
+    "profile"
+   ],
+   "desc": "Delete an mTLS certificate"
+  },
+  {
+   "cmd": "cert list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "List uploaded mTLS certificates"
+  },
+  {
+   "cmd": "cert upload certificate-authority",
+   "flags": [
+    "ca-cert",
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "name",
+    "profile"
+   ],
+   "desc": "Upload a CA certificate chain"
+  },
+  {
+   "cmd": "cert upload mtls-certificate",
+   "flags": [
+    "cert",
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "key",
+    "name",
+    "profile"
+   ],
+   "desc": "Upload an mTLS certificate"
+  },
+  {
+   "cmd": "complete",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "⌨️ Generate and handle shell completions"
+  },
+  {
+   "cmd": "containers build",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "path-to-docker",
+    "profile",
+    "push",
+    "tag"
+   ],
+   "desc": "Build a container image"
+  },
+  {
+   "cmd": "containers delete",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Delete a container"
+  },
+  {
+   "cmd": "containers images delete",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile",
+    "skip-confirmation"
+   ],
+   "desc": "Remove an image from the Cloudflare managed registry"
+  },
+  {
+   "cmd": "containers images list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "filter",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "List images in the Cloudflare managed registry"
+  },
+  {
+   "cmd": "containers info",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "Get information about a specific container"
+  },
+  {
+   "cmd": "containers instances",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "page-token",
+    "per-page",
+    "profile",
+    "search"
+   ],
+   "desc": "List container instances for an application"
+  },
+  {
+   "cmd": "containers list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "per-page",
+    "profile"
+   ],
+   "desc": "List containers"
+  },
+  {
+   "cmd": "containers push",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "path-to-docker",
+    "profile"
+   ],
+   "desc": "Push a local image to the Cloudflare managed registry"
+  },
+  {
+   "cmd": "containers registries configure",
+   "flags": [
+    "aws-access-key-id",
+    "config",
+    "cwd",
+    "disable-secrets-store",
+    "dockerhub-username",
+    "env",
+    "env-file",
+    "gar-email",
+    "install-skills",
+    "profile",
+    "secret-name",
+    "secret-store-id",
+    "skip-confirmation"
+   ],
+   "desc": "Configure credentials for a non-Cloudflare container registry"
+  },
+  {
+   "cmd": "containers registries credentials",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "expiration-minutes",
+    "install-skills",
+    "json",
+    "profile",
+    "pull",
+    "push"
+   ],
+   "desc": "Get a temporary password for a specific domain"
+  },
+  {
+   "cmd": "containers registries delete",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile",
+    "skip-confirmation"
+   ],
+   "desc": "Delete a configured container registry"
+  },
+  {
+   "cmd": "containers registries list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "List all configured container registries"
+  },
+  {
+   "cmd": "containers ssh",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile",
+    "stdio"
+   ],
+   "desc": "SSH into a container"
+  },
+  {
+   "cmd": "d1 create",
+   "flags": [
+    "binding",
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "jurisdiction",
+    "location",
+    "profile",
+    "update-config",
+    "use-remote"
+   ],
+   "desc": "Creates a new D1 database, and provides the binding and UUID that you will put in your config file"
+  },
+  {
+   "cmd": "d1 delete",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile",
+    "skip-confirmation"
+   ],
+   "desc": "Delete a D1 database"
+  },
+  {
+   "cmd": "d1 execute",
+   "flags": [
+    "command",
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "file",
+    "install-skills",
+    "json",
+    "local",
+    "persist-to",
+    "preview",
+    "profile",
+    "remote",
+    "yes"
+   ],
+   "desc": "Execute a command or SQL file"
+  },
+  {
+   "cmd": "d1 export",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "local",
+    "no-data",
+    "no-schema",
+    "output",
+    "profile",
+    "remote",
+    "skip-confirmation",
+    "table"
+   ],
+   "desc": "Export the contents or schema of your database as a .sql file"
+  },
+  {
+   "cmd": "d1 info",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "Get information about a D1 database, including the current database size and state"
+  },
+  {
+   "cmd": "d1 insights",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "limit",
+    "profile",
+    "sort-by",
+    "sort-direction",
+    "sort-type",
+    "time-period"
+   ],
+   "desc": "Get information about the queries run on a D1 database [experimental]"
+  },
+  {
+   "cmd": "d1 list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "List all D1 databases in your account"
+  },
+  {
+   "cmd": "d1 migrations apply",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "local",
+    "persist-to",
+    "preview",
+    "profile",
+    "remote"
+   ],
+   "desc": "Apply any unapplied D1 migrations"
+  },
+  {
+   "cmd": "d1 migrations create",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Create a new migration"
+  },
+  {
+   "cmd": "d1 migrations list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "local",
+    "persist-to",
+    "preview",
+    "profile",
+    "remote"
+   ],
+   "desc": "View a list of unapplied migration files"
+  },
+  {
+   "cmd": "d1 time-travel info",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile",
+    "timestamp"
+   ],
+   "desc": "Retrieve information about a database at a specific point-in-time using Time Travel"
+  },
+  {
+   "cmd": "d1 time-travel restore",
+   "flags": [
+    "bookmark",
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile",
+    "timestamp"
+   ],
+   "desc": "Restore a database back to a specific point-in-time"
+  },
+  {
+   "cmd": "delete",
+   "flags": [
+    "config",
+    "cwd",
+    "dry-run",
+    "env",
+    "env-file",
+    "force",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "🗑️ Delete a Worker from Cloudflare"
+  },
+  {
+   "cmd": "deploy",
+   "flags": [
+    "alias",
+    "assets",
+    "autoconfig",
+    "compatibility-date",
+    "compatibility-flag",
+    "compatibility-flags",
+    "config",
+    "containers-rollout",
+    "cwd",
+    "define",
+    "dispatch-namespace",
+    "domain",
+    "domains",
+    "dry-run",
+    "env",
+    "env-file",
+    "install-skills",
+    "jsx-factory",
+    "jsx-fragment",
+    "keep-vars",
+    "latest",
+    "logpush",
+    "message",
+    "metafile",
+    "minify",
+    "name",
+    "no-bundle",
+    "old-asset-ttl",
+    "outdir",
+    "outfile",
+    "profile",
+    "route",
+    "routes",
+    "schedule",
+    "schedules",
+    "secrets-file",
+    "strict",
+    "tag",
+    "triggers",
+    "tsconfig",
+    "upload-source-maps",
+    "var"
+   ],
+   "desc": "🆙 Deploy a Worker to Cloudflare"
+  },
+  {
+   "cmd": "deployments list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "name",
+    "profile"
+   ],
+   "desc": "Displays the 10 most recent deployments of your Worker"
+  },
+  {
+   "cmd": "deployments status",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "name",
+    "profile"
+   ],
+   "desc": "View the current state of your production"
+  },
+  {
+   "cmd": "dev",
+   "flags": [
+    "alias",
+    "assets",
+    "compatibility-date",
+    "compatibility-flag",
+    "compatibility-flags",
+    "config",
+    "cwd",
+    "define",
+    "env",
+    "env-file",
+    "host",
+    "https-cert-path",
+    "https-key-path",
+    "inspector-ip",
+    "inspector-port",
+    "install-skills",
+    "ip",
+    "jsx-factory",
+    "jsx-fragment",
+    "latest",
+    "live-reload",
+    "local",
+    "local-protocol",
+    "local-upstream",
+    "log-level",
+    "minify",
+    "name",
+    "no-bundle",
+    "persist-to",
+    "port",
+    "profile",
+    "remote",
+    "route",
+    "routes",
+    "show-interactive-dev-session",
+    "test-scheduled",
+    "tsconfig",
+    "tunnel",
+    "tunnel-name",
+    "types",
+    "upstream-protocol",
+    "var"
+   ],
+   "desc": "👂 Start a local server for developing your Worker"
+  },
+  {
+   "cmd": "dispatch-namespace create",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Create a dispatch namespace"
+  },
+  {
+   "cmd": "dispatch-namespace delete",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Delete a dispatch namespace"
+  },
+  {
+   "cmd": "dispatch-namespace get",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Get information about a dispatch namespace"
+  },
+  {
+   "cmd": "dispatch-namespace list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "List all dispatch namespaces"
+  },
+  {
+   "cmd": "dispatch-namespace rename",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Rename a dispatch namespace"
+  },
+  {
+   "cmd": "docs",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile",
+    "yes"
+   ],
+   "desc": "📚 Open Wrangler's command documentation in your browser"
+  },
+  {
+   "cmd": "email routing addresses",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Manage Email Routing destination addresses [open beta]",
+   "complete": false,
+   "truncatedSubcommands": [
+    "create",
+    "delete",
+    "get",
+    "list"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "email routing disable",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "force",
+    "install-skills",
+    "profile",
+    "zone-id"
+   ],
+   "desc": "Disable Email Routing for a zone [open beta]"
+  },
+  {
+   "cmd": "email routing dns",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Manage Email Routing DNS settings [open beta]",
+   "complete": false,
+   "truncatedSubcommands": [
+    "get",
+    "unlock"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "email routing enable",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile",
+    "zone-id"
+   ],
+   "desc": "Enable Email Routing for a zone [open beta]"
+  },
+  {
+   "cmd": "email routing list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "List zones with Email Routing [open beta]"
+  },
+  {
+   "cmd": "email routing rules",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Manage Email Routing rules [open beta]",
+   "complete": false,
+   "truncatedSubcommands": [
+    "create",
+    "delete",
+    "get",
+    "list",
+    "update"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "email routing settings",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile",
+    "zone-id"
+   ],
+   "desc": "Get Email Routing settings for a zone [open beta]"
+  },
+  {
+   "cmd": "email sending disable",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "force",
+    "install-skills",
+    "profile",
+    "zone-id"
+   ],
+   "desc": "Disable Email Sending for a zone or subdomain [open beta]"
+  },
+  {
+   "cmd": "email sending dns",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Manage Email Sending DNS records [open beta]",
+   "complete": false,
+   "truncatedSubcommands": [
+    "get"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "email sending enable",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile",
+    "zone-id"
+   ],
+   "desc": "Enable Email Sending for a zone or subdomain [open beta]"
+  },
+  {
+   "cmd": "email sending list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile",
+    "zone-id"
+   ],
+   "desc": "List Email Sending subdomains (all subdomains in the account when no domain is given) [open beta]"
+  },
+  {
+   "cmd": "email sending send",
+   "flags": [
+    "attachment",
+    "bcc",
+    "cc",
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "from",
+    "from-name",
+    "header",
+    "html",
+    "install-skills",
+    "profile",
+    "reply-to",
+    "reply-to-name",
+    "subject",
+    "text",
+    "to"
+   ],
+   "desc": "Send an email using the Email Sending builder [open beta]"
+  },
+  {
+   "cmd": "email sending send-raw",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "from",
+    "install-skills",
+    "mime",
+    "mime-file",
+    "profile",
+    "to"
+   ],
+   "desc": "Send a raw MIME email message [open beta]"
+  },
+  {
+   "cmd": "email sending settings",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile",
+    "zone-id"
+   ],
+   "desc": "Get Email Sending settings for a domain [open beta]"
+  },
+  {
+   "cmd": "flagship apps create",
+   "flags": [
+    "binding",
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile",
+    "update-config",
+    "use-remote"
+   ],
+   "desc": "Create a Flagship app [open beta]"
+  },
+  {
+   "cmd": "flagship apps delete",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "force",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "Delete a Flagship app [open beta]"
+  },
+  {
+   "cmd": "flagship apps get",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "Get a Flagship app [open beta]"
+  },
+  {
+   "cmd": "flagship apps list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "List Flagship apps [open beta]"
+  },
+  {
+   "cmd": "flagship apps ls",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "List Flagship apps"
+  },
+  {
+   "cmd": "flagship apps rm",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "force",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "Delete a Flagship app"
+  },
+  {
+   "cmd": "flagship apps update",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "name",
+    "profile"
+   ],
+   "desc": "Update a Flagship app [open beta]"
+  },
+  {
+   "cmd": "flagship flags changelog",
+   "flags": [
+    "all",
+    "config",
+    "cursor",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "limit",
+    "profile"
+   ],
+   "desc": "Show the changelog for a feature flag [open beta]"
+  },
+  {
+   "cmd": "flagship flags create",
+   "flags": [
+    "config",
+    "cwd",
+    "default",
+    "default-variation",
+    "description",
+    "disabled",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile",
+    "rule",
+    "rule-json",
+    "type",
+    "variation"
+   ],
+   "desc": "Create a feature flag in a Flagship app [open beta]"
+  },
+  {
+   "cmd": "flagship flags delete",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "force",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "Delete a feature flag from a Flagship app [open beta]"
+  },
+  {
+   "cmd": "flagship flags disable",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "Disable a feature flag [open beta]"
+  },
+  {
+   "cmd": "flagship flags enable",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "Enable a feature flag [open beta]"
+  },
+  {
+   "cmd": "flagship flags eval",
+   "flags": [
+    "config",
+    "context",
+    "ctx",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile",
+    "targeting-key"
+   ],
+   "desc": "Evaluate a feature flag with optional context"
+  },
+  {
+   "cmd": "flagship flags evaluate",
+   "flags": [
+    "config",
+    "context",
+    "ctx",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile",
+    "targeting-key"
+   ],
+   "desc": "Evaluate a feature flag with optional context [open beta]"
+  },
+  {
+   "cmd": "flagship flags get",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "Get a feature flag from a Flagship app [open beta]"
+  },
+  {
+   "cmd": "flagship flags history",
+   "flags": [
+    "all",
+    "config",
+    "cursor",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "limit",
+    "profile"
+   ],
+   "desc": "Show the changelog for a feature flag"
+  },
+  {
+   "cmd": "flagship flags inspect",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "Get a feature flag from a Flagship app"
+  },
+  {
+   "cmd": "flagship flags list",
+   "flags": [
+    "all",
+    "config",
+    "cursor",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "limit",
+    "profile"
+   ],
+   "desc": "List feature flags in a Flagship app [open beta]"
+  },
+  {
+   "cmd": "flagship flags ls",
+   "flags": [
+    "all",
+    "config",
+    "cursor",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "limit",
+    "profile"
+   ],
+   "desc": "List feature flags in a Flagship app"
+  },
+  {
+   "cmd": "flagship flags rm",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "force",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "Delete a feature flag from a Flagship app"
+  },
+  {
+   "cmd": "flagship flags rollout",
+   "flags": [
+    "by",
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "force",
+    "from",
+    "from-variation",
+    "install-skills",
+    "json",
+    "percentage",
+    "profile",
+    "to"
+   ],
+   "desc": "Roll out one variation to a percentage of traffic [open beta]"
+  },
+  {
+   "cmd": "flagship flags rules",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Manage targeting rules for a Flagship feature flag [open beta]",
+   "complete": false,
+   "truncatedSubcommands": [
+    "delete",
+    "list",
+    "reorder",
+    "update"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "flagship flags set",
+   "flags": [
+    "clear-rules",
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile",
+    "variant",
+    "variation"
+   ],
+   "desc": "Set the default variation served by a feature flag [open beta]"
+  },
+  {
+   "cmd": "flagship flags split",
+   "flags": [
+    "by",
+    "config",
+    "cwd",
+    "default",
+    "default-variation",
+    "env",
+    "env-file",
+    "force",
+    "install-skills",
+    "json",
+    "profile",
+    "weight"
+   ],
+   "desc": "Split traffic across variations by percentage [open beta]"
+  },
+  {
+   "cmd": "flagship flags update",
+   "flags": [
+    "add-rule",
+    "add-rule-json",
+    "clear-rules",
+    "config",
+    "cwd",
+    "default",
+    "default-variation",
+    "description",
+    "disable",
+    "enable",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile",
+    "remove-variation",
+    "rule",
+    "rule-json",
+    "set-variation",
+    "type"
+   ],
+   "desc": "Update a feature flag in a Flagship app [open beta]"
+  },
+  {
+   "cmd": "hyperdrive create",
+   "flags": [
+    "access-client-id",
+    "access-client-secret",
+    "binding",
+    "ca-certificate-id",
+    "ca-certificate-uuid",
+    "caching-disabled",
+    "config",
+    "connection-string",
+    "cwd",
+    "database",
+    "env",
+    "env-file",
+    "host",
+    "install-skills",
+    "max-age",
+    "mtls-certificate-id",
+    "mtls-certificate-uuid",
+    "origin-connection-limit",
+    "origin-host",
+    "origin-password",
+    "origin-port",
+    "origin-scheme",
+    "origin-user",
+    "password",
+    "port",
+    "profile",
+    "scheme",
+    "service-id",
+    "sslmode",
+    "swr",
+    "update-config",
+    "user"
+   ],
+   "desc": "Create a Hyperdrive config"
+  },
+  {
+   "cmd": "hyperdrive delete",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Delete a Hyperdrive config"
+  },
+  {
+   "cmd": "hyperdrive get",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Get a Hyperdrive config"
+  },
+  {
+   "cmd": "hyperdrive list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "List Hyperdrive configs"
+  },
+  {
+   "cmd": "hyperdrive planetscale signature",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Generate a signed authorization for creating a Cloudflare-billed PlanetScale database [experimental]"
+  },
+  {
+   "cmd": "hyperdrive update",
+   "flags": [
+    "access-client-id",
+    "access-client-secret",
+    "ca-certificate-id",
+    "ca-certificate-uuid",
+    "caching-disabled",
+    "config",
+    "connection-string",
+    "cwd",
+    "database",
+    "env",
+    "env-file",
+    "host",
+    "install-skills",
+    "max-age",
+    "mtls-certificate-id",
+    "mtls-certificate-uuid",
+    "name",
+    "origin-connection-limit",
+    "origin-host",
+    "origin-password",
+    "origin-port",
+    "origin-scheme",
+    "origin-user",
+    "password",
+    "port",
+    "profile",
+    "scheme",
+    "service-id",
+    "sslmode",
+    "swr",
+    "user"
+   ],
+   "desc": "Update a Hyperdrive config"
+  },
+  {
+   "cmd": "init",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "from-dash",
+    "install-skills",
+    "profile",
+    "yes"
+   ],
+   "desc": "📥 Initialize a basic Worker"
+  },
+  {
+   "cmd": "kv bulk delete",
+   "flags": [
+    "binding",
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "force",
+    "install-skills",
+    "local",
+    "namespace-id",
+    "persist-to",
+    "preview",
+    "profile",
+    "remote"
+   ],
+   "desc": "Delete multiple key-value pairs from a namespace"
+  },
+  {
+   "cmd": "kv bulk get",
+   "flags": [
+    "binding",
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "local",
+    "namespace-id",
+    "persist-to",
+    "preview",
+    "profile",
+    "remote"
+   ],
+   "desc": "Gets multiple key-value pairs from a namespace [open beta]"
+  },
+  {
+   "cmd": "kv bulk put",
+   "flags": [
+    "binding",
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "expiration",
+    "install-skills",
+    "local",
+    "metadata",
+    "namespace-id",
+    "persist-to",
+    "preview",
+    "profile",
+    "remote",
+    "ttl"
+   ],
+   "desc": "Upload multiple key-value pairs to a namespace"
+  },
+  {
+   "cmd": "kv key delete",
+   "flags": [
+    "binding",
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "local",
+    "namespace-id",
+    "persist-to",
+    "preview",
+    "profile",
+    "remote"
+   ],
+   "desc": "Remove a single key value pair from the given namespace"
+  },
+  {
+   "cmd": "kv key get",
+   "flags": [
+    "binding",
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "local",
+    "namespace-id",
+    "persist-to",
+    "preview",
+    "profile",
+    "remote",
+    "text"
+   ],
+   "desc": "Read a single value by key from the given namespace"
+  },
+  {
+   "cmd": "kv key list",
+   "flags": [
+    "binding",
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "local",
+    "namespace-id",
+    "persist-to",
+    "prefix",
+    "preview",
+    "profile",
+    "remote"
+   ],
+   "desc": "Output a list of all keys in a given namespace"
+  },
+  {
+   "cmd": "kv key put",
+   "flags": [
+    "binding",
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "expiration",
+    "install-skills",
+    "local",
+    "metadata",
+    "namespace-id",
+    "path",
+    "persist-to",
+    "preview",
+    "profile",
+    "remote",
+    "ttl"
+   ],
+   "desc": "Write a single key/value pair to the given namespace"
+  },
+  {
+   "cmd": "kv namespace create",
+   "flags": [
+    "binding",
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "preview",
+    "profile",
+    "update-config",
+    "use-remote"
+   ],
+   "desc": "Create a new namespace"
+  },
+  {
+   "cmd": "kv namespace delete",
+   "flags": [
+    "binding",
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "namespace-id",
+    "preview",
+    "profile",
+    "skip-confirmation"
+   ],
+   "desc": "Delete a given namespace."
+  },
+  {
+   "cmd": "kv namespace list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Output a list of all KV namespaces associated with your account id"
+  },
+  {
+   "cmd": "kv namespace rename",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "namespace-id",
+    "new-name",
+    "profile"
+   ],
+   "desc": "Rename a KV namespace"
+  },
+  {
+   "cmd": "login",
+   "flags": [
+    "browser",
+    "callback-host",
+    "callback-port",
+    "config",
+    "cwd",
+    "device",
+    "env",
+    "env-file",
+    "install-skills",
+    "scopes",
+    "scopes-list",
+    "use-keyring"
+   ],
+   "desc": "🔓 Login to Cloudflare"
+  },
+  {
+   "cmd": "logout",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills"
+   ],
+   "desc": "🚪 Logout from Cloudflare"
+  },
+  {
+   "cmd": "mtls-certificate delete",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "id",
+    "install-skills",
+    "name",
+    "profile"
+   ],
+   "desc": "Delete an mTLS certificate"
+  },
+  {
+   "cmd": "mtls-certificate list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "List uploaded mTLS certificates"
+  },
+  {
+   "cmd": "mtls-certificate upload",
+   "flags": [
+    "cert",
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "key",
+    "name",
+    "profile"
+   ],
+   "desc": "Upload an mTLS certificate"
+  },
+  {
+   "cmd": "pages deploy",
+   "flags": [
+    "branch",
+    "commit-dirty",
+    "commit-hash",
+    "commit-message",
+    "cwd",
+    "env-file",
+    "install-skills",
+    "no-bundle",
+    "profile",
+    "project-name",
+    "skip-caching",
+    "upload-source-maps"
+   ],
+   "desc": "Deploy a directory of static assets as a Pages deployment"
+  },
+  {
+   "cmd": "pages deployment create",
+   "flags": [
+    "branch",
+    "commit-dirty",
+    "commit-hash",
+    "commit-message",
+    "cwd",
+    "env-file",
+    "install-skills",
+    "no-bundle",
+    "profile",
+    "project-name",
+    "skip-caching",
+    "upload-source-maps"
+   ],
+   "desc": "Deploy a directory of static assets as a Pages deployment"
+  },
+  {
+   "cmd": "pages deployment delete",
+   "flags": [
+    "cwd",
+    "env-file",
+    "force",
+    "install-skills",
+    "profile",
+    "project-name"
+   ],
+   "desc": "Delete a deployment in your Cloudflare Pages project"
+  },
+  {
+   "cmd": "pages deployment list",
+   "flags": [
+    "cwd",
+    "env-file",
+    "environment",
+    "install-skills",
+    "json",
+    "profile",
+    "project-name"
+   ],
+   "desc": "List deployments in your Cloudflare Pages project"
+  },
+  {
+   "cmd": "pages deployment tail",
+   "flags": [
+    "cwd",
+    "env-file",
+    "environment",
+    "format",
+    "header",
+    "install-skills",
+    "ip",
+    "method",
+    "profile",
+    "project-name",
+    "sampling-rate",
+    "search",
+    "status"
+   ],
+   "desc": "Start a tailing session for a project's deployment and livestream logs from your Functions"
+  },
+  {
+   "cmd": "pages dev",
+   "flags": [
+    "ai",
+    "binding",
+    "compatibility-date",
+    "compatibility-flag",
+    "compatibility-flags",
+    "cwd",
+    "d1",
+    "do",
+    "env-file",
+    "https-cert-path",
+    "https-key-path",
+    "inspector-port",
+    "install-skills",
+    "ip",
+    "kv",
+    "live-reload",
+    "local-protocol",
+    "log-level",
+    "no-bundle",
+    "persist-to",
+    "port",
+    "profile",
+    "proxy",
+    "r2",
+    "script-path",
+    "service",
+    "show-interactive-dev-session",
+    "version-metadata"
+   ],
+   "desc": "Develop your full-stack Pages application locally"
+  },
+  {
+   "cmd": "pages download config",
+   "flags": [
+    "cwd",
+    "env-file",
+    "force",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Download your Pages project config as a Wrangler configuration file [experimental]"
+  },
+  {
+   "cmd": "pages functions build",
+   "flags": [
+    "build-metadata-path",
+    "build-output-directory",
+    "compatibility-date",
+    "compatibility-flag",
+    "compatibility-flags",
+    "cwd",
+    "env-file",
+    "external",
+    "fallback-service",
+    "install-skills",
+    "metafile",
+    "minify",
+    "outdir",
+    "outfile",
+    "output-config-path",
+    "output-routes-path",
+    "plugin",
+    "profile",
+    "project-directory",
+    "sourcemap",
+    "watch"
+   ],
+   "desc": "Compile a folder of Pages Functions into a single Worker"
+  },
+  {
+   "cmd": "pages project create",
+   "flags": [
+    "compatibility-date",
+    "compatibility-flag",
+    "compatibility-flags",
+    "cwd",
+    "env-file",
+    "install-skills",
+    "production-branch",
+    "profile"
+   ],
+   "desc": "Create a new Cloudflare Pages project"
+  },
+  {
+   "cmd": "pages project delete",
+   "flags": [
+    "cwd",
+    "env-file",
+    "install-skills",
+    "profile",
+    "yes"
+   ],
+   "desc": "Delete a Cloudflare Pages project"
+  },
+  {
+   "cmd": "pages project list",
+   "flags": [
+    "cwd",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "List your Cloudflare Pages projects"
+  },
+  {
+   "cmd": "pages secret bulk",
+   "flags": [
+    "cwd",
+    "env-file",
+    "install-skills",
+    "profile",
+    "project",
+    "project-name"
+   ],
+   "desc": "Bulk upload secrets for a Pages project"
+  },
+  {
+   "cmd": "pages secret delete",
+   "flags": [
+    "cwd",
+    "env-file",
+    "install-skills",
+    "profile",
+    "project",
+    "project-name"
+   ],
+   "desc": "Delete a secret variable from a Pages project"
+  },
+  {
+   "cmd": "pages secret list",
+   "flags": [
+    "cwd",
+    "env-file",
+    "install-skills",
+    "profile",
+    "project",
+    "project-name"
+   ],
+   "desc": "List all secrets for a Pages project"
+  },
+  {
+   "cmd": "pages secret put",
+   "flags": [
+    "cwd",
+    "env-file",
+    "install-skills",
+    "profile",
+    "project",
+    "project-name"
+   ],
+   "desc": "Create or update a secret variable for a Pages project"
+  },
+  {
+   "cmd": "pipelines create",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile",
+    "sql",
+    "sql-file"
+   ],
+   "desc": "Create a new pipeline [open beta]"
+  },
+  {
+   "cmd": "pipelines delete",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "force",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Delete a pipeline [open beta]"
+  },
+  {
+   "cmd": "pipelines get",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "Get details about a specific pipeline [open beta]"
+  },
+  {
+   "cmd": "pipelines list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "page",
+    "per-page",
+    "profile"
+   ],
+   "desc": "List all pipelines [open beta]"
+  },
+  {
+   "cmd": "pipelines setup",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "name",
+    "profile"
+   ],
+   "desc": "Interactive setup for a complete pipeline [open beta]"
+  },
+  {
+   "cmd": "pipelines sinks create",
+   "flags": [
+    "access-key-id",
+    "bucket",
+    "catalog-token",
+    "compression",
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "format",
+    "install-skills",
+    "namespace",
+    "partitioning",
+    "path",
+    "profile",
+    "roll-interval",
+    "roll-size",
+    "secret-access-key",
+    "table",
+    "target-row-group-size",
+    "type"
+   ],
+   "desc": "Create a new sink [open beta]"
+  },
+  {
+   "cmd": "pipelines sinks delete",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "force",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Delete a sink [open beta]"
+  },
+  {
+   "cmd": "pipelines sinks get",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "Get details about a specific sink [open beta]"
+  },
+  {
+   "cmd": "pipelines sinks list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "page",
+    "per-page",
+    "pipeline-id",
+    "profile"
+   ],
+   "desc": "List all sinks [open beta]"
+  },
+  {
+   "cmd": "pipelines streams create",
+   "flags": [
+    "config",
+    "cors-origin",
+    "cwd",
+    "env",
+    "env-file",
+    "http-auth",
+    "http-enabled",
+    "install-skills",
+    "profile",
+    "schema-file"
+   ],
+   "desc": "Create a new stream [open beta]"
+  },
+  {
+   "cmd": "pipelines streams delete",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "force",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Delete a stream [open beta]"
+  },
+  {
+   "cmd": "pipelines streams get",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "Get details about a specific stream [open beta]"
+  },
+  {
+   "cmd": "pipelines streams list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "page",
+    "per-page",
+    "pipeline-id",
+    "profile"
+   ],
+   "desc": "List all streams [open beta]"
+  },
+  {
+   "cmd": "pipelines update",
+   "flags": [
+    "batch-max-mb",
+    "batch-max-rows",
+    "batch-max-seconds",
+    "compression",
+    "config",
+    "cors-origins",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile",
+    "r2-access-key-id",
+    "r2-bucket",
+    "r2-prefix",
+    "r2-secret-access-key",
+    "require-http-auth",
+    "shard-count",
+    "source"
+   ],
+   "desc": "Update a pipeline configuration (legacy pipelines only) [open beta]"
+  },
+  {
+   "cmd": "preview base-config secret",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "ignore-base-config",
+    "install-skills",
+    "json",
+    "message",
+    "name",
+    "profile",
+    "tag",
+    "worker-name"
+   ],
+   "desc": "Manage secrets on the Preview base config [private beta]",
+   "complete": false,
+   "truncatedSubcommands": [
+    "bulk",
+    "delete",
+    "list",
+    "put"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "preview delete",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "ignore-base-config",
+    "install-skills",
+    "json",
+    "message",
+    "name",
+    "profile",
+    "skip-confirmation",
+    "tag",
+    "worker-name"
+   ],
+   "desc": "Delete a Preview and all its deployments [private beta]"
+  },
+  {
+   "cmd": "preview secret bulk",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "ignore-base-config",
+    "install-skills",
+    "json",
+    "message",
+    "name",
+    "profile",
+    "tag",
+    "worker-name"
+   ],
+   "desc": "Upload multiple secrets to a Worker Preview and create a new deployment [private beta]"
+  },
+  {
+   "cmd": "preview secret delete",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "ignore-base-config",
+    "install-skills",
+    "json",
+    "message",
+    "name",
+    "profile",
+    "skip-confirmation",
+    "tag",
+    "worker-name"
+   ],
+   "desc": "Delete a secret variable from a Worker Preview and create a new deployment [private beta]"
+  },
+  {
+   "cmd": "preview secret list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "ignore-base-config",
+    "install-skills",
+    "json",
+    "message",
+    "name",
+    "profile",
+    "tag",
+    "worker-name"
+   ],
+   "desc": "List all secrets on a Worker Preview's latest deployment [private beta]"
+  },
+  {
+   "cmd": "preview secret put",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "ignore-base-config",
+    "install-skills",
+    "json",
+    "message",
+    "name",
+    "profile",
+    "tag",
+    "worker-name"
+   ],
+   "desc": "Create or update a secret variable on a Worker Preview and create a new deployment [private beta]"
+  },
+  {
+   "cmd": "preview settings update",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "ignore-base-config",
+    "install-skills",
+    "json",
+    "message",
+    "name",
+    "profile",
+    "skip-confirmation",
+    "tag",
+    "worker-name"
+   ],
+   "desc": "Update the Worker's Previews settings using the contents of the Wrangler config file [private beta]"
+  },
+  {
+   "cmd": "queues consumer add",
+   "flags": [
+    "batch-size",
+    "batch-timeout",
+    "config",
+    "cwd",
+    "dead-letter-queue",
+    "env",
+    "env-file",
+    "install-skills",
+    "max-concurrency",
+    "message-retries",
+    "profile",
+    "retry-delay-secs"
+   ],
+   "desc": "Add a Queue Worker Consumer"
+  },
+  {
+   "cmd": "queues consumer http",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Configure Queue HTTP Pull Consumers",
+   "complete": false,
+   "truncatedSubcommands": [
+    "add",
+    "list",
+    "remove"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "queues consumer list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "List consumers for a queue"
+  },
+  {
+   "cmd": "queues consumer remove",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Remove a Queue Worker Consumer"
+  },
+  {
+   "cmd": "queues consumer worker",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Configure Queue Worker Consumers",
+   "complete": false,
+   "truncatedSubcommands": [
+    "add",
+    "list",
+    "remove"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "queues create",
+   "flags": [
+    "config",
+    "cwd",
+    "delivery-delay-secs",
+    "env",
+    "env-file",
+    "install-skills",
+    "message-retention-period-secs",
+    "profile"
+   ],
+   "desc": "Create a queue"
+  },
+  {
+   "cmd": "queues delete",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Delete a queue"
+  },
+  {
+   "cmd": "queues info",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Get queue information"
+  },
+  {
+   "cmd": "queues list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "page",
+    "profile"
+   ],
+   "desc": "List queues"
+  },
+  {
+   "cmd": "queues pause-delivery",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Pause message delivery for a queue"
+  },
+  {
+   "cmd": "queues purge",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "force",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Purge messages from a queue"
+  },
+  {
+   "cmd": "queues resume-delivery",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Resume message delivery for a queue"
+  },
+  {
+   "cmd": "queues subscription create",
+   "flags": [
+    "config",
+    "cwd",
+    "domain",
+    "enabled",
+    "env",
+    "env-file",
+    "events",
+    "install-skills",
+    "model-name",
+    "name",
+    "profile",
+    "source",
+    "worker-name",
+    "workflow-name",
+    "zone-id"
+   ],
+   "desc": "Create a new event subscription for a queue"
+  },
+  {
+   "cmd": "queues subscription delete",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "force",
+    "id",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Delete an event subscription from a queue"
+  },
+  {
+   "cmd": "queues subscription get",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "id",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "Get details about a specific event subscription"
+  },
+  {
+   "cmd": "queues subscription list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "page",
+    "per-page",
+    "profile"
+   ],
+   "desc": "List event subscriptions for a queue"
+  },
+  {
+   "cmd": "queues subscription update",
+   "flags": [
+    "config",
+    "cwd",
+    "enabled",
+    "env",
+    "env-file",
+    "events",
+    "id",
+    "install-skills",
+    "json",
+    "name",
+    "profile"
+   ],
+   "desc": "Update an existing event subscription"
+  },
+  {
+   "cmd": "queues update",
+   "flags": [
+    "config",
+    "cwd",
+    "delivery-delay-secs",
+    "env",
+    "env-file",
+    "install-skills",
+    "message-retention-period-secs",
+    "profile"
+   ],
+   "desc": "Update a queue"
+  },
+  {
+   "cmd": "r2 bucket catalog",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Manage the data catalog for your R2 buckets - provides an Iceberg REST interface for query engines like Spark and PyIceb",
+   "complete": false,
+   "truncatedSubcommands": [
+    "compaction",
+    "disable",
+    "enable",
+    "get",
+    "snapshot-expiration"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "r2 bucket cors",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Manage CORS configuration for an R2 bucket",
+   "complete": false,
+   "truncatedSubcommands": [
+    "delete",
+    "list",
+    "set"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "r2 bucket create",
+   "flags": [
+    "binding",
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "jurisdiction",
+    "location",
+    "profile",
+    "storage-class",
+    "update-config",
+    "use-remote"
+   ],
+   "desc": "Create a new R2 bucket"
+  },
+  {
+   "cmd": "r2 bucket delete",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "jurisdiction",
+    "profile"
+   ],
+   "desc": "Delete an R2 bucket"
+  },
+  {
+   "cmd": "r2 bucket dev-url",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Manage public access via the r2.dev URL for an R2 bucket",
+   "complete": false,
+   "truncatedSubcommands": [
+    "disable",
+    "enable",
+    "get"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "r2 bucket domain",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Manage custom domains for an R2 bucket",
+   "complete": false,
+   "truncatedSubcommands": [
+    "add",
+    "get",
+    "list",
+    "remove",
+    "update"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "r2 bucket info",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "jurisdiction",
+    "profile"
+   ],
+   "desc": "Get information about an R2 bucket"
+  },
+  {
+   "cmd": "r2 bucket lifecycle",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Manage lifecycle rules for an R2 bucket",
+   "complete": false,
+   "truncatedSubcommands": [
+    "add",
+    "list",
+    "remove",
+    "set"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "r2 bucket list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "jurisdiction",
+    "profile"
+   ],
+   "desc": "List R2 buckets"
+  },
+  {
+   "cmd": "r2 bucket local-uploads",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Manage local uploads configuration for an R2 bucket",
+   "complete": false,
+   "truncatedSubcommands": [
+    "disable",
+    "enable",
+    "get"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "r2 bucket lock",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Manage lock rules for an R2 bucket",
+   "complete": false,
+   "truncatedSubcommands": [
+    "add",
+    "list",
+    "remove",
+    "set"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "r2 bucket notification",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Manage event notification rules for an R2 bucket",
+   "complete": false,
+   "truncatedSubcommands": [
+    "create",
+    "delete",
+    "get",
+    "list"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "r2 bucket sippy",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Manage Sippy incremental migration on an R2 bucket",
+   "complete": false,
+   "truncatedSubcommands": [
+    "disable",
+    "enable",
+    "get"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "r2 bucket update",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Update bucket state",
+   "complete": false,
+   "truncatedSubcommands": [
+    "storage-class"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "r2 object delete",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "force",
+    "install-skills",
+    "jurisdiction",
+    "local",
+    "persist-to",
+    "profile",
+    "remote"
+   ],
+   "desc": "Delete an object in an R2 bucket"
+  },
+  {
+   "cmd": "r2 object get",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "file",
+    "install-skills",
+    "jurisdiction",
+    "local",
+    "persist-to",
+    "pipe",
+    "profile",
+    "remote"
+   ],
+   "desc": "Fetch an object from an R2 bucket"
+  },
+  {
+   "cmd": "r2 object put",
+   "flags": [
+    "cache-control",
+    "cc",
+    "cd",
+    "ce",
+    "cl",
+    "config",
+    "content-disposition",
+    "content-encoding",
+    "content-language",
+    "content-type",
+    "ct",
+    "cwd",
+    "env",
+    "env-file",
+    "expires",
+    "file",
+    "force",
+    "install-skills",
+    "jurisdiction",
+    "local",
+    "persist-to",
+    "pipe",
+    "profile",
+    "remote",
+    "storage-class"
+   ],
+   "desc": "Create an object in an R2 bucket"
+  },
+  {
+   "cmd": "r2 sql query",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Execute SQL query against R2 Data Catalog [open beta]"
+  },
+  {
+   "cmd": "rollback",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "message",
+    "name",
+    "profile",
+    "yes"
+   ],
+   "desc": "🔙 Rollback a deployment for a Worker"
+  },
+  {
+   "cmd": "secret bulk",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "name",
+    "profile"
+   ],
+   "desc": "Create, update, or delete multiple secrets for a Worker in a single request, with up to 100 secrets per command."
+  },
+  {
+   "cmd": "secret delete",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "name",
+    "profile"
+   ],
+   "desc": "Delete a secret from a Worker"
+  },
+  {
+   "cmd": "secret list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "format",
+    "install-skills",
+    "name",
+    "profile"
+   ],
+   "desc": "List all secrets for a Worker"
+  },
+  {
+   "cmd": "secret put",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "name",
+    "profile"
+   ],
+   "desc": "Create or update a secret for a Worker"
+  },
+  {
+   "cmd": "secrets-store secret create",
+   "flags": [
+    "comment",
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "name",
+    "persist-to",
+    "profile",
+    "remote",
+    "scopes",
+    "value"
+   ],
+   "desc": "Create a secret within a store [open beta]"
+  },
+  {
+   "cmd": "secrets-store secret delete",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "persist-to",
+    "profile",
+    "remote",
+    "secret-id"
+   ],
+   "desc": "Delete a secret within a store [open beta]"
+  },
+  {
+   "cmd": "secrets-store secret duplicate",
+   "flags": [
+    "comment",
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "name",
+    "persist-to",
+    "profile",
+    "remote",
+    "scopes",
+    "secret-id"
+   ],
+   "desc": "Duplicate a secret within a store [open beta]"
+  },
+  {
+   "cmd": "secrets-store secret get",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "persist-to",
+    "profile",
+    "remote",
+    "secret-id"
+   ],
+   "desc": "Get a secret within a store [open beta]"
+  },
+  {
+   "cmd": "secrets-store secret list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "page",
+    "per-page",
+    "persist-to",
+    "profile",
+    "remote"
+   ],
+   "desc": "List secrets within a store [open beta]"
+  },
+  {
+   "cmd": "secrets-store secret update",
+   "flags": [
+    "comment",
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "persist-to",
+    "profile",
+    "remote",
+    "scopes",
+    "secret-id",
+    "value"
+   ],
+   "desc": "Update a secret within a store [open beta]"
+  },
+  {
+   "cmd": "secrets-store store create",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile",
+    "remote"
+   ],
+   "desc": "Create a store within an account [open beta]"
+  },
+  {
+   "cmd": "secrets-store store delete",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile",
+    "remote"
+   ],
+   "desc": "Delete a store within an account [open beta]"
+  },
+  {
+   "cmd": "secrets-store store list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "page",
+    "per-page",
+    "profile",
+    "remote"
+   ],
+   "desc": "List stores within an account [open beta]"
+  },
+  {
+   "cmd": "setup",
+   "flags": [
+    "build",
+    "config",
+    "cwd",
+    "dry-run",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile",
+    "yes"
+   ],
+   "desc": "🪄 Setup a project to work on Cloudflare"
+  },
+  {
+   "cmd": "tail",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "format",
+    "header",
+    "install-skills",
+    "ip",
+    "method",
+    "profile",
+    "sampling-rate",
+    "search",
+    "status",
+    "version-id"
+   ],
+   "desc": "🦚 Start a log tailing session for a Worker"
+  },
+  {
+   "cmd": "triggers deploy",
+   "flags": [
+    "config",
+    "cwd",
+    "dry-run",
+    "env",
+    "env-file",
+    "install-skills",
+    "name",
+    "profile",
+    "route",
+    "routes",
+    "schedule",
+    "schedules",
+    "triggers"
+   ],
+   "desc": "Apply changes to triggers (Routes or domains and Cron Triggers) when using `wrangler versions upload` [experimental]"
+  },
+  {
+   "cmd": "tunnel create",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Create a new Cloudflare Tunnel [experimental]"
+  },
+  {
+   "cmd": "tunnel delete",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "force",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Delete a Cloudflare Tunnel [experimental]"
+  },
+  {
+   "cmd": "tunnel info",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Display details about a Cloudflare Tunnel [experimental]"
+  },
+  {
+   "cmd": "tunnel list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "List all Cloudflare Tunnels in your account [experimental]"
+  },
+  {
+   "cmd": "tunnel quick-start",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "log-level",
+    "profile"
+   ],
+   "desc": "Start a free, temporary tunnel without an account (https://try.cloudflare.com) [experimental]"
+  },
+  {
+   "cmd": "tunnel run",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "log-level",
+    "profile",
+    "token"
+   ],
+   "desc": "Run a Cloudflare Tunnel using cloudflared [experimental]"
+  },
+  {
+   "cmd": "turnstile widget create",
+   "flags": [
+    "bot-fight-mode",
+    "clearance-level",
+    "config",
+    "cwd",
+    "domain",
+    "domains",
+    "env",
+    "env-file",
+    "ephemeral-id",
+    "install-skills",
+    "json",
+    "mode",
+    "offlabel",
+    "profile",
+    "region"
+   ],
+   "desc": "Create a Turnstile widget [alpha]"
+  },
+  {
+   "cmd": "turnstile widget delete",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile",
+    "skip-confirmation"
+   ],
+   "desc": "Delete a Turnstile widget [alpha]"
+  },
+  {
+   "cmd": "turnstile widget get",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "Get a Turnstile widget [alpha]"
+  },
+  {
+   "cmd": "turnstile widget list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "List Turnstile widgets [alpha]"
+  },
+  {
+   "cmd": "turnstile widget update",
+   "flags": [
+    "bot-fight-mode",
+    "clearance-level",
+    "config",
+    "cwd",
+    "domain",
+    "domains",
+    "env",
+    "env-file",
+    "ephemeral-id",
+    "install-skills",
+    "json",
+    "mode",
+    "name",
+    "offlabel",
+    "profile"
+   ],
+   "desc": "Update a Turnstile widget [alpha]"
+  },
+  {
+   "cmd": "types",
+   "flags": [
+    "check",
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "env-interface",
+    "include-env",
+    "include-runtime",
+    "install-skills",
+    "profile",
+    "strict-vars"
+   ],
+   "desc": "📝 Generate types from your Worker configuration"
+  },
+  {
+   "cmd": "vectorize create",
+   "flags": [
+    "binding",
+    "config",
+    "cwd",
+    "deprecated-v1",
+    "description",
+    "dimensions",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "metric",
+    "preset",
+    "profile",
+    "update-config",
+    "use-remote"
+   ],
+   "desc": "Create a Vectorize index"
+  },
+  {
+   "cmd": "vectorize create-metadata-index",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile",
+    "property",
+    "type"
+   ],
+   "desc": "Enable metadata filtering on the specified property"
+  },
+  {
+   "cmd": "vectorize delete",
+   "flags": [
+    "config",
+    "cwd",
+    "deprecated-v1",
+    "env",
+    "env-file",
+    "force",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Delete a Vectorize index"
+  },
+  {
+   "cmd": "vectorize delete-metadata-index",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile",
+    "property"
+   ],
+   "desc": "Delete metadata indexes"
+  },
+  {
+   "cmd": "vectorize delete-vectors",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "ids",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Delete vectors in a Vectorize index"
+  },
+  {
+   "cmd": "vectorize get",
+   "flags": [
+    "config",
+    "cwd",
+    "deprecated-v1",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "Get a Vectorize index by name"
+  },
+  {
+   "cmd": "vectorize get-vectors",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "ids",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Get vectors from a Vectorize index"
+  },
+  {
+   "cmd": "vectorize info",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "Get additional details about the index"
+  },
+  {
+   "cmd": "vectorize insert",
+   "flags": [
+    "batch-size",
+    "config",
+    "cwd",
+    "deprecated-v1",
+    "env",
+    "env-file",
+    "file",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "Insert vectors into a Vectorize index"
+  },
+  {
+   "cmd": "vectorize list",
+   "flags": [
+    "config",
+    "cwd",
+    "deprecated-v1",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "List your Vectorize indexes"
+  },
+  {
+   "cmd": "vectorize list-metadata-index",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "List metadata properties on which metadata filtering is enabled"
+  },
+  {
+   "cmd": "vectorize list-vectors",
+   "flags": [
+    "config",
+    "count",
+    "cursor",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "List vector identifiers in a Vectorize index"
+  },
+  {
+   "cmd": "vectorize query",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "filter",
+    "install-skills",
+    "namespace",
+    "profile",
+    "return-metadata",
+    "return-values",
+    "top-k",
+    "vector",
+    "vector-id"
+   ],
+   "desc": "Query a Vectorize index"
+  },
+  {
+   "cmd": "vectorize upsert",
+   "flags": [
+    "batch-size",
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "file",
+    "install-skills",
+    "json",
+    "profile"
+   ],
+   "desc": "Upsert vectors into a Vectorize index"
+  },
+  {
+   "cmd": "versions deploy",
+   "flags": [
+    "config",
+    "cwd",
+    "dry-run",
+    "env",
+    "env-file",
+    "install-skills",
+    "message",
+    "name",
+    "percentage",
+    "profile",
+    "version-id",
+    "version-tag",
+    "yes"
+   ],
+   "desc": "Safely roll out new Versions of your Worker by splitting traffic between multiple Versions"
+  },
+  {
+   "cmd": "versions list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "name",
+    "profile"
+   ],
+   "desc": "List the 10 most recent Versions of your Worker"
+  },
+  {
+   "cmd": "versions secret bulk",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "message",
+    "name",
+    "profile",
+    "tag"
+   ],
+   "desc": "Create or update a secret variable for a Worker"
+  },
+  {
+   "cmd": "versions secret delete",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "message",
+    "name",
+    "profile",
+    "tag"
+   ],
+   "desc": "Delete a secret variable from a Worker"
+  },
+  {
+   "cmd": "versions secret list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "latest-version",
+    "name",
+    "profile"
+   ],
+   "desc": "List the secrets currently deployed"
+  },
+  {
+   "cmd": "versions secret put",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "message",
+    "name",
+    "profile",
+    "tag"
+   ],
+   "desc": "Create or update a secret variable for a Worker"
+  },
+  {
+   "cmd": "versions upload",
+   "flags": [
+    "alias",
+    "assets",
+    "compatibility-date",
+    "compatibility-flag",
+    "compatibility-flags",
+    "config",
+    "cwd",
+    "define",
+    "dry-run",
+    "env",
+    "env-file",
+    "install-skills",
+    "jsx-factory",
+    "jsx-fragment",
+    "keep-vars",
+    "latest",
+    "message",
+    "minify",
+    "name",
+    "no-bundle",
+    "outdir",
+    "outfile",
+    "preview-alias",
+    "profile",
+    "secrets-file",
+    "strict",
+    "tag",
+    "tsconfig",
+    "upload-source-maps",
+    "var"
+   ],
+   "desc": "Uploads your Worker code and config as a new Version"
+  },
+  {
+   "cmd": "versions view",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "name",
+    "profile"
+   ],
+   "desc": "View the details of a specific version of your Worker"
+  },
+  {
+   "cmd": "vpc service create",
+   "flags": [
+    "app-protocol",
+    "cert-verification-mode",
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "hostname",
+    "http-port",
+    "https-port",
+    "install-skills",
+    "ipv4",
+    "ipv6",
+    "profile",
+    "resolver-ips",
+    "tcp-port",
+    "tunnel-id",
+    "type"
+   ],
+   "desc": "Create a new VPC service"
+  },
+  {
+   "cmd": "vpc service delete",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Delete a VPC service"
+  },
+  {
+   "cmd": "vpc service get",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "Get a VPC service"
+  },
+  {
+   "cmd": "vpc service list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "profile"
+   ],
+   "desc": "List VPC services"
+  },
+  {
+   "cmd": "vpc service update",
+   "flags": [
+    "app-protocol",
+    "cert-verification-mode",
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "hostname",
+    "http-port",
+    "https-port",
+    "install-skills",
+    "ipv4",
+    "ipv6",
+    "name",
+    "profile",
+    "resolver-ips",
+    "tcp-port",
+    "tunnel-id",
+    "type"
+   ],
+   "desc": "Update a VPC service"
+  },
+  {
+   "cmd": "websearch search",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "limit",
+    "profile"
+   ],
+   "desc": "Run a query against Cloudflare Web Search [experimental]"
+  },
+  {
+   "cmd": "whoami",
+   "flags": [
+    "account",
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json"
+   ],
+   "desc": "🕵️ Retrieve your user information"
+  },
+  {
+   "cmd": "workflows delete",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "local",
+    "port",
+    "profile"
+   ],
+   "desc": "Delete workflow - when deleting a workflow, it will also delete it's own instances"
+  },
+  {
+   "cmd": "workflows describe",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "local",
+    "port",
+    "profile"
+   ],
+   "desc": "Describe Workflow resource"
+  },
+  {
+   "cmd": "workflows instances delete",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "filename",
+    "install-skills",
+    "json",
+    "local",
+    "port",
+    "profile"
+   ],
+   "desc": "Delete workflow instances"
+  },
+  {
+   "cmd": "workflows instances describe",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "local",
+    "port",
+    "profile",
+    "step-output",
+    "truncate-output-limit"
+   ],
+   "desc": "Describe a workflow instance - see its logs, retries and errors"
+  },
+  {
+   "cmd": "workflows instances list",
+   "flags": [
+    "config",
+    "cwd",
+    "date-end",
+    "date-start",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "local",
+    "page",
+    "per-page",
+    "port",
+    "profile",
+    "reverse",
+    "status"
+   ],
+   "desc": "Instance related commands (list, describe, terminate, pause, resume)"
+  },
+  {
+   "cmd": "workflows instances pause",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "local",
+    "port",
+    "profile"
+   ],
+   "desc": "Pause a workflow instance"
+  },
+  {
+   "cmd": "workflows instances restart",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "from-step-count",
+    "from-step-name",
+    "from-step-type",
+    "install-skills",
+    "json",
+    "local",
+    "port",
+    "profile"
+   ],
+   "desc": "Restart a workflow instance"
+  },
+  {
+   "cmd": "workflows instances resume",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "local",
+    "port",
+    "profile"
+   ],
+   "desc": "Resume a workflow instance"
+  },
+  {
+   "cmd": "workflows instances send-event",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "local",
+    "payload",
+    "port",
+    "profile",
+    "type"
+   ],
+   "desc": "Send an event to a workflow instance"
+  },
+  {
+   "cmd": "workflows instances terminate",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "local",
+    "port",
+    "profile",
+    "rollback"
+   ],
+   "desc": "Terminate a workflow instance"
+  },
+  {
+   "cmd": "workflows list",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "install-skills",
+    "json",
+    "local",
+    "page",
+    "per-page",
+    "port",
+    "profile"
+   ],
+   "desc": "List Workflows associated to account"
+  },
+  {
+   "cmd": "workflows trigger",
+   "flags": [
+    "config",
+    "cwd",
+    "env",
+    "env-file",
+    "id",
+    "install-skills",
+    "json",
+    "local",
+    "port",
+    "profile"
+   ],
+   "desc": "Trigger a workflow, creating a new instance. Can optionally take a JSON string to pass a parameter into the workflow ins"
+  }
+ ]
+}

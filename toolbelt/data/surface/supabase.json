@@ -1,0 +1,2008 @@
+{
+  "schemaVersion": 1,
+  "cli": "supabase",
+  "cliVersion": "2.98.2",
+  "cliPath": "/home/operator/.local/bin/supabase",
+  "cliMtimeMs": 1784624998305.656,
+  "generatedAt": "2026-09-10T21:21:18.335Z",
+  "leafCount": 107,
+  "leaves": [
+    {
+      "cmd": "backups list",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Lists available physical backups"
+    },
+    {
+      "cmd": "backups restore",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "timestamp",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Restore to a specific timestamp using PITR"
+    },
+    {
+      "cmd": "bootstrap",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "password",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Bootstrap a Supabase project from a starter template"
+    },
+    {
+      "cmd": "branches create",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "notify-url",
+        "output",
+        "persistent",
+        "profile",
+        "project-ref",
+        "region",
+        "size",
+        "with-data",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Create a preview branch"
+    },
+    {
+      "cmd": "branches delete",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Delete a preview branch"
+    },
+    {
+      "cmd": "branches get",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Retrieve details of a preview branch"
+    },
+    {
+      "cmd": "branches list",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "List all preview branches"
+    },
+    {
+      "cmd": "branches pause",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Pause a preview branch"
+    },
+    {
+      "cmd": "branches unpause",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Unpause a preview branch"
+    },
+    {
+      "cmd": "branches update",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "git-branch",
+        "name",
+        "network-id",
+        "notify-url",
+        "output",
+        "persistent",
+        "profile",
+        "project-ref",
+        "status",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Update a preview branch"
+    },
+    {
+      "cmd": "config push",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Pushes local config.toml to the linked project"
+    },
+    {
+      "cmd": "db advisors",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "db-url",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "fail-on",
+        "level",
+        "linked",
+        "local",
+        "network-id",
+        "output",
+        "profile",
+        "type",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Checks database for security and performance issues"
+    },
+    {
+      "cmd": "db diff",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "db-url",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "file",
+        "from",
+        "linked",
+        "local",
+        "network-id",
+        "output",
+        "profile",
+        "schema",
+        "to",
+        "use-migra",
+        "use-pg-delta",
+        "use-pg-schema",
+        "use-pgadmin",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Diffs the local database for schema changes"
+    },
+    {
+      "cmd": "db dump",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "data-only",
+        "db-url",
+        "debug",
+        "dns-resolver",
+        "dry-run",
+        "exclude",
+        "experimental",
+        "file",
+        "keep-comments",
+        "linked",
+        "local",
+        "network-id",
+        "output",
+        "password",
+        "profile",
+        "role-only",
+        "schema",
+        "use-copy",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Dumps data or schemas from the remote database"
+    },
+    {
+      "cmd": "db lint",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "db-url",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "fail-on",
+        "level",
+        "linked",
+        "local",
+        "network-id",
+        "output",
+        "profile",
+        "schema",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Checks local database for typing error"
+    },
+    {
+      "cmd": "db pull",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "db-url",
+        "debug",
+        "diff-engine",
+        "dns-resolver",
+        "experimental",
+        "linked",
+        "local",
+        "network-id",
+        "output",
+        "password",
+        "profile",
+        "schema",
+        "use-pg-delta",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Pull schema from the remote database"
+    },
+    {
+      "cmd": "db push",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "db-url",
+        "debug",
+        "dns-resolver",
+        "dry-run",
+        "experimental",
+        "include-all",
+        "include-roles",
+        "include-seed",
+        "linked",
+        "local",
+        "network-id",
+        "output",
+        "password",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Push new migrations to the remote database"
+    },
+    {
+      "cmd": "db query",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "db-url",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "file",
+        "linked",
+        "local",
+        "network-id",
+        "output",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Execute a SQL query against the database"
+    },
+    {
+      "cmd": "db reset",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "db-url",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "last",
+        "linked",
+        "local",
+        "network-id",
+        "no-seed",
+        "output",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Resets the local database to current migrations"
+    },
+    {
+      "cmd": "db schema declarative",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "no-cache",
+        "output",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Manage declarative database schemas"
+    },
+    {
+      "cmd": "db start",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "from-backup",
+        "network-id",
+        "output",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Starts local Postgres database"
+    },
+    {
+      "cmd": "domains activate",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Activate the custom hostname for a project"
+    },
+    {
+      "cmd": "domains create",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "custom-hostname",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Create a custom hostname"
+    },
+    {
+      "cmd": "domains delete",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Deletes the custom hostname config for your project"
+    },
+    {
+      "cmd": "domains get",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Get the current custom hostname config"
+    },
+    {
+      "cmd": "domains reverify",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Re-verify the custom hostname config for your project"
+    },
+    {
+      "cmd": "encryption get-root-key",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Get the root encryption key of a Supabase project"
+    },
+    {
+      "cmd": "encryption update-root-key",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Update root encryption key of a Supabase project"
+    },
+    {
+      "cmd": "functions delete",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Delete a Function from Supabase"
+    },
+    {
+      "cmd": "functions deploy",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "import-map",
+        "jobs",
+        "network-id",
+        "no-verify-jwt",
+        "output",
+        "profile",
+        "project-ref",
+        "prune",
+        "use-api",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Deploy a Function to Supabase"
+    },
+    {
+      "cmd": "functions download",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "use-api",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Download a Function from Supabase"
+    },
+    {
+      "cmd": "functions list",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "List all Functions in Supabase"
+    },
+    {
+      "cmd": "functions new",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Create a new Function locally"
+    },
+    {
+      "cmd": "functions serve",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "env-file",
+        "experimental",
+        "import-map",
+        "inspect",
+        "inspect-main",
+        "inspect-mode",
+        "network-id",
+        "no-verify-jwt",
+        "output",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Serve all Functions locally"
+    },
+    {
+      "cmd": "gen bearer-jwt",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "exp",
+        "experimental",
+        "network-id",
+        "output",
+        "payload",
+        "profile",
+        "role",
+        "sub",
+        "valid-for",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Generate a Bearer Auth JWT for accessing Data API"
+    },
+    {
+      "cmd": "gen signing-key",
+      "flags": [
+        "agent",
+        "algorithm",
+        "append",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Generate a JWT signing key"
+    },
+    {
+      "cmd": "gen types",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "db-url",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "lang",
+        "linked",
+        "local",
+        "network-id",
+        "output",
+        "postgrest-v9-compat",
+        "profile",
+        "project-id",
+        "query-timeout",
+        "schema",
+        "swift-access-control",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Generate types from Postgres schema"
+    },
+    {
+      "cmd": "init",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "force",
+        "interactive",
+        "network-id",
+        "output",
+        "profile",
+        "use-orioledb",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Initialize a local project"
+    },
+    {
+      "cmd": "inspect db bloat",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "db-url",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "linked",
+        "local",
+        "network-id",
+        "output",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Estimates space allocated to a relation that is full of dead tuples"
+    },
+    {
+      "cmd": "inspect db blocking",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "db-url",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "linked",
+        "local",
+        "network-id",
+        "output",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Show queries that are holding locks and the queries that are waiting for them to be released"
+    },
+    {
+      "cmd": "inspect db calls",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "db-url",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "linked",
+        "local",
+        "network-id",
+        "output",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Show queries from pg_stat_statements ordered by total times called"
+    },
+    {
+      "cmd": "inspect db db-stats",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "db-url",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "linked",
+        "local",
+        "network-id",
+        "output",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Show stats such as cache hit rates, total sizes, and WAL size"
+    },
+    {
+      "cmd": "inspect db index-stats",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "db-url",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "linked",
+        "local",
+        "network-id",
+        "output",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Show combined index size, usage percent, scan counts, and unused status"
+    },
+    {
+      "cmd": "inspect db locks",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "db-url",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "linked",
+        "local",
+        "network-id",
+        "output",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Show queries which have taken out an exclusive lock on a relation"
+    },
+    {
+      "cmd": "inspect db long-running-queries",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "db-url",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "linked",
+        "local",
+        "network-id",
+        "output",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Show currently running queries running for longer than 5 minutes"
+    },
+    {
+      "cmd": "inspect db outliers",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "db-url",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "linked",
+        "local",
+        "network-id",
+        "output",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Show queries from pg_stat_statements ordered by total execution time"
+    },
+    {
+      "cmd": "inspect db replication-slots",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "db-url",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "linked",
+        "local",
+        "network-id",
+        "output",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Show information about replication slots on the database"
+    },
+    {
+      "cmd": "inspect db role-stats",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "db-url",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "linked",
+        "local",
+        "network-id",
+        "output",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Show information about roles on the database"
+    },
+    {
+      "cmd": "inspect db table-stats",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "db-url",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "linked",
+        "local",
+        "network-id",
+        "output",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Show combined table size, index size, and estimated row count"
+    },
+    {
+      "cmd": "inspect db traffic-profile",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "db-url",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "linked",
+        "local",
+        "network-id",
+        "output",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Show read/write activity ratio for tables based on block I/O operations"
+    },
+    {
+      "cmd": "inspect db vacuum-stats",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "db-url",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "linked",
+        "local",
+        "network-id",
+        "output",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Show statistics related to vacuum operations per table"
+    },
+    {
+      "cmd": "inspect report",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "db-url",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "linked",
+        "local",
+        "network-id",
+        "output",
+        "output-dir",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Generate a CSV output for all inspect commands"
+    },
+    {
+      "cmd": "link",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "password",
+        "profile",
+        "project-ref",
+        "skip-pooler",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Link to a Supabase project"
+    },
+    {
+      "cmd": "login",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "name",
+        "network-id",
+        "no-browser",
+        "output",
+        "profile",
+        "token",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Authenticate using an access token"
+    },
+    {
+      "cmd": "logout",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Log out and delete access tokens locally"
+    },
+    {
+      "cmd": "migration down",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "db-url",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "last",
+        "linked",
+        "local",
+        "network-id",
+        "output",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Resets applied migrations up to the last n versions"
+    },
+    {
+      "cmd": "migration fetch",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "db-url",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "linked",
+        "local",
+        "network-id",
+        "output",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Fetch migration files from history table"
+    },
+    {
+      "cmd": "migration list",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "db-url",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "linked",
+        "local",
+        "network-id",
+        "output",
+        "password",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "List local and remote migrations"
+    },
+    {
+      "cmd": "migration new",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Create an empty migration script"
+    },
+    {
+      "cmd": "migration repair",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "db-url",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "linked",
+        "local",
+        "network-id",
+        "output",
+        "password",
+        "profile",
+        "status",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Repair the migration history table"
+    },
+    {
+      "cmd": "migration squash",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "db-url",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "linked",
+        "local",
+        "network-id",
+        "output",
+        "password",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Squash migrations to a single file"
+    },
+    {
+      "cmd": "migration up",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "db-url",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "include-all",
+        "linked",
+        "local",
+        "network-id",
+        "output",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Apply pending migrations to local database"
+    },
+    {
+      "cmd": "network-bans get",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Get the current network bans"
+    },
+    {
+      "cmd": "network-bans remove",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "db-unban-ip",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Remove a network ban"
+    },
+    {
+      "cmd": "network-restrictions get",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Get the current network restrictions"
+    },
+    {
+      "cmd": "network-restrictions update",
+      "flags": [
+        "agent",
+        "append",
+        "bypass-cidr-checks",
+        "create-ticket",
+        "db-allow-cidr",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Update network restrictions"
+    },
+    {
+      "cmd": "orgs create",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Create an organization"
+    },
+    {
+      "cmd": "orgs list",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "List all organizations"
+    },
+    {
+      "cmd": "postgres-config delete",
+      "flags": [
+        "agent",
+        "config",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "no-restart",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Delete specific Postgres database config overrides"
+    },
+    {
+      "cmd": "postgres-config get",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Get the current Postgres database config overrides"
+    },
+    {
+      "cmd": "postgres-config update",
+      "flags": [
+        "agent",
+        "config",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "no-restart",
+        "output",
+        "profile",
+        "project-ref",
+        "replace-existing-overrides",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Update Postgres database config"
+    },
+    {
+      "cmd": "projects api-keys",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "List all API keys for a Supabase project"
+    },
+    {
+      "cmd": "projects create",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "db-password",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "org-id",
+        "output",
+        "profile",
+        "region",
+        "size",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Create a project on Supabase"
+    },
+    {
+      "cmd": "projects delete",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Delete a Supabase project"
+    },
+    {
+      "cmd": "projects list",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "List all Supabase projects"
+    },
+    {
+      "cmd": "secrets list",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "List all secrets on Supabase"
+    },
+    {
+      "cmd": "secrets set",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "env-file",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Set a secret(s) on Supabase"
+    },
+    {
+      "cmd": "secrets unset",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Unset a secret(s) on Supabase"
+    },
+    {
+      "cmd": "seed buckets",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "linked",
+        "local",
+        "network-id",
+        "output",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Seed buckets declared in [storage.buckets]"
+    },
+    {
+      "cmd": "services",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Show versions of all Supabase services"
+    },
+    {
+      "cmd": "snippets download",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Download contents of a SQL snippet"
+    },
+    {
+      "cmd": "snippets list",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "List all SQL snippets"
+    },
+    {
+      "cmd": "ssl-enforcement get",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Get the current SSL enforcement configuration"
+    },
+    {
+      "cmd": "ssl-enforcement update",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "disable-db-ssl-enforcement",
+        "dns-resolver",
+        "enable-db-ssl-enforcement",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Update SSL enforcement configuration"
+    },
+    {
+      "cmd": "sso add",
+      "flags": [
+        "agent",
+        "attribute-mapping-file",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "domains",
+        "experimental",
+        "metadata-file",
+        "metadata-url",
+        "name-id-format",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "skip-url-validation",
+        "type",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Add a new SSO identity provider"
+    },
+    {
+      "cmd": "sso info",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Returns the SAML SSO settings required for the identity provider"
+    },
+    {
+      "cmd": "sso list",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "List all SSO identity providers for a project"
+    },
+    {
+      "cmd": "sso remove",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Remove an existing SSO identity provider"
+    },
+    {
+      "cmd": "sso show",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "metadata",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Show information about an SSO identity provider"
+    },
+    {
+      "cmd": "sso update",
+      "flags": [
+        "add-domains",
+        "agent",
+        "attribute-mapping-file",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "domains",
+        "experimental",
+        "metadata-file",
+        "metadata-url",
+        "name-id-format",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "remove-domains",
+        "skip-url-validation",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Update information about an SSO identity provider"
+    },
+    {
+      "cmd": "start",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "exclude",
+        "experimental",
+        "ignore-health-check",
+        "network-id",
+        "output",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Start containers for Supabase local development"
+    },
+    {
+      "cmd": "status",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "override-name",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Show status of local Supabase containers"
+    },
+    {
+      "cmd": "stop",
+      "flags": [
+        "agent",
+        "all",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "no-backup",
+        "output",
+        "profile",
+        "project-id",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Stop all local Supabase containers"
+    },
+    {
+      "cmd": "storage cp",
+      "flags": [
+        "agent",
+        "cache-control",
+        "content-type",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "jobs",
+        "linked",
+        "local",
+        "network-id",
+        "output",
+        "profile",
+        "recursive",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Copy objects from src to dst path"
+    },
+    {
+      "cmd": "storage ls",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "linked",
+        "local",
+        "network-id",
+        "output",
+        "profile",
+        "recursive",
+        "workdir",
+        "yes"
+      ],
+      "desc": "List objects by path prefix"
+    },
+    {
+      "cmd": "storage mv",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "linked",
+        "local",
+        "network-id",
+        "output",
+        "profile",
+        "recursive",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Move objects from src to dst path"
+    },
+    {
+      "cmd": "storage rm",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "linked",
+        "local",
+        "network-id",
+        "output",
+        "profile",
+        "recursive",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Remove objects by file path"
+    },
+    {
+      "cmd": "telemetry disable",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Disable CLI telemetry"
+    },
+    {
+      "cmd": "telemetry enable",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Enable CLI telemetry"
+    },
+    {
+      "cmd": "telemetry status",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Show CLI telemetry status"
+    },
+    {
+      "cmd": "test db",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "db-url",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "linked",
+        "local",
+        "network-id",
+        "output",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Tests local database with pgTAP"
+    },
+    {
+      "cmd": "test new",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "template",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Create a new test file"
+    },
+    {
+      "cmd": "unlink",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Unlink a Supabase project"
+    },
+    {
+      "cmd": "vanity-subdomains activate",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "desired-subdomain",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Activate a vanity subdomain"
+    },
+    {
+      "cmd": "vanity-subdomains check-availability",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "desired-subdomain",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Checks if a desired subdomain is available for use"
+    },
+    {
+      "cmd": "vanity-subdomains delete",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Deletes a project's vanity subdomain"
+    },
+    {
+      "cmd": "vanity-subdomains get",
+      "flags": [
+        "agent",
+        "create-ticket",
+        "debug",
+        "dns-resolver",
+        "experimental",
+        "network-id",
+        "output",
+        "profile",
+        "project-ref",
+        "workdir",
+        "yes"
+      ],
+      "desc": "Get the current vanity subdomain"
+    }
+  ]
+}

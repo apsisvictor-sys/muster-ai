@@ -1,0 +1,22 @@
+{
+	// The harness's own compiler configuration (RD8). Scoped to this tree: the
+	// packages import each other by relative path and Pi's profile only through
+	// the tracked `harness` link, so nothing here needs the profile's paths.
+	"compilerOptions": {
+		"target": "esnext",
+		"lib": ["esnext"],
+		"module": "preserve",
+		"moduleResolution": "bundler",
+		"types": ["node"],
+		"allowImportingTsExtensions": true,
+		"noEmit": true,
+		"skipLibCheck": true
+		// No `paths` entry for @earendil-works/pi-ai. tsx applies this file to every module it loads, Pi's own
+		// profile files included, so a mapping here forced the profile's `@earendil-works/pi-ai` imports onto this
+		// repository's published copy; the harness CLI then died at link time for every verb that loads Pi's ports
+		// when it ran from inside this tree (2026-10-29, lane/gfix: `muster goals show` -> SyntaxError, so the
+		// launcher's goal checks and attachments never ran). This tree's own imports of the package already resolve
+		// to the same `dist/` files through its exports map, so the mapping bought nothing.
+	},
+	"include": ["**/*.ts"]
+}

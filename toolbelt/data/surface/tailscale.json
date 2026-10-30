@@ -1,0 +1,504 @@
+{
+ "schemaVersion": 1,
+ "cli": "tailscale",
+ "cliVersion": "1.102.2",
+ "cliPath": "/usr/bin/tailscale",
+ "cliMtimeMs": 1785883275000,
+ "generatedAt": "2026-08-29T12:59:19.779Z",
+ "leafCount": 59,
+ "leaves": [
+  {
+   "cmd": "appc-routes",
+   "flags": [
+    "all",
+    "map"
+   ],
+   "desc": "Print the current app connector routes"
+  },
+  {
+   "cmd": "bugreport",
+   "flags": [
+    "diagnose",
+    "record"
+   ],
+   "desc": "Print a shareable identifier to help diagnose issues"
+  },
+  {
+   "cmd": "cert",
+   "flags": [
+    "cert-file",
+    "key-file",
+    "min-validity",
+    "serve-demo"
+   ],
+   "desc": "Get TLS certs"
+  },
+  {
+   "cmd": "configure kubeconfig",
+   "flags": [
+    "http"
+   ],
+   "desc": "[ALPHA] Connect to a Kubernetes cluster using a Tailscale Auth Proxy"
+  },
+  {
+   "cmd": "configure systray",
+   "flags": [
+    "enable-startup"
+   ],
+   "desc": "[ALPHA] Manage the systray client for Linux"
+  },
+  {
+   "cmd": "dns query",
+   "flags": [
+    "json"
+   ],
+   "desc": "Perform a DNS query"
+  },
+  {
+   "cmd": "dns status",
+   "flags": [
+    "all",
+    "json"
+   ],
+   "desc": "Print the current DNS status and configuration"
+  },
+  {
+   "cmd": "down",
+   "flags": [
+    "accept-risk",
+    "reason"
+   ],
+   "desc": "Disconnect from Tailscale"
+  },
+  {
+   "cmd": "drive list",
+   "flags": [],
+   "desc": "[ALPHA] List current shares"
+  },
+  {
+   "cmd": "drive rename",
+   "flags": [],
+   "desc": "[ALPHA] Rename a share"
+  },
+  {
+   "cmd": "drive share",
+   "flags": [],
+   "desc": "[ALPHA] Create or modify a share"
+  },
+  {
+   "cmd": "drive unshare",
+   "flags": [],
+   "desc": "[ALPHA] Remove a share"
+  },
+  {
+   "cmd": "exit-node list",
+   "flags": [
+    "filter"
+   ],
+   "desc": "Show exit nodes"
+  },
+  {
+   "cmd": "exit-node suggest",
+   "flags": [],
+   "desc": "Suggest the best available exit node"
+  },
+  {
+   "cmd": "file cp",
+   "flags": [
+    "name",
+    "targets",
+    "update-interval",
+    "verbose"
+   ],
+   "desc": "Copy file(s) to a host"
+  },
+  {
+   "cmd": "file get",
+   "flags": [
+    "conflict",
+    "loop",
+    "verbose",
+    "wait"
+   ],
+   "desc": "Move files out of the Tailscale file inbox"
+  },
+  {
+   "cmd": "funnel reset",
+   "flags": [],
+   "desc": "Reset current funnel config"
+  },
+  {
+   "cmd": "funnel status",
+   "flags": [
+    "json"
+   ],
+   "desc": "View current funnel configuration"
+  },
+  {
+   "cmd": "get",
+   "flags": [
+    "json",
+    "set-flags"
+   ],
+   "desc": "Show current preference values"
+  },
+  {
+   "cmd": "ip",
+   "flags": [
+    "assert"
+   ],
+   "desc": "Show Tailscale IP addresses"
+  },
+  {
+   "cmd": "licenses",
+   "flags": [],
+   "desc": "Get open source license information"
+  },
+  {
+   "cmd": "lock add",
+   "flags": [],
+   "desc": "Add one or more trusted signing keys to tailnet lock"
+  },
+  {
+   "cmd": "lock disable",
+   "flags": [],
+   "desc": "Consume a disablement secret to shut down tailnet lock for the tailnet"
+  },
+  {
+   "cmd": "lock disablement-kdf",
+   "flags": [],
+   "desc": "Compute a disablement value from a disablement secret (advanced users only)"
+  },
+  {
+   "cmd": "lock init",
+   "flags": [
+    "confirm",
+    "gen-disablement-for-support",
+    "gen-disablements"
+   ],
+   "desc": "Initialize tailnet lock"
+  },
+  {
+   "cmd": "lock local-disable",
+   "flags": [],
+   "desc": "Disable tailnet lock for this node only"
+  },
+  {
+   "cmd": "lock log",
+   "flags": [
+    "json",
+    "limit"
+   ],
+   "desc": "List changes applied to tailnet lock"
+  },
+  {
+   "cmd": "lock remove",
+   "flags": [
+    "re-sign"
+   ],
+   "desc": "Remove one or more trusted signing keys from tailnet lock"
+  },
+  {
+   "cmd": "lock revoke-keys",
+   "flags": [
+    "cosign",
+    "finish",
+    "fork-from"
+   ],
+   "desc": "Revoke compromised tailnet-lock keys"
+  },
+  {
+   "cmd": "lock sign",
+   "flags": [],
+   "desc": "Sign a node or pre-approved auth key"
+  },
+  {
+   "cmd": "lock status",
+   "flags": [
+    "json"
+   ],
+   "desc": "Output the state of tailnet lock"
+  },
+  {
+   "cmd": "login",
+   "flags": [
+    "accept-dns",
+    "accept-routes",
+    "advertise-connector",
+    "advertise-exit-node",
+    "advertise-routes",
+    "advertise-tags",
+    "audience",
+    "auth-key",
+    "client-id",
+    "client-secret",
+    "exit-node",
+    "exit-node-allow-lan-access",
+    "hostname",
+    "id-token",
+    "login-server",
+    "netfilter-mode",
+    "nickname",
+    "operator",
+    "qr",
+    "qr-format",
+    "report-posture",
+    "shields-up",
+    "snat-subnet-routes",
+    "ssh",
+    "stateful-filtering",
+    "timeout"
+   ],
+   "desc": "Log in to a Tailscale account"
+  },
+  {
+   "cmd": "logout",
+   "flags": [
+    "reason"
+   ],
+   "desc": "Disconnect from Tailscale and expire current node key"
+  },
+  {
+   "cmd": "metrics print",
+   "flags": [],
+   "desc": "Print current metric values in Prometheus text format"
+  },
+  {
+   "cmd": "metrics write",
+   "flags": [],
+   "desc": "Write metric values to a file"
+  },
+  {
+   "cmd": "nc",
+   "flags": [],
+   "desc": "Connect to a port on a host, connected to stdin/stdout"
+  },
+  {
+   "cmd": "netcheck",
+   "flags": [
+    "bind-address",
+    "bind-port",
+    "every",
+    "format",
+    "verbose"
+   ],
+   "desc": "Print an analysis of local network conditions"
+  },
+  {
+   "cmd": "ping",
+   "flags": [
+    "icmp",
+    "peerapi",
+    "size",
+    "timeout",
+    "tsmp",
+    "until-direct",
+    "verbose"
+   ],
+   "desc": "Ping a host at the Tailscale layer, see how it routed"
+  },
+  {
+   "cmd": "serve advertise",
+   "flags": [],
+   "desc": "Advertise this node as a service proxy to the tailnet"
+  },
+  {
+   "cmd": "serve clear",
+   "flags": [],
+   "desc": "Remove all config for a service"
+  },
+  {
+   "cmd": "serve drain",
+   "flags": [],
+   "desc": "Drain a service from the current node"
+  },
+  {
+   "cmd": "serve get-config",
+   "flags": [
+    "all",
+    "service"
+   ],
+   "desc": "Get service configuration to save to a file"
+  },
+  {
+   "cmd": "serve reset",
+   "flags": [],
+   "desc": "Reset current serve config"
+  },
+  {
+   "cmd": "serve set-config",
+   "flags": [
+    "all",
+    "service"
+   ],
+   "desc": "Define service configuration from a file"
+  },
+  {
+   "cmd": "serve status",
+   "flags": [
+    "json"
+   ],
+   "desc": "View current serve configuration"
+  },
+  {
+   "cmd": "service list",
+   "flags": [
+    "json"
+   ],
+   "desc": "List the Tailscale Services your node can access"
+  },
+  {
+   "cmd": "set",
+   "flags": [
+    "accept-dns",
+    "accept-risk",
+    "accept-routes",
+    "advertise-connector",
+    "advertise-exit-node",
+    "advertise-routes",
+    "auto-update",
+    "exit-node",
+    "exit-node-allow-lan-access",
+    "hostname",
+    "netfilter-mode",
+    "nickname",
+    "operator",
+    "relay-server-port",
+    "relay-server-static-endpoints",
+    "report-posture",
+    "shields-up",
+    "snat-subnet-routes",
+    "ssh",
+    "stateful-filtering",
+    "update-check",
+    "webclient"
+   ],
+   "desc": "Change specified preferences"
+  },
+  {
+   "cmd": "ssh",
+   "flags": [
+    "accept-dns"
+   ],
+   "desc": "SSH to a Tailscale machine"
+  },
+  {
+   "cmd": "status",
+   "flags": [
+    "active",
+    "browser",
+    "header",
+    "json",
+    "listen",
+    "peers",
+    "self",
+    "web"
+   ],
+   "desc": "Show state of tailscaled and its connections"
+  },
+  {
+   "cmd": "switch remove",
+   "flags": [],
+   "desc": "Remove a Tailscale account"
+  },
+  {
+   "cmd": "syspolicy list",
+   "flags": [
+    "json"
+   ],
+   "desc": "Print effective policy settings"
+  },
+  {
+   "cmd": "syspolicy reload",
+   "flags": [
+    "json"
+   ],
+   "desc": "Force a reload of policy settings, even if no changes are detected, and prints the result"
+  },
+  {
+   "cmd": "systray",
+   "flags": [
+    "theme"
+   ],
+   "desc": "Run a systray application to manage Tailscale"
+  },
+  {
+   "cmd": "up",
+   "flags": [
+    "accept-dns",
+    "accept-risk",
+    "accept-routes",
+    "advertise-connector",
+    "advertise-exit-node",
+    "advertise-routes",
+    "advertise-tags",
+    "audience",
+    "auth-key",
+    "client-id",
+    "client-secret",
+    "exit-node",
+    "exit-node-allow-lan-access",
+    "force-reauth",
+    "hostname",
+    "id-token",
+    "json",
+    "login-server",
+    "netfilter-mode",
+    "operator",
+    "qr",
+    "qr-format",
+    "report-posture",
+    "reset",
+    "shields-up",
+    "snat-subnet-routes",
+    "ssh",
+    "stateful-filtering",
+    "timeout"
+   ],
+   "desc": "Connect to Tailscale, logging in if needed"
+  },
+  {
+   "cmd": "update",
+   "flags": [
+    "dry-run",
+    "track",
+    "yes"
+   ],
+   "desc": "Update Tailscale to the latest/different version"
+  },
+  {
+   "cmd": "wait",
+   "flags": [
+    "assert",
+    "timeout"
+   ],
+   "desc": "Wait for Tailscale interface/IPs to be ready for binding"
+  },
+  {
+   "cmd": "web",
+   "flags": [
+    "cgi",
+    "listen",
+    "origin",
+    "prefix",
+    "readonly"
+   ],
+   "desc": "Run a web server for controlling Tailscale"
+  },
+  {
+   "cmd": "whoami",
+   "flags": [
+    "json"
+   ],
+   "desc": "Show the machine and user identity of the current machine"
+  },
+  {
+   "cmd": "whois",
+   "flags": [
+    "json",
+    "proto"
+   ],
+   "desc": "Show the machine and user associated with a Tailscale IP (v4 or v6)"
+  }
+ ]
+}

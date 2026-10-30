@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "links": [
+    {
+      "name": "audible-library-root",
+      "target": "/home/operator/audiobooks/audible",
+      "kind": "local-directory",
+      "updatedAt": "2026-05-25T18:50:21.254Z"
+    },
+    {
+      "name": "partner-work-github-account",
+      "target": "frontend-lead-partner",
+      "kind": "account",
+      "updatedAt": "2026-06-29T15:40:57.313Z"
+    },
+    {
+      "name": "partnerprivate-vercel-team",
+      "target": "PartnerPrivate / official @partnerprivate.com Vercel account",
+      "kind": "account",
+      "updatedAt": "2026-06-29T15:40:57.319Z"
+    },
+    {
+      "name": "pepa-petrova-advisory-local",
+      "target": "/home/operator/projects/pepa-petrova-advisory",
+      "kind": "local_project",
+      "updatedAt": "2026-07-10T14:14:03.823Z"
+    },
+    {
+      "name": "studio-google-workspace",
+      "target": "info@example.com via ~/.config/gws; Drive/Gmail/Calendar OAuth profile",
+      "kind": "account",
+      "updatedAt": "2026-07-30T17:27:04.555Z"
+    }
+  ]
+}

@@ -1,0 +1,733 @@
+{
+ "schemaVersion": 1,
+ "cli": "sentry-cli",
+ "cliVersion": "3.4.2",
+ "cliPath": "/home/operator/.nvm/versions/node/v22.22.1/bin/sentry-cli",
+ "cliMtimeMs": 1778626951688.6963,
+ "generatedAt": "2026-08-29T13:00:20.446Z",
+ "leafCount": 45,
+ "leaves": [
+  {
+   "cmd": "build download",
+   "flags": [
+    "auth-token",
+    "build-id",
+    "header",
+    "log-level",
+    "org",
+    "output",
+    "project",
+    "quiet",
+    "silent"
+   ],
+   "desc": "[EXPERIMENTAL] Download a build artifact."
+  },
+  {
+   "cmd": "build snapshots",
+   "flags": [
+    "app-id",
+    "auth-token",
+    "base-ref",
+    "base-repo-name",
+    "base-sha",
+    "diff-threshold",
+    "force-git-metadata",
+    "head-ref",
+    "head-repo-name",
+    "head-sha",
+    "header",
+    "log-level",
+    "no-git-metadata",
+    "org",
+    "pr-number",
+    "project",
+    "quiet",
+    "selective",
+    "silent",
+    "vcs-provider"
+   ],
+   "desc": "[EXPERIMENTAL] Upload build snapshots to a project."
+  },
+  {
+   "cmd": "build upload",
+   "flags": [
+    "auth-token",
+    "base-ref",
+    "base-repo-name",
+    "base-sha",
+    "build-configuration",
+    "force-git-metadata",
+    "head-ref",
+    "head-repo-name",
+    "head-sha",
+    "header",
+    "install-group",
+    "log-level",
+    "no-git-metadata",
+    "org",
+    "pr-number",
+    "project",
+    "quiet",
+    "release-notes",
+    "silent",
+    "vcs-provider"
+   ],
+   "desc": "Upload builds to a project."
+  },
+  {
+   "cmd": "code-mappings upload",
+   "flags": [
+    "auth-token",
+    "default-branch",
+    "header",
+    "log-level",
+    "org",
+    "project",
+    "quiet",
+    "repo",
+    "silent"
+   ],
+   "desc": "Upload code mappings for a project from a JSON file. Each mapping pairs a stack trace root"
+  },
+  {
+   "cmd": "completions",
+   "flags": [
+    "auth-token",
+    "header",
+    "log-level",
+    "quiet",
+    "silent"
+   ],
+   "desc": "Generate completions for the specified shell."
+  },
+  {
+   "cmd": "dart-symbol-map upload",
+   "flags": [
+    "auth-token",
+    "header",
+    "log-level",
+    "org",
+    "project",
+    "quiet",
+    "silent"
+   ],
+   "desc": "Upload a Dart/Flutter symbol map (dartsymbolmap) for deobfuscating Dart exception types."
+  },
+  {
+   "cmd": "debug-files bundle-sources",
+   "flags": [
+    "auth-token",
+    "header",
+    "log-level",
+    "output",
+    "quiet",
+    "silent"
+   ],
+   "desc": "Create a source bundle for a given debug information file"
+  },
+  {
+   "cmd": "debug-files check",
+   "flags": [
+    "auth-token",
+    "header",
+    "json",
+    "log-level",
+    "quiet",
+    "silent",
+    "type"
+   ],
+   "desc": "Check the debug info file at a given path."
+  },
+  {
+   "cmd": "debug-files find",
+   "flags": [
+    "auth-token",
+    "header",
+    "json",
+    "log-level",
+    "no-cwd",
+    "no-well-known",
+    "path",
+    "quiet",
+    "silent",
+    "type"
+   ],
+   "desc": "Locate debug information files for given debug identifiers."
+  },
+  {
+   "cmd": "debug-files print-sources",
+   "flags": [
+    "auth-token",
+    "header",
+    "log-level",
+    "quiet",
+    "silent"
+   ],
+   "desc": "Print source files linked by the given debug info file."
+  },
+  {
+   "cmd": "debug-files upload",
+   "flags": [
+    "auth-token",
+    "derived-data",
+    "header",
+    "id",
+    "il2cpp-mapping",
+    "include-sources",
+    "log-level",
+    "no-debug",
+    "no-sources",
+    "no-unwind",
+    "no-upload",
+    "no-zips",
+    "org",
+    "project",
+    "quiet",
+    "require-all",
+    "silent",
+    "symbol-maps",
+    "type",
+    "wait",
+    "wait-for"
+   ],
+   "desc": "Upload debugging information files."
+  },
+  {
+   "cmd": "deploys list",
+   "flags": [
+    "auth-token",
+    "header",
+    "log-level",
+    "org",
+    "project",
+    "quiet",
+    "release",
+    "silent"
+   ],
+   "desc": "List all deployments of a release."
+  },
+  {
+   "cmd": "deploys new",
+   "flags": [
+    "auth-token",
+    "env",
+    "finished",
+    "header",
+    "log-level",
+    "name",
+    "org",
+    "project",
+    "quiet",
+    "release",
+    "silent",
+    "started",
+    "time",
+    "url"
+   ],
+   "desc": "Creates a new release deployment."
+  },
+  {
+   "cmd": "events list",
+   "flags": [
+    "auth-token",
+    "header",
+    "log-level",
+    "max-rows",
+    "org",
+    "pages",
+    "project",
+    "quiet",
+    "show-tags",
+    "show-user",
+    "silent"
+   ],
+   "desc": "List all events in your organization."
+  },
+  {
+   "cmd": "info",
+   "flags": [
+    "auth-token",
+    "config-status-json",
+    "header",
+    "log-level",
+    "no-defaults",
+    "quiet",
+    "silent"
+   ],
+   "desc": "Print information about the configuration and verify authentication."
+  },
+  {
+   "cmd": "issues list",
+   "flags": [
+    "all",
+    "auth-token",
+    "header",
+    "id",
+    "log-level",
+    "max-rows",
+    "org",
+    "pages",
+    "project",
+    "query",
+    "quiet",
+    "silent",
+    "status"
+   ],
+   "desc": "List all issues in your organization."
+  },
+  {
+   "cmd": "issues mute",
+   "flags": [
+    "all",
+    "auth-token",
+    "header",
+    "id",
+    "log-level",
+    "org",
+    "project",
+    "quiet",
+    "silent",
+    "status"
+   ],
+   "desc": "Bulk mute all selected issues."
+  },
+  {
+   "cmd": "issues resolve",
+   "flags": [
+    "all",
+    "auth-token",
+    "header",
+    "id",
+    "log-level",
+    "next-release",
+    "org",
+    "project",
+    "quiet",
+    "silent",
+    "status"
+   ],
+   "desc": "Bulk resolve all selected issues."
+  },
+  {
+   "cmd": "issues unresolve",
+   "flags": [
+    "all",
+    "auth-token",
+    "header",
+    "id",
+    "log-level",
+    "org",
+    "project",
+    "quiet",
+    "silent",
+    "status"
+   ],
+   "desc": "Bulk unresolve all selected issues."
+  },
+  {
+   "cmd": "login",
+   "flags": [
+    "auth-token",
+    "global",
+    "header",
+    "log-level",
+    "quiet",
+    "silent"
+   ],
+   "desc": "Authenticate with the Sentry server."
+  },
+  {
+   "cmd": "logs list",
+   "flags": [
+    "auth-token",
+    "header",
+    "live",
+    "log-level",
+    "max-rows",
+    "org",
+    "poll-interval",
+    "project",
+    "query",
+    "quiet",
+    "silent"
+   ],
+   "desc": "[BETA] List logs from your organization"
+  },
+  {
+   "cmd": "monitors list",
+   "flags": [
+    "auth-token",
+    "header",
+    "log-level",
+    "org",
+    "quiet",
+    "silent"
+   ],
+   "desc": "List all monitors for an organization."
+  },
+  {
+   "cmd": "monitors run",
+   "flags": [
+    "check-in-margin",
+    "environment",
+    "failure-issue-threshold",
+    "header",
+    "log-level",
+    "max-runtime",
+    "quiet",
+    "recovery-threshold",
+    "schedule",
+    "silent",
+    "timezone"
+   ],
+   "desc": "Wraps a command"
+  },
+  {
+   "cmd": "organizations list",
+   "flags": [
+    "auth-token",
+    "header",
+    "log-level",
+    "quiet",
+    "silent"
+   ],
+   "desc": "List all organizations available to the authenticated token."
+  },
+  {
+   "cmd": "proguard upload",
+   "flags": [
+    "auth-token",
+    "header",
+    "log-level",
+    "no-upload",
+    "org",
+    "project",
+    "quiet",
+    "require-one",
+    "silent",
+    "write-properties"
+   ],
+   "desc": "Upload ProGuard mapping files to a project."
+  },
+  {
+   "cmd": "proguard uuid",
+   "flags": [
+    "auth-token",
+    "header",
+    "log-level",
+    "quiet",
+    "silent"
+   ],
+   "desc": "Compute the UUID for a ProGuard mapping file."
+  },
+  {
+   "cmd": "projects list",
+   "flags": [
+    "auth-token",
+    "header",
+    "log-level",
+    "org",
+    "quiet",
+    "silent"
+   ],
+   "desc": "List all projects for an organization."
+  },
+  {
+   "cmd": "react-native gradle",
+   "flags": [
+    "auth-token",
+    "bundle",
+    "dist",
+    "header",
+    "log-level",
+    "org",
+    "project",
+    "quiet",
+    "release",
+    "silent",
+    "sourcemap",
+    "wait",
+    "wait-for"
+   ],
+   "desc": "Upload react-native projects in a gradle build step."
+  },
+  {
+   "cmd": "releases archive",
+   "flags": [
+    "auth-token",
+    "header",
+    "log-level",
+    "org",
+    "project",
+    "quiet",
+    "silent"
+   ],
+   "desc": "Archive a release."
+  },
+  {
+   "cmd": "releases delete",
+   "flags": [
+    "auth-token",
+    "header",
+    "log-level",
+    "org",
+    "project",
+    "quiet",
+    "silent"
+   ],
+   "desc": "Delete a release."
+  },
+  {
+   "cmd": "releases finalize",
+   "flags": [
+    "auth-token",
+    "header",
+    "log-level",
+    "org",
+    "project",
+    "quiet",
+    "released",
+    "silent",
+    "url"
+   ],
+   "desc": "Mark a release as finalized and released."
+  },
+  {
+   "cmd": "releases info",
+   "flags": [
+    "auth-token",
+    "header",
+    "log-level",
+    "org",
+    "project",
+    "quiet",
+    "show-commits",
+    "show-projects",
+    "silent"
+   ],
+   "desc": "Print information about a release."
+  },
+  {
+   "cmd": "releases list",
+   "flags": [
+    "auth-token",
+    "delimiter",
+    "header",
+    "log-level",
+    "org",
+    "project",
+    "quiet",
+    "raw",
+    "show-projects",
+    "silent"
+   ],
+   "desc": "List the most recent releases."
+  },
+  {
+   "cmd": "releases new",
+   "flags": [
+    "auth-token",
+    "finalize",
+    "header",
+    "log-level",
+    "org",
+    "project",
+    "quiet",
+    "silent",
+    "url"
+   ],
+   "desc": "Create a new release."
+  },
+  {
+   "cmd": "releases propose-version",
+   "flags": [
+    "auth-token",
+    "header",
+    "log-level",
+    "org",
+    "project",
+    "quiet",
+    "silent"
+   ],
+   "desc": "Propose a version name for a new release."
+  },
+  {
+   "cmd": "releases restore",
+   "flags": [
+    "auth-token",
+    "header",
+    "log-level",
+    "org",
+    "project",
+    "quiet",
+    "silent"
+   ],
+   "desc": "Restore a release."
+  },
+  {
+   "cmd": "releases set-commits",
+   "flags": [
+    "auth-token",
+    "auto",
+    "clear",
+    "commit",
+    "header",
+    "ignore-missing",
+    "initial-depth",
+    "local",
+    "log-level",
+    "org",
+    "project",
+    "quiet",
+    "silent"
+   ],
+   "desc": "Set commits of a release."
+  },
+  {
+   "cmd": "repos list",
+   "flags": [
+    "auth-token",
+    "header",
+    "log-level",
+    "org",
+    "quiet",
+    "silent"
+   ],
+   "desc": "List all repositories in your organization."
+  },
+  {
+   "cmd": "send-envelope",
+   "flags": [
+    "auth-token",
+    "header",
+    "log-level",
+    "quiet",
+    "raw",
+    "silent"
+   ],
+   "desc": "Send a stored envelope to Sentry."
+  },
+  {
+   "cmd": "send-event",
+   "flags": [
+    "auth-token",
+    "dist",
+    "env",
+    "extra",
+    "fingerprint",
+    "header",
+    "level",
+    "log-level",
+    "logfile",
+    "message",
+    "message-arg",
+    "no-environ",
+    "platform",
+    "quiet",
+    "raw",
+    "release",
+    "silent",
+    "tag",
+    "timestamp",
+    "user",
+    "with-categories"
+   ],
+   "desc": "Send a manual event to Sentry."
+  },
+  {
+   "cmd": "sourcemaps inject",
+   "flags": [
+    "auth-token",
+    "dry-run",
+    "ext",
+    "header",
+    "ignore",
+    "ignore-file",
+    "log-level",
+    "org",
+    "project",
+    "quiet",
+    "release",
+    "silent"
+   ],
+   "desc": "Fixes up JavaScript source files and sourcemaps with debug ids."
+  },
+  {
+   "cmd": "sourcemaps resolve",
+   "flags": [
+    "auth-token",
+    "column",
+    "header",
+    "line",
+    "log-level",
+    "org",
+    "project",
+    "quiet",
+    "release",
+    "silent"
+   ],
+   "desc": "Resolve sourcemap for a given line/column position."
+  },
+  {
+   "cmd": "sourcemaps upload",
+   "flags": [
+    "auth-token",
+    "bundle",
+    "bundle-sourcemap",
+    "debug-id-reference",
+    "decompress",
+    "dist",
+    "ext",
+    "header",
+    "ignore",
+    "ignore-file",
+    "log-level",
+    "no-rewrite",
+    "no-sourcemap-reference",
+    "note",
+    "org",
+    "project",
+    "quiet",
+    "release",
+    "silent",
+    "strict",
+    "strip-common-prefix",
+    "strip-prefix",
+    "url-prefix",
+    "url-suffix",
+    "validate",
+    "wait",
+    "wait-for"
+   ],
+   "desc": "Upload sourcemaps for a release."
+  },
+  {
+   "cmd": "uninstall",
+   "flags": [
+    "auth-token",
+    "confirm",
+    "header",
+    "log-level",
+    "quiet",
+    "silent"
+   ],
+   "desc": "Uninstall the sentry-cli executable."
+  },
+  {
+   "cmd": "upload-proguard",
+   "flags": [
+    "auth-token",
+    "header",
+    "log-level",
+    "no-upload",
+    "org",
+    "project",
+    "quiet",
+    "require-one",
+    "silent",
+    "write-properties"
+   ],
+   "desc": "Upload ProGuard mapping files to a project."
+  }
+ ]
+}

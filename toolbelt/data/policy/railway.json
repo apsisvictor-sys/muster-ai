@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "provider": "railway",
+  "dryRunFlag": "--dry-run",
+  "read": [
+    "^(status|whoami|docs|open)(\\s|$)"
+  ],
+  "destructive": [
+    "^(down|delete|volume delete|environment delete)(\\s|$)"
+  ],
+  "blocked": [
+    "^(login|logout|link|unlink)(\\s|$)"
+  ],
+  "secretReturning": [],
+  "exact": {
+    "up": "mutate",
+    "run": "mutate",
+    "redeploy": "mutate",
+    "ssh": "mutate",
+    "connect": "mutate",
+    "shell": "mutate",
+    "variables": "read",
+    "variable list": "read",
+    "add": "mutate",
+    "deploy": "mutate",
+    "deployment redeploy": "mutate",
+    "deployment up": "mutate",
+    "dev clean": "destructive",
+    "dev configure": "mutate",
+    "dev down": "destructive",
+    "dev up": "mutate",
+    "domain": "mutate",
+    "environment config": "read",
+    "environment edit": "mutate",
+    "environment link": "mutate",
+    "environment new": "mutate",
+    "functions link": "mutate",
+    "functions new": "mutate",
+    "functions pull": "mutate",
+    "functions push": "mutate",
+    "init": "mutate",
+    "project link": "mutate",
+    "restart": "mutate",
+    "service link": "mutate",
+    "service redeploy": "mutate",
+    "service restart": "mutate",
+    "service scale": "mutate",
+    "upgrade": "mutate",
+    "variable set": "mutate",
+    "volume add": "mutate",
+    "volume attach": "mutate",
+    "volume detach": "mutate",
+    "volume update": "mutate"
+  },
+  "sanitize": {
+    "variables": "namesOnly",
+    "variable list": "namesOnly"
+  }
+}

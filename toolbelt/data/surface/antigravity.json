@@ -1,0 +1,161 @@
+{
+ "schemaVersion": 1,
+ "cli": "/home/operator/.local/bin/agy",
+ "cliVersion": "1.1.22",
+ "cliPath": "/home/operator/.local/bin/agy",
+ "cliMtimeMs": 1788004973964.8335,
+ "generatedAt": "2026-08-29T13:03:06.560Z",
+ "leafCount": 28,
+ "leaves": [
+  {
+   "cmd": "agent",
+   "flags": [],
+   "desc": "List available agents"
+  },
+  {
+   "cmd": "agents",
+   "flags": [],
+   "desc": "List available agents"
+  },
+  {
+   "cmd": "changelog",
+   "flags": [],
+   "desc": "Show changelog and release notes"
+  },
+  {
+   "cmd": "install",
+   "flags": [
+    "dir",
+    "skip-aliases",
+    "skip-path"
+   ],
+   "desc": "Configure environment paths and shell settings"
+  },
+  {
+   "cmd": "mcp add",
+   "flags": [
+    "env",
+    "header",
+    "type"
+   ],
+   "desc": "Add or update an MCP server configuration"
+  },
+  {
+   "cmd": "mcp disable",
+   "flags": [],
+   "desc": "Disable an MCP server"
+  },
+  {
+   "cmd": "mcp enable",
+   "flags": [],
+   "desc": "Enable an MCP server"
+  },
+  {
+   "cmd": "mcp list",
+   "flags": [],
+   "desc": "List all configured MCP servers"
+  },
+  {
+   "cmd": "mcp remove",
+   "flags": [],
+   "desc": "Remove an MCP server configuration"
+  },
+  {
+   "cmd": "mic-serve",
+   "flags": [
+    "addr"
+   ],
+   "desc": "Serve this machine's microphone to a CLI on another host"
+  },
+  {
+   "cmd": "models",
+   "flags": [],
+   "desc": "List available models"
+  },
+  {
+   "cmd": "plugin disable",
+   "flags": [],
+   "desc": "Disable a plugin"
+  },
+  {
+   "cmd": "plugin enable",
+   "flags": [],
+   "desc": "Enable a plugin"
+  },
+  {
+   "cmd": "plugin import",
+   "flags": [],
+   "desc": "Import plugins from gemini or claude"
+  },
+  {
+   "cmd": "plugin install",
+   "flags": [],
+   "desc": "Install a plugin (supports plugin@marketplace)"
+  },
+  {
+   "cmd": "plugin link",
+   "flags": [],
+   "desc": "Generate link to a marketplace"
+  },
+  {
+   "cmd": "plugin list",
+   "flags": [],
+   "desc": "List imported plugins"
+  },
+  {
+   "cmd": "plugin uninstall",
+   "flags": [],
+   "desc": "Uninstall a plugin"
+  },
+  {
+   "cmd": "plugin validate",
+   "flags": [],
+   "desc": "Validate a plugin"
+  },
+  {
+   "cmd": "plugins disable",
+   "flags": [],
+   "desc": "Disable a plugin"
+  },
+  {
+   "cmd": "plugins enable",
+   "flags": [],
+   "desc": "Enable a plugin"
+  },
+  {
+   "cmd": "plugins import",
+   "flags": [],
+   "desc": "Import plugins from gemini or claude"
+  },
+  {
+   "cmd": "plugins install",
+   "flags": [],
+   "desc": "Install a plugin (supports plugin@marketplace)"
+  },
+  {
+   "cmd": "plugins link",
+   "flags": [],
+   "desc": "Generate link to a marketplace"
+  },
+  {
+   "cmd": "plugins list",
+   "flags": [],
+   "desc": "List imported plugins"
+  },
+  {
+   "cmd": "plugins uninstall",
+   "flags": [],
+   "desc": "Uninstall a plugin"
+  },
+  {
+   "cmd": "plugins validate",
+   "flags": [],
+   "desc": "Validate a plugin"
+  },
+  {
+   "cmd": "update",
+   "flags": [],
+   "desc": "Update CLI"
+  }
+ ]
+}

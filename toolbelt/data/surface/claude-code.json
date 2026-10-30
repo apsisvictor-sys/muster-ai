@@ -1,0 +1,329 @@
+{
+ "schemaVersion": 1,
+ "cli": "claude",
+ "cliVersion": "2.1.269",
+ "cliPath": "/home/operator/.local/bin/claude",
+ "cliMtimeMs": 1789154776782.002,
+ "generatedAt": "2026-09-12T13:20:01.017Z",
+ "leafCount": 38,
+ "coverage": {
+  "source": "help_walk",
+  "maxDepth": 3,
+  "helpNodes": 46,
+  "complete": true,
+  "truncatedLeafCount": 0,
+  "truncatedLeaves": [],
+  "unexpandedGroups": [],
+  "repeatedParentLeaves": []
+ },
+ "leaves": [
+  {
+   "cmd": "agents",
+   "flags": [
+    "add-dir",
+    "agent",
+    "all",
+    "allow-dangerously-skip-permissions",
+    "cwd",
+    "dangerously-skip-permissions",
+    "effort",
+    "json",
+    "mcp-config",
+    "model",
+    "permission-mode",
+    "plugin-dir",
+    "restricted",
+    "setting-sources",
+    "settings",
+    "strict-mcp-config"
+   ],
+   "desc": "Manage background agents"
+  },
+  {
+   "cmd": "attach",
+   "flags": [],
+   "desc": "Open a background session in this"
+  },
+  {
+   "cmd": "auth login",
+   "flags": [
+    "claudeai",
+    "console",
+    "email",
+    "sso"
+   ],
+   "desc": "Sign in to your Anthropic account"
+  },
+  {
+   "cmd": "auth logout",
+   "flags": [],
+   "desc": "Log out from your Anthropic account"
+  },
+  {
+   "cmd": "auth status",
+   "flags": [
+    "json",
+    "text"
+   ],
+   "desc": "Show authentication status"
+  },
+  {
+   "cmd": "auto-mode config",
+   "flags": [],
+   "desc": "Print the effective auto mode config as JSON: your"
+  },
+  {
+   "cmd": "auto-mode critique",
+   "flags": [
+    "model"
+   ],
+   "desc": "Get AI feedback on your custom auto mode rules"
+  },
+  {
+   "cmd": "auto-mode defaults",
+   "flags": [
+    "label"
+   ],
+   "desc": "Print the default auto mode environment, allow, soft_deny,"
+  },
+  {
+   "cmd": "auto-mode reset",
+   "flags": [
+    "yes"
+   ],
+   "desc": "Reset auto mode configuration to the shipped defaults by"
+  },
+  {
+   "cmd": "doctor",
+   "flags": [],
+   "desc": "Check the health of your Claude Code"
+  },
+  {
+   "cmd": "gateway",
+   "flags": [
+    "config"
+   ],
+   "desc": "Run the enterprise auth/telemetry"
+  },
+  {
+   "cmd": "import",
+   "flags": [
+    "dry-run",
+    "yes"
+   ],
+   "desc": "Import config from another AI coding"
+  },
+  {
+   "cmd": "install",
+   "flags": [
+    "force"
+   ],
+   "desc": "Install Claude Code native build. Use"
+  },
+  {
+   "cmd": "kill",
+   "flags": [],
+   "desc": "Stop a background session. Its"
+  },
+  {
+   "cmd": "logs",
+   "flags": [],
+   "desc": "Print a background session's recent"
+  },
+  {
+   "cmd": "mcp add",
+   "flags": [
+    "callback-port",
+    "client-id",
+    "client-secret",
+    "env",
+    "header",
+    "scope",
+    "some-flag",
+    "transport"
+   ],
+   "desc": "Add an MCP server to Claude Code."
+  },
+  {
+   "cmd": "plugins autoremove",
+   "flags": [
+    "dry-run",
+    "scope",
+    "yes"
+   ],
+   "desc": "Remove auto-installed dependencies that"
+  },
+  {
+   "cmd": "plugins details",
+   "flags": [],
+   "desc": "Show a plugin's component inventory and"
+  },
+  {
+   "cmd": "plugins disable",
+   "flags": [
+    "all",
+    "json",
+    "scope"
+   ],
+   "desc": "Disable an enabled plugin"
+  },
+  {
+   "cmd": "plugins enable",
+   "flags": [
+    "json",
+    "scope"
+   ],
+   "desc": "Enable a disabled plugin"
+  },
+  {
+   "cmd": "plugins eval init",
+   "flags": [
+    "bare",
+    "eval-dir",
+    "interactive"
+   ],
+   "desc": "Author an eval suite under the eval dir (evals/"
+  },
+  {
+   "cmd": "plugins init",
+   "flags": [
+    "author",
+    "author-email",
+    "description",
+    "force",
+    "with"
+   ],
+   "desc": "Scaffold a new plugin at"
+  },
+  {
+   "cmd": "plugins install",
+   "flags": [
+    "config",
+    "json",
+    "scope",
+    "yes"
+   ],
+   "desc": "Install a plugin from available"
+  },
+  {
+   "cmd": "plugins list",
+   "flags": [
+    "available",
+    "json"
+   ],
+   "desc": "List installed plugins"
+  },
+  {
+   "cmd": "plugins marketplace add",
+   "flags": [
+    "claudeai",
+    "scope",
+    "sparse"
+   ],
+   "desc": "Add a marketplace from a URL, path, or GitHub repo"
+  },
+  {
+   "cmd": "plugins marketplace list",
+   "flags": [
+    "json"
+   ],
+   "desc": "List all configured marketplaces"
+  },
+  {
+   "cmd": "plugins marketplace remove",
+   "flags": [
+    "scope"
+   ],
+   "desc": "Remove a configured marketplace"
+  },
+  {
+   "cmd": "plugins marketplace update",
+   "flags": [],
+   "desc": "Update marketplace(s) from their source - updates"
+  },
+  {
+   "cmd": "plugins tag",
+   "flags": [
+    "dry-run",
+    "force",
+    "message",
+    "push",
+    "remote"
+   ],
+   "desc": "Create a {name}--v{version} git tag for a"
+  },
+  {
+   "cmd": "plugins uninstall",
+   "flags": [
+    "json",
+    "keep-data",
+    "prune",
+    "scope",
+    "yes"
+   ],
+   "desc": "Uninstall an installed plugin"
+  },
+  {
+   "cmd": "plugins update",
+   "flags": [
+    "json",
+    "scope",
+    "yes"
+   ],
+   "desc": "Update a plugin to the latest version"
+  },
+  {
+   "cmd": "plugins validate",
+   "flags": [
+    "json",
+    "strict"
+   ],
+   "desc": "Validate a plugin or marketplace"
+  },
+  {
+   "cmd": "project purge",
+   "flags": [
+    "all",
+    "dry-run",
+    "interactive",
+    "yes"
+   ],
+   "desc": "Delete all Claude Code state for a project"
+  },
+  {
+   "cmd": "respawn",
+   "flags": [
+    "all"
+   ],
+   "desc": "Restart a background session, or all of"
+  },
+  {
+   "cmd": "rm",
+   "flags": [
+    "discard-unpushed",
+    "force-remove-worktree"
+   ],
+   "desc": "Delete a background session, and its"
+  },
+  {
+   "cmd": "setup-token",
+   "flags": [],
+   "desc": "Set up a long-lived authentication token"
+  },
+  {
+   "cmd": "ultrareview",
+   "flags": [
+    "json",
+    "no-post",
+    "post",
+    "timeout"
+   ],
+   "desc": "Run a cloud-hosted multi-agent code"
+  },
+  {
+   "cmd": "upgrade",
+   "flags": [],
+   "desc": "Check for updates and install if"
+  }
+ ]
+}

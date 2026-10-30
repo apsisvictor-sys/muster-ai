@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "provider": "stripe",
+  "dryRunFlag": "--dry-run",
+  "read": [
+    "^(get|balance|events|community|feedback|docs|version|open)(\\s|$)"
+  ],
+  "destructive": [
+    "^(delete|trigger)(\\s|$)"
+  ],
+  "blocked": [
+    "^(login|logout|config)(\\s|$)"
+  ],
+  "secretReturning": [
+    "^(config --list|apikeys)(\\s|$)"
+  ],
+  "exact": {
+    "post": "mutate",
+    "fixtures": "mutate",
+    "listen": "read",
+    "logs tail": "read",
+    "charges": "mutate",
+    "customers": "mutate",
+    "samples create": "mutate",
+    "serve": "read",
+    "v2": "read"
+  }
+}

@@ -1,0 +1,509 @@
+{
+ "schemaVersion": 1,
+ "cli": "/home/operator/.pi/agent/harness/toolbelt/generated/pixellab/pixellab",
+ "cliVersion": null,
+ "cliPath": "/home/operator/.pi/agent/harness/toolbelt/generated/pixellab/pixellab",
+ "cliMtimeMs": 1778714652747.1248,
+ "generatedAt": "2026-08-29T13:01:36.226Z",
+ "leafCount": 62,
+ "leaves": [
+  {
+   "cmd": "animate-character",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "animate-object",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "animate-with-skeleton",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "animate-with-text",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "animate-with-text-v2",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "animate-with-text-v3",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "balance",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "characters-animations",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "characters-delete",
+   "flags": [
+    "args"
+   ],
+   "class": "sensitive",
+   "desc": null
+  },
+  {
+   "cmd": "characters-get",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "characters-list",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "characters-tags",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "characters-zip",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "create-character-pro",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "create-character-state",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "create-character-v3",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "create-character-with-4-directions",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "create-character-with-8-directions",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "create-image-bitforge",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "create-image-pixen",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "create-image-pixflux",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "create-isometric-tile",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "create-object-state",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "create-object-with-4-directions",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "create-tiles-pro",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "create-tileset",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "create-tileset-sidescroller",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "edit-animation-v2",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "edit-image",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "edit-images-v2",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "estimate-skeleton",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "generate-8-rotations-v2",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "generate-8-rotations-v3",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "generate-image-v2",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "generate-ui-v2",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "generate-with-style-v2",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "image-to-pixelart",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "inpaint",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "inpaint-v3",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "interpolation-v2",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "isometric-tile-get",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "isometric-tiles-list",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "job-get",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "llms-txt",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "map-objects",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "objects-create",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "objects-delete",
+   "flags": [
+    "args"
+   ],
+   "class": "sensitive",
+   "desc": null
+  },
+  {
+   "cmd": "objects-dismiss-review",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "objects-get",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "objects-list",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "objects-select-frames",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "objects-tags",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "remove-background",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "resize",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "rotate",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "status",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "tiles-pro-get",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "tileset-get",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "tilesets",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "tilesets-list",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "tilesets-sidescroller",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "transfer-outfit-v2",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  }
+ ],
+ "source": "provider_catalog",
+ "note": "Operations take a single --args JSON object."
+}

@@ -1,0 +1,111 @@
+{
+ "schemaVersion": 1,
+ "cli": "python3",
+ "cliVersion": null,
+ "cliPath": "/usr/bin/python3",
+ "cliMtimeMs": 1788171506000,
+ "generatedAt": "2026-09-12T13:00:01.728Z",
+ "leafCount": 11,
+ "coverage": {
+  "source": "help_walk",
+  "maxDepth": 3,
+  "helpNodes": 1,
+  "complete": true,
+  "truncatedLeafCount": 0,
+  "truncatedLeaves": [],
+  "unexpandedGroups": [],
+  "repeatedParentLeaves": []
+ },
+ "leaves": [
+  {
+   "cmd": "account-readonly",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "dashboard",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "demo-dry-run",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "doctor",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "export-bundle",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "help",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "live-boundary",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "manual",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "readiness",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "shadow-live",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "status",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  }
+ ],
+ "source": "provider_catalog",
+ "note": "Operations take a single --args JSON object."
+}

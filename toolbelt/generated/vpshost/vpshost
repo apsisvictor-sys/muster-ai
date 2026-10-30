@@ -1,0 +1,107 @@
+#!/usr/bin/env node
+"use strict";
+
+/**
+ * VPS host generated CLI — official REST API v1 (no official VPS host CLI exists).
+ * Key comes from VPSHOST_API_KEY only; the value is never printed or returned.
+ * Usage: vps <operation> [--args '<json>']
+ */
+
+const API_KEY_ENV = "VPSHOST_API_KEY";
+const BASE = "https://developers.vps.com/api";
+
+const READ = {
+  status:                 { path: "/billing/v1/subscriptions" },
+  "vps-list":             { path: "/vps/v1/virtual-machines" },
+  "vps-get":              { path: "/vps/v1/virtual-machines/{virtualMachineId}", req: ["virtualMachineId"] },
+  "vps-metrics":          { path: "/vps/v1/virtual-machines/{virtualMachineId}/metrics", req: ["virtualMachineId"] },
+  "vps-backups":          { path: "/vps/v1/virtual-machines/{virtualMachineId}/backups", req: ["virtualMachineId"] },
+  "vps-snapshot":         { path: "/vps/v1/virtual-machines/{virtualMachineId}/snapshot", req: ["virtualMachineId"] },
+  "vps-actions":          { path: "/vps/v1/virtual-machines/{virtualMachineId}/actions", req: ["virtualMachineId"] },
+  "vps-datacenters":      { path: "/vps/v1/data-centers" },
+  "vps-templates":        { path: "/vps/v1/templates" },
+  "vps-plans":            { path: "/vps/v1/catalog" },
+  "firewall-list":        { path: "/vps/v1/firewall" },
+  "firewall-get":         { path: "/vps/v1/firewall/{firewallId}", req: ["firewallId"] },
+  "domains-list":         { path: "/domains/v1/portfolio" },
+  "domains-get":          { path: "/domains/v1/portfolio/{domain}", req: ["domain"] },
+  "domains-availability": { path: "/domains/v1/availability", req: ["domain"], query: ["domain", "tlds"] },
+  "dns-records":          { path: "/dns/v1/zones/{domain}", req: ["domain"] },
+  "dns-snapshots":        { path: "/dns/v1/snapshots/{domain}", req: ["domain"] },
+  "billing-subscriptions":{ path: "/billing/v1/subscriptions" },
+  "billing-catalog":      { path: "/billing/v1/catalog" },
+  "billing-orders":       { path: "/billing/v1/orders" },
+};
+
+// Represented but never executed by this CLI — Toolbelt gates them.
+const MUTATING = [
+  "vps-start", "vps-stop", "vps-restart", "vps-recreate", "vps-setup",
+  "vps-hostname-set", "vps-root-password-set", "vps-nameservers-set",
+  "vps-snapshot-create", "vps-snapshot-restore", "vps-snapshot-delete",
+  "vps-backup-restore", "vps-backup-delete",
+  "firewall-create", "firewall-delete", "firewall-activate", "firewall-deactivate",
+  "firewall-rule-create", "firewall-rule-update", "firewall-rule-delete",
+  "domains-purchase", "domains-renew", "domains-nameservers-set",
+  "domains-privacy-enable", "domains-privacy-disable", "domains-lock", "domains-unlock",
+  "dns-record-set", "dns-record-delete", "dns-snapshot-restore",
+  "billing-order-create", "billing-subscription-cancel",
+];
+
+function out(obj) { process.stdout.write(JSON.stringify(obj) + "\n"); }
+function fail(code, extra) { out({ ok: false, error: code, valuesPrinted: false, ...(extra || {}) }); process.exit(1); }
+
+function parseArgv(argv) {
+  const operation = argv[0] || "status";
+  const opts = {};
+  for (let i = 1; i < argv.length; i += 1) {
+    if (!argv[i].startsWith("--")) continue;
+    const key = argv[i].slice(2);
+    const next = argv[i + 1];
+    if (next && !next.startsWith("--")) { opts[key] = next; i += 1; } else opts[key] = true;
+  }
+  let args = {};
+  if (opts.args) {
+    try { args = JSON.parse(String(opts.args)); } catch { fail("bad_args", { message: "--args must be a JSON object" }); }
+    if (!args || typeof args !== "object" || Array.isArray(args)) fail("bad_args", { message: "--args must be a JSON object" });
+  }
+  return { operation, args };
+}
+
+async function main() {
+  const { operation, args } = parseArgv(process.argv.slice(2));
+
+  if (operation === "operations") return out({ ok: true, read: Object.keys(READ), mutating: MUTATING, valuesPrinted: false });
+  if (MUTATING.includes(operation)) {
+    return out({ ok: false, error: "approval_required", operation, mutating: true,
+      message: "VPS host mutating operation is represented but not executed by the generated CLI.", valuesPrinted: false });
+  }
+  const spec = READ[operation];
+  if (!spec) return fail("unsupported_operation", { operation, allowed: [...Object.keys(READ), ...MUTATING] });
+
+  const apiKey = process.env[API_KEY_ENV];
+  if (!apiKey) return fail("missing_credentials", { message: `${API_KEY_ENV} is not set`, apiKeyConfigured: false });
+
+  let url = BASE + spec.path;
+  for (const name of spec.req || []) {
+    const v = args[name];
+    if (v === undefined || v === null || String(v).trim() === "") return fail("missing_required_arg", { required: spec.req });
+    url = url.replace(`{${name}}`, encodeURIComponent(String(v).trim()));
+  }
+  const qs = new URLSearchParams();
+  for (const name of spec.query || []) if (args[name] !== undefined && !url.includes(`{${name}}`)) qs.set(name, String(args[name]));
+  if ([...qs].length) url += `?${qs}`;
+
+  let res, body;
+  try {
+    res = await fetch(url, { headers: { Authorization: `Bearer ${apiKey}`, Accept: "application/json" },
+                             signal: AbortSignal.timeout(30_000) });
+    const text = await res.text();
+    try { body = JSON.parse(text); } catch { body = { raw: text.slice(0, 500) }; }
+  } catch (err) {
+    return fail("request_failed", { message: String(err && err.message).slice(0, 200) });
+  }
+  if (!res.ok) return fail("http_error", { httpStatus: res.status, body: JSON.stringify(body).slice(0, 300) });
+  out({ ok: true, operation, httpStatus: res.status, data: body && body.data !== undefined ? body.data : body, valuesPrinted: false });
+}
+
+main().catch((err) => fail("unhandled", { message: String(err && err.message).slice(0, 200) }));

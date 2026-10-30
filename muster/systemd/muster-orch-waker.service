@@ -1,0 +1,48 @@
+# The orchestrator waker — the seat's one wake path (WAKE1, Henry via the operator 2026-10-29 03:29).
+#
+# This is a user unit (`systemctl --user`), one per machine. systemd owns the process
+# lifetime: `Restart=always` brings a killed waker back in about `RestartSec`, and the tick
+# (`muster/tick.ts`, `wakerGuardReason`) restarts the unit when systemd says it is down or
+# when a handoff has waited past 15 minutes with no turn from the seat since.
+#
+# Install (operator step, after the release or worktree that carries this file is in place):
+#
+#   install -m 0644 muster/systemd/muster-orch-waker.service ~/.config/systemd/user/
+#   systemctl --user daemon-reload
+#   systemctl --user enable --now muster-orch-waker.service
+#
+# The same install retires the waiter's backstop, which this unit replaces:
+#
+#   systemctl --user disable --now orch-heartbeat.timer
+#   rm -f ~/.config/systemd/user/orch-heartbeat.timer ~/.config/systemd/user/orch-heartbeat.service
+#   rm -f ~/.pi/agent/scripts/orch-heartbeat.sh ~/.pi/agent/scripts/orch-heartbeat.timer
+#   systemctl --user daemon-reload
+#
+# Nothing in this unit assigns a seat, and it holds no credential: the seat's token stays in
+# the seat file that only its holder reads.
+
+[Unit]
+Description=Muster orchestrator waker (the seat's one wake path)
+Documentation=file:/home/operator/.pi/agent/harness/muster/orch-waker.ts
+After=network-online.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+WorkingDirectory=%h/.pi/agent
+Environment=PI_AGENT_HOME=%h/.pi/agent
+Environment=NODE_NO_WARNINGS=1
+Environment=PATH=%h/.local/bin:/usr/local/bin:/usr/bin:/bin
+# The harness link, not a release path: a flip repoints it and the unit follows without an edit.
+ExecStart=%h/.pi/agent/harness/muster/scripts/muster-orch-waker.sh
+Restart=always
+RestartSec=3
+# The waker blocks on the event store for 30 s at a time and proves a turn for up to 3 minutes,
+# so its own shutdown is bounded by the work in hand, not by a fixed sleep.
+KillSignal=SIGTERM
+TimeoutStopSec=30
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target

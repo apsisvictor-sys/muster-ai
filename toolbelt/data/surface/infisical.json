@@ -1,0 +1,918 @@
+{
+ "schemaVersion": 1,
+ "cli": "infisical",
+ "cliVersion": "0.43.125",
+ "cliPath": "/home/operator/.nvm/versions/node/v24.18.0/bin/infisical",
+ "cliMtimeMs": 1787353430000,
+ "generatedAt": "2026-09-12T13:19:46.758Z",
+ "leafCount": 49,
+ "coverage": {
+  "source": "help_walk",
+  "maxDepth": 3,
+  "helpNodes": 74,
+  "complete": true,
+  "truncatedLeafCount": 0,
+  "truncatedLeaves": [],
+  "unexpandedGroups": [],
+  "repeatedParentLeaves": []
+ },
+ "leaves": [
+  {
+   "cmd": "agent",
+   "flags": [
+    "config",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "silent",
+    "telemetry"
+   ],
+   "desc": "Used to launch a client daemon that streamlines authentication and secret retrieval processes in various environments"
+  },
+  {
+   "cmd": "bootstrap",
+   "flags": [
+    "domain",
+    "email",
+    "ignore-if-bootstrapped",
+    "k8-secret-name",
+    "k8-secret-namespace",
+    "k8-secret-template",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "organization",
+    "output",
+    "password",
+    "silent",
+    "telemetry"
+   ],
+   "desc": "Used to bootstrap your Infisical instance"
+  },
+  {
+   "cmd": "cert-manager agent",
+   "flags": [
+    "config",
+    "domain",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "silent",
+    "telemetry",
+    "verbose"
+   ],
+   "desc": "Launch certificate management agent"
+  },
+  {
+   "cmd": "dynamic-secrets lease create",
+   "flags": [
+    "domain",
+    "env",
+    "kubernetes-namespace",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "output",
+    "path",
+    "plain",
+    "principals",
+    "project",
+    "project-slug",
+    "silent",
+    "telemetry",
+    "token",
+    "ttl"
+   ],
+   "desc": "Used to lease dynamic secret by name"
+  },
+  {
+   "cmd": "dynamic-secrets lease delete",
+   "flags": [
+    "domain",
+    "env",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "output",
+    "path",
+    "project",
+    "project-slug",
+    "silent",
+    "telemetry",
+    "token"
+   ],
+   "desc": "Used to delete dynamic secret lease by name"
+  },
+  {
+   "cmd": "dynamic-secrets lease list",
+   "flags": [
+    "domain",
+    "env",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "output",
+    "path",
+    "project",
+    "project-slug",
+    "silent",
+    "telemetry",
+    "token"
+   ],
+   "desc": "Used to list leases of a dynamic secret by name"
+  },
+  {
+   "cmd": "dynamic-secrets lease renew",
+   "flags": [
+    "domain",
+    "env",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "output",
+    "path",
+    "project",
+    "project-slug",
+    "silent",
+    "telemetry",
+    "token",
+    "ttl"
+   ],
+   "desc": "Used to renew dynamic secret lease by name"
+  },
+  {
+   "cmd": "export",
+   "flags": [
+    "domain",
+    "env",
+    "expand",
+    "format",
+    "include-imports",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "output-file",
+    "path",
+    "project",
+    "secret-overriding",
+    "silent",
+    "tags",
+    "telemetry",
+    "template",
+    "token"
+   ],
+   "desc": "Used to export environment variables to a file"
+  },
+  {
+   "cmd": "gateway install",
+   "flags": [
+    "domain",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "silent",
+    "telemetry",
+    "token"
+   ],
+   "desc": "Install and enable systemd service for the gateway (requires sudo)"
+  },
+  {
+   "cmd": "gateway relay",
+   "flags": [
+    "config",
+    "domain",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "silent",
+    "telemetry"
+   ],
+   "desc": "Used to run infisical gateway relay"
+  },
+  {
+   "cmd": "gateway start",
+   "flags": [
+    "auth-method",
+    "client-id",
+    "client-secret",
+    "domain",
+    "enroll-method",
+    "gateway-id",
+    "jwt",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "machine-identity-id",
+    "organization-slug",
+    "pam-session-recording-path",
+    "pkcs11-module",
+    "relay",
+    "service-account-key-file-path",
+    "service-account-token-path",
+    "silent",
+    "target-relay-name",
+    "telemetry",
+    "token"
+   ],
+   "desc": "Start the new Infisical gateway"
+  },
+  {
+   "cmd": "gateway systemd install",
+   "flags": [
+    "domain",
+    "enroll-method",
+    "gateway-id",
+    "log-destination",
+    "log-file",
+    "log-format",
+    "log-level",
+    "pkcs11-module",
+    "relay",
+    "silent",
+    "target-relay-name",
+    "telemetry",
+    "token"
+   ],
+   "desc": "Install and enable systemd service for the gateway (v2) (requires sudo)"
+  },
+  {
+   "cmd": "gateway systemd uninstall",
+   "flags": [
+    "domain",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "silent",
+    "telemetry"
+   ],
+   "desc": "Uninstall and remove systemd service for the gateway (requires sudo)"
+  },
+  {
+   "cmd": "gateway uninstall",
+   "flags": [
+    "domain",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "silent",
+    "telemetry"
+   ],
+   "desc": "Uninstall and remove systemd service for the gateway (requires sudo)"
+  },
+  {
+   "cmd": "init",
+   "flags": [
+    "domain",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "silent",
+    "telemetry"
+   ],
+   "desc": "Used to connect your local project with Infisical project"
+  },
+  {
+   "cmd": "kmip start",
+   "flags": [
+    "certificate-ttl",
+    "domain",
+    "enroll-method",
+    "hostnames-or-ips",
+    "identity-auth-method",
+    "identity-client-id",
+    "identity-client-secret",
+    "kmip-server-id",
+    "listen-address",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "server-name",
+    "silent",
+    "telemetry",
+    "token"
+   ],
+   "desc": "Used to start a KMIP server"
+  },
+  {
+   "cmd": "kmip systemd install",
+   "flags": [
+    "certificate-ttl",
+    "domain",
+    "enroll-method",
+    "hostnames-or-ips",
+    "identity-client-id",
+    "identity-client-secret",
+    "kmip-server-id",
+    "listen-address",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "server-name",
+    "silent",
+    "telemetry",
+    "token"
+   ],
+   "desc": "Install and enable systemd service for the KMIP server (requires sudo)"
+  },
+  {
+   "cmd": "kmip systemd uninstall",
+   "flags": [
+    "domain",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "silent",
+    "telemetry"
+   ],
+   "desc": "Uninstall and remove systemd service for the KMIP server (requires sudo)"
+  },
+  {
+   "cmd": "login status",
+   "flags": [
+    "domain",
+    "json",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "silent",
+    "telemetry",
+    "token"
+   ],
+   "desc": "View the current authentication status"
+  },
+  {
+   "cmd": "pam access",
+   "flags": [
+    "domain",
+    "duration",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "port",
+    "reason",
+    "silent",
+    "target",
+    "telemetry"
+   ],
+   "desc": "Launch a PAM session for the account at the given path"
+  },
+  {
+   "cmd": "pam agentic access",
+   "flags": [
+    "account",
+    "agent",
+    "auth-method",
+    "client-id",
+    "client-secret",
+    "domain",
+    "duration",
+    "jwt",
+    "ldap-password",
+    "ldap-username",
+    "log-destination",
+    "log-file",
+    "log-format",
+    "log-level",
+    "machine-identity-id",
+    "model",
+    "no-approval-request",
+    "no-sandbox",
+    "organization-slug",
+    "reason",
+    "service-account-key-file-path",
+    "service-account-token-path",
+    "silent",
+    "telemetry",
+    "token"
+   ],
+   "desc": "Start local proxies for your PAM accounts and launch an AI agent against them"
+  },
+  {
+   "cmd": "proxy start",
+   "flags": [
+    "access-token-check-interval",
+    "client",
+    "client-id",
+    "client-secret",
+    "domain",
+    "enable-event-subscriptions",
+    "eviction-strategy",
+    "listen-address",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "polling-fallback-interval",
+    "silent",
+    "static-secrets-refresh-interval",
+    "telemetry",
+    "tls-cert-file",
+    "tls-enabled",
+    "tls-key-file"
+   ],
+   "desc": "Start the Infisical proxy server"
+  },
+  {
+   "cmd": "relay start",
+   "flags": [
+    "auth-method",
+    "client-id",
+    "client-secret",
+    "domain",
+    "enroll-method",
+    "host",
+    "jwt",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "machine-identity-id",
+    "name",
+    "relay-id",
+    "service-account-key-file-path",
+    "service-account-token-path",
+    "silent",
+    "telemetry",
+    "token",
+    "type"
+   ],
+   "desc": "Start the Infisical relay component"
+  },
+  {
+   "cmd": "relay systemd install",
+   "flags": [
+    "domain",
+    "enroll-method",
+    "host",
+    "log-destination",
+    "log-file",
+    "log-format",
+    "log-level",
+    "relay-auth-secret",
+    "relay-id",
+    "silent",
+    "telemetry",
+    "token",
+    "type"
+   ],
+   "desc": "Install and enable systemd service for the relay (requires sudo)"
+  },
+  {
+   "cmd": "relay systemd uninstall",
+   "flags": [
+    "domain",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "silent",
+    "telemetry"
+   ],
+   "desc": "Uninstall and remove systemd service for the relay (requires sudo)"
+  },
+  {
+   "cmd": "reset",
+   "flags": [
+    "domain",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "silent",
+    "telemetry"
+   ],
+   "desc": "Used to delete all Infisical related data on your machine"
+  },
+  {
+   "cmd": "run",
+   "flags": [
+    "command",
+    "domain",
+    "env",
+    "expand",
+    "include-imports",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "path",
+    "project",
+    "project-config-dir",
+    "recursive",
+    "secret-overriding",
+    "silent",
+    "tags",
+    "telemetry",
+    "token",
+    "watch",
+    "watch-interval"
+   ],
+   "desc": "Used to inject environments variables into your application process"
+  },
+  {
+   "cmd": "scan git-changes",
+   "flags": [
+    "baseline-path",
+    "config",
+    "domain",
+    "exit-code",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "log-opts",
+    "max-target-megabytes",
+    "no-color",
+    "redact",
+    "report-format",
+    "report-path",
+    "silent",
+    "source",
+    "staged",
+    "telemetry",
+    "verbose"
+   ],
+   "desc": "Scan for secrets in uncommitted changes in a git repo"
+  },
+  {
+   "cmd": "scan install",
+   "flags": [
+    "baseline-path",
+    "config",
+    "domain",
+    "exit-code",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "max-target-megabytes",
+    "no-color",
+    "pre-commit-hook",
+    "redact",
+    "report-format",
+    "report-path",
+    "silent",
+    "source",
+    "telemetry",
+    "verbose"
+   ],
+   "desc": "Install scanning scripts and tools. Use --help flag to see all options"
+  },
+  {
+   "cmd": "secrets agent-proxy connect",
+   "flags": [
+    "allow-readable-brokered-secrets",
+    "client-id",
+    "client-secret",
+    "domain",
+    "env",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "no-proxy",
+    "path",
+    "project",
+    "proxy",
+    "silent",
+    "tags",
+    "telemetry",
+    "token"
+   ],
+   "desc": "Set up the environment and launch an agent behind the agent proxy"
+  },
+  {
+   "cmd": "secrets agent-proxy run",
+   "flags": [
+    "allow-host",
+    "allow-read",
+    "allow-write",
+    "domain",
+    "env",
+    "log-destination",
+    "log-file",
+    "log-format",
+    "log-level",
+    "no-sandbox",
+    "pass-env",
+    "path",
+    "poll-interval",
+    "project",
+    "sandbox",
+    "set-env",
+    "silent",
+    "tags",
+    "telemetry",
+    "token",
+    "unmatched-host"
+   ],
+   "desc": "Launch an agent on this machine, sandboxed, with credentials brokered on the wire"
+  },
+  {
+   "cmd": "secrets agent-proxy start",
+   "flags": [
+    "client-id",
+    "client-secret",
+    "domain",
+    "env",
+    "log-destination",
+    "log-file",
+    "log-format",
+    "log-level",
+    "poll-interval",
+    "port",
+    "silent",
+    "tags",
+    "telemetry",
+    "unmatched-host"
+   ],
+   "desc": "Start the agent proxy (MITM proxy that brokers credentials on the wire)"
+  },
+  {
+   "cmd": "secrets delete",
+   "flags": [
+    "domain",
+    "env",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "output",
+    "path",
+    "project",
+    "silent",
+    "tags",
+    "telemetry",
+    "token",
+    "type"
+   ],
+   "desc": "Used to delete secrets by name"
+  },
+  {
+   "cmd": "secrets folders create",
+   "flags": [
+    "domain",
+    "env",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "name",
+    "output",
+    "path",
+    "project",
+    "silent",
+    "tags",
+    "telemetry",
+    "token"
+   ],
+   "desc": "Create a folder"
+  },
+  {
+   "cmd": "secrets folders delete",
+   "flags": [
+    "domain",
+    "env",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "name",
+    "output",
+    "path",
+    "project",
+    "silent",
+    "tags",
+    "telemetry",
+    "token"
+   ],
+   "desc": "Delete a folder"
+  },
+  {
+   "cmd": "secrets folders get",
+   "flags": [
+    "domain",
+    "env",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "output",
+    "path",
+    "project",
+    "silent",
+    "tags",
+    "telemetry",
+    "token"
+   ],
+   "desc": "Get folders in a directory"
+  },
+  {
+   "cmd": "secrets generate-example-env",
+   "flags": [
+    "domain",
+    "env",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "path",
+    "project",
+    "silent",
+    "tags",
+    "telemetry",
+    "token"
+   ],
+   "desc": "Used to generate a example .env file"
+  },
+  {
+   "cmd": "secrets get",
+   "flags": [
+    "domain",
+    "env",
+    "expand",
+    "include-imports",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "output",
+    "path",
+    "plain",
+    "project",
+    "recursive",
+    "secret-overriding",
+    "silent",
+    "tags",
+    "telemetry",
+    "token"
+   ],
+   "desc": "Used to retrieve secrets by name"
+  },
+  {
+   "cmd": "secrets set",
+   "flags": [
+    "domain",
+    "env",
+    "file",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "output",
+    "path",
+    "project",
+    "show-values",
+    "silent",
+    "tag",
+    "tags",
+    "telemetry",
+    "token",
+    "type"
+   ],
+   "desc": "Used set secrets"
+  },
+  {
+   "cmd": "service-token create",
+   "flags": [
+    "access-level",
+    "domain",
+    "expiry-seconds",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "name",
+    "project",
+    "scope",
+    "silent",
+    "telemetry",
+    "token-only"
+   ],
+   "desc": "Used to create service tokens"
+  },
+  {
+   "cmd": "ssh add-host",
+   "flags": [
+    "alias",
+    "configure-sshd",
+    "domain",
+    "force",
+    "hostname",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "project",
+    "silent",
+    "telemetry",
+    "token",
+    "user-ca-out-file-path",
+    "write-host-cert-to-file",
+    "write-user-ca-to-file"
+   ],
+   "desc": "Register a new SSH host with Infisical"
+  },
+  {
+   "cmd": "ssh connect",
+   "flags": [
+    "domain",
+    "hostname",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "login-user",
+    "out-file-path",
+    "silent",
+    "telemetry",
+    "token",
+    "write-host-ca-to-file"
+   ],
+   "desc": "Connect to an SSH host using issued credentials"
+  },
+  {
+   "cmd": "ssh issue-credentials",
+   "flags": [
+    "add",
+    "cert",
+    "certificate",
+    "domain",
+    "key",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "out",
+    "principals",
+    "silent",
+    "telemetry",
+    "token",
+    "ttl"
+   ],
+   "desc": "Used to issue SSH credentials against a certificate template"
+  },
+  {
+   "cmd": "ssh sign-key",
+   "flags": [
+    "cert",
+    "certificate",
+    "domain",
+    "key",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "out",
+    "principals",
+    "public",
+    "silent",
+    "telemetry",
+    "token",
+    "ttl"
+   ],
+   "desc": "Used to sign a SSH public key against a certificate template"
+  },
+  {
+   "cmd": "token renew",
+   "flags": [
+    "domain",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "silent",
+    "telemetry"
+   ],
+   "desc": "Used to renew your universal auth access token"
+  },
+  {
+   "cmd": "user get token",
+   "flags": [
+    "domain",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "plain",
+    "silent",
+    "telemetry"
+   ],
+   "desc": "Used to get the access token of an Infisical user"
+  },
+  {
+   "cmd": "user switch",
+   "flags": [
+    "domain",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "silent",
+    "telemetry"
+   ],
+   "desc": "Used to switch between Infisical profiles"
+  },
+  {
+   "cmd": "user update domain",
+   "flags": [
+    "domain",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "silent",
+    "telemetry"
+   ],
+   "desc": "Used to update the domain of an Infisical profile"
+  },
+  {
+   "cmd": "vault set",
+   "flags": [
+    "domain",
+    "log-destination",
+    "log-format",
+    "log-level",
+    "silent",
+    "telemetry"
+   ],
+   "desc": "Used to configure the vault backends"
+  }
+ ]
+}

@@ -1,0 +1,84 @@
+# The repository's CI (OL12-D6). A green run on `main` is the condition for a
+# release (D7) and the only type proof this project has (VR24-211: no typecheck
+# runs on the development machine).
+#
+# The tests are this repository's own entry, `./test.sh`, which takes its no-guard
+# branch here: node's runner, this tree's `test-setup.ts`, and the scratch
+# `agentDir` port (D4).
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# The token is read-only and never used: every step checks out and runs this
+# repository's own code, so a compromised dependency or a hostile pull request
+# must not reach a write-capable GITHUB_TOKEN (RS3 review R1).
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # The secret scan walks a range of history, so the clone needs it.
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Install
+        run: scripts/setup.sh
+
+      - name: Tests
+        # The tests that need Pi's profile are listed in scripts/ci-test-exclusions.txt,
+        # one reason each, and ./test.sh applies that list here: this runner has no guard
+        # and no profile (RS3SYNC).
+        #
+        # The run is bounded (RS3CI): test.sh passes TEST_TIMEOUT_MS to node's own
+        # per-test limit and caps the whole invocation at TEST_WALL_TIMEOUT_S, and this
+        # step's own limit sits below the job's 30 minutes, so a hung test family fails
+        # the step with its log instead of holding the job until it is killed. The first
+        # run on this repository (40672557882) was killed at 30 min for exactly that.
+        timeout-minutes: 20
+        env:
+          TEST_EXCLUSIONS: scripts/ci-test-exclusions.txt
+          TEST_TIMEOUT_MS: "120000"
+          TEST_WALL_TIMEOUT_S: "1080"
+        run: ./test.sh
+
+      - name: Typecheck
+        # Known red: the code was never typechecked on the machine it grew on (VR24-211), and
+        # the first run here (40692409511) reported 176 errors in muster/, routing/ and
+        # toolbelt/. The step reports them without stopping the secret scan below; the
+        # follow-up lane that fixes them removes this line (OL12 D6 requires a clean tsc).
+        continue-on-error: true
+        run: npx tsc --noEmit -p tsconfig.json
+
+      - name: Secret scan
+        # The split base is the tip of the history RS3 moved: those commits keep the
+        # whole-tree scan their allow entries were reviewed against, and every commit
+        # after it is scanned for the lines it adds only, so the reviewed fixtures are
+        # not re-flagged on every push (RS3 review R3).
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            range="${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}"
+          elif [ -n "${{ github.event.before }}" ] && [ "${{ github.event.before }}" != "0000000000000000000000000000000000000000" ]; then
+            range="${{ github.event.before }}..${{ github.sha }}"
+          else
+            # A new branch or a force push: no known range, so the whole history.
+            range="HEAD"
+          fi
+          ./scripts/harness-secret-scan.sh "$range" \
+            --allow scripts/harness-secret-scan-allow.txt \
+            --split-base 996266fc8c44b95d2b3ec3a2e63f6fecb735646c

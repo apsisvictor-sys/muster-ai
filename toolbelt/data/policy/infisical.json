@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "provider": "infisical",
+  "dryRunFlag": null,
+  "read": [
+    "^(user|token|scan|vault list|secrets list)(\\s|$)"
+  ],
+  "destructive": [
+    "^(secrets delete|reset|service-token delete)(\\s|$)"
+  ],
+  "blocked": [],
+  "secretReturning": [
+    "^(service-token create|dynamic-secrets lease (create|renew)|secrets get|user get token|ssh sign-key)(\\s|$)"
+  ],
+  "exact": {
+    "export": "read",
+    "run": "mutate",
+    "secrets get": "read",
+    "secrets set": "mutate",
+    "login": "mutate",
+    "init": "mutate",
+    "agent": "mutate",
+    "bootstrap": "mutate",
+    "cert-manager agent": "mutate",
+    "dynamic-secrets lease create": "sensitive",
+    "dynamic-secrets lease renew": "sensitive",
+    "gateway install": "mutate",
+    "gateway relay": "mutate",
+    "gateway start": "mutate",
+    "gateway systemd install": "mutate",
+    "kmip start": "mutate",
+    "kmip systemd install": "mutate",
+    "pam access": "mutate",
+    "pam agentic access": "mutate",
+    "proxy start": "mutate",
+    "relay start": "mutate",
+    "relay systemd install": "mutate",
+    "secrets agent-proxy connect": "mutate",
+    "secrets agent-proxy run": "mutate",
+    "secrets agent-proxy start": "mutate",
+    "secrets folders create": "mutate",
+    "secrets generate-example-env": "read",
+    "service-token create": "sensitive",
+    "ssh add-host": "mutate",
+    "ssh connect": "mutate",
+    "ssh issue-credentials": "sensitive",
+    "ssh sign-key": "sensitive",
+    "vault set": "mutate"
+  }
+}

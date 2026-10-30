@@ -1,0 +1,370 @@
+{
+ "schemaVersion": 1,
+ "cli": "stripe",
+ "cliVersion": "1.40.9",
+ "cliPath": "/home/operator/.local/bin/stripe",
+ "cliMtimeMs": 1778626991317.5,
+ "generatedAt": "2026-08-29T12:59:14.376Z",
+ "leafCount": 21,
+ "leaves": [
+  {
+   "cmd": "charges",
+   "flags": [
+    "api-key",
+    "color",
+    "config",
+    "device-name",
+    "log-level",
+    "map",
+    "project-name"
+   ],
+   "desc": "Make requests (capture, create, list, etc) on charges"
+  },
+  {
+   "cmd": "community",
+   "flags": [
+    "api-key",
+    "color",
+    "config",
+    "device-name",
+    "log-level",
+    "map",
+    "project-name"
+   ],
+   "desc": "Chat with Stripe engineers and other developers"
+  },
+  {
+   "cmd": "config",
+   "flags": [
+    "api-key",
+    "color",
+    "config",
+    "device-name",
+    "edit",
+    "list",
+    "log-level",
+    "map",
+    "project-name",
+    "set",
+    "unset"
+   ],
+   "desc": "Manually change the config values for the CLI"
+  },
+  {
+   "cmd": "customers",
+   "flags": [
+    "api-key",
+    "color",
+    "config",
+    "device-name",
+    "log-level",
+    "map",
+    "project-name"
+   ],
+   "desc": "Make requests (create, delete, list, etc) on customers"
+  },
+  {
+   "cmd": "delete",
+   "flags": [
+    "api-key",
+    "color",
+    "config",
+    "confirm",
+    "dark-style",
+    "data",
+    "device-name",
+    "dry-run",
+    "expand",
+    "idempotency",
+    "live",
+    "log-level",
+    "map",
+    "project-name",
+    "show-headers",
+    "stripe-account",
+    "stripe-context",
+    "stripe-version"
+   ],
+   "desc": "Make DELETE requests to the Stripe API"
+  },
+  {
+   "cmd": "feedback",
+   "flags": [
+    "api-key",
+    "color",
+    "config",
+    "device-name",
+    "log-level",
+    "map",
+    "project-name"
+   ],
+   "desc": "Provide us with feedback on the CLI"
+  },
+  {
+   "cmd": "fixtures",
+   "flags": [
+    "add",
+    "api-key",
+    "api-version",
+    "color",
+    "config",
+    "device-name",
+    "edit",
+    "log-level",
+    "map",
+    "override",
+    "project-name",
+    "remove",
+    "skip",
+    "stripe-account"
+   ],
+   "desc": "Run fixtures to populate your account with data"
+  },
+  {
+   "cmd": "get",
+   "flags": [
+    "api-key",
+    "color",
+    "config",
+    "confirm",
+    "dark-style",
+    "data",
+    "device-name",
+    "dry-run",
+    "ending-before",
+    "expand",
+    "idempotency",
+    "limit",
+    "live",
+    "log-level",
+    "map",
+    "project-name",
+    "show-headers",
+    "starting-after",
+    "stripe-account",
+    "stripe-context",
+    "stripe-version"
+   ],
+   "desc": "Make GET requests to the Stripe API"
+  },
+  {
+   "cmd": "listen",
+   "flags": [
+    "api-key",
+    "color",
+    "config",
+    "connect-headers",
+    "device-name",
+    "events",
+    "format",
+    "forward-connect-to",
+    "forward-thin-connect-to",
+    "forward-thin-to",
+    "forward-to",
+    "headers",
+    "latest",
+    "live",
+    "log-level",
+    "map",
+    "print-secret",
+    "project-name",
+    "skip-update",
+    "skip-verify",
+    "thin-events",
+    "use-configured-webhooks"
+   ],
+   "desc": "Listen for webhook events"
+  },
+  {
+   "cmd": "login list",
+   "flags": [
+    "api-key",
+    "color",
+    "config",
+    "device-name",
+    "log-level",
+    "map",
+    "project-name"
+   ],
+   "desc": "Lists all available logged-in accounts"
+  },
+  {
+   "cmd": "login switch",
+   "flags": [
+    "api-key",
+    "color",
+    "config",
+    "device-name",
+    "log-level",
+    "map",
+    "project-name"
+   ],
+   "desc": "Switch to a different logged-in account"
+  },
+  {
+   "cmd": "logout",
+   "flags": [
+    "all",
+    "api-key",
+    "color",
+    "config",
+    "device-name",
+    "log-level",
+    "map",
+    "project-name"
+   ],
+   "desc": "Logout of your Stripe account"
+  },
+  {
+   "cmd": "logs tail",
+   "flags": [
+    "api-key",
+    "color",
+    "config",
+    "device-name",
+    "filter-account",
+    "filter-http-method",
+    "filter-http-methods",
+    "filter-ip-address",
+    "filter-request-path",
+    "filter-request-status",
+    "filter-source",
+    "filter-status-code",
+    "filter-status-code-type",
+    "format",
+    "log-level",
+    "map",
+    "project-name"
+   ],
+   "desc": "Tail API request logs from your Stripe requests."
+  },
+  {
+   "cmd": "open",
+   "flags": [
+    "api-key",
+    "color",
+    "config",
+    "device-name",
+    "list",
+    "live",
+    "log-level",
+    "map",
+    "project-name"
+   ],
+   "desc": "Quickly open Stripe pages"
+  },
+  {
+   "cmd": "post",
+   "flags": [
+    "api-key",
+    "color",
+    "config",
+    "confirm",
+    "dark-style",
+    "data",
+    "device-name",
+    "dry-run",
+    "expand",
+    "idempotency",
+    "live",
+    "log-level",
+    "map",
+    "project-name",
+    "show-headers",
+    "stripe-account",
+    "stripe-context",
+    "stripe-version"
+   ],
+   "desc": "Make POST requests to the Stripe API"
+  },
+  {
+   "cmd": "samples create",
+   "flags": [
+    "api-key",
+    "color",
+    "config",
+    "device-name",
+    "force-refresh",
+    "log-level",
+    "map",
+    "project-name"
+   ],
+   "desc": "Setup and bootstrap a Stripe Sample"
+  },
+  {
+   "cmd": "samples list",
+   "flags": [
+    "api-key",
+    "color",
+    "config",
+    "device-name",
+    "log-level",
+    "map",
+    "project-name"
+   ],
+   "desc": "List Stripe Samples supported by the CLI"
+  },
+  {
+   "cmd": "serve",
+   "flags": [
+    "api-key",
+    "color",
+    "config",
+    "device-name",
+    "log-level",
+    "map",
+    "port",
+    "project-name"
+   ],
+   "desc": "Serve static files locally"
+  },
+  {
+   "cmd": "trigger",
+   "flags": [
+    "add",
+    "api-key",
+    "api-version",
+    "color",
+    "config",
+    "device-name",
+    "edit",
+    "log-level",
+    "map",
+    "override",
+    "project-name",
+    "raw",
+    "remove",
+    "skip",
+    "stripe-account"
+   ],
+   "desc": "Trigger test webhook events"
+  },
+  {
+   "cmd": "v2",
+   "flags": [
+    "api-key",
+    "color",
+    "config",
+    "device-name",
+    "log-level",
+    "map",
+    "project-name"
+   ],
+   "desc": "To see only v2 resource commands, run `stripe v2 help`"
+  },
+  {
+   "cmd": "whoami",
+   "flags": [
+    "api-key",
+    "color",
+    "config",
+    "device-name",
+    "format",
+    "log-level",
+    "map",
+    "project-name"
+   ],
+   "desc": "Show the current Stripe auth state"
+  }
+ ]
+}

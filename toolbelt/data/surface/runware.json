@@ -1,0 +1,322 @@
+{
+ "schemaVersion": 1,
+ "cli": "/home/operator/.pi/agent/harness/toolbelt/generated/runware/runware",
+ "cliVersion": null,
+ "cliPath": "/home/operator/.pi/agent/harness/toolbelt/generated/runware/runware",
+ "cliMtimeMs": 1778710554951.6958,
+ "generatedAt": "2026-08-29T13:01:36.560Z",
+ "leaves": [
+  {
+   "cmd": "3d generate",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "3d inference",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "audio generate",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "audio inference",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "auth status",
+   "flags": [],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "coverage",
+   "flags": [],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "image background-removal",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "image caption",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "image controlnet-preprocess",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "image generate",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "image inference",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "image photo-maker",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "image preprocess",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "image remove-background",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "image upload",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "image upscale",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "image vectorize",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "media storage",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "model upload",
+   "flags": [
+    "args"
+   ],
+   "class": "sensitive",
+   "desc": null
+  },
+  {
+   "cmd": "models search",
+   "flags": [
+    "architecture",
+    "args",
+    "category",
+    "conditioning",
+    "limit",
+    "offset",
+    "query",
+    "tag",
+    "timeout",
+    "type",
+    "visibility"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "models upload",
+   "flags": [
+    "args"
+   ],
+   "class": "sensitive",
+   "desc": null
+  },
+  {
+   "cmd": "photo-maker generate",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "prompt enhance",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "status",
+   "flags": [],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "task details",
+   "flags": [
+    "args",
+    "timeout"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "task helpers",
+   "flags": [],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "task response",
+   "flags": [
+    "args",
+    "number-results",
+    "timeout"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "text generate",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "text inference",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "video background-removal",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "video caption",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "video generate",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "video inference",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "video remove-background",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "video upscale",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "video video-caption",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "video video-upscale",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  }
+ ],
+ "source": "generated_cli_source",
+ "note": "Two-token dispatch from generated/runware/runware_cli.py build_parser(); every staged/generation command takes --args <json>.",
+ "coverage": {
+  "source": "generated_cli_source",
+  "maxDepth": null,
+  "helpNodes": null,
+  "complete": true,
+  "truncatedLeafCount": 0,
+  "truncatedLeaves": []
+ },
+ "leafCount": 37
+}

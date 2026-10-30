@@ -1,0 +1,135 @@
+{
+ "schemaVersion": 1,
+ "cli": "/home/operator/projects/portal-cli/portal",
+ "cliVersion": null,
+ "cliPath": "/home/operator/projects/portal-cli/portal",
+ "cliMtimeMs": 1789056351580.65,
+ "generatedAt": "2026-09-12T13:00:01.536Z",
+ "leafCount": 8,
+ "coverage": {
+  "source": "help_walk",
+  "maxDepth": 3,
+  "helpNodes": 9,
+  "complete": true,
+  "truncatedLeafCount": 0,
+  "truncatedLeaves": [],
+  "unexpandedGroups": [],
+  "repeatedParentLeaves": []
+ },
+ "leaves": [
+  {
+   "cmd": "cities",
+   "flags": [],
+   "desc": "List available cities and their URL slugs"
+  },
+  {
+   "cmd": "detail",
+   "flags": [
+    "json"
+   ],
+   "desc": "Fetch full details for a single listing"
+  },
+  {
+   "cmd": "local",
+   "flags": [
+    "agent",
+    "city",
+    "json",
+    "max-price",
+    "max-sqm",
+    "min-price",
+    "min-sqm",
+    "neighborhood",
+    "pages",
+    "quiet",
+    "rent",
+    "type",
+    "with-meta"
+   ],
+   "desc": "Query local SQLite database"
+  },
+  {
+   "cmd": "search",
+   "flags": [
+    "agent",
+    "city",
+    "full",
+    "json",
+    "max-price",
+    "max-sqm",
+    "min-price",
+    "min-sqm",
+    "neighborhood",
+    "pages",
+    "quiet",
+    "rent",
+    "type",
+    "with-meta"
+   ],
+   "desc": "Search listings from portal.example (live)"
+  },
+  {
+   "cmd": "sql",
+   "flags": [],
+   "desc": "Execute direct SQL queries against the local database"
+  },
+  {
+   "cmd": "stats",
+   "flags": [
+    "agent",
+    "city",
+    "json",
+    "max-price",
+    "max-sqm",
+    "min-price",
+    "min-sqm",
+    "neighborhood",
+    "pages",
+    "quiet",
+    "rent",
+    "type",
+    "with-meta"
+   ],
+   "desc": "Price analytics for local data"
+  },
+  {
+   "cmd": "sync",
+   "flags": [
+    "agent",
+    "city",
+    "json",
+    "max-price",
+    "max-sqm",
+    "min-price",
+    "min-sqm",
+    "neighborhood",
+    "pages",
+    "quiet",
+    "rent",
+    "type",
+    "with-meta"
+   ],
+   "desc": "Scrape and store listings in local SQLite"
+  },
+  {
+   "cmd": "watch",
+   "flags": [
+    "agent",
+    "city",
+    "interval",
+    "json",
+    "max-price",
+    "max-sqm",
+    "min-price",
+    "min-sqm",
+    "neighborhood",
+    "pages",
+    "quiet",
+    "rent",
+    "type",
+    "with-meta"
+   ],
+   "desc": "Monitor for new listings"
+  }
+ ]
+}

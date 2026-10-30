@@ -1,0 +1,1481 @@
+{
+ "schemaVersion": 1,
+ "cli": "resend",
+ "cliVersion": "2.10.0",
+ "cliPath": "/home/operator/.nvm/versions/node/v24.18.0/bin/resend",
+ "cliMtimeMs": 1785941157225.421,
+ "generatedAt": "2026-09-12T13:37:06.041Z",
+ "leafCount": 119,
+ "coverage": {
+  "source": "help_walk",
+  "maxDepth": 3,
+  "helpNodes": 143,
+  "complete": false,
+  "truncatedLeafCount": 5,
+  "truncatedLeaves": [
+   "broadcasts send natural",
+   "contacts update-topics subscription",
+   "suppressions bounce",
+   "suppressions complaint",
+   "suppressions manual"
+  ],
+  "unexpandedGroups": [],
+  "repeatedParentLeaves": [
+   "broadcasts send natural",
+   "contacts update-topics subscription",
+   "suppressions bounce",
+   "suppressions complaint",
+   "suppressions manual"
+  ]
+ },
+ "leaves": [
+  {
+   "cmd": "api-keys create",
+   "flags": [
+    "api-key",
+    "domain-id",
+    "json",
+    "name",
+    "permission",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Create a new API key and display the token (shown"
+  },
+  {
+   "cmd": "api-keys delete",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet",
+    "yes"
+   ],
+   "desc": "Delete an API key — any services using it will"
+  },
+  {
+   "cmd": "api-keys list",
+   "flags": [
+    "after",
+    "api-key",
+    "before",
+    "json",
+    "limit",
+    "profile",
+    "quiet"
+   ],
+   "desc": "List all API keys (IDs and names — tokens are never"
+  },
+  {
+   "cmd": "auth list",
+   "flags": [],
+   "desc": "List all profiles"
+  },
+  {
+   "cmd": "auth login",
+   "flags": [
+    "json",
+    "key",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Save a Resend API key"
+  },
+  {
+   "cmd": "auth logout",
+   "flags": [
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Remove your saved Resend API key"
+  },
+  {
+   "cmd": "auth remove",
+   "flags": [],
+   "desc": "Remove a profile"
+  },
+  {
+   "cmd": "auth rename",
+   "flags": [],
+   "desc": "Rename a profile"
+  },
+  {
+   "cmd": "auth switch",
+   "flags": [],
+   "desc": "Switch the active profile"
+  },
+  {
+   "cmd": "automations create",
+   "flags": [
+    "api-key",
+    "connections",
+    "file",
+    "json",
+    "name",
+    "profile",
+    "quiet",
+    "status",
+    "steps"
+   ],
+   "desc": "Create a new automation"
+  },
+  {
+   "cmd": "automations delete",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet",
+    "yes"
+   ],
+   "desc": "Delete an automation"
+  },
+  {
+   "cmd": "automations get",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Retrieve an automation with its steps and"
+  },
+  {
+   "cmd": "automations list",
+   "flags": [
+    "after",
+    "api-key",
+    "before",
+    "json",
+    "limit",
+    "profile",
+    "quiet"
+   ],
+   "desc": "List all automations"
+  },
+  {
+   "cmd": "automations open",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Open an automation or the automations list in the"
+  },
+  {
+   "cmd": "automations runs get",
+   "flags": [
+    "api-key",
+    "automation-id",
+    "json",
+    "profile",
+    "quiet",
+    "run-id"
+   ],
+   "desc": "Retrieve details of a specific automation"
+  },
+  {
+   "cmd": "automations runs list",
+   "flags": [
+    "after",
+    "api-key",
+    "before",
+    "json",
+    "limit",
+    "profile",
+    "quiet",
+    "status"
+   ],
+   "desc": "List runs for an automation"
+  },
+  {
+   "cmd": "automations stop",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Stop a running automation"
+  },
+  {
+   "cmd": "automations update",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet",
+    "status"
+   ],
+   "desc": "Update an automation status (enable or disable)"
+  },
+  {
+   "cmd": "broadcasts create",
+   "flags": [
+    "api-key",
+    "dry-run",
+    "from",
+    "html",
+    "html-file",
+    "json",
+    "name",
+    "preview-text",
+    "profile",
+    "quiet",
+    "react-email",
+    "reply-to",
+    "scheduled-at",
+    "segment-id",
+    "send",
+    "subject",
+    "text",
+    "text-file",
+    "topic-id"
+   ],
+   "desc": "Create a broadcast draft (or send immediately with"
+  },
+  {
+   "cmd": "broadcasts delete",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet",
+    "yes"
+   ],
+   "desc": "Delete a broadcast — draft broadcasts are removed;"
+  },
+  {
+   "cmd": "broadcasts get",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Retrieve full details for a broadcast including HTML"
+  },
+  {
+   "cmd": "broadcasts list",
+   "flags": [
+    "after",
+    "api-key",
+    "before",
+    "json",
+    "limit",
+    "profile",
+    "quiet"
+   ],
+   "desc": "List broadcasts — returns summary objects (use \"get"
+  },
+  {
+   "cmd": "broadcasts open",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Open a broadcast or the broadcasts list in the"
+  },
+  {
+   "cmd": "broadcasts send natural",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet",
+    "scheduled-at"
+   ],
+   "desc": "language (e.g. \"in 1 hour\", \"tomorrow at 9am ET\").",
+   "complete": false,
+   "truncatedSubcommands": [
+    "natural"
+   ],
+   "incompleteReason": "repeated_parent_help"
+  },
+  {
+   "cmd": "broadcasts update",
+   "flags": [
+    "api-key",
+    "from",
+    "html",
+    "html-file",
+    "json",
+    "name",
+    "profile",
+    "quiet",
+    "react-email",
+    "subject",
+    "text",
+    "text-file"
+   ],
+   "desc": "Update a draft broadcast — only drafts can be"
+  },
+  {
+   "cmd": "commands",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Print the full command tree as JSON (for agents"
+  },
+  {
+   "cmd": "contact-properties create",
+   "flags": [
+    "api-key",
+    "fallback-value",
+    "json",
+    "key",
+    "profile",
+    "quiet",
+    "type"
+   ],
+   "desc": "Create a new contact property definition"
+  },
+  {
+   "cmd": "contact-properties delete",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet",
+    "yes"
+   ],
+   "desc": "Delete a contact property definition"
+  },
+  {
+   "cmd": "contact-properties get",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Retrieve a contact property definition by ID"
+  },
+  {
+   "cmd": "contact-properties list",
+   "flags": [
+    "after",
+    "api-key",
+    "before",
+    "json",
+    "limit",
+    "profile",
+    "quiet"
+   ],
+   "desc": "List all contact property definitions"
+  },
+  {
+   "cmd": "contact-properties update",
+   "flags": [
+    "api-key",
+    "clear-fallback-value",
+    "fallback-value",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Update a contact property definition"
+  },
+  {
+   "cmd": "contacts add-segment",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet",
+    "segment-id"
+   ],
+   "desc": "Add a contact to a segment"
+  },
+  {
+   "cmd": "contacts create",
+   "flags": [
+    "api-key",
+    "email",
+    "first-name",
+    "json",
+    "last-name",
+    "profile",
+    "properties",
+    "quiet",
+    "segment-id",
+    "unsubscribed"
+   ],
+   "desc": "Create a new contact"
+  },
+  {
+   "cmd": "contacts delete",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet",
+    "yes"
+   ],
+   "desc": "Delete a contact"
+  },
+  {
+   "cmd": "contacts get",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Retrieve a contact by ID or email address"
+  },
+  {
+   "cmd": "contacts imports create",
+   "flags": [
+    "api-key",
+    "column-map",
+    "file",
+    "json",
+    "on-conflict",
+    "profile",
+    "quiet",
+    "segment-id",
+    "topics"
+   ],
+   "desc": "Import contacts in bulk from a local CSV file"
+  },
+  {
+   "cmd": "contacts imports get",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Retrieve a contact import by ID"
+  },
+  {
+   "cmd": "contacts imports list",
+   "flags": [
+    "after",
+    "api-key",
+    "before",
+    "json",
+    "limit",
+    "profile",
+    "quiet",
+    "status"
+   ],
+   "desc": "List contact imports"
+  },
+  {
+   "cmd": "contacts list",
+   "flags": [
+    "after",
+    "api-key",
+    "before",
+    "json",
+    "limit",
+    "profile",
+    "quiet"
+   ],
+   "desc": "List all contacts"
+  },
+  {
+   "cmd": "contacts remove-segment",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Remove a contact from a segment"
+  },
+  {
+   "cmd": "contacts segments",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "List the segments a contact belongs to"
+  },
+  {
+   "cmd": "contacts topics",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "List a contact's topic subscriptions"
+  },
+  {
+   "cmd": "contacts update",
+   "flags": [
+    "api-key",
+    "json",
+    "no-unsubscribed",
+    "profile",
+    "properties",
+    "quiet",
+    "unsubscribed"
+   ],
+   "desc": "Update a contact's subscription status or custom properties"
+  },
+  {
+   "cmd": "contacts update-topics subscription",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet",
+    "topics"
+   ],
+   "desc": "values: \"opt_in\" | \"opt_out\"",
+   "complete": false,
+   "truncatedSubcommands": [
+    "subscription"
+   ],
+   "incompleteReason": "repeated_parent_help"
+  },
+  {
+   "cmd": "docs",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Open the Resend documentation in your browser"
+  },
+  {
+   "cmd": "doctor",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Check CLI version, API key, and domain status"
+  },
+  {
+   "cmd": "domains claim create",
+   "flags": [
+    "api-key",
+    "click-tracking",
+    "custom-return-path",
+    "json",
+    "name",
+    "no-click-tracking",
+    "no-open-tracking",
+    "open-tracking",
+    "profile",
+    "quiet",
+    "region",
+    "tracking-subdomain"
+   ],
+   "desc": "Start a claim for a domain another Resend account has"
+  },
+  {
+   "cmd": "domains claim get",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Retrieve the latest claim for a domain"
+  },
+  {
+   "cmd": "domains claim verify",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Trigger DNS verification and transfer for a domain claim"
+  },
+  {
+   "cmd": "domains create",
+   "flags": [
+    "api-key",
+    "json",
+    "name",
+    "profile",
+    "quiet",
+    "receiving",
+    "region",
+    "sending",
+    "tls",
+    "tracking-subdomain"
+   ],
+   "desc": "Create a new domain and receive DNS records to"
+  },
+  {
+   "cmd": "domains delete",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet",
+    "yes"
+   ],
+   "desc": "Delete a domain"
+  },
+  {
+   "cmd": "domains get",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Retrieve a domain with its DNS records and current"
+  },
+  {
+   "cmd": "domains list",
+   "flags": [
+    "after",
+    "api-key",
+    "before",
+    "json",
+    "limit",
+    "profile",
+    "quiet"
+   ],
+   "desc": "List all domains"
+  },
+  {
+   "cmd": "domains update",
+   "flags": [
+    "api-key",
+    "click-tracking",
+    "json",
+    "no-click-tracking",
+    "no-open-tracking",
+    "open-tracking",
+    "profile",
+    "quiet",
+    "tls",
+    "tracking-subdomain"
+   ],
+   "desc": "Update domain settings: TLS mode, tracking, and"
+  },
+  {
+   "cmd": "domains verify",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Trigger async DNS verification for a domain"
+  },
+  {
+   "cmd": "emails attachment",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Retrieve a single attachment from a sent"
+  },
+  {
+   "cmd": "emails attachments",
+   "flags": [
+    "after",
+    "api-key",
+    "before",
+    "json",
+    "limit",
+    "profile",
+    "quiet"
+   ],
+   "desc": "List attachments on a sent (outbound)"
+  },
+  {
+   "cmd": "emails batch",
+   "flags": [
+    "api-key",
+    "batch-validation",
+    "file",
+    "idempotency-key",
+    "json",
+    "profile",
+    "quiet",
+    "react-email"
+   ],
+   "desc": "Send up to 100 emails in a single API"
+  },
+  {
+   "cmd": "emails cancel",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Cancel a scheduled email"
+  },
+  {
+   "cmd": "emails get",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Retrieve a sent email by ID"
+  },
+  {
+   "cmd": "emails list",
+   "flags": [
+    "after",
+    "api-key",
+    "before",
+    "json",
+    "limit",
+    "profile",
+    "quiet"
+   ],
+   "desc": "List sent emails — returns summary (use"
+  },
+  {
+   "cmd": "emails receiving attachment",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Retrieve a single attachment from a"
+  },
+  {
+   "cmd": "emails receiving attachments",
+   "flags": [
+    "after",
+    "api-key",
+    "before",
+    "json",
+    "limit",
+    "profile",
+    "quiet"
+   ],
+   "desc": "List attachments on a received (inbound)"
+  },
+  {
+   "cmd": "emails receiving forward",
+   "flags": [
+    "api-key",
+    "from",
+    "json",
+    "profile",
+    "quiet",
+    "to"
+   ],
+   "desc": "Forward a received email"
+  },
+  {
+   "cmd": "emails receiving get",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Retrieve a single received (inbound)"
+  },
+  {
+   "cmd": "emails receiving list",
+   "flags": [
+    "after",
+    "api-key",
+    "before",
+    "json",
+    "limit",
+    "profile",
+    "quiet",
+    "receiving"
+   ],
+   "desc": "List received (inbound) emails for"
+  },
+  {
+   "cmd": "emails receiving listen",
+   "flags": [
+    "api-key",
+    "interval",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Poll for new inbound emails and display"
+  },
+  {
+   "cmd": "emails send",
+   "flags": [
+    "api-key",
+    "attachment",
+    "bcc",
+    "cc",
+    "dry-run",
+    "from",
+    "headers",
+    "html",
+    "html-file",
+    "idempotency-key",
+    "json",
+    "profile",
+    "quiet",
+    "react-email",
+    "reply-to",
+    "scheduled-at",
+    "subject",
+    "tags",
+    "template",
+    "text",
+    "text-file",
+    "to",
+    "var"
+   ],
+   "desc": "Send an email"
+  },
+  {
+   "cmd": "emails update",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet",
+    "scheduled-at"
+   ],
+   "desc": "Update a scheduled email"
+  },
+  {
+   "cmd": "events create",
+   "flags": [
+    "api-key",
+    "json",
+    "name",
+    "profile",
+    "quiet",
+    "schema"
+   ],
+   "desc": "Create a new event definition"
+  },
+  {
+   "cmd": "events delete",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet",
+    "yes"
+   ],
+   "desc": "Delete an event definition"
+  },
+  {
+   "cmd": "events get",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Retrieve an event definition"
+  },
+  {
+   "cmd": "events list",
+   "flags": [
+    "after",
+    "api-key",
+    "before",
+    "json",
+    "limit",
+    "profile",
+    "quiet"
+   ],
+   "desc": "List all events"
+  },
+  {
+   "cmd": "events open",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Open the events page in the Resend dashboard"
+  },
+  {
+   "cmd": "events send",
+   "flags": [
+    "api-key",
+    "contact-id",
+    "email",
+    "event",
+    "json",
+    "payload",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Send an event to trigger automations for a contact"
+  },
+  {
+   "cmd": "events update",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet",
+    "schema"
+   ],
+   "desc": "Update an event schema"
+  },
+  {
+   "cmd": "login",
+   "flags": [
+    "json",
+    "key",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Save a Resend API key"
+  },
+  {
+   "cmd": "logout",
+   "flags": [
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Remove your saved Resend API key"
+  },
+  {
+   "cmd": "logs get",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Retrieve a single API request log with full"
+  },
+  {
+   "cmd": "logs list",
+   "flags": [
+    "after",
+    "api-key",
+    "before",
+    "json",
+    "limit",
+    "profile",
+    "quiet"
+   ],
+   "desc": "List API request logs"
+  },
+  {
+   "cmd": "logs open",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Open a log or the logs list in the Resend dashboard"
+  },
+  {
+   "cmd": "oauth-grants list",
+   "flags": [
+    "after",
+    "api-key",
+    "before",
+    "json",
+    "limit",
+    "profile",
+    "quiet"
+   ],
+   "desc": "List OAuth grants for the team (both active and"
+  },
+  {
+   "cmd": "oauth-grants revoke",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet",
+    "yes"
+   ],
+   "desc": "Revoke an OAuth grant — every access and refresh token"
+  },
+  {
+   "cmd": "open",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Open the Resend dashboard in your browser"
+  },
+  {
+   "cmd": "segments contacts",
+   "flags": [
+    "after",
+    "api-key",
+    "before",
+    "json",
+    "limit",
+    "profile",
+    "quiet"
+   ],
+   "desc": "List contacts belonging to a segment"
+  },
+  {
+   "cmd": "segments create",
+   "flags": [
+    "api-key",
+    "json",
+    "name",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Create a new segment"
+  },
+  {
+   "cmd": "segments delete",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet",
+    "yes"
+   ],
+   "desc": "Delete a segment"
+  },
+  {
+   "cmd": "segments get",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Retrieve a segment by ID"
+  },
+  {
+   "cmd": "segments list",
+   "flags": [
+    "after",
+    "api-key",
+    "before",
+    "json",
+    "limit",
+    "profile",
+    "quiet"
+   ],
+   "desc": "List all segments"
+  },
+  {
+   "cmd": "suppressions add",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Suppress an email address so it stops"
+  },
+  {
+   "cmd": "suppressions batch add",
+   "flags": [
+    "api-key",
+    "file",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Suppress up to 100 email addresses from a JSON file in"
+  },
+  {
+   "cmd": "suppressions batch remove",
+   "flags": [
+    "api-key",
+    "file",
+    "ids",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Remove up to 100 suppressions from a JSON file in one"
+  },
+  {
+   "cmd": "suppressions bounce",
+   "flags": [
+    "api-key",
+    "file",
+    "json",
+    "profile",
+    "quiet",
+    "yes"
+   ],
+   "desc": "added automatically after a hard bounce",
+   "complete": false,
+   "truncatedSubcommands": [
+    "add",
+    "batch",
+    "bounce",
+    "complaint",
+    "delete",
+    "get",
+    "list",
+    "manual"
+   ],
+   "incompleteReason": "repeated_parent_help"
+  },
+  {
+   "cmd": "suppressions complaint",
+   "flags": [
+    "api-key",
+    "file",
+    "json",
+    "profile",
+    "quiet",
+    "yes"
+   ],
+   "desc": "added automatically after a spam complaint",
+   "complete": false,
+   "truncatedSubcommands": [
+    "add",
+    "batch",
+    "bounce",
+    "complaint",
+    "delete",
+    "get",
+    "list",
+    "manual"
+   ],
+   "incompleteReason": "repeated_parent_help"
+  },
+  {
+   "cmd": "suppressions delete",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet",
+    "yes"
+   ],
+   "desc": "Remove a suppression so the address can"
+  },
+  {
+   "cmd": "suppressions get",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Retrieve a suppression by ID or email"
+  },
+  {
+   "cmd": "suppressions list",
+   "flags": [
+    "after",
+    "api-key",
+    "before",
+    "json",
+    "limit",
+    "origin",
+    "profile",
+    "quiet"
+   ],
+   "desc": "List suppressed email addresses"
+  },
+  {
+   "cmd": "suppressions manual",
+   "flags": [
+    "api-key",
+    "file",
+    "json",
+    "profile",
+    "quiet",
+    "yes"
+   ],
+   "desc": "added by you via \"suppressions add\"",
+   "complete": false,
+   "truncatedSubcommands": [
+    "add",
+    "batch",
+    "bounce",
+    "complaint",
+    "delete",
+    "get",
+    "list",
+    "manual"
+   ],
+   "incompleteReason": "repeated_parent_help"
+  },
+  {
+   "cmd": "templates create",
+   "flags": [
+    "alias",
+    "api-key",
+    "from",
+    "html",
+    "html-file",
+    "json",
+    "name",
+    "profile",
+    "quiet",
+    "react-email",
+    "reply-to",
+    "subject",
+    "text",
+    "text-file",
+    "var"
+   ],
+   "desc": "Create a new template"
+  },
+  {
+   "cmd": "templates delete",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet",
+    "yes"
+   ],
+   "desc": "Delete a template"
+  },
+  {
+   "cmd": "templates duplicate",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Duplicate a template"
+  },
+  {
+   "cmd": "templates get",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Retrieve a template by ID or alias"
+  },
+  {
+   "cmd": "templates list",
+   "flags": [
+    "after",
+    "api-key",
+    "before",
+    "json",
+    "limit",
+    "profile",
+    "quiet"
+   ],
+   "desc": "List all templates"
+  },
+  {
+   "cmd": "templates open",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Open a template or the templates list in the Resend"
+  },
+  {
+   "cmd": "templates publish",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Publish a draft template"
+  },
+  {
+   "cmd": "templates update",
+   "flags": [
+    "alias",
+    "api-key",
+    "from",
+    "html",
+    "html-file",
+    "json",
+    "name",
+    "profile",
+    "quiet",
+    "react-email",
+    "reply-to",
+    "subject",
+    "text",
+    "text-file",
+    "var"
+   ],
+   "desc": "Update an existing template"
+  },
+  {
+   "cmd": "topics create",
+   "flags": [
+    "api-key",
+    "default-subscription",
+    "description",
+    "json",
+    "name",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Create a new topic for subscription management"
+  },
+  {
+   "cmd": "topics delete",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet",
+    "yes"
+   ],
+   "desc": "Delete a topic"
+  },
+  {
+   "cmd": "topics get",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Retrieve a topic by ID"
+  },
+  {
+   "cmd": "topics list",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "List all topics"
+  },
+  {
+   "cmd": "topics update",
+   "flags": [
+    "api-key",
+    "default-subscription",
+    "description",
+    "json",
+    "name",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Update a topic's name or description"
+  },
+  {
+   "cmd": "update",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Check for available CLI updates"
+  },
+  {
+   "cmd": "webhooks create",
+   "flags": [
+    "api-key",
+    "endpoint",
+    "events",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Register a new webhook endpoint to receive real-time"
+  },
+  {
+   "cmd": "webhooks delete",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet",
+    "status",
+    "yes"
+   ],
+   "desc": "Delete a webhook endpoint and stop all event"
+  },
+  {
+   "cmd": "webhooks get",
+   "flags": [
+    "api-key",
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Retrieve a webhook endpoint configuration by ID"
+  },
+  {
+   "cmd": "webhooks list",
+   "flags": [
+    "after",
+    "api-key",
+    "before",
+    "json",
+    "limit",
+    "profile",
+    "quiet"
+   ],
+   "desc": "List all registered webhook endpoints"
+  },
+  {
+   "cmd": "webhooks listen",
+   "flags": [
+    "api-key",
+    "events",
+    "forward-to",
+    "json",
+    "port",
+    "profile",
+    "quiet",
+    "url"
+   ],
+   "desc": "Listen for webhook events locally during development"
+  },
+  {
+   "cmd": "webhooks update",
+   "flags": [
+    "api-key",
+    "endpoint",
+    "events",
+    "json",
+    "profile",
+    "quiet",
+    "status"
+   ],
+   "desc": "Update a webhook's endpoint URL, event"
+  },
+  {
+   "cmd": "whoami",
+   "flags": [
+    "json",
+    "profile",
+    "quiet"
+   ],
+   "desc": "Show current authentication status"
+  }
+ ]
+}

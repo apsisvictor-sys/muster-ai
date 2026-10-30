@@ -1,0 +1,111 @@
+{
+ "schemaVersion": 1,
+ "cli": "pi-media-hub",
+ "cliVersion": null,
+ "cliPath": "/home/operator/.local/bin/pi-media-hub",
+ "cliMtimeMs": 1788821401868.4226,
+ "generatedAt": "2026-10-28T19:21:26.265Z",
+ "leafCount": 11,
+ "coverage": {
+  "source": "help_walk",
+  "maxDepth": 3,
+  "helpNodes": 1,
+  "complete": true,
+  "truncatedLeafCount": 0,
+  "truncatedLeaves": [],
+  "unexpandedGroups": [],
+  "repeatedParentLeaves": []
+ },
+ "leaves": [
+  {
+   "cmd": "create",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "events",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "feedback",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "list",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "rollback",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "set-password",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "share",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "unshare",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "update",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "uploads",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "versions",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  }
+ ],
+ "source": "provider_catalog",
+ "note": "Operations take a single --args JSON object."
+}

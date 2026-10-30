@@ -1,0 +1,22 @@
+{
+	"name": "muster",
+	"private": true,
+	"type": "module",
+	"description": "Muster: cross-harness coordination (lanes, tasks, claims, messages) with its core, routing and toolbelt packages. Split out of Pi's profile in OL12 (plans/orchestration-2026-10-05/specs/ol12-muster-repo-extraction-2026-10-28.md).",
+	"scripts": {
+		"test": "./test.sh",
+		"setup": "scripts/setup.sh",
+		"typecheck": "tsc --noEmit -p tsconfig.json",
+		"secret-scan": "scripts/harness-secret-scan.sh HEAD --allow scripts/harness-secret-scan-allow.txt --split-base 996266fc8c44b95d2b3ec3a2e63f6fecb735646c"
+	},
+	"dependencies": {
+		"@earendil-works/pi-ai": "1.0.3",
+		"@earendil-works/pi-codemode": "1.0.3",
+		"@earendil-works/pi-coding-agent": "1.0.3",
+		"jiti": "2.7.0",
+		"typescript": "7.0.2"
+	},
+	"devDependencies": {
+		"tsx": "4.22.1"
+	}
+}

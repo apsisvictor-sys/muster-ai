@@ -1,0 +1,228 @@
+#!/usr/bin/env node
+"use strict";
+
+const fs = require("node:fs");
+const os = require("node:os");
+const path = require("node:path");
+
+function loadToolbeltEnv() {
+  const envPath = path.join(os.homedir(), ".pi", "agent", "toolbelt", ".env");
+  if (!fs.existsSync(envPath)) return;
+  for (const line of fs.readFileSync(envPath, "utf8").split(/\r?\n/)) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#") || !trimmed.includes("=")) continue;
+    const [name, ...rest] = trimmed.split("=");
+    if (!process.env[name]) process.env[name] = rest.join("=");
+  }
+}
+
+loadToolbeltEnv();
+
+const API_BASE = process.env.PIXELLAB_API_BASE || "https://api.pixellab.ai/v2";
+const SECRET_NAME_RE = /(api[_-]?key|secret|token|password|passwd|authorization|bearer|credential)/i;
+const SECRET_VALUE_RE = /(sk-[A-Za-z0-9_-]{16,}|gh[pousr]_[A-Za-z0-9_]{16,}|xox[baprs]-[A-Za-z0-9-]{16,}|AIza[0-9A-Za-z_-]{16,}|AKIA[0-9A-Z]{16}|-----BEGIN [A-Z ]*PRIVATE KEY-----)/;
+
+const READ_ONLY_SPECS = [
+  { names: ["status", "balance", "get-balance", "balance-get"], method: "GET", path: "/balance", resourceType: "account_balance" },
+  { names: ["llms", "llms-txt", "llms.txt"], method: "GET", path: "/llms.txt", resourceType: "llm_docs", text: true },
+  { names: ["characters-list", "list-characters", "characters", "get-characters"], method: "GET", path: "/characters", resourceType: "characters" },
+  { names: ["characters-get", "character-get", "get-character", "characters/{character_id}", "characters-id-get"], method: "GET", path: ({ id, character_id, characterId }) => `/characters/${encodeURIComponent(id || character_id || characterId)}`, requiredAny: ["id", "character_id", "characterId"], resourceType: "character" },
+  { names: ["characters-zip", "character-zip", "download-character", "characters/{character_id}/zip", "characters-zip-get"], method: "GET", path: ({ id, character_id, characterId }) => `/characters/${encodeURIComponent(id || character_id || characterId)}/zip`, requiredAny: ["id", "character_id", "characterId"], resourceType: "character_zip", binary: true },
+  { names: ["objects-list", "list-objects", "objects", "get-objects"], method: "GET", path: "/objects", resourceType: "objects" },
+  { names: ["objects-get", "object-get", "get-object", "objects/{object_id}", "objects-id-get"], method: "GET", path: ({ id, object_id, objectId }) => `/objects/${encodeURIComponent(id || object_id || objectId)}`, requiredAny: ["id", "object_id", "objectId"], resourceType: "object" },
+  { names: ["job-get", "background-job-get", "background-jobs-get", "get-background-job", "background-jobs/{job_id}"], method: "GET", path: ({ id, job_id, jobId }) => `/background-jobs/${encodeURIComponent(id || job_id || jobId)}`, requiredAny: ["id", "job_id", "jobId"], resourceType: "background_job" },
+  { names: ["tilesets-list", "list-tilesets", "tilesets-list-get", "get-tilesets"], method: "GET", path: "/tilesets", resourceType: "tilesets" },
+  { names: ["tileset-get", "tilesets-get", "get-tileset", "tilesets/{tileset_id}", "tilesets-id-get"], method: "GET", path: ({ id, tileset_id, tilesetId }) => `/tilesets/${encodeURIComponent(id || tileset_id || tilesetId)}`, requiredAny: ["id", "tileset_id", "tilesetId"], resourceType: "tileset" },
+  { names: ["isometric-tiles-list", "list-isometric-tiles", "isometric-tiles-list-get", "get-isometric-tiles"], method: "GET", path: "/isometric-tiles", resourceType: "isometric_tiles" },
+  { names: ["isometric-tile-get", "isometric-tiles-get", "get-isometric-tile", "isometric-tiles/{tile_id}", "isometric-tiles-id-get"], method: "GET", path: ({ id, tile_id, tileId }) => `/isometric-tiles/${encodeURIComponent(id || tile_id || tileId)}`, requiredAny: ["id", "tile_id", "tileId"], resourceType: "isometric_tile" },
+  { names: ["tiles-pro-get", "get-tiles-pro", "tiles-pro/{tile_id}", "tiles-pro-id-get"], method: "GET", path: ({ id, tile_id, tileId }) => `/tiles-pro/${encodeURIComponent(id || tile_id || tileId)}`, requiredAny: ["id", "tile_id", "tileId"], resourceType: "tiles_pro" },
+];
+
+const MUTATING_SPECS = [
+  ["animate-character", "POST", "/animate-character", "character_animation"],
+  ["animate-object", "POST", "/animate-object", "object_animation"],
+  ["animate-with-skeleton", "POST", "/animate-with-skeleton", "animation"],
+  ["animate-with-text", "POST", "/animate-with-text", "animation"],
+  ["animate-with-text-v2", "POST", "/animate-with-text-v2", "animation"],
+  ["animate-with-text-v3", "POST", "/animate-with-text-v3", "animation"],
+  ["characters-animations", "POST", "/characters/animations", "character_animation", ["create-character-animation"]],
+  ["characters-tags", "PATCH", "/characters/{character_id}/tags", "character_tags", ["character-tags", "update-character-tags"], ["id|character_id|characterId"]],
+  ["create-character-pro", "POST", "/create-character-pro", "character"],
+  ["create-character-state", "POST", "/create-character-state", "character_state"],
+  ["create-character-v3", "POST", "/create-character-v3", "character"],
+  ["create-character-with-4-directions", "POST", "/create-character-with-4-directions", "character"],
+  ["create-character-with-8-directions", "POST", "/create-character-with-8-directions", "character"],
+  ["create-image-bitforge", "POST", "/create-image-bitforge", "image"],
+  ["create-image-pixen", "POST", "/create-image-pixen", "image"],
+  ["create-image-pixflux", "POST", "/create-image-pixflux", "image"],
+  ["create-isometric-tile", "POST", "/create-isometric-tile", "isometric_tile"],
+  ["create-object-state", "POST", "/create-object-state", "object_state"],
+  ["create-object-with-4-directions", "POST", "/create-object-with-4-directions", "object"],
+  ["create-tiles-pro", "POST", "/create-tiles-pro", "tiles_pro"],
+  ["create-tileset", "POST", "/create-tileset", "tileset"],
+  ["create-tileset-sidescroller", "POST", "/create-tileset-sidescroller", "tileset"],
+  ["edit-animation-v2", "POST", "/edit-animation-v2", "animation"],
+  ["edit-image", "POST", "/edit-image", "image"],
+  ["edit-images-v2", "POST", "/edit-images-v2", "images"],
+  ["estimate-skeleton", "POST", "/estimate-skeleton", "skeleton"],
+  ["generate-8-rotations-v2", "POST", "/generate-8-rotations-v2", "rotations"],
+  ["generate-8-rotations-v3", "POST", "/generate-8-rotations-v3", "rotations"],
+  ["generate-image-v2", "POST", "/generate-image-v2", "image"],
+  ["generate-ui-v2", "POST", "/generate-ui-v2", "ui"],
+  ["generate-with-style-v2", "POST", "/generate-with-style-v2", "image"],
+  ["image-to-pixelart", "POST", "/image-to-pixelart", "image"],
+  ["inpaint", "POST", "/inpaint", "image"],
+  ["inpaint-v3", "POST", "/inpaint-v3", "image"],
+  ["interpolation-v2", "POST", "/interpolation-v2", "animation"],
+  ["map-objects", "POST", "/map-objects", "object"],
+  ["objects-create", "POST", "/objects", "object", ["create-object"]],
+  ["objects-dismiss-review", "POST", "/objects/{object_id}/dismiss-review", "object_review", ["dismiss-review", "object-dismiss-review"], ["id|object_id|objectId"]],
+  ["objects-select-frames", "POST", "/objects/{object_id}/select-frames", "object_review", ["select-frames", "object-select-frames"], ["id|object_id|objectId"]],
+  ["objects-tags", "PATCH", "/objects/{object_id}/tags", "object_tags", ["object-tags", "update-object-tags"], ["id|object_id|objectId"]],
+  ["remove-background", "POST", "/remove-background", "image"],
+  ["resize", "POST", "/resize", "image"],
+  ["rotate", "POST", "/rotate", "rotation"],
+  ["tilesets", "POST", "/tilesets", "tileset"],
+  ["tilesets-sidescroller", "POST", "/tilesets-sidescroller", "tileset"],
+  ["transfer-outfit-v2", "POST", "/transfer-outfit-v2", "animation"],
+].map(([name, method, endpoint, resourceType, aliases = [], requiredPathArgs = []]) => ({ name, names: [name, ...aliases, `${method.toLowerCase()}-${endpoint.replace(/^\//, "").replace(/[{}]/g, "").replace(/\//g, "-")}`], method, endpoint, resourceType, requiredPathArgs }));
+
+const DELETE_SPECS = [
+  { names: ["characters-delete", "character-delete", "delete-character", "delete-characters-character_id"], method: "DELETE", endpoint: "/characters/{character_id}", resourceType: "character", requiredPathArgs: ["id|character_id|characterId"] },
+  { names: ["objects-delete", "object-delete", "delete-object", "delete-objects-object_id"], method: "DELETE", endpoint: "/objects/{object_id}", resourceType: "object", requiredPathArgs: ["id|object_id|objectId"] },
+];
+
+const READ_ONLY = new Map(READ_ONLY_SPECS.flatMap((spec) => spec.names.map((name) => [name, spec])));
+const MUTATING = new Map(MUTATING_SPECS.flatMap((spec) => spec.names.map((name) => [name, spec])));
+const DELETES = new Map(DELETE_SPECS.flatMap((spec) => spec.names.map((name) => [name, spec])));
+
+function parseArgv(argv) {
+  const opts = { json: false, dryRun: false };
+  const positional = [];
+  for (let i = 0; i < argv.length; i++) {
+    const arg = argv[i];
+    if (arg === "--json") opts.json = true;
+    else if (arg === "--dry-run") opts.dryRun = true;
+    else if (arg.startsWith("--")) {
+      const key = arg.slice(2);
+      const next = argv[i + 1];
+      if (next && !next.startsWith("--")) opts[key] = next, i++;
+      else opts[key] = true;
+    } else positional.push(arg);
+  }
+  return { command: positional[0] || "help", positional, opts };
+}
+
+function hasSecretInput(value) {
+  if (Array.isArray(value)) return value.some(hasSecretInput);
+  if (value && typeof value === "object") return Object.entries(value).some(([k, v]) => SECRET_NAME_RE.test(k) || hasSecretInput(v));
+  return SECRET_VALUE_RE.test(String(value || ""));
+}
+
+function output(value, json) {
+  if (json) process.stdout.write(`${JSON.stringify(value, null, 2)}\n`);
+  else if (value.help) process.stdout.write(value.help);
+  else process.stdout.write(`${JSON.stringify(value, null, 2)}\n`);
+}
+
+function help() {
+  return `pixellab generated CLI (full v2 endpoint surface with policy gates)\n\nUsage:\n  pixellab <operation> [--json] [--dry-run] [--id <id>] [--limit <n>] [--args '<json>']\n\nRead-only operations execute when auth/args are present; generation/edit/tag/review operations return approval_required; deletes return blocked_operation.\n\nRead-only examples:\n  status | balance | llms-txt\n  characters-list | characters-get --id <id> | characters-zip --id <id>\n  objects-list | objects-get --id <id>\n  job-get --id <background_job_id>\n  tilesets-list | tileset-get --id <id>\n  isometric-tiles-list | isometric-tile-get --id <id>\n  tiles-pro-get --id <id>\n\nMutating examples (approval_required):\n  create-image-pixen | generate-8-rotations-v3 | create-character-pro | create-character-v3\n  animate-object | create-object-state | create-object-with-4-directions | objects-select-frames | objects-dismiss-review\n\nAuth: reads PIXELLAB_API_KEY from environment at runtime only. Secret-shaped args are rejected.\n`;
+}
+
+function envelope(operation, status, fields = {}) {
+  return {
+    ok: fields.ok !== undefined ? Boolean(fields.ok) : status === "success",
+    provider: "pixellab",
+    operation,
+    status,
+    baseUrl: API_BASE,
+    valuesPrinted: false,
+    policy: { secretValuesAccepted: false, valuesPrinted: false, operationClass: fields.operationClass || "read_only", mutating: Boolean(fields.mutating) },
+    ...fields,
+  };
+}
+
+function parseArgsJson(opts) {
+  if (!opts.args) return {};
+  try {
+    const parsed = JSON.parse(String(opts.args));
+    return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+
+function argsObject(opts) {
+  return { ...parseArgsJson(opts), ...opts };
+}
+
+function missingRequired(spec, args) {
+  if (spec.required) return spec.required.filter((name) => !String(args[name] || "").trim());
+  if (spec.requiredAny && !spec.requiredAny.some((name) => String(args[name] || "").trim())) return [spec.requiredAny.join("|")];
+  return [];
+}
+
+function canonicalNames(map) {
+  return [...new Set([...map.values()].map((spec) => spec.name || spec.names[0]))];
+}
+
+function gatedMetadata(spec, args) {
+  return {
+    endpoint: spec.endpoint,
+    method: spec.method,
+    resourceType: spec.resourceType,
+    requiredPathArgs: spec.requiredPathArgs || [],
+    requestArgs: Object.keys(args).length ? args : {},
+    approval: {
+      required: true,
+      fields: ["--confirm-mutating or Toolbelt approval token", "--reason <non-empty>", "cost/usage acknowledgement"],
+    },
+  };
+}
+
+async function main() {
+  const parsed = parseArgv(process.argv.slice(2));
+  const op = String(parsed.command).trim();
+  if (op === "help" || op === "--help" || op === "-h") return output({ help: help() }, parsed.opts.json);
+  const args = argsObject(parsed.opts);
+  delete args.json;
+  delete args.dryRun;
+  if (hasSecretInput(args) || hasSecretInput(parsed.positional.slice(1))) {
+    process.exitCode = 2;
+    return output(envelope(op, "secret_like_input_rejected", { ok: false, valuesStored: false }), parsed.opts.json);
+  }
+  const deleteSpec = DELETES.get(op);
+  if (deleteSpec || (/delete/i.test(op) && !MUTATING.has(op))) {
+    return output(envelope(op, "blocked_operation", { ok: false, ...gatedMetadata(deleteSpec || { method: "DELETE", endpoint: null, resourceType: "unknown_delete", requiredPathArgs: [] }, args), operationClass: "blocked_delete", mutating: true, message: "Delete operations are blocked by the Pixellab Toolbelt CLI." }), parsed.opts.json);
+  }
+  const mutatingSpec = MUTATING.get(op);
+  if (mutatingSpec || /^(post|patch|put)-/i.test(op)) {
+    return output(envelope(op, "approval_required", { ok: false, ...gatedMetadata(mutatingSpec || { method: "POST", endpoint: null, resourceType: "unknown_mutation", requiredPathArgs: [] }, args), operationClass: "mutating_network", mutating: true, required: ["Toolbelt mutating approval", "non-empty reason", "cost/usage acknowledgement"], message: "Pixellab generation/edit/tag/review operations are not executed without an approval contract." }), parsed.opts.json);
+  }
+  const spec = READ_ONLY.get(op);
+  if (!spec) {
+    return output(envelope(op, "unsupported_operation", { ok: false, allowed: [...canonicalNames(READ_ONLY), ...canonicalNames(MUTATING), ...canonicalNames(DELETES)] }), parsed.opts.json);
+  }
+  const missing = missingRequired(spec, args);
+  if (missing.length) return output(envelope(op, "missing_required_arg", { ok: false, required: missing, method: spec.method, endpoint: typeof spec.path === "string" ? spec.path : null, resourceType: spec.resourceType }), parsed.opts.json);
+  const envPresent = Boolean(process.env.PIXELLAB_API_KEY);
+  const endpointPath = typeof spec.path === "function" ? spec.path(args) : spec.path;
+  if (parsed.opts.dryRun || !envPresent) {
+    return output(envelope(op, envPresent ? "dry_run" : "unavailable", { ok: false, auth: { envVarsPresent: envPresent ? ["PIXELLAB_API_KEY"] : [], valuesPrinted: false }, method: spec.method, endpoint: endpointPath, resourceType: spec.resourceType }), parsed.opts.json);
+  }
+  const url = new URL(`${API_BASE.replace(/\/$/, "")}${endpointPath}`);
+  if (args.limit) url.searchParams.set("limit", String(Math.max(1, Math.min(Number(args.limit) || 20, 1000))));
+  const res = await fetch(url, { method: spec.method, headers: { Authorization: `Bearer ${process.env.PIXELLAB_API_KEY}`, Accept: spec.text ? "text/plain,application/json" : "application/json" } });
+  let body = null;
+  const text = await res.text();
+  if (spec.binary) body = { bytes: text.length, contentType: res.headers.get("content-type") || null, omitted: true };
+  else if (text) {
+    try { body = JSON.parse(text); } catch { body = { message: text.slice(0, 4000) }; }
+  }
+  output(envelope(op, res.ok ? "success" : "error", { ok: res.ok, method: spec.method, endpoint: endpointPath, resourceType: spec.resourceType, httpStatus: res.status, data: body, auth: { envVarsPresent: ["PIXELLAB_API_KEY"], valuesPrinted: false } }), parsed.opts.json);
+}
+
+main().catch((error) => {
+  process.stderr.write(`${error && error.message ? error.message : "pixellab_cli_error"}\n`);
+  process.exitCode = 1;
+});

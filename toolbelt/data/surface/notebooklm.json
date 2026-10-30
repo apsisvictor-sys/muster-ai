@@ -1,0 +1,845 @@
+{
+ "schemaVersion": 1,
+ "cli": "notebooklm",
+ "cliVersion": "0.3.4",
+ "cliPath": "/home/operator/.local/bin/notebooklm",
+ "cliMtimeMs": 1777564188979.1885,
+ "generatedAt": "2026-08-29T13:01:36.116Z",
+ "leafCount": 85,
+ "leaves": [
+  {
+   "cmd": "artifact delete",
+   "flags": [
+    "notebook",
+    "yes"
+   ],
+   "desc": "Delete an artifact"
+  },
+  {
+   "cmd": "artifact export",
+   "flags": [
+    "notebook",
+    "title",
+    "type"
+   ],
+   "desc": "Export to Google Docs/Sheets"
+  },
+  {
+   "cmd": "artifact get",
+   "flags": [
+    "notebook"
+   ],
+   "desc": "Get artifact details"
+  },
+  {
+   "cmd": "artifact list",
+   "flags": [
+    "json",
+    "notebook",
+    "type"
+   ],
+   "desc": "List all artifacts (or by type)"
+  },
+  {
+   "cmd": "artifact poll",
+   "flags": [
+    "notebook"
+   ],
+   "desc": "Poll generation status (single check)"
+  },
+  {
+   "cmd": "artifact rename",
+   "flags": [
+    "notebook"
+   ],
+   "desc": "Rename an artifact"
+  },
+  {
+   "cmd": "artifact suggestions",
+   "flags": [
+    "json",
+    "notebook"
+   ],
+   "desc": "Get AI-suggested report topics based on notebook content."
+  },
+  {
+   "cmd": "artifact wait",
+   "flags": [
+    "interval",
+    "json",
+    "notebook",
+    "timeout"
+   ],
+   "desc": "Wait for generation to complete (blocking)"
+  },
+  {
+   "cmd": "ask",
+   "flags": [
+    "conversation-id",
+    "json",
+    "new",
+    "note-title",
+    "notebook",
+    "save-as-note",
+    "source"
+   ],
+   "desc": "Ask a notebook a question."
+  },
+  {
+   "cmd": "auth check",
+   "flags": [
+    "json",
+    "test"
+   ],
+   "desc": "Check authentication status and diagnose issues."
+  },
+  {
+   "cmd": "clear",
+   "flags": [],
+   "desc": "Clear current notebook context."
+  },
+  {
+   "cmd": "configure concise concise",
+   "flags": [
+    "mode",
+    "notebook",
+    "persona",
+    "response-length"
+   ],
+   "desc": "Brief, to-the-point responses"
+  },
+  {
+   "cmd": "configure concise default",
+   "flags": [
+    "mode",
+    "notebook",
+    "persona",
+    "response-length"
+   ],
+   "desc": "General purpose (default behavior)"
+  },
+  {
+   "cmd": "configure concise detailed",
+   "flags": [
+    "mode",
+    "notebook",
+    "persona",
+    "response-length"
+   ],
+   "desc": "Verbose, comprehensive responses"
+  },
+  {
+   "cmd": "configure default concise",
+   "flags": [
+    "mode",
+    "notebook",
+    "persona",
+    "response-length"
+   ],
+   "desc": "Brief, to-the-point responses"
+  },
+  {
+   "cmd": "configure default default",
+   "flags": [
+    "mode",
+    "notebook",
+    "persona",
+    "response-length"
+   ],
+   "desc": "General purpose (default behavior)"
+  },
+  {
+   "cmd": "configure default detailed",
+   "flags": [
+    "mode",
+    "notebook",
+    "persona",
+    "response-length"
+   ],
+   "desc": "Verbose, comprehensive responses"
+  },
+  {
+   "cmd": "configure detailed concise",
+   "flags": [
+    "mode",
+    "notebook",
+    "persona",
+    "response-length"
+   ],
+   "desc": "Brief, to-the-point responses"
+  },
+  {
+   "cmd": "configure detailed default",
+   "flags": [
+    "mode",
+    "notebook",
+    "persona",
+    "response-length"
+   ],
+   "desc": "General purpose (default behavior)"
+  },
+  {
+   "cmd": "configure detailed detailed",
+   "flags": [
+    "mode",
+    "notebook",
+    "persona",
+    "response-length"
+   ],
+   "desc": "Verbose, comprehensive responses"
+  },
+  {
+   "cmd": "create",
+   "flags": [
+    "json"
+   ],
+   "desc": "Create a new notebook."
+  },
+  {
+   "cmd": "delete",
+   "flags": [
+    "notebook",
+    "yes"
+   ],
+   "desc": "Delete a notebook."
+  },
+  {
+   "cmd": "download audio",
+   "flags": [
+    "all",
+    "artifact",
+    "dry-run",
+    "earliest",
+    "force",
+    "json",
+    "latest",
+    "name",
+    "no-clobber",
+    "notebook"
+   ],
+   "desc": "Download audio file"
+  },
+  {
+   "cmd": "download cinematic-video",
+   "flags": [
+    "all",
+    "artifact",
+    "dry-run",
+    "earliest",
+    "force",
+    "json",
+    "latest",
+    "name",
+    "no-clobber",
+    "notebook"
+   ],
+   "desc": "Download cinematic video overview(s) to file."
+  },
+  {
+   "cmd": "download data-table",
+   "flags": [
+    "all",
+    "artifact",
+    "dry-run",
+    "earliest",
+    "force",
+    "json",
+    "latest",
+    "name",
+    "no-clobber",
+    "notebook"
+   ],
+   "desc": "Download data table as CSV"
+  },
+  {
+   "cmd": "download flashcards",
+   "flags": [
+    "artifact",
+    "format",
+    "notebook"
+   ],
+   "desc": "Download flashcard deck."
+  },
+  {
+   "cmd": "download infographic",
+   "flags": [
+    "all",
+    "artifact",
+    "dry-run",
+    "earliest",
+    "force",
+    "json",
+    "latest",
+    "name",
+    "no-clobber",
+    "notebook"
+   ],
+   "desc": "Download infographic image"
+  },
+  {
+   "cmd": "download mind-map",
+   "flags": [
+    "all",
+    "artifact",
+    "dry-",
+    "dry-run",
+    "earliest",
+    "force",
+    "json",
+    "latest",
+    "name",
+    "no-clobber",
+    "notebook"
+   ],
+   "desc": "Download mind map as JSON"
+  },
+  {
+   "cmd": "download quiz",
+   "flags": [
+    "artifact",
+    "format",
+    "notebook"
+   ],
+   "desc": "Download quiz questions."
+  },
+  {
+   "cmd": "download report",
+   "flags": [
+    "all",
+    "artifact",
+    "dry-run",
+    "earliest",
+    "force",
+    "json",
+    "latest",
+    "name",
+    "no-clobber",
+    "notebook"
+   ],
+   "desc": "Download report as markdown"
+  },
+  {
+   "cmd": "download slide-deck",
+   "flags": [
+    "all",
+    "artifact",
+    "dry-run",
+    "earliest",
+    "force",
+    "format",
+    "json",
+    "latest",
+    "name",
+    "no-clobber",
+    "notebook"
+   ],
+   "desc": "Download slide deck PDF"
+  },
+  {
+   "cmd": "download video",
+   "flags": [
+    "all",
+    "artifact",
+    "dry-run",
+    "earliest",
+    "force",
+    "json",
+    "latest",
+    "name",
+    "no-clobber",
+    "notebook"
+   ],
+   "desc": "Download video file"
+  },
+  {
+   "cmd": "generate audio",
+   "flags": [
+    "format",
+    "json",
+    "language",
+    "length",
+    "no-wait",
+    "notebook",
+    "retry",
+    "source",
+    "wait"
+   ],
+   "desc": "Audio overview (podcast)"
+  },
+  {
+   "cmd": "generate cinematic-video",
+   "flags": [
+    "format",
+    "json",
+    "language",
+    "no-wait",
+    "notebook",
+    "retry",
+    "source",
+    "style",
+    "wait"
+   ],
+   "desc": "Generate cinematic video overview (AI-generated..."
+  },
+  {
+   "cmd": "generate data-table",
+   "flags": [
+    "json",
+    "language",
+    "no-wait",
+    "notebook",
+    "retry",
+    "source",
+    "wait"
+   ],
+   "desc": "Data table"
+  },
+  {
+   "cmd": "generate flashcards",
+   "flags": [
+    "difficulty",
+    "json",
+    "no-wait",
+    "notebook",
+    "quantity",
+    "retry",
+    "source",
+    "wait"
+   ],
+   "desc": "Flashcards"
+  },
+  {
+   "cmd": "generate infographic",
+   "flags": [
+    "detail",
+    "json",
+    "language",
+    "no-wait",
+    "notebook",
+    "orientation",
+    "retry",
+    "source",
+    "style",
+    "wait"
+   ],
+   "desc": "Infographic"
+  },
+  {
+   "cmd": "generate mind-map",
+   "flags": [
+    "json",
+    "notebook",
+    "source"
+   ],
+   "desc": "Mind map"
+  },
+  {
+   "cmd": "generate quiz",
+   "flags": [
+    "difficulty",
+    "json",
+    "no-wait",
+    "notebook",
+    "quantity",
+    "retry",
+    "source",
+    "wait"
+   ],
+   "desc": "Quiz"
+  },
+  {
+   "cmd": "generate report",
+   "flags": [
+    "append",
+    "format",
+    "json",
+    "language",
+    "no-wait",
+    "notebook",
+    "retry",
+    "source",
+    "wait"
+   ],
+   "desc": "Report (briefing-doc, study-guide, blog-post, custom)"
+  },
+  {
+   "cmd": "generate revise-slide",
+   "flags": [
+    "artifact",
+    "json",
+    "no-wait",
+    "notebook",
+    "retry",
+    "slide",
+    "wait"
+   ],
+   "desc": "Revise an individual slide in an existing slide deck."
+  },
+  {
+   "cmd": "generate slide-deck",
+   "flags": [
+    "format",
+    "json",
+    "language",
+    "length",
+    "no-wait",
+    "notebook",
+    "retry",
+    "source",
+    "wait"
+   ],
+   "desc": "Slide deck"
+  },
+  {
+   "cmd": "generate video",
+   "flags": [
+    "format",
+    "json",
+    "language",
+    "no-wait",
+    "notebook",
+    "retry",
+    "source",
+    "style",
+    "wait"
+   ],
+   "desc": "Video overview"
+  },
+  {
+   "cmd": "history",
+   "flags": [
+    "clear",
+    "json",
+    "limit",
+    "note-title",
+    "notebook",
+    "save",
+    "show-all"
+   ],
+   "desc": "Get conversation history or save it as a note."
+  },
+  {
+   "cmd": "language get",
+   "flags": [
+    "json",
+    "local"
+   ],
+   "desc": "Get current language setting."
+  },
+  {
+   "cmd": "language list",
+   "flags": [
+    "json"
+   ],
+   "desc": "List all supported language codes."
+  },
+  {
+   "cmd": "language set",
+   "flags": [
+    "json",
+    "local"
+   ],
+   "desc": "Set default language for artifact generation."
+  },
+  {
+   "cmd": "list",
+   "flags": [
+    "json"
+   ],
+   "desc": "List all notebooks."
+  },
+  {
+   "cmd": "login",
+   "flags": [
+    "storage"
+   ],
+   "desc": "Log in to NotebookLM via browser."
+  },
+  {
+   "cmd": "metadata",
+   "flags": [
+    "json",
+    "notebook"
+   ],
+   "desc": "Export notebook metadata with sources list."
+  },
+  {
+   "cmd": "note create",
+   "flags": [
+    "notebook",
+    "title"
+   ],
+   "desc": "Create a new note"
+  },
+  {
+   "cmd": "note delete",
+   "flags": [
+    "notebook",
+    "yes"
+   ],
+   "desc": "Delete a note"
+  },
+  {
+   "cmd": "note get",
+   "flags": [
+    "notebook"
+   ],
+   "desc": "Get note content"
+  },
+  {
+   "cmd": "note list",
+   "flags": [
+    "notebook"
+   ],
+   "desc": "List all notes"
+  },
+  {
+   "cmd": "note rename",
+   "flags": [
+    "notebook"
+   ],
+   "desc": "Rename a note."
+  },
+  {
+   "cmd": "note save",
+   "flags": [
+    "content",
+    "notebook",
+    "title"
+   ],
+   "desc": "Update note content"
+  },
+  {
+   "cmd": "rename",
+   "flags": [
+    "notebook"
+   ],
+   "desc": "Rename a notebook."
+  },
+  {
+   "cmd": "research status",
+   "flags": [
+    "json",
+    "notebook"
+   ],
+   "desc": "Check research status (non-blocking)"
+  },
+  {
+   "cmd": "research wait",
+   "flags": [
+    "import-all",
+    "interval",
+    "json",
+    "notebook",
+    "timeout"
+   ],
+   "desc": "Wait for research to complete (blocking)"
+  },
+  {
+   "cmd": "share add",
+   "flags": [
+    "json",
+    "message",
+    "no-notify",
+    "notebook",
+    "permission"
+   ],
+   "desc": "Share with a user (editor or viewer)"
+  },
+  {
+   "cmd": "share public",
+   "flags": [
+    "disable",
+    "enable",
+    "json",
+    "notebook"
+   ],
+   "desc": "Enable or disable public link sharing"
+  },
+  {
+   "cmd": "share remove",
+   "flags": [
+    "json",
+    "notebook",
+    "yes"
+   ],
+   "desc": "Remove user's access"
+  },
+  {
+   "cmd": "share status",
+   "flags": [
+    "json",
+    "notebook"
+   ],
+   "desc": "Show sharing status and shared users"
+  },
+  {
+   "cmd": "share update",
+   "flags": [
+    "json",
+    "notebook",
+    "permission"
+   ],
+   "desc": "Update user's permission level"
+  },
+  {
+   "cmd": "share view-level",
+   "flags": [
+    "json",
+    "notebook"
+   ],
+   "desc": "Set what viewers can access (full notebook or chat only)"
+  },
+  {
+   "cmd": "skill install",
+   "flags": [],
+   "desc": "Install or update the NotebookLM skill for Claude Code."
+  },
+  {
+   "cmd": "skill show",
+   "flags": [],
+   "desc": "Display the skill file content."
+  },
+  {
+   "cmd": "skill status",
+   "flags": [],
+   "desc": "Check if the skill is installed and show version info."
+  },
+  {
+   "cmd": "skill uninstall",
+   "flags": [],
+   "desc": "Remove the NotebookLM skill from Claude Code."
+  },
+  {
+   "cmd": "source add",
+   "flags": [
+    "json",
+    "mime-type",
+    "notebook",
+    "title",
+    "type"
+   ],
+   "desc": "Add a source (url, text, file, youtube)"
+  },
+  {
+   "cmd": "source add-drive",
+   "flags": [
+    "mime-type",
+    "notebook"
+   ],
+   "desc": "Add a Google Drive document as a source."
+  },
+  {
+   "cmd": "source add-research",
+   "flags": [
+    "from",
+    "import-all",
+    "mode",
+    "no-wait",
+    "notebook"
+   ],
+   "desc": "Search web or drive and add sources from results."
+  },
+  {
+   "cmd": "source delete",
+   "flags": [
+    "notebook",
+    "yes"
+   ],
+   "desc": "Delete a source"
+  },
+  {
+   "cmd": "source delete-by-title",
+   "flags": [
+    "notebook",
+    "yes"
+   ],
+   "desc": "Delete a source by exact title."
+  },
+  {
+   "cmd": "source fulltext",
+   "flags": [
+    "json",
+    "notebook",
+    "output"
+   ],
+   "desc": "Get full indexed text content"
+  },
+  {
+   "cmd": "source get",
+   "flags": [
+    "notebook"
+   ],
+   "desc": "Get source details"
+  },
+  {
+   "cmd": "source guide",
+   "flags": [
+    "json",
+    "notebook"
+   ],
+   "desc": "Get AI-generated source summary and keywords"
+  },
+  {
+   "cmd": "source list",
+   "flags": [
+    "json",
+    "notebook"
+   ],
+   "desc": "List sources in a notebook"
+  },
+  {
+   "cmd": "source refresh",
+   "flags": [
+    "notebook"
+   ],
+   "desc": "Refresh a URL/Drive source"
+  },
+  {
+   "cmd": "source rename",
+   "flags": [
+    "notebook"
+   ],
+   "desc": "Rename a source"
+  },
+  {
+   "cmd": "source stale",
+   "flags": [
+    "notebook"
+   ],
+   "desc": "Check if source needs refresh"
+  },
+  {
+   "cmd": "source wait",
+   "flags": [
+    "json",
+    "notebook",
+    "timeout"
+   ],
+   "desc": "Wait for a source to finish processing."
+  },
+  {
+   "cmd": "status",
+   "flags": [
+    "json",
+    "paths"
+   ],
+   "desc": "Show current context (active notebook and conversation)."
+  },
+  {
+   "cmd": "summary",
+   "flags": [
+    "notebook",
+    "topics"
+   ],
+   "desc": "Get notebook summary with AI-generated insights."
+  },
+  {
+   "cmd": "use",
+   "flags": [
+    "notebook"
+   ],
+   "desc": "Set the current notebook context."
+  }
+ ]
+}

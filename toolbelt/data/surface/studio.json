@@ -1,0 +1,77 @@
+{
+ "schemaVersion": 1,
+ "cli": "/home/operator/.pi/agent/harness/toolbelt/generated/studio/studio",
+ "cliVersion": null,
+ "cliPath": "/home/operator/.pi/agent/harness/toolbelt/generated/studio/studio",
+ "cliMtimeMs": 1785927233253.0012,
+ "generatedAt": "2026-08-29T13:02:20.469Z",
+ "leafCount": 8,
+ "leaves": [
+  {
+   "cmd": "cost-summary",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "intelligence-get",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "intelligence-start",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "intelligence-status",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "opportunity-get",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "opportunity-list",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "opportunity-update",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "status",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  }
+ ],
+ "source": "provider_catalog",
+ "note": "Operations take a single --args JSON object."
+}

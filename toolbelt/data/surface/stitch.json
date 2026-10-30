@@ -1,0 +1,92 @@
+{
+ "schemaVersion": 1,
+ "cli": "/home/operator/.pi/agent/harness/toolbelt/generated/stitch/stitch",
+ "cliVersion": null,
+ "cliPath": "/home/operator/.pi/agent/harness/toolbelt/generated/stitch/stitch",
+ "cliMtimeMs": 1785927233253.0012,
+ "generatedAt": "2026-08-29T13:01:53.730Z",
+ "leaves": [
+  {
+   "cmd": "batch",
+   "flags": [
+    "continue-on-error",
+    "cwd",
+    "design-file",
+    "device",
+    "dry-run",
+    "force",
+    "include-generated",
+    "json",
+    "limit",
+    "manifest",
+    "output-dir",
+    "phase",
+    "project-id",
+    "project-title"
+   ],
+   "desc": "Sequentially generate boards from a .stitch manifest"
+  },
+  {
+   "cmd": "generate",
+   "flags": [
+    "asset-id",
+    "cwd",
+    "design-file",
+    "device",
+    "guardrails",
+    "json",
+    "name",
+    "output-dir",
+    "project-id",
+    "project-title",
+    "prompt",
+    "prompt-file",
+    "slug"
+   ],
+   "desc": "Generate one screen from a prompt file/string and save HTML + PNG"
+  },
+  {
+   "cmd": "init",
+   "flags": [
+    "cwd",
+    "design-file",
+    "json",
+    "project-id",
+    "project-title"
+   ],
+   "desc": "Create project-local .stitch/ folders and config"
+  },
+  {
+   "cmd": "list-projects",
+   "flags": [
+    "json"
+   ],
+   "desc": "List accessible Stitch projects"
+  },
+  {
+   "cmd": "list-tools",
+   "flags": [
+    "json"
+   ],
+   "desc": "List Stitch MCP tool names"
+  },
+  {
+   "cmd": "status",
+   "flags": [
+    "json"
+   ],
+   "desc": "Check SDK/auth readiness without printing secrets"
+  }
+ ],
+ "source": "generated_cli_source",
+ "note": "Top-level dispatch from generated/stitch/stitch usage(); flags extracted from the CLI source. No recursive subcommands exist.",
+ "coverage": {
+  "source": "generated_cli_source",
+  "maxDepth": null,
+  "helpNodes": null,
+  "complete": true,
+  "truncatedLeafCount": 0,
+  "truncatedLeaves": []
+ },
+ "leafCount": 6
+}

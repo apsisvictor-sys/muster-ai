@@ -1,0 +1,16 @@
+{
+	"name": "pi-muster",
+	"private": true,
+	"type": "module",
+	"description": "Muster — cross-harness coordination through Concord (tasks, claims, messages) and Herdr lanes. The Pi extension's manifest stays in Pi's profile (extensions/muster/package.json).",
+	"dependencies": {
+		"@concord-ai/concord-mcp": "0.10.4",
+		"@earendil-works/chord": "1.0.3",
+		"@earendil-works/pi-ai": "1.0.3",
+		"@earendil-works/pi-codemode": "1.0.3",
+		"@earendil-works/pi-coding-agent": "1.0.3",
+		"@earendil-works/pi-durable": "1.0.3",
+		"@modelcontextprotocol/sdk": "1.30.0",
+		"typebox": "1.3.27"
+	}
+}

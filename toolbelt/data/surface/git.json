@@ -1,0 +1,431 @@
+{
+ "schemaVersion": 1,
+ "cli": "git",
+ "cliVersion": "2.43.0",
+ "cliPath": "/usr/bin/git",
+ "cliMtimeMs": 1751487822000,
+ "generatedAt": "2026-09-12T12:59:54.830Z",
+ "leafCount": 51,
+ "coverage": {
+  "source": "help_walk",
+  "maxDepth": 3,
+  "helpNodes": 1,
+  "complete": true,
+  "truncatedLeafCount": 0,
+  "truncatedLeaves": [],
+  "unexpandedGroups": [],
+  "repeatedParentLeaves": []
+ },
+ "leaves": [
+  {
+   "cmd": "add",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "am",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "apply",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "blame",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "branch",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "branch-list",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "cat-file",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "checkout",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "cherry-pick",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "clean",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "clone",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "commit",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "config-get",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "config-set",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "describe",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "diff",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "fetch",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "for-each-ref",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "gc",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "grep",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "init",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "log",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "ls-files",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "ls-remote",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "merge",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "mv",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "prune",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "pull",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "push",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "rebase",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "reflog",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "remote-add",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "remote-list",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "remote-remove",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "remote-set-url",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "reset",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "restore",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "rev-parse",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "revert",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "rm",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "shortlog",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "show",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "stash",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "stash-list",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "status",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "submodule-update",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "switch",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "tag",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "tag-list",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "worktree-add",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "worktree-remove",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  }
+ ],
+ "source": "provider_catalog",
+ "note": "Operations take a single --args JSON object."
+}

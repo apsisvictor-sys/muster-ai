@@ -1,0 +1,438 @@
+#!/usr/bin/env node
+import { spawnSync } from "node:child_process";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+process.stdout.on("error", (error) => {
+  if (error && error.code === "EPIPE") process.exit(0);
+  throw error;
+});
+
+const HOME = os.homedir();
+const DEFAULT_TIMEOUT_MS = 300_000;
+const DEVICE_TYPES = new Set(["DESKTOP", "MOBILE", "TABLET", "AGNOSTIC"]);
+const SECRET_KEY_RE = /^(STITCH_API_KEY|STITCH_ACCESS_TOKEN)$/;
+
+function parseArgv(argv) {
+  const opts = {};
+  const positional = [];
+  for (let i = 0; i < argv.length; i += 1) {
+    const token = argv[i];
+    if (token === "--") continue;
+    if (!token.startsWith("--")) {
+      positional.push(token);
+      continue;
+    }
+    const eq = token.indexOf("=");
+    if (eq !== -1) {
+      opts[token.slice(2, eq)] = token.slice(eq + 1);
+      continue;
+    }
+    const key = token.slice(2);
+    const next = argv[i + 1];
+    if (!next || next.startsWith("--")) opts[key] = true;
+    else {
+      opts[key] = next;
+      i += 1;
+    }
+  }
+  return { command: positional[0] || "help", opts, positional };
+}
+
+function redact(value) {
+  if (typeof value === "string") {
+    return value
+      .replace(/AQ\.[A-Za-z0-9_.-]{20,}/g, "<redacted>")
+      .replace(/(X-Goog-Api-Key:\s*)[^"'\s]+/gi, "$1<redacted>")
+      .replace(/(STITCH_API_KEY=)[^"'\s]+/g, "$1<redacted>");
+  }
+  if (Array.isArray(value)) return value.map(redact);
+  if (value && typeof value === "object") {
+    const out = {};
+    for (const [key, child] of Object.entries(value)) {
+      out[key] = SECRET_KEY_RE.test(key) ? "<redacted>" : redact(child);
+    }
+    return out;
+  }
+  return value;
+}
+
+function output(payload, json) {
+  if (json) console.log(JSON.stringify(redact(payload), null, 2));
+  else if (typeof payload === "string") console.log(payload);
+  else console.log(JSON.stringify(redact(payload), null, 2));
+}
+
+function readJson(filePath) {
+  try { return JSON.parse(readFileSync(filePath, "utf8")); } catch { return null; }
+}
+
+function discoverAuth() {
+  const sources = [];
+
+  if (process.env.STITCH_API_KEY) sources.push({ type: "env", key: "STITCH_API_KEY", value: process.env.STITCH_API_KEY });
+  if (process.env.STITCH_ACCESS_TOKEN) sources.push({ type: "env", key: "STITCH_ACCESS_TOKEN", value: process.env.STITCH_ACCESS_TOKEN });
+
+  const configPaths = [
+    path.join(HOME, ".gemini", "antigravity", "mcp_config.json"),
+    path.join(HOME, ".gemini", "config", "mcp_config.json"),
+    path.join(HOME, ".claude", ".mcp.json"),
+    path.join(HOME, ".config", "Code", "User", "mcp.json"),
+  ];
+
+  for (const configPath of configPaths) {
+    const json = readJson(configPath);
+    const servers = json && json.mcpServers && typeof json.mcpServers === "object" ? json.mcpServers : {};
+    for (const [name, cfg] of Object.entries(servers)) {
+      const serialized = JSON.stringify(cfg || {});
+      if (!/stitch/i.test(name) && !/stitch/i.test(serialized)) continue;
+      const env = cfg && cfg.env && typeof cfg.env === "object" ? cfg.env : {};
+      if (typeof env.STITCH_API_KEY === "string" && env.STITCH_API_KEY) {
+        sources.push({ type: "mcp-config", key: "STITCH_API_KEY", source: configPath, server: name, value: env.STITCH_API_KEY });
+      }
+      const args = Array.isArray(cfg?.args) ? cfg.args : [];
+      const headerIndex = args.findIndex((arg) => /^X-Goog-Api-Key:/i.test(String(arg)));
+      if (headerIndex !== -1) {
+        const value = String(args[headerIndex]).replace(/^X-Goog-Api-Key:\s*/i, "").trim();
+        if (value) sources.push({ type: "mcp-remote-header", key: "STITCH_API_KEY", source: configPath, server: name, value });
+      }
+    }
+  }
+
+  const apiKey = sources.find((source) => source.key === "STITCH_API_KEY" && source.value);
+  const accessToken = sources.find((source) => source.key === "STITCH_ACCESS_TOKEN" && source.value);
+  if (apiKey && !process.env.STITCH_API_KEY) process.env.STITCH_API_KEY = apiKey.value;
+  if (accessToken && !process.env.STITCH_ACCESS_TOKEN) process.env.STITCH_ACCESS_TOKEN = accessToken.value;
+
+  return {
+    hasApiKey: Boolean(process.env.STITCH_API_KEY),
+    hasAccessToken: Boolean(process.env.STITCH_ACCESS_TOKEN),
+    sourceSummary: sources.map((source) => ({ type: source.type, key: source.key, source: source.source || null, server: source.server || null })),
+    valuesPrinted: false,
+  };
+}
+
+function usage() {
+  return `stitch - universal Google Stitch CLI for the operator/Pi
+
+Commands:
+  status                         Check SDK/auth readiness without printing secrets
+  init                           Create project-local .stitch/ folders and config
+  list-tools                     List Stitch MCP tool names
+  list-projects                  List accessible Stitch projects
+  generate                       Generate one screen from a prompt file/string and save HTML + PNG
+  batch                          Sequentially generate boards from a .stitch manifest
+
+Examples:
+  stitch status --json
+  stitch init --project-title "PartnerVault M3" --design-file DESIGN.md
+  stitch generate --prompt-file .stitch/prompts/m3-01-draft.md --design-file DESIGN.md --project-title "PartnerVault M3"
+  stitch batch --manifest .stitch/desktop-boards.json --phase M3 --stop-on-failure
+  stitch generate --prompt "A low-fidelity login screen" --device MOBILE
+
+Output convention per project:
+  .stitch/
+    DESIGN.md          optional copied design context
+    prompts/           prompt files
+    output/            generated .html/.png files
+    stitch.json        project id + screen metadata
+`;
+}
+
+function ensureAuth() {
+  const auth = discoverAuth();
+  if (!auth.hasApiKey && !auth.hasAccessToken) {
+    const err = new Error("Missing Stitch auth. Set STITCH_API_KEY, or configure a Stitch MCP server with STITCH_API_KEY.");
+    err.auth = auth;
+    throw err;
+  }
+  return auth;
+}
+
+async function withTimeout(promise, ms, label) {
+  let timer;
+  try {
+    return await Promise.race([
+      promise,
+      new Promise((_, reject) => {
+        timer = setTimeout(() => reject(new Error(`${label} timed out after ${ms}ms`)), ms);
+      }),
+    ]);
+  } finally {
+    if (timer) clearTimeout(timer);
+  }
+}
+
+async function statusCommand() {
+  const auth = discoverAuth();
+  const result = {
+    ok: true,
+    command: "status",
+    sdkPackage: "@google/stitch-sdk",
+    auth,
+    live: { checked: false, ok: false, toolCount: null, error: null },
+    valuesPrinted: false,
+  };
+  if (!auth.hasApiKey && !auth.hasAccessToken) return result;
+  try {
+    const { stitch } = await import("@google/stitch-sdk");
+    const { tools } = await withTimeout(stitch.listTools(), 30_000, "stitch.listTools");
+    result.live = { checked: true, ok: true, toolCount: Array.isArray(tools) ? tools.length : null, error: null };
+    await stitch.close();
+  } catch (error) {
+    result.ok = false;
+    result.live = { checked: true, ok: false, toolCount: null, error: error?.message || String(error) };
+  }
+  return result;
+}
+
+function projectConfigPath(cwd) {
+  return path.join(cwd, ".stitch", "stitch.json");
+}
+
+function loadProjectConfig(cwd) {
+  return readJson(projectConfigPath(cwd)) || { version: 1, screens: {} };
+}
+
+function saveProjectConfig(cwd, config) {
+  const filePath = projectConfigPath(cwd);
+  mkdirSync(path.dirname(filePath), { recursive: true });
+  config.updatedAt = new Date().toISOString();
+  writeFileSync(filePath, `${JSON.stringify(config, null, 2)}\n`);
+}
+
+function initCommand(opts) {
+  const cwd = path.resolve(String(opts.cwd || process.cwd()));
+  const stitchDir = path.join(cwd, ".stitch");
+  const promptsDir = path.join(stitchDir, "prompts");
+  const outputDir = path.join(stitchDir, "output");
+  mkdirSync(promptsDir, { recursive: true });
+  mkdirSync(outputDir, { recursive: true });
+
+  const config = loadProjectConfig(cwd);
+  if (opts["project-id"]) config.projectId = String(opts["project-id"]);
+  if (opts["project-title"]) config.projectTitle = String(opts["project-title"]);
+  if (!config.screens) config.screens = {};
+  saveProjectConfig(cwd, config);
+
+  const designFile = opts["design-file"] ? path.resolve(cwd, String(opts["design-file"])) : null;
+  if (designFile && existsSync(designFile)) {
+    writeFileSync(path.join(stitchDir, "DESIGN.md"), readFileSync(designFile));
+  }
+
+  const readmePath = path.join(stitchDir, "README.md");
+  if (!existsSync(readmePath)) {
+    writeFileSync(readmePath, `# Stitch Workspace\n\nProject-local Google Stitch workspace.\n\n- \`prompts/\` — reusable prompt files\n- \`output/\` — generated HTML and PNG files\n- \`stitch.json\` — Stitch project/screen metadata\n- \`DESIGN.md\` — optional design context copied from the project\n\nGenerate:\n\n\`\`\`bash\nstitch generate --prompt-file .stitch/prompts/example.md --design-file .stitch/DESIGN.md\n\`\`\`\n`);
+  }
+
+  return { ok: true, command: "init", cwd, paths: { stitchDir, promptsDir, outputDir, config: projectConfigPath(cwd) }, valuesPrinted: false };
+}
+
+function readPrompt(opts, cwd) {
+  if (opts["prompt-file"]) return readFileSync(path.resolve(cwd, String(opts["prompt-file"])), "utf8").trim();
+  if (opts.prompt) return String(opts.prompt).trim();
+  throw new Error("Missing prompt. Use --prompt-file <path> or --prompt <text>.");
+}
+
+function buildPrompt(opts, cwd) {
+  const prompt = readPrompt(opts, cwd);
+  const designPath = opts["design-file"] ? path.resolve(cwd, String(opts["design-file"])) : (existsSync(path.join(cwd, ".stitch", "DESIGN.md")) ? path.join(cwd, ".stitch", "DESIGN.md") : null);
+  const design = designPath && existsSync(designPath) ? readFileSync(designPath, "utf8").trim() : "";
+  const guardrails = opts.guardrails === false || opts.guardrails === "false" ? "" : `\n\nUNIVERSAL STITCH RULES:\n- Follow the supplied project design system exactly.\n- Do not invent unrelated SaaS styling, neon gradients, decorative purple, or generic AI dashboard chrome unless the prompt explicitly asks for it.\n- Produce an implementation-oriented screen/component, not a marketing landing page.\n- Keep status colors semantic and labeled; never rely on color alone.`;
+  return `${design ? `DESIGN SYSTEM / PROJECT CONTEXT:\n${design}\n\n` : ""}STITCH PROMPT:\n${prompt}${guardrails}`;
+}
+
+function safeSlug(value) {
+  return String(value || "screen").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 80) || "screen";
+}
+
+async function download(url, outputPath) {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`Download failed ${res.status} ${res.statusText}`);
+  const buffer = Buffer.from(await res.arrayBuffer());
+  writeFileSync(outputPath, buffer);
+}
+
+async function generateCommand(opts) {
+  ensureAuth();
+  const cwd = path.resolve(String(opts.cwd || process.cwd()));
+  const outputDir = path.resolve(cwd, String(opts["output-dir"] || path.join(".stitch", "output")));
+  mkdirSync(outputDir, { recursive: true });
+  const config = loadProjectConfig(cwd);
+  const device = String(opts.device || "DESKTOP").toUpperCase();
+  if (!DEVICE_TYPES.has(device)) throw new Error(`Invalid --device ${device}. Use DESKTOP, MOBILE, TABLET, or AGNOSTIC.`);
+  const prompt = buildPrompt(opts, cwd);
+  const { stitch } = await import("@google/stitch-sdk");
+
+  let projectId = String(opts["project-id"] || config.projectId || "").trim();
+  if (!projectId) {
+    const projectTitle = String(opts["project-title"] || config.projectTitle || path.basename(cwd) || "Stitch Project");
+    const rawProject = await withTimeout(stitch.callTool("create_project", { title: projectTitle }), DEFAULT_TIMEOUT_MS, "create_project");
+    projectId = rawProject.projectId || rawProject.id || rawProject.name;
+    config.projectId = projectId;
+    config.projectTitle = projectTitle;
+    config.projectName = rawProject.name || null;
+    saveProjectConfig(cwd, config);
+  }
+
+  const project = stitch.project(projectId);
+  const screen = await withTimeout(project.generate(prompt, device), DEFAULT_TIMEOUT_MS, "generate_screen");
+  const htmlUrl = await withTimeout(screen.getHtml(), 60_000, "getHtml");
+  const imageUrl = await withTimeout(screen.getImage(), 60_000, "getImage");
+  const slug = safeSlug(opts.slug || opts["asset-id"] || opts.name || screen.id);
+  const htmlPath = path.join(outputDir, `${slug}.html`);
+  const imagePath = path.join(outputDir, `${slug}.png`);
+  await download(htmlUrl, htmlPath);
+  await download(imageUrl, imagePath);
+
+  config.projectId = projectId;
+  config.screens = config.screens || {};
+  config.screens[slug] = {
+    screenId: screen.id,
+    projectId,
+    device,
+    htmlPath: path.relative(cwd, htmlPath),
+    imagePath: path.relative(cwd, imagePath),
+    generatedAt: new Date().toISOString(),
+  };
+  saveProjectConfig(cwd, config);
+  await stitch.close();
+  return { ok: true, command: "generate", projectId, screenId: screen.id, device, htmlPath, imagePath, metadataPath: projectConfigPath(cwd), valuesPrinted: false };
+}
+
+function manifestPath(cwd, opts) {
+  return path.resolve(cwd, String(opts.manifest || path.join(".stitch", "desktop-boards.json")));
+}
+
+function saveManifest(filePath, manifest) {
+  manifest.updatedAt = new Date().toISOString();
+  writeFileSync(filePath, `${JSON.stringify(manifest, null, 2)}\n`);
+}
+
+function selectedBatchBoards(manifest, opts) {
+  const boards = Array.isArray(manifest.boards) ? manifest.boards : [];
+  const phaseFilter = opts.phase ? new Set(String(opts.phase).split(",").map((s) => s.trim()).filter(Boolean)) : null;
+  const boardFilter = opts.board ? new Set(String(opts.board).split(",").map((s) => s.trim()).filter(Boolean)) : null;
+  const includeGenerated = opts["include-generated"] === true || opts["include-generated"] === "true" || opts.force === true || opts.force === "true";
+  const limit = opts.limit ? Number(opts.limit) : null;
+  const selected = [];
+  for (const board of boards) {
+    if (!board || typeof board !== "object") continue;
+    if (phaseFilter && !phaseFilter.has(String(board.phase || ""))) continue;
+    if (boardFilter && !boardFilter.has(String(board.id || ""))) continue;
+    if (!includeGenerated && board.status === "generated") continue;
+    selected.push(board);
+    if (limit && selected.length >= limit) break;
+  }
+  return selected;
+}
+
+async function batchCommand(opts) {
+  const cwd = path.resolve(String(opts.cwd || process.cwd()));
+  const filePath = manifestPath(cwd, opts);
+  const manifest = readJson(filePath);
+  if (!manifest || !Array.isArray(manifest.boards)) throw new Error(`Invalid batch manifest: ${filePath}`);
+  const selected = selectedBatchBoards(manifest, opts);
+  const dryRun = opts["dry-run"] === true || opts["dry-run"] === "true";
+  if (dryRun) {
+    return { ok: true, command: "batch", dryRun: true, manifest: filePath, selected: selected.map((board) => ({ id: board.id, phase: board.phase, assets: board.assets, promptFile: board.promptFile, status: board.status || "queued" })), valuesPrinted: false };
+  }
+
+  ensureAuth();
+  const stopOnFailure = opts["continue-on-error"] === true || opts["continue-on-error"] === "true" ? false : true;
+  const results = [];
+  for (const board of selected) {
+    const boardId = String(board.id || "").trim();
+    if (!boardId) continue;
+    board.status = "generating";
+    board.startedAt = new Date().toISOString();
+    saveManifest(filePath, manifest);
+    try {
+      const scriptPath = fileURLToPath(import.meta.url);
+      const generateArgs = [
+        scriptPath,
+        "generate",
+        "--json",
+        "--cwd",
+        cwd,
+        "--prompt-file",
+        board.promptFile,
+        "--design-file",
+        opts["design-file"] || manifest.designFile || path.join(".stitch", "DESIGN.md"),
+        "--output-dir",
+        opts["output-dir"] || manifest.outputDir || path.join(".stitch", "output"),
+        "--device",
+        board.device || opts.device || "DESKTOP",
+        "--slug",
+        boardId,
+        "--asset-id",
+        boardId,
+      ];
+      if (opts["project-id"] || manifest.projectId) generateArgs.push("--project-id", opts["project-id"] || manifest.projectId);
+      else generateArgs.push("--project-title", opts["project-title"] || manifest.projectTitle || "Stitch Project");
+      const child = spawnSync(process.execPath, generateArgs, { cwd, encoding: "utf8", timeout: DEFAULT_TIMEOUT_MS + 180_000 });
+      if (child.error) throw child.error;
+      if (child.status !== 0) throw new Error((child.stdout || child.stderr || `generate exited ${child.status}`).trim());
+      const result = JSON.parse(child.stdout);
+      if (!result.ok) throw new Error(result.error || "generate returned ok=false");
+      board.status = "generated";
+      board.generatedAt = new Date().toISOString();
+      board.screenId = result.screenId;
+      board.projectId = result.projectId;
+      board.htmlPath = path.relative(cwd, result.htmlPath);
+      board.imagePath = path.relative(cwd, result.imagePath);
+      board.error = null;
+      if (result.projectId && !manifest.projectId) manifest.projectId = result.projectId;
+      results.push({ id: boardId, ok: true, screenId: result.screenId, htmlPath: result.htmlPath, imagePath: result.imagePath });
+    } catch (error) {
+      board.status = "failed";
+      board.failedAt = new Date().toISOString();
+      board.error = error?.message || String(error);
+      results.push({ id: boardId, ok: false, error: board.error });
+      saveManifest(filePath, manifest);
+      if (stopOnFailure) break;
+    }
+    saveManifest(filePath, manifest);
+  }
+  const failed = results.filter((result) => !result.ok);
+  return { ok: failed.length === 0, command: "batch", manifest: filePath, totalSelected: selected.length, generated: results.filter((result) => result.ok).length, failed: failed.length, results, valuesPrinted: false };
+}
+
+async function listToolsCommand() {
+  ensureAuth();
+  const { stitch } = await import("@google/stitch-sdk");
+  const { tools } = await withTimeout(stitch.listTools(), 60_000, "listTools");
+  await stitch.close();
+  return { ok: true, command: "list-tools", tools: tools.map((tool) => ({ name: tool.name, description: tool.description || null })), valuesPrinted: false };
+}
+
+async function listProjectsCommand() {
+  ensureAuth();
+  const { stitch } = await import("@google/stitch-sdk");
+  const projects = await withTimeout(stitch.projects(), 60_000, "projects");
+  await stitch.close();
+  return { ok: true, command: "list-projects", projects: projects.map((project) => ({ id: project.id, projectId: project.projectId })), valuesPrinted: false };
+}
+
+async function main() {
+  const parsed = parseArgv(process.argv.slice(2));
+  const json = parsed.opts.json === true || parsed.opts.json === "true";
+  try {
+    if (["help", "--help", "-h"].includes(parsed.command) || parsed.opts.help) return output(usage(), json);
+    if (parsed.command === "status" || parsed.command === "doctor") return output(await statusCommand(), json);
+    if (parsed.command === "init") return output(initCommand(parsed.opts), json);
+    if (parsed.command === "list-tools") return output(await listToolsCommand(), json);
+    if (parsed.command === "list-projects" || parsed.command === "projects") return output(await listProjectsCommand(), json);
+    if (parsed.command === "generate") return output(await generateCommand(parsed.opts), json);
+    if (parsed.command === "batch") return output(await batchCommand(parsed.opts), json);
+    throw new Error(`Unknown command: ${parsed.command}`);
+  } catch (error) {
+    const payload = { ok: false, command: parsed.command, error: error?.message || String(error), auth: error?.auth || undefined, valuesPrinted: false };
+    output(payload, json);
+    process.exitCode = 1;
+  }
+}
+
+main();

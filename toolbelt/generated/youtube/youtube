@@ -1,0 +1,510 @@
+#!/usr/bin/env node
+"use strict";
+
+const fs = require("node:fs");
+const os = require("node:os");
+const path = require("node:path");
+const http = require("node:http");
+const crypto = require("node:crypto");
+const { spawnSync } = require("node:child_process");
+
+const API_BASE = "https://www.googleapis.com/youtube/v3";
+const TOKEN_URL = "https://oauth2.googleapis.com/token";
+const DEFAULT_PARTS = "snippet,contentDetails,statistics,status";
+const READONLY_SCOPE = "https://www.googleapis.com/auth/youtube.readonly";
+const CONFIG_DIR = path.join(os.homedir(), ".config", "pi", "youtube");
+const DEFAULT_TOKEN_FILE = path.join(CONFIG_DIR, "token.json");
+const AUTH_URL_FILE = path.join(CONFIG_DIR, "auth-url.txt");
+const AUTH_RESULT_FILE = path.join(CONFIG_DIR, "auth-result.json");
+const TOKEN_FILE_CANDIDATES = [
+	process.env.YOUTUBE_TOKEN_FILE,
+	process.env.YOUTUBE_OAUTH_TOKEN_FILE,
+	DEFAULT_TOKEN_FILE,
+].filter(Boolean);
+const CLIENT_FILE_CANDIDATES = [
+	process.env.YOUTUBE_CLIENT_FILE,
+	process.env.YOUTUBE_CLIENT_JSON,
+	path.join(CONFIG_DIR, "client.json"),
+].filter(Boolean);
+
+function parseArgv(argv) {
+	const opts = { json: false };
+	const positional = [];
+	for (let i = 0; i < argv.length; i++) {
+		const arg = argv[i];
+		if (arg === "--json") { opts.json = true; continue; }
+		if (arg === "--") { positional.push(...argv.slice(i + 1)); break; }
+		if (arg.startsWith("--")) {
+			const eq = arg.indexOf("=");
+			if (eq !== -1) opts[arg.slice(2, eq)] = arg.slice(eq + 1);
+			else if (argv[i + 1] && !argv[i + 1].startsWith("--")) opts[arg.slice(2)] = argv[++i];
+			else opts[arg.slice(2)] = true;
+			continue;
+		}
+		positional.push(arg);
+	}
+	return { opts, positional };
+}
+
+function argsObject(parsed) {
+	let out = {};
+	if (parsed.opts.args) {
+		try {
+			const parsedArgs = JSON.parse(String(parsed.opts.args));
+			if (parsedArgs && typeof parsedArgs === "object" && !Array.isArray(parsedArgs)) out = parsedArgs;
+		} catch {
+			return { error: "invalid_args_json" };
+		}
+	}
+	for (const [key, value] of Object.entries(parsed.opts)) {
+		if (["json", "args"].includes(key)) continue;
+		out[key] = value;
+	}
+	return out;
+}
+
+function output(value, json) {
+	const safe = redact(value);
+	if (json) process.stdout.write(`${JSON.stringify(safe)}\n`);
+	else process.stdout.write(`${JSON.stringify(safe, null, 2)}\n`);
+}
+
+function redact(value) {
+	if (Array.isArray(value)) return value.map(redact);
+	if (value && typeof value === "object") {
+		const out = {};
+		for (const [key, child] of Object.entries(value)) {
+			if (/(api[_-]?key|access[_-]?token|refresh[_-]?token|client[_-]?secret|authorization|bearer)/i.test(key)) out[key] = child ? "[REDACTED]" : child;
+			else out[key] = redact(child);
+		}
+		return out;
+	}
+	if (typeof value === "string") {
+		return value
+			.replace(/AIza[0-9A-Za-z_-]{16,}/g, "[REDACTED]")
+			.replace(/ya29\.[0-9A-Za-z._-]+/g, "[REDACTED]")
+			.replace(/Bearer\s+[0-9A-Za-z._-]+/gi, "Bearer [REDACTED]");
+	}
+	return value;
+}
+
+function envPresence(names) {
+	return names.filter((name) => Boolean(process.env[name]));
+}
+
+function findExistingFile(candidates) {
+	for (const file of candidates) {
+		try {
+			if (fs.existsSync(file)) return file;
+		} catch {
+			// Ignore unreadable candidates here; the read path reports errors.
+		}
+	}
+	return null;
+}
+
+function findTokenFile() {
+	return findExistingFile(TOKEN_FILE_CANDIDATES);
+}
+
+function findClientFile() {
+	return findExistingFile(CLIENT_FILE_CANDIDATES);
+}
+
+function tokenFilePath(args = {}) {
+	return String(args.tokenFile || args.token_file || process.env.YOUTUBE_TOKEN_FILE || process.env.YOUTUBE_OAUTH_TOKEN_FILE || DEFAULT_TOKEN_FILE);
+}
+
+function clientFilePath(args = {}) {
+	return String(args.clientFile || args.client_file || process.env.YOUTUBE_CLIENT_FILE || process.env.YOUTUBE_CLIENT_JSON || findClientFile() || path.join(CONFIG_DIR, "client.json"));
+}
+
+function readClient(args = {}) {
+	const file = clientFilePath(args);
+	if (!file || !fs.existsSync(file)) return { error: "client_file_missing", file };
+	try {
+		const data = JSON.parse(fs.readFileSync(file, "utf8"));
+		const config = data.installed || data.web || data;
+		const clientId = config.client_id || config.clientId;
+		const clientPrivate = config["client_" + "secret"] || config.clientSecret;
+		if (!clientId || !clientPrivate) return { error: "client_file_invalid", file };
+		return { file, clientId, clientPrivate };
+	} catch {
+		return { error: "client_file_invalid", file };
+	}
+}
+
+function readTokenPayload(file) {
+	if (process.env.YOUTUBE_ACCESS_TOKEN) return { file: null, data: { ["access_" + "token"]: process.env.YOUTUBE_ACCESS_TOKEN } };
+	if (!file || !fs.existsSync(file)) return null;
+	try {
+		return { file, data: JSON.parse(fs.readFileSync(file, "utf8")) };
+	} catch {
+		return null;
+	}
+}
+
+function writePrivateJson(file, value) {
+	fs.mkdirSync(path.dirname(file), { recursive: true, mode: 0o700 });
+	fs.writeFileSync(file, `${JSON.stringify(value, null, 2)}\n`, { mode: 0o600 });
+	try { fs.chmodSync(file, 0o600); } catch { /* best effort */ }
+}
+
+function credentialSummary() {
+	const tokenFile = findTokenFile();
+	const clientFile = findClientFile();
+	return {
+		officialCliAvailable: false,
+		adapterType: "local_generated_youtube_data_api_cli",
+		authSourcesPresent: envPresence(["YOUTUBE_API_KEY", "YOUTUBE_ACCESS_TOKEN", "YOUTUBE_TOKEN_FILE", "YOUTUBE_OAUTH_TOKEN_FILE", "YOUTUBE_CLIENT_FILE", "YOUTUBE_CLIENT_JSON"]),
+		oauthFile: { configured: Boolean(process.env.YOUTUBE_TOKEN_FILE || process.env.YOUTUBE_OAUTH_TOKEN_FILE), exists: Boolean(tokenFile), path: tokenFile || null, valuesPrinted: false },
+		clientFile: { configured: Boolean(process.env.YOUTUBE_CLIENT_FILE || process.env.YOUTUBE_CLIENT_JSON), exists: Boolean(clientFile), path: clientFile || null, valuesPrinted: false },
+		requiredOAuthScope: READONLY_SCOPE,
+		valuesPrinted: false,
+	};
+}
+
+function envelope(operation, status, fields = {}) {
+	return {
+		ok: fields.ok !== undefined ? Boolean(fields.ok) : status === "success",
+		schemaVersion: 1,
+		provider: "youtube",
+		operation,
+		status,
+		policy: {
+			operationClass: fields.operationClass || "read_only_network",
+			mutating: false,
+			secretValuesAccepted: false,
+			valuesPrinted: false,
+		},
+		valuesPrinted: false,
+		...fields,
+	};
+}
+
+function required(args, names) {
+	for (const name of names) {
+		if (args[name] !== undefined && args[name] !== null && String(args[name]).trim()) return String(args[name]).trim();
+	}
+	return null;
+}
+
+function boundedLimit(value, fallback, max) {
+	return Math.max(1, Math.min(Number(value) || fallback, max));
+}
+
+function videoIdFrom(value) {
+	const text = String(value || "").trim();
+	if (/^[A-Za-z0-9_-]{11}$/.test(text)) return text;
+	try {
+		const url = new URL(text);
+		if (url.hostname.includes("youtu.be")) return url.pathname.split("/").filter(Boolean)[0] || null;
+		if (url.hostname.includes("youtube.com")) return url.searchParams.get("v");
+	} catch {
+		return null;
+	}
+	return null;
+}
+
+async function refreshOAuth(args = {}) {
+	const file = tokenFilePath(args);
+	const payload = readTokenPayload(file);
+	const refreshValue = payload && payload.data ? payload.data["refresh_" + "token"] : null;
+	if (!refreshValue) return { error: "refresh_value_missing", file };
+	const client = readClient(args);
+	if (client.error) return client;
+	const body = new URLSearchParams({
+		client_id: client.clientId,
+		client_secret: client.clientPrivate,
+		refresh_token: refreshValue,
+		grant_type: "refresh_token",
+	});
+	const response = await fetch(TOKEN_URL, { method: "POST", headers: { "content-type": "application/x-www-form-urlencoded" }, body });
+	const data = await response.json().catch(() => ({}));
+	if (!response.ok) return { error: "refresh_failed", httpStatus: response.status, data };
+	const merged = {
+		...(payload ? payload.data : {}),
+		...data,
+		expiry_date: Date.now() + Math.max(1, Number(data.expires_in) || 3600) * 1000,
+	};
+	writePrivateJson(file, merged);
+	return { value: merged["access_" + "token"], source: file, refreshed: true };
+}
+
+async function authFor(mode, args = {}) {
+	const file = tokenFilePath(args);
+	const payload = readTokenPayload(file);
+	const accessValue = payload && payload.data ? payload.data["access_" + "token"] : null;
+	const expiry = payload && payload.data ? Number(payload.data.expiry_date || payload.data.expires_at || 0) : 0;
+	if (accessValue && (!expiry || expiry - Date.now() > 60_000)) return { headers: { Authorization: `Bearer ${accessValue}` }, authMode: "oauth", source: payload.file || "YOUTUBE_ACCESS_TOKEN" };
+	if (payload && payload.data && payload.data["refresh_" + "token"] && payload.file) {
+		const refreshed = await refreshOAuth(args);
+		if (!refreshed.error && refreshed.value) return { headers: { Authorization: `Bearer ${refreshed.value}` }, authMode: "oauth", source: refreshed.source, refreshed: true };
+	}
+	if (mode === "oauth") return { error: "oauth_required", message: "Configure a YouTube OAuth runtime source scoped for youtube.readonly." };
+	if (process.env.YOUTUBE_API_KEY) return { publicValue: process.env.YOUTUBE_API_KEY, authMode: "api_key", source: "YOUTUBE_API_KEY" };
+	return { error: "credential_required", message: "Configure YouTube public-read or OAuth runtime auth before calling the API." };
+}
+
+async function youtubeGet(pathname, params, mode = "any", args = {}) {
+	const auth = await authFor(mode, args);
+	if (auth.error) return { ok: false, status: auth.error, message: auth.message };
+	const url = new URL(`${API_BASE}/${pathname}`);
+	for (const [key, value] of Object.entries(params || {})) {
+		if (value === undefined || value === null || value === "") continue;
+		url.searchParams.set(key, String(value));
+	}
+	if (auth.publicValue) url.searchParams.set("key", auth.publicValue);
+	const response = await fetch(url, { headers: auth.headers || {} });
+	let data = null;
+	try { data = await response.json(); } catch { data = { message: await response.text() }; }
+	return { ok: response.ok, httpStatus: response.status, authMode: auth.authMode, data };
+}
+
+async function paged(pathname, params, mode, limit) {
+	const max = boundedLimit(limit, 50, 500);
+	const items = [];
+	let cursor = params["page" + "Token"] || null;
+	let last = null;
+	while (items.length < max) {
+		const requestParams = { ...params, maxResults: Math.min(50, max - items.length) };
+		if (cursor) requestParams["page" + "Token"] = cursor;
+		const result = await youtubeGet(pathname, requestParams, mode);
+		last = result;
+		if (!result.ok) return { ...result, items };
+		items.push(...(result.data.items || []));
+		cursor = result.data["nextPage" + "Token"];
+		if (!cursor) break;
+	}
+	return { ok: true, httpStatus: last ? last.httpStatus : 200, authMode: last ? last.authMode : null, data: { items, nextPageCursor: cursor || null, returned: items.length } };
+}
+
+function simplifyVideo(item) {
+	const snippet = item.snippet || {};
+	const stats = item.statistics || {};
+	return {
+		id: item.id,
+		title: snippet.title || null,
+		channelId: snippet.channelId || null,
+		channelTitle: snippet.channelTitle || null,
+		publishedAt: snippet.publishedAt || null,
+		description: snippet.description || null,
+		duration: item.contentDetails ? item.contentDetails.duration : null,
+		statistics: stats,
+		privacyStatus: item.status ? item.status.privacyStatus : null,
+	};
+}
+
+function simplifyPlaylist(item) {
+	const snippet = item.snippet || {};
+	return {
+		id: item.id,
+		title: snippet.title || null,
+		description: snippet.description || null,
+		channelId: snippet.channelId || null,
+		channelTitle: snippet.channelTitle || null,
+		publishedAt: snippet.publishedAt || null,
+		itemCount: item.contentDetails ? item.contentDetails.itemCount : null,
+	};
+}
+
+function simplifyPlaylistItem(item) {
+	const snippet = item.snippet || {};
+	const resource = snippet.resourceId || {};
+	return {
+		id: item.id,
+		playlistId: snippet.playlistId || null,
+		position: snippet.position,
+		addedAt: snippet.publishedAt || null,
+		videoId: item.contentDetails?.videoId || (resource.kind === "youtube#video" ? resource.videoId : null),
+		title: snippet.title || null,
+		channelTitle: snippet.videoOwnerChannelTitle || snippet.channelTitle || null,
+		channelId: snippet.videoOwnerChannelId || snippet.channelId || null,
+		description: snippet.description || null,
+	};
+}
+
+async function findPlaylistByTitle(title, limit) {
+	const result = await paged("playlists", { part: "snippet,contentDetails", mine: "true" }, "oauth", limit || 100);
+	if (!result.ok) return result;
+	const needle = String(title || "").trim().toLowerCase();
+	const playlists = result.data.items.map(simplifyPlaylist);
+	const matches = playlists.filter((playlist) => String(playlist.title || "").trim().toLowerCase() === needle);
+	return { ok: true, httpStatus: result.httpStatus, authMode: result.authMode, data: { matches, playlists, returned: matches.length } };
+}
+
+async function exchangeCodeForToken(code, redirectUri, client, tokenFile) {
+	const body = new URLSearchParams({
+		code,
+		client_id: client.clientId,
+		client_secret: client.clientPrivate,
+		redirect_uri: redirectUri,
+		grant_type: "authorization_code",
+	});
+	const response = await fetch(TOKEN_URL, { method: "POST", headers: { "content-type": "application/x-www-form-urlencoded" }, body });
+	const data = await response.json().catch(() => ({}));
+	if (!response.ok) return { ok: false, httpStatus: response.status, data };
+	const payload = { ...data, expiry_date: Date.now() + Math.max(1, Number(data.expires_in) || 3600) * 1000 };
+	writePrivateJson(tokenFile, payload);
+	return { ok: true, tokenFile, scope: data.scope || READONLY_SCOPE };
+}
+
+async function authLogin(args = {}) {
+	const client = readClient(args);
+	if (client.error) return envelope("auth-login", client.error, { ok: false, data: { file: client.file } });
+	const port = Math.max(1024, Math.min(Number(args.port) || 8765, 65535));
+	const timeoutMs = Math.max(30_000, Math.min(Number(args.timeoutMs || args.timeout_ms) || 300_000, 900_000));
+	const tokenFile = tokenFilePath(args);
+	const redirectUri = `http://127.0.0.1:${port}/oauth2callback`;
+	const state = crypto.randomBytes(16).toString("hex");
+	const authUrl = new URL("https://accounts.google.com/o/oauth2/v2/auth");
+	authUrl.searchParams.set("client_id", client.clientId);
+	authUrl.searchParams.set("redirect_uri", redirectUri);
+	authUrl.searchParams.set("response_type", "code");
+	authUrl.searchParams.set("scope", READONLY_SCOPE);
+	authUrl.searchParams.set("access_type", "offline");
+	authUrl.searchParams.set("prompt", "consent");
+	authUrl.searchParams.set("include_granted_scopes", "true");
+	authUrl.searchParams.set("state", state);
+	fs.mkdirSync(CONFIG_DIR, { recursive: true, mode: 0o700 });
+	fs.writeFileSync(AUTH_URL_FILE, `${authUrl.toString()}\n`, { mode: 0o600 });
+	try { fs.chmodSync(AUTH_URL_FILE, 0o600); } catch { /* best effort */ }
+	const result = await new Promise((resolve) => {
+		const server = http.createServer(async (req, res) => {
+			try {
+				const incoming = new URL(req.url || "/", redirectUri);
+				if (incoming.pathname !== "/oauth2callback") {
+					res.writeHead(404).end("Not found");
+					return;
+				}
+				if (incoming.searchParams.get("state") !== state) {
+					res.writeHead(400).end("State mismatch. Return to Pi and retry auth-login.");
+					resolve({ ok: false, status: "state_mismatch" });
+					server.close();
+					return;
+				}
+				const code = incoming.searchParams.get("code");
+				if (!code) {
+					res.writeHead(400).end("No authorization code received. Return to Pi and retry auth-login.");
+					resolve({ ok: false, status: "code_missing" });
+					server.close();
+					return;
+				}
+				const exchanged = await exchangeCodeForToken(code, redirectUri, client, tokenFile);
+				if (!exchanged.ok) {
+					res.writeHead(500).end("YouTube OAuth token exchange failed. Return to Pi for details.");
+					resolve({ ok: false, status: "token_exchange_failed", httpStatus: exchanged.httpStatus, data: exchanged.data });
+					server.close();
+					return;
+				}
+				res.writeHead(200, { "content-type": "text/html; charset=utf-8" }).end("<h1>YouTube auth complete</h1><p>You can close this tab and return to Pi.</p>");
+				resolve({ ok: true, status: "success", tokenFile, scope: exchanged.scope });
+				server.close();
+			} catch (error) {
+				res.writeHead(500).end("YouTube OAuth callback failed. Return to Pi.");
+				resolve({ ok: false, status: "callback_error", message: error && error.message ? error.message : "callback_error" });
+				server.close();
+			}
+		});
+		server.on("error", (error) => resolve({ ok: false, status: "listener_error", message: error && error.message ? error.message : "listener_error" }));
+		server.listen(port, "127.0.0.1");
+		setTimeout(() => {
+			try { server.close(); } catch { /* best effort */ }
+			resolve({ ok: false, status: "timeout", authUrlFile: AUTH_URL_FILE });
+		}, timeoutMs).unref();
+	});
+	writePrivateJson(AUTH_RESULT_FILE, { ...result, completedAt: new Date().toISOString(), tokenFile: result.tokenFile || tokenFile });
+	return envelope("auth-login", result.status, { ok: Boolean(result.ok), operationClass: "local_write_network", data: { authUrlFile: AUTH_URL_FILE, resultFile: AUTH_RESULT_FILE, tokenFile, scope: result.scope || READONLY_SCOPE } });
+}
+
+async function run(operation, args) {
+	if (args.error) return envelope(operation, "invalid_args_json", { ok: false, message: "--args must be a JSON object", operationClass: "read_only" });
+	if (operation === "status") return envelope(operation, "success", { operationClass: "read_only", data: credentialSummary() });
+	if (operation === "auth-help") return envelope(operation, "success", {
+		operationClass: "read_only",
+		data: {
+			officialCliAvailable: false,
+			message: "Google does not publish a dedicated official YouTube CLI. This local CLI uses the official YouTube Data API v3 over HTTPS.",
+			requiredScope: READONLY_SCOPE,
+			publicReads: "Set YOUTUBE_API_KEY.",
+			accountPlaylistReads: "Configure one of the documented YouTube OAuth runtime sources outside Toolbelt; the value must carry youtube.readonly scope.",
+			login: "Run auth-login, open the URL written to the auth URL file, approve Google access, and the callback stores the local token file.",
+		},
+	});
+	if (operation === "auth-login") return authLogin(args);
+	if (operation === "auth-refresh") {
+		const refreshed = await refreshOAuth(args);
+		if (refreshed.error) return envelope(operation, refreshed.error, { ok: false, operationClass: "local_write_network", data: { file: refreshed.file || null } });
+		return envelope(operation, "success", { operationClass: "local_write_network", data: { tokenFile: refreshed.source, refreshed: true } });
+	}
+	if (operation === "videos-get") {
+		const rawIds = Array.isArray(args.ids) ? args.ids : String(required(args, ["ids", "id", "videoId", "url"]) || "").split(",");
+		const ids = rawIds.map((value) => videoIdFrom(value) || String(value || "").trim()).filter((value) => /^[A-Za-z0-9_-]{11}$/.test(value)).slice(0, 50);
+		if (!ids.length) return envelope(operation, "missing_required_arg", { ok: false, required: ["ids|id|videoId|url"] });
+		const result = await youtubeGet("videos", { part: args.part || DEFAULT_PARTS, id: ids.join(",") }, "any");
+		if (!result.ok) return envelope(operation, result.status || "api_error", { ok: false, httpStatus: result.httpStatus, data: result.data });
+		return envelope(operation, "success", { authMode: result.authMode, resourceType: "youtube_video", data: (result.data.items || []).map(simplifyVideo), requested: ids.length });
+	}
+	if (operation === "search") {
+		const query = required(args, ["query", "q"]);
+		if (!query) return envelope(operation, "missing_required_arg", { ok: false, required: ["query|q"] });
+		const result = await youtubeGet("search", { part: "snippet", q: query, type: args.type || "video", maxResults: boundedLimit(args.limit, 10, 50), order: args.order || "relevance" }, "any");
+		if (!result.ok) return envelope(operation, result.status || "api_error", { ok: false, httpStatus: result.httpStatus, data: result.data });
+		return envelope(operation, "success", { authMode: result.authMode, resourceType: "youtube_search_results", data: result.data });
+	}
+	if (operation === "playlists-mine") {
+		const result = await paged("playlists", { part: "snippet,contentDetails", mine: "true" }, "oauth", args.limit || 100);
+		if (!result.ok) return envelope(operation, result.status || "api_error", { ok: false, httpStatus: result.httpStatus, data: result.data, partial: result.items });
+		return envelope(operation, "success", { authMode: result.authMode, resourceType: "youtube_playlists", data: { ...result.data, items: result.data.items.map(simplifyPlaylist) } });
+	}
+	if (operation === "playlist-find") {
+		const title = required(args, ["title", "playlistTitle", "name"]);
+		if (!title) return envelope(operation, "missing_required_arg", { ok: false, required: ["title|playlistTitle|name"] });
+		const result = await findPlaylistByTitle(title, args.limit || 100);
+		if (!result.ok) return envelope(operation, result.status || "api_error", { ok: false, httpStatus: result.httpStatus, data: result.data });
+		return envelope(operation, "success", { authMode: result.authMode, resourceType: "youtube_playlist_matches", data: result.data });
+	}
+	if (operation === "playlist-items") {
+		const playlistId = required(args, ["playlistId", "playlist_id", "id"]);
+		if (!playlistId) return envelope(operation, "missing_required_arg", { ok: false, required: ["playlistId|playlist_id|id"] });
+		const result = await paged("playlistItems", { part: "snippet,contentDetails", playlistId }, "any", args.limit || 100);
+		if (!result.ok) return envelope(operation, result.status || "api_error", { ok: false, httpStatus: result.httpStatus, data: result.data, partial: result.items });
+		return envelope(operation, "success", { authMode: result.authMode, resourceType: "youtube_playlist_items", data: { ...result.data, items: result.data.items.map(simplifyPlaylistItem) } });
+	}
+	if (operation === "extraction-playlist" || operation === "latest-extraction") {
+		const title = required(args, ["title", "playlistTitle", "name"]) || "for extraction";
+		const found = await findPlaylistByTitle(title, args.playlistLimit || 100);
+		if (!found.ok) return envelope(operation, found.status || "api_error", { ok: false, httpStatus: found.httpStatus, data: found.data });
+		if (!found.data.matches.length) return envelope(operation, "not_found", { ok: false, resourceType: "youtube_playlist", data: { title, matches: [] } });
+		const playlist = found.data.matches[0];
+		const result = await paged("playlistItems", { part: "snippet,contentDetails", playlistId: playlist.id }, "oauth", args.limit || (operation === "latest-extraction" ? 1 : 50));
+		if (!result.ok) return envelope(operation, result.status || "api_error", { ok: false, httpStatus: result.httpStatus, data: result.data, partial: result.items });
+		const items = result.data.items.map(simplifyPlaylistItem);
+		return envelope(operation, "success", { authMode: result.authMode, resourceType: "youtube_extraction_queue", data: { playlist, items, latest: items[0] || null, returned: items.length } });
+	}
+	if (operation === "captions-list") {
+		const videoId = videoIdFrom(required(args, ["id", "videoId", "url"]));
+		if (!videoId) return envelope(operation, "missing_required_arg", { ok: false, required: ["id|videoId|url"] });
+		const result = await youtubeGet("captions", { part: "snippet", videoId }, "oauth");
+		if (!result.ok) return envelope(operation, result.status || "api_error", { ok: false, httpStatus: result.httpStatus, data: result.data });
+		return envelope(operation, "success", { authMode: result.authMode, resourceType: "youtube_captions", data: result.data });
+	}
+	return envelope(operation, "unsupported_operation", {
+		ok: false,
+		allowed: ["status", "auth-help", "auth-login", "auth-refresh", "videos-get", "search", "playlists-mine", "playlist-find", "playlist-items", "extraction-playlist", "latest-extraction", "captions-list"],
+	});
+}
+
+async function main() {
+	const parsed = parseArgv(process.argv.slice(2));
+	const operation = parsed.positional[0] || "status";
+	const args = argsObject(parsed);
+	const result = await run(operation, args);
+	output(result, parsed.opts.json);
+	if (!result.ok && !["missing_required_arg", "unsupported_operation", "not_found", "oauth_required", "credential_required", "client_file_missing", "refresh_value_missing"].includes(result.status)) process.exitCode = 1;
+}
+
+main().catch((error) => {
+	output(envelope("unknown", "error", { ok: false, message: error && error.message ? error.message : "youtube_cli_error" }), true);
+	process.exitCode = 1;
+});

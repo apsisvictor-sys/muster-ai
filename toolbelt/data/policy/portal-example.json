@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "provider": "portal-bg",
+  "dryRunFlag": null,
+  "read": [],
+  "destructive": [],
+  "blocked": [],
+  "secretReturning": [],
+  "exact": {
+    "cities": "read",
+    "detail": "read",
+    "local": "read",
+    "sql": "destructive",
+    "stats": "read",
+    "sync": "mutate",
+    "watch": "read"
+  }
+}

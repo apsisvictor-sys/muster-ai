@@ -1,0 +1,47 @@
+{
+	"_note": "Request schemas of the four WAHA calls the send adapter makes (MG6, architect VR24-87 condition M1). Read on 2026-10-25 from the running container's own compiled DTOs (/app/dist/structures/chatting.dto.js and base.dto.js, the `_OPENAPI_METADATA_FACTORY` of each class) because the Swagger copy sits behind a basic login that this setup does not use. Field names, types and required flags only: no key, no chat data. The test extensions/tests/messaging-whatsapp.test.ts checks the adapter's bodies against this file.",
+	"container": { "image": "devlikeapro/waha:gows-2026.9.2", "engine": "gows" },
+	"calls": {
+		"sendSeen": {
+			"path": "/api/sendSeen",
+			"dto": "SendSeenRequest",
+			"fields": {
+				"session": { "type": "string", "required": true },
+				"chatId": { "type": "string", "required": true },
+				"messageId": { "type": "string", "required": false },
+				"messageIds": { "type": "string[]", "required": false },
+				"participant": { "type": "string", "required": false }
+			}
+		},
+		"startTyping": {
+			"path": "/api/startTyping",
+			"dto": "ChatRequest",
+			"fields": {
+				"session": { "type": "string", "required": true },
+				"chatId": { "type": "string", "required": true }
+			}
+		},
+		"sendText": {
+			"path": "/api/sendText",
+			"dto": "MessageTextRequest",
+			"fields": {
+				"session": { "type": "string", "required": true },
+				"chatId": { "type": "string", "required": true },
+				"text": { "type": "string", "required": true },
+				"id": { "type": "string", "required": false },
+				"mentions": { "type": "string[]", "required": false },
+				"reply_to": { "type": "string", "required": false },
+				"linkPreview": { "type": "boolean", "required": false },
+				"linkPreviewHighQuality": { "type": "boolean", "required": false }
+			}
+		},
+		"stopTyping": {
+			"path": "/api/stopTyping",
+			"dto": "ChatRequest",
+			"fields": {
+				"session": { "type": "string", "required": true },
+				"chatId": { "type": "string", "required": true }
+			}
+		}
+	}
+}

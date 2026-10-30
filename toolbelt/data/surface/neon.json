@@ -1,0 +1,37 @@
+{
+ "schemaVersion": 1,
+ "cli": "npx",
+ "cliVersion": "4.11.0",
+ "cliPath": "/home/operator/.nvm/versions/node/v24.18.0/bin/npx",
+ "cliMtimeMs": 1715248841000,
+ "generatedAt": "2026-09-06T14:45:01.111Z",
+ "leafCount": 3,
+ "leaves": [
+  {
+   "cmd": "branches",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "projects",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "status",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  }
+ ],
+ "source": "provider_catalog",
+ "note": "Operations take a single --args JSON object."
+}

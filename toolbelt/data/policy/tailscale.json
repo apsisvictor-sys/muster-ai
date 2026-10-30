@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "provider": "tailscale",
+  "dryRunFlag": null,
+  "read": [
+    "^(status|whois|ping|netcheck|ip|dns status|version|licenses|metrics)(\\s|$)"
+  ],
+  "destructive": [
+    "^(down|logout|reset)(\\s|$)"
+  ],
+  "blocked": [
+    "^(debug|certify|update)(\\s|$)"
+  ],
+  "secretReturning": [
+    "^cert(\\s|$)",
+    "^(cert|lock (disablement-kdf|sign))(\\s|$)"
+  ],
+  "exact": {
+    "up": "mutate",
+    "set": "mutate",
+    "serve": "mutate",
+    "funnel": "mutate",
+    "appc-routes": "read",
+    "bugreport": "read",
+    "configure kubeconfig": "mutate",
+    "configure systray": "mutate",
+    "dns query": "read",
+    "drive rename": "mutate",
+    "drive share": "mutate",
+    "drive unshare": "destructive",
+    "exit-node suggest": "read",
+    "file cp": "mutate",
+    "lock add": "mutate",
+    "lock disable": "mutate",
+    "lock disablement-kdf": "sensitive",
+    "lock init": "mutate",
+    "lock local-disable": "destructive",
+    "lock sign": "sensitive",
+    "nc": "mutate",
+    "ssh": "mutate",
+    "syspolicy reload": "mutate",
+    "systray": "mutate",
+    "wait": "mutate",
+    "web": "mutate"
+  }
+}

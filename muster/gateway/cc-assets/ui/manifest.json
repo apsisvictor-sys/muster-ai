@@ -1,0 +1,90 @@
+{
+	"tag": "v0.1.0",
+	"commit": "6ddc89f743dbb14d2021ddb5cbd7e79a8e7f5892",
+	"files": [
+		{
+			"file": "components.css",
+			"type": "text/css; charset=utf-8"
+		},
+		{
+			"file": "elements/base.js",
+			"type": "text/javascript; charset=utf-8"
+		},
+		{
+			"file": "elements/g-board.js",
+			"type": "text/javascript; charset=utf-8"
+		},
+		{
+			"file": "elements/g-chips.js",
+			"type": "text/javascript; charset=utf-8"
+		},
+		{
+			"file": "elements/g-donut.js",
+			"type": "text/javascript; charset=utf-8"
+		},
+		{
+			"file": "elements/g-feed.js",
+			"type": "text/javascript; charset=utf-8"
+		},
+		{
+			"file": "elements/g-goal-card.js",
+			"type": "text/javascript; charset=utf-8"
+		},
+		{
+			"file": "elements/g-hbars.js",
+			"type": "text/javascript; charset=utf-8"
+		},
+		{
+			"file": "elements/g-hourbars.js",
+			"type": "text/javascript; charset=utf-8"
+		},
+		{
+			"file": "elements/g-island.js",
+			"type": "text/javascript; charset=utf-8"
+		},
+		{
+			"file": "elements/g-kpi.js",
+			"type": "text/javascript; charset=utf-8"
+		},
+		{
+			"file": "elements/g-lane-card.js",
+			"type": "text/javascript; charset=utf-8"
+		},
+		{
+			"file": "elements/g-line-chart.js",
+			"type": "text/javascript; charset=utf-8"
+		},
+		{
+			"file": "elements/g-mix.js",
+			"type": "text/javascript; charset=utf-8"
+		},
+		{
+			"file": "elements/g-nav.js",
+			"type": "text/javascript; charset=utf-8"
+		},
+		{
+			"file": "elements/g-ring.js",
+			"type": "text/javascript; charset=utf-8"
+		},
+		{
+			"file": "elements/g-sheet.js",
+			"type": "text/javascript; charset=utf-8"
+		},
+		{
+			"file": "elements/g-toast.js",
+			"type": "text/javascript; charset=utf-8"
+		},
+		{
+			"file": "index.js",
+			"type": "text/javascript; charset=utf-8"
+		},
+		{
+			"file": "motion.js",
+			"type": "text/javascript; charset=utf-8"
+		},
+		{
+			"file": "tokens.css",
+			"type": "text/css; charset=utf-8"
+		}
+	]
+}

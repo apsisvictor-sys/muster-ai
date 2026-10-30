@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "provider": "sentry",
+  "dryRunFlag": null,
+  "read": [
+    "^(info|organizations|projects|releases list|issues list|deploys list)(\\s|$)"
+  ],
+  "destructive": [
+    "^(releases delete|projects delete|organizations delete)(\\s|$)"
+  ],
+  "blocked": [
+    "^(login|logout|update)(\\s|$)"
+  ],
+  "secretReturning": [],
+  "exact": {
+    "build download": "mutate",
+    "build snapshots": "mutate",
+    "build upload": "mutate",
+    "code-mappings upload": "mutate",
+    "completions": "read",
+    "dart-symbol-map upload": "mutate",
+    "debug-files bundle-sources": "mutate",
+    "debug-files find": "read",
+    "debug-files print-sources": "read",
+    "debug-files upload": "mutate",
+    "deploys new": "mutate",
+    "issues mute": "mutate",
+    "issues resolve": "mutate",
+    "issues unresolve": "mutate",
+    "monitors run": "mutate",
+    "proguard upload": "mutate",
+    "proguard uuid": "read",
+    "react-native gradle": "mutate",
+    "releases archive": "destructive",
+    "releases finalize": "mutate",
+    "releases new": "mutate",
+    "releases propose-version": "mutate",
+    "releases set-commits": "mutate",
+    "send-envelope": "mutate",
+    "send-event": "mutate",
+    "sourcemaps inject": "mutate",
+    "sourcemaps resolve": "read",
+    "sourcemaps upload": "mutate",
+    "upload-proguard": "mutate"
+  }
+}

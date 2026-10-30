@@ -1,0 +1,9 @@
+[Unit]
+Description=Muster ledger daemon (TEMPLATE - installing it is CV1)
+[Service]
+Environment=MUSTER_LEDGER_DIR=%h/.pi/agent/state/muster
+ExecStart=%h/.pi/agent/bin/node --import %h/.pi/agent/node_modules/tsx/dist/loader.mjs %h/.pi/agent/scripts/musterd.mts
+Restart=always
+RestartSec=2
+[Install]
+WantedBy=default.target

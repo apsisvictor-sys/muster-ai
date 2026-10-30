@@ -1,0 +1,3158 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="cc-csrf" content="__CC_CSRF__">
+<title>Command center</title>
+<!-- Revision 7 (D34, D35): the design is the vendored graphite-ui library, served from this listener under the same CSP as this page. -->
+<link rel="stylesheet" href="/cc/assets/ui/tokens.css">
+<link rel="stylesheet" href="/cc/assets/ui/components.css">
+<style>
+/* The page owns layout only: the palette, the glass and every element's own styling live in the library. */
+/* Item 5 (the operator, 2026-10-29): the page never pans sideways on a phone. The real causes are fixed at their own
+   boxes; this is the backstop, and it is `clip` rather than `hidden` because `hidden` still makes a scroll container
+   the page can be scrolled into. */
+html { background: var(--ground); overflow-x: clip; }
+body { margin: 0; background: var(--ground); color: var(--ink); font: 400 14px/1.45 var(--font);
+  font-feature-settings: "tnum" 1, "ss01" 1; -webkit-font-smoothing: antialiased; min-height: 100vh; overflow-x: clip; }
+::selection { background: var(--sel); color: var(--ink); }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 10px; }
+* { scrollbar-width: thin; scrollbar-color: var(--glass-3) transparent; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: var(--glass-3); border-radius: 10px; border: 3px solid transparent; background-clip: padding-box; }
+[hidden] { display: none !important; }
+
+/* Light DOM elements are blocks on this page. */
+g-nav, g-island, g-kpi, g-board, g-goal-card, g-sheet, g-chips, g-line-chart, g-donut, g-hbars, g-feed { display: block; }
+g-kpi, g-goal-card { height: 100%; }
+/* The chart's bare peak number sits where the panel's own aside goes; the aside states the peak instead. */
+g-line-chart .g-ylab { display: none; }
+/* A long model name wraps inside the donut's legend rather than being clipped at the panel's edge. */
+g-donut .g-legend { min-width: 0; }
+g-donut .g-legend-item { min-width: 0; max-width: 100%; white-space: normal; overflow-wrap: anywhere; }
+
+/* ---------- the ground (mockup's graphite, one wave, drifting glass) ---------- */
+.ground { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+  background: radial-gradient(120% 80% at 80% -10%, var(--ground-2), transparent 60%), var(--ground); }
+.ground svg { position: absolute; left: -10%; width: 120%; top: 38%; height: 70%; opacity: .9; }
+.glass { background: var(--glass); border-radius: var(--r-card); box-shadow: var(--shadow);
+  -webkit-backdrop-filter: var(--blur); backdrop-filter: var(--blur); position: relative; }
+@media (prefers-reduced-transparency: reduce) { .glass { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--ground-2); } }
+
+/* ---------- shell and top bar ---------- */
+.shell { position: relative; z-index: 1; max-width: 1400px; margin: 0 auto; padding: 18px var(--gutter) 64px; }
+.topbar { position: sticky; top: 12px; z-index: 20; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) minmax(0, 1fr); align-items: center; gap: 16px; margin-bottom: 14px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; height: 44px; padding: 0 16px 0 8px; border-radius: var(--r-pill); justify-self: start; font-weight: 600; min-width: 0; max-width: 100%; }
+/* The brand's own name is cut with an ellipsis rather than pushing the Message button off the edge. */
+.brand > span:last-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.brand-mark { width: 30px; height: 30px; border-radius: 50%; background: var(--inv); color: var(--inv-ink); display: grid; place-items: center; }
+.actions { justify-self: end; display: flex; gap: 8px; align-items: center; }
+.iconbtn { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; color: var(--ink-2); transition: color .15s, background .15s; }
+.iconbtn:hover { color: var(--ink); background: var(--glass-2); }
+.pillbtn { height: 44px; padding: 0 18px 0 14px; border-radius: var(--r-pill); display: inline-flex; align-items: center; gap: 8px;
+  font-weight: 600; background: var(--inv); color: var(--inv-ink); transition: transform .15s var(--ease-out); }
+.pillbtn:active { transform: scale(.97); }
+/* The live island sits in the middle of the top bar. Its line is cut with an ellipsis inside its own pill, never
+   past the edge of the screen (D1): a change line is one line of text, whatever it carries. */
+.navwrap { min-width: 0; display: flex; justify-content: center; }
+.navwrap g-island { min-width: 0; width: 100%; max-width: 100%; }
+/* The library's paint puts the pill inside a `div.g-island` that is an inline-flex box: its width is its content's, so
+   a max-width in percent has nothing to resolve against and a long change line ran past the screen. Here it is a
+   block-width flex container, so the pill is clamped by the column and its line is cut with an ellipsis. */
+.navwrap .g-island { display: flex; justify-content: center; min-width: 0; width: 100%; max-width: 100%; }
+.navwrap .g-island-b { min-width: 0; max-width: 100%; overflow: hidden; }
+.navwrap .g-island-line, .navwrap .g-island-last { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+svg.i { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.g-i { width: 18px; height: 18px; }
+.navrow { display: flex; margin-bottom: 22px; }
+.banner { display: flex; align-items: center; gap: 12px; margin: 0 0 14px; padding: 10px 14px; border-radius: var(--r-inner);
+  background: var(--due-soft, var(--chip)); color: var(--due-ink); font-size: 13px; }
+
+/* ---------- view head ---------- */
+.head { display: flex; align-items: flex-end; gap: 28px; margin: 6px 0 22px; flex-wrap: wrap; }
+.title { font-size: 34px; line-height: 1.05; font-weight: 650; letter-spacing: -0.03em; margin: 0; }
+.title small { display: block; font-size: 14px; letter-spacing: 0; font-weight: 450; color: var(--ink-3); margin-top: 6px; }
+.dim { color: var(--ink-3); }
+.attn { color: var(--due-ink); }
+.bad { color: var(--bad-ink); }
+.note { color: var(--ink-3); font-size: 12.5px; margin: 8px 0 0; }
+
+/* ---------- Today ---------- */
+.kpis { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.25fr) minmax(0, 1.55fr); gap: 14px; margin-bottom: 22px; }
+.today-grid { display: grid; grid-template-columns: minmax(0, 2.1fr) minmax(0, 1fr); gap: 22px; align-items: start; }
+.sec-h { display: flex; align-items: baseline; justify-content: space-between; margin: 4px 2px 12px; gap: 12px; }
+.sec-h h2 { font-size: 17px; font-weight: 650; margin: 0; letter-spacing: -0.01em; }
+.sec-h .aside { color: var(--ink-3); font-size: 12.5px; }
+.goals { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.side > section { padding: 18px; margin-bottom: 14px; }
+.side h2 { font-size: 15px; margin: 0; font-weight: 650; }
+.steps { list-style: none; margin: 12px 0 0; padding: 0; }
+.steps li { display: flex; gap: 10px; padding: 10px 0; border-top: 1px solid var(--edge); align-items: flex-start; }
+.steps li:first-child { border-top: 0; }
+.steps .c { font-size: 11px; font-weight: 650; color: var(--ink-3); min-width: 44px; padding-top: 2px; }
+.steps .t { flex: 1; font-size: 13px; min-width: 0; }
+.steps .t small { display: block; color: var(--ink-3); font-size: 12px; margin-top: 2px; }
+.steps .age { font-size: 12px; color: var(--ink-3); white-space: nowrap; padding-top: 2px; }
+.steps .age.stale { color: var(--bad-ink); }
+.linkbtn { min-height: 40px; font-size: 13px; font-weight: 600; color: var(--ink-2); display: inline-flex; gap: 6px; align-items: center; margin-top: 6px; padding: 6px 0; }
+.linkbtn:hover { color: var(--ink); }
+.decided { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.tag { font-size: 11.5px; font-weight: 550; padding: 3px 9px; border-radius: var(--r-pill); background: var(--chip); color: var(--ink-2); white-space: nowrap; }
+.tag.you { background: var(--inv); color: var(--inv-ink); }
+.tag.back { color: var(--due-ink); background: color-mix(in srgb, var(--due) 13%, transparent); }
+.shiplist { list-style: none; padding: 0; margin: 10px 0 0; }
+.shiplist li { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 10px; padding: 9px 0; border-top: 1px solid var(--edge); font-size: 13px; }
+.shiplist li:first-child { border-top: 0; }
+.shiplist time { color: var(--ink-3); font-size: 12px; padding-top: 1px; }
+.shiplist .g { font-size: 11px; display: block; margin-top: 2px; color: var(--tint, var(--ink-3)); }
+.empty { color: var(--ink-3); font-size: 13px; margin: 10px 0 0; }
+
+/* Tickets: the decisions and steps that need the operator (R5/R6, restyled). */
+.tk { border-top: 1px solid var(--edge); padding: 10px 0; }
+.tk:first-child { border-top: 0; }
+.tk.bad { border-left: 2px solid var(--bad-ink); padding-left: 10px; }
+.scrum { display: grid; gap: 14px; grid-template-columns: minmax(0, 1fr); }
+.scrum-cols { display: grid; gap: 12px; grid-template-columns: minmax(0, 1fr); margin-top: 8px; }
+.scrum-col { min-width: 0; }
+.scrum-col h3 { display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: baseline; margin: 0 0 6px; font-size: 13px; font-weight: 650; }
+.scrum-col h3 small { color: var(--ink-3); font-size: 12px; font-weight: 500; overflow-wrap: anywhere; }
+.scrum-col .tk-row { padding: 6px 0; border-top: 1px solid var(--line, rgba(0,0,0,.08)); min-width: 0; }
+.scrum-col .tk-row:first-of-type { border-top: 0; }
+.scrum .tk-row { padding: 6px 0; min-width: 0; }
+.scrum .tk-row .t span { overflow-wrap: anywhere; }
+@media (min-width: 720px) { .scrum-cols { grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); } }
+.tk-row { display: flex; gap: 10px; align-items: flex-start; width: 100%; text-align: left; }
+.tk-row .c { font-size: 11px; font-weight: 650; color: var(--ink-3); min-width: 44px; padding-top: 2px; }
+.tk-row .t { flex: 1; font-size: 13px; min-width: 0; }
+.tk-row .t small { display: block; color: var(--ink-3); font-size: 12px; margin-top: 2px; }
+.tk-row .age { font-size: 12px; color: var(--ink-3); white-space: nowrap; padding-top: 2px; }
+.tk-body { margin: 10px 0 0 54px; }
+.taps { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.tap { min-height: 36px; padding: 8px 12px; border-radius: var(--r-inner); background: var(--chip); color: var(--ink);
+  font-size: 13px; font-weight: 550; text-align: left; }
+.tap.main { background: var(--inv); color: var(--inv-ink); }
+.tap small { display: block; font-size: 10.5px; opacity: .8; font-weight: 500; }
+.field-label { display: block; font-size: 12.5px; color: var(--ink-3); margin: 0 0 6px; }
+textarea, input[type="text"] { width: 100%; box-sizing: border-box; font: inherit; color: var(--ink); background: var(--glass-2);
+  border: 1px solid var(--edge); border-radius: var(--r-inner); padding: 10px 12px; resize: vertical; }
+textarea { min-height: 62px; }
+.send-row, .dialog-actions, .thread-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 10px; flex-wrap: wrap; }
+.btn { min-height: 36px; padding: 0 14px; border-radius: var(--r-pill); background: var(--chip); color: var(--ink); font-size: 13px; font-weight: 600; }
+.btn-solid { background: var(--inv); color: var(--inv-ink); }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+.answered { display: flex; gap: 10px; align-items: center; justify-content: space-between; margin-top: 8px; font-size: 13px;
+  background: var(--glass-2); border-radius: var(--r-inner); padding: 8px 12px; }
+.sitting > .sit-head { display: flex; gap: 8px; align-items: baseline; }
+.sitting > .sit-head span { color: var(--ink-3); font-size: 12px; }
+.ticket-body .empty { margin-top: 4px; }
+.kicker { font-size: 11px; font-weight: 650; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-3); }
+
+/* Ideas (R6.1) */
+.idea { border-top: 1px solid var(--edge); padding: 10px 0; }
+.idea:first-child { border-top: 0; }
+.idea-title { font-size: 13px; font-weight: 600; display: block; }
+.idea-meta { display: flex; flex-wrap: wrap; gap: 8px; color: var(--ink-3); font-size: 12px; margin-top: 4px; align-items: center; }
+.idea-why { color: var(--ink-2); font-size: 12.5px; margin: 6px 0 0; }
+.idea-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.verdict .dot, .dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; background: var(--ink-4); }
+.dot-ok { background: var(--good); }
+.dot-attention { background: var(--due); }
+.dot-red { background: var(--bad); }
+.idea-link { display: inline-flex; gap: 5px; align-items: center; color: var(--ink-2); min-height: 32px; padding: 4px 0; }
+
+/* Messages (MG7) */
+.msg-strip { font-size: 12.5px; color: var(--ink-3); margin-top: 8px; }
+.msg-strip.ok { color: var(--good-ink); }
+.msg-strip.error { color: var(--bad-ink); }
+.msg-strip.attention { color: var(--due-ink); }
+.msgrow { border-top: 1px solid var(--edge); }
+.msgrow:first-child { border-top: 0; }
+.msgrow button, .msgrow .static { width: 100%; text-align: left; padding: 10px 0; display: block; }
+.msg-top { display: flex; gap: 10px; justify-content: space-between; font-size: 13px; }
+.msg-side { color: var(--ink-3); font-size: 12px; white-space: nowrap; }
+.msg-side.needs-you { color: var(--due-ink); }
+.msg-preview { color: var(--ink-3); font-size: 12.5px; margin-top: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.thread { max-height: 44vh; overflow: auto; border: 1px solid var(--edge); border-radius: var(--r-inner); padding: 10px; }
+.thread-msg { margin-bottom: 10px; }
+.thread-msg p { margin: 0; font-size: 13px; }
+.thread-msg time { font-size: 11px; color: var(--ink-3); }
+.thread-msg.mine p { color: var(--ink); }
+.dialog-note, .reply-note { color: var(--ink-3); font-size: 12.5px; margin: 8px 0; }
+.dialog-error { color: var(--bad-ink); font-size: 12.5px; margin: 8px 0; }
+.to-options { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+.to-options label { display: inline-flex; gap: 8px; align-items: center; padding: 8px 12px; border-radius: var(--r-pill); background: var(--chip); font-size: 13px; }
+.to-options label.picked { background: var(--inv); color: var(--inv-ink); }
+.to-options small { display: block; font-size: 11px; opacity: .75; }
+.report-text { white-space: pre-wrap; font: 400 13px/1.5 var(--font); margin: 10px 0 0; max-height: 60vh; overflow: auto; }
+
+/* ---------- the goal board ---------- */
+.back { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px 0 10px; border-radius: var(--r-pill);
+  color: var(--ink-2); font-weight: 550; margin-bottom: 14px; background: var(--glass); }
+.hero { border-radius: 26px; padding: 26px 28px; margin-bottom: 18px; position: relative; overflow: hidden;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--tint) 34%, var(--ground)) 0%, color-mix(in srgb, var(--tint) 16%, var(--ground)) 100%);
+  color: var(--ink); box-shadow: 0 1px 0 rgba(255,255,255,0.12) inset, 0 26px 50px -24px color-mix(in srgb, var(--tint) 45%, transparent); }
+[data-theme="light"] .hero { background: linear-gradient(135deg, color-mix(in srgb, var(--tint) 30%, #fff) 0%, color-mix(in srgb, var(--tint) 12%, #fff) 100%); }
+.hero h1 { font-size: 32px; letter-spacing: -0.03em; margin: 0 0 8px; line-height: 1.1; font-weight: 650; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center; font-size: 12.5px; margin-bottom: 8px; }
+.hero p { margin: 0; max-width: 62ch; }
+.track { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 20px; }
+.station { display: inline-flex; align-items: center; gap: 7px; padding: 6px 12px 6px 8px; border-radius: var(--r-pill); font-size: 12.5px;
+  font-weight: 550; background: rgba(255,255,255,0.08); }
+[data-theme="light"] .station:not(.now) { background: rgba(255,255,255,0.55); }
+.station .s { width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; border: 1.5px solid currentColor; }
+.station.done { color: var(--ink); }
+.station.done .s { background: var(--ink); border-color: var(--ink); color: var(--ground); }
+.station.now { background: var(--inv); color: var(--inv-ink); }
+.station.now .s::after { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--inv-ink); }
+.chips-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; }
+.filters { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+.filters button { height: 32px; padding: 0 12px 0 10px; border-radius: var(--r-pill); display: inline-flex; align-items: center; gap: 7px;
+  font-size: 12.5px; font-weight: 550; color: var(--ink-2); background: var(--glass); }
+.filters button[aria-pressed="true"] { background: var(--inv); color: var(--inv-ink); }
+.filters button i { width: 7px; height: 7px; border-radius: 50%; background: var(--tint, var(--ink-3)); }
+.filters button span { opacity: .7; }
+.board-wrap { padding: 14px; border-radius: 26px; overflow: hidden; }
+.board-h { display: flex; justify-content: space-between; align-items: center; margin: 2px 6px 12px; gap: 12px; }
+.board-h h2 { margin: 0; font-size: 15px; font-weight: 650; }
+.board-h .aside { color: var(--ink-3); font-size: 12.5px; }
+
+/* ---------- History ---------- */
+.hist { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 14px; align-items: start; }
+.panel { padding: 18px; }
+.panel.wide { grid-column: 1 / -1; }
+.panel h2 { font-size: 15px; margin: 0; font-weight: 650; }
+.panel .aside { color: var(--ink-3); font-size: 12.5px; display: block; margin-bottom: 10px; }
+.seg { display: inline-flex; gap: 2px; padding: 4px; border-radius: var(--r-pill); background: var(--glass); margin-bottom: 16px; }
+.seg button { height: 30px; padding: 0 14px; border-radius: var(--r-pill); font-size: 12.5px; font-weight: 550; color: var(--ink-2); }
+.seg button[aria-pressed="true"] { background: var(--inv); color: var(--inv-ink); }
+
+/* ---------- Systems (M1, D41): the plans as last read ---------- */
+.sys-sec { margin: 0 0 30px; }
+.lead { padding: 14px 18px; margin: 0 0 14px; border-radius: var(--r-inner); font-size: 13.5px; line-height: 1.55; color: var(--ink-2); }
+.lead b { color: var(--ink); font-weight: 650; }
+.plans { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 12px; }
+.plan { padding: 16px 16px 14px; display: flex; flex-direction: column; gap: 12px; }
+.plan-top { display: grid; gap: 3px; }
+.plan-name { font-weight: 650; font-size: 15.5px; line-height: 1.25; letter-spacing: -0.01em; }
+.plan-price { font-size: 12.5px; color: var(--ink-3); }
+.plan-note { margin: 0; font-size: 12px; color: var(--ink-3); }
+.wins { display: grid; gap: 11px; }
+.win-label { display: flex; justify-content: space-between; gap: 10px; font-size: 12.5px; color: var(--ink-2); margin-bottom: 6px; }
+.win-label .r { color: var(--ink-3); text-align: right; white-space: nowrap; }
+.win-label .r b { color: var(--ink); font-weight: 650; }
+.win-bar { height: 8px; border-radius: 4px; background: var(--track); overflow: hidden; }
+.win-bar i { display: block; height: 100%; border-radius: 4px; background: var(--ink-2); }
+.win.walled .win-bar i { background: var(--due); }
+.plan-lines { list-style: none; margin: auto 0 0; padding: 12px 0 0; border-top: 1px solid var(--edge); display: grid; gap: 4px; font-size: 12.5px; color: var(--ink-2); }
+.plan-lines li.dim { color: var(--ink-3); font-size: 12px; }
+.sys-two { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 14px; margin-top: 14px; align-items: start; }
+.sys-two .panel { padding: 16px 18px 8px; }
+.sys-two .steps .v { font-size: 13px; color: var(--ink-2); text-align: right; }
+.sys-two .steps .v.attn { color: var(--due-ink); }
+.sys-two .steps .v.dim { color: var(--ink-3); }
+/* ---------- Services (spec §4, OL6): every contract, with the age of its proof ---------- */
+.contracts { padding: 4px 0; }
+.contract { display: grid; grid-template-columns: 9px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 8px 18px; font-size: 12.5px; color: var(--ink-2); }
+.contract + .contract { border-top: 1px solid var(--edge); }
+.contract .cid { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.contract .age { color: var(--ink-3); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.contract-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ink-3); }
+.contract.red { color: var(--due-ink); }
+.contract.red .contract-dot { background: var(--due); }
+.contract.red .age { color: var(--due-ink); }
+/* The phone keeps four controls in the nav row: History and Systems sit under More (R7a.1, D40). */
+.morebtn { display: none; }
+.more-menu { position: fixed; z-index: 30; min-width: 190px; padding: 6px; border-radius: var(--r-inner); opacity: 0; pointer-events: none; transform: translateY(-6px); transition: opacity .18s, transform .18s var(--ease-out); }
+.more-menu.open { opacity: 1; transform: none; pointer-events: auto; }
+.more-menu button { display: flex; align-items: center; width: 100%; min-height: 44px; padding: 0 16px; border-radius: var(--r-inner); color: var(--ink-2); font-weight: 550; text-align: left; }
+.more-menu button:hover { color: var(--ink); background: var(--glass-2); }
+.more-menu button[aria-current="page"] { background: var(--inv); color: var(--inv-ink); }
+
+/* ---------- the sheets ---------- */
+#dialog-wrap { position: fixed; inset: 0; z-index: 30; }
+#dialog { position: fixed; inset: 0; display: grid; place-items: center; background: rgba(0,0,0,.42); }
+#dialog .g-sheet-panel { width: min(560px, calc(100vw - 32px)); max-height: 88vh; overflow: auto; }
+.sheet-offline { color: var(--due-ink); font-size: 12.5px; }
+
+/* ---------- the plans rings (the operator, 2026-10-29): a ring keeps its own circle ---------- */
+/* The rings sit in a card as wide as the phone, and the library's four-column cluster squeezed each one below its own
+   68 px: the arc spilled into the neighbour's column and the number stopped sitting in its own circle. Each ring now
+   takes the room it draws itself in, and the cluster fits as many rings as the card holds. */
+.g-rings { grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); gap: 12px 8px; }
+.g-ring { min-width: 0; }
+.g-ring-wrap { width: 68px; height: 68px; flex: none; }
+.g-ring-sub { max-width: 100%; overflow-wrap: anywhere; }
+
+/* ---------- the page's own width (D1): nothing here is wider than the viewport ---------- */
+/* A grid track sized `1fr` is `minmax(auto, 1fr)`, and `auto` is the item's minimum-content size: one long word, one
+   line that cannot wrap or one nowrap preview is enough to grow a track past the screen. So every track may shrink,
+   every item may shrink, and every text may break inside its own box. */
+.today-grid > *, .kpis > *, .goals > *, .hist > *, .sys-two > *, .plans > *, .side { min-width: 0; }
+.tk-row .t, .steps .t, .idea-title, .idea-why, .shiplist li, .g-kpi-line, .g-ring-label, .g-ring-sub, .g-tt, .g-nm, .g-sub { overflow-wrap: anywhere; }
+/* The message preview cannot wrap by design (one line, an ellipsis): its box is cut instead of the panel it is in. */
+.msgrow button { overflow: hidden; }
+/* The library's own pills carry a lane's title and never wrap: they are cut inside their card, not past the screen. */
+.g-tags .g-tag, .g-model { max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
+
+/* ---------- the phone (D38: 760 px) ---------- */
+@media (max-width: 760px) {
+  .shell { padding: 12px var(--gutter) 48px; }
+  .topbar { grid-template-columns: minmax(0, 1fr) auto; row-gap: 10px; top: 8px; }
+  .brand { height: 40px; padding: 0 12px 0 6px; font-size: 13px; }
+  .navwrap { grid-column: 1 / -1; order: 3; }
+  .navwrap g-island { width: 100%; }
+  .kpis { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; }
+  .kpis > :first-child, .kpis > :nth-child(4), .kpis > :nth-child(5) { grid-column: 1 / -1; }
+  .today-grid, .goals, .hist { grid-template-columns: minmax(0, 1fr); }
+  .hero { padding: 20px; border-radius: 22px; }
+  .hero h1 { font-size: 26px; }
+  .title { font-size: 27px; }
+  .board-wrap { padding: 12px; }
+  /* All four tab labels fit at 390 px: tighter tabs, and the row scrolls inside itself if a count grows. */
+  .navrow { overflow-x: auto; scrollbar-width: none; margin-bottom: 18px; scroll-padding-inline: 10px; }
+  .navrow::-webkit-scrollbar { display: none; }
+  .navrow g-nav { min-width: max-content; }
+  .navrow .g-nav { gap: 0; padding: 4px; }
+  .navrow .g-nav-tab { padding: 0 7px; font-size: 12px; min-width: 0; }
+  .navrow .g-nav-n { min-width: 16px; height: 16px; padding: 0 4px; }
+  .navrow .g-nav-tab[data-id="history"], .navrow .g-nav-tab[data-id="systems"] { display: none; }
+  .navrow .morebtn { display: inline-flex; align-items: center; height: 34px; padding: 0 12px; margin-left: 4px; border-radius: var(--r-pill);
+    font-size: 12.5px; font-weight: 550; color: var(--ink-2); white-space: nowrap; }
+  .navrow .morebtn[aria-current="page"] { background: var(--inv); color: var(--inv-ink); }
+  .sys-two { grid-template-columns: minmax(0, 1fr); }
+  .navwrap g-island .g-island-last, .navwrap g-island .g-island-sep { display: none; }
+  .brand { white-space: nowrap; font-size: 12.5px; }
+  .tk-body { margin-left: 0; }
+  .iconbtn { width: 40px; height: 40px; }
+  .pillbtn { height: 40px; padding: 0 14px 0 12px; font-size: 13px; }
+}
+</style>
+</head>
+<body>
+<div class="ground" aria-hidden="true">
+  <svg viewBox="0 0 1200 600" preserveAspectRatio="none" focusable="false">
+    <defs>
+      <linearGradient id="cc-wave" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="var(--wave, var(--glass-2))"></stop>
+        <stop offset="1" stop-color="var(--ground)"></stop>
+      </linearGradient>
+    </defs>
+    <path d="M0,220 C220,120 380,320 640,230 C860,150 1000,90 1200,170 L1200,600 L0,600 Z" fill="url(#cc-wave)"></path>
+  </svg>
+</div>
+
+<div class="shell">
+  <header class="topbar">
+    <div class="brand glass">
+      <span class="brand-mark" aria-hidden="true">
+        <svg class="i" viewBox="0 0 24 24" style="width:16px;height:16px" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"></circle><path d="M12 3v3M12 18v3M3 12h3M18 12h3"></path></svg>
+      </span>
+      <span>Command center</span>
+    </div>
+    <div class="navwrap"><g-island id="island" label="Live"></g-island></div>
+    <div class="actions">
+      <button class="iconbtn glass" id="mode" type="button" aria-label="Switch to light mode"><span id="mode-icon"></span></button>
+      <button class="pillbtn" id="open-msg" type="button">
+        <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"></path></svg>
+        <span>Message</span>
+      </button>
+    </div>
+  </header>
+  <div class="banner" id="banner" hidden>
+    <span id="banner-text"></span>
+    <button class="btn" id="banner-action" type="button" hidden>Reload</button>
+  </div>
+  <div class="navrow"><g-nav id="nav" label="Views"></g-nav><button class="morebtn glass" id="more-btn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="more-menu">More</button><div class="more-menu glass" id="more-menu" aria-label="More views"><button type="button" data-more="scrum">Scrum</button><button type="button" data-more="history">History</button><button type="button" data-more="systems">Systems</button></div></div>
+  <main id="view" tabindex="-1"></main>
+</div>
+
+<g-toast id="toast" timeout="0"></g-toast>
+
+<div id="dialog-wrap" hidden>
+  <div id="dialog">
+    <div class="g-sheet-panel" role="dialog" aria-modal="true" aria-labelledby="dialog-title">
+      <div class="g-sheet-h">
+        <div class="g-sheet-id"><h2 class="g-sheet-title" id="dialog-title"></h2></div>
+        <button class="g-sheet-close" id="dialog-close" type="button" aria-label="Close"></button>
+      </div>
+      <div id="dialog-body"></div>
+    </div>
+  </div>
+</div>
+
+<g-sheet id="lane-sheet"></g-sheet>
+
+<noscript><p style="padding:24px">The command center needs JavaScript: the page renders every line from the gateway's state, and sets all of it as text.</p></noscript>
+
+<script type="module" nonce="__CC_NONCE__">
+import "/cc/assets/ui/index.js";
+// ─────────────────────────────────────────────────────────────────────────────
+// Revision 7 page (CRW). One mapping layer from the CRH state and frames to the
+// graphite-ui element data. Stage labels come from `state.stages`, tints from the
+// library's `--tint-<goal.colour>` tokens, model names from `modelName`: the page
+// holds no stage word, no colour map and no model name of its own (CRW 6).
+// ─────────────────────────────────────────────────────────────────────────────
+
+const CSRF = document.querySelector('meta[name="cc-csrf"]').content;
+const POLL_MS = 10000;
+const OFFLINE_MS = 60000;
+const HOLD_MS = 6000;
+const CHANGE_LINE_MS = 4000;
+const MAX_MESSAGE_CHARS = 4000;
+
+// The ask kinds, labelled: the keys are ASK_KINDS (asks.ts), and the page never invents one.
+const KIND_LABELS = {
+  "product-decision": "Product decision",
+  authorization: "Authorization",
+  credential: "Credential",
+  "human-login": "Login",
+  review: "Review",
+  "operator-action": "Needs your hands"
+};
+const PC_KIND_LABELS = { message: "Message", stop: "Stop a lane", answer: "Answer to a ticket", card: "Card tap", pause: "Pause heavy jobs", resume: "Resume heavy jobs" };
+const EMPTY = {
+  nothingWaits: "Nothing waits on you.",
+  noGoals: "No goals yet. Goals start with the architect.",
+  noShipped: "Nothing shipped yet today.",
+  noNext: "Nothing scheduled.",
+  notWired: "Not wired yet.",
+  noSession: "No live lines yet.",
+  noIdeas: "No new ideas today.",
+  ideasLate: "Today's ideas have not run yet.",
+  noLanes: "No lanes on this goal yet.",
+  nothingHere: "Nothing here now.",
+  nothingAssigning: "Nothing waiting for a lane.",
+  noGoalLanes: "No lane sits outside a goal."
+};
+// The four taps on a research card (CARD_TAPS, research-desk.ts): the label and what the toast says while it is held (R6.1).
+const CARD_TAPS = [
+  { tap: "send-to-architect", label: "Send to architect", said: "Sent to the architect." },
+  { tap: "dig-deeper", label: "Dig deeper", said: "Asked for a research lane." },
+  { tap: "more-like-this", label: "More like this", said: "Noted." },
+  { tap: "not-for-me", label: "Not for me", said: "Noted." }
+];
+const NAV_ITEMS = [{ id: "today", label: "Today" }, { id: "goals", label: "Goals" }, { id: "pipeline", label: "Pipeline" }, { id: "history", label: "History" }, { id: "systems", label: "Systems" }];
+
+// What each column of `state.stages` means to the page, by position in that array and nothing else: the stage
+// vocabulary is the stage owner's, and this table carries no word of it (C3, CRW 6). `now` is where the lane's
+// working line belongs, `merged` where the time shown is the one it finished at, `accent` the head dot's token.
+const STAGE_FACTS = [
+  { accent: null, now: false, merged: false, strip: "on", empty: EMPTY.nothingAssigning },
+  { accent: "ink", now: true, merged: false, strip: "on", empty: EMPTY.nothingHere },
+  { accent: "ice", now: false, merged: false, strip: "on", empty: EMPTY.nothingHere },
+  { accent: "due", now: true, merged: false, strip: "back", empty: EMPTY.nothingHere },
+  { accent: "sand", now: false, merged: false, strip: "on", empty: EMPTY.nothingHere },
+  { accent: "good", now: false, merged: true, strip: "done", empty: EMPTY.nothingHere }
+];
+
+const view = {
+  state: null,
+  loadedAt: null,
+  stale: false,
+  online: true,
+  startedAt: null,
+  restartPending: false,
+  recent: [],
+  feeds: {},
+  reports: {},
+  islandLine: null,
+  ui: { openTicket: null, more: false, filter: "all", range: "today", laneTab: {}, dialog: null, dialogError: null, to: "architect", msg: "", killSeen: null }
+};
+const route = { kind: "today", id: null };
+const held = {};       // ask id -> { code, version, words | option, timer }
+const heldCards = {};  // card id -> { tap, version, timer, posted, card }
+const failedCards = {}; // card id -> { card, tap }: recorded, not delivered; Retry delivers it
+const drafts = {};     // ask id -> words typed in its box
+// The Messages panel (MG7): the tailnet page's threads, the open thread, and the words being typed in it.
+const msgView = { loaded: false, error: null, panel: null, countsOnly: false, open: null, thread: null, threadError: null, edit: null, dirty: false, instruction: "", busy: null, actionError: null };
+const opener = { node: null };
+let pollTimer = null;
+let offlineTimer = null;
+let changeTimer = null;
+let stream = null;
+
+// ── Small DOM helpers: everything from the state is set as text ───────────────
+function h(tag, attrs) {
+  const node = document.createElement(tag);
+  const kids = Array.prototype.slice.call(arguments, 2);
+  if (attrs) Object.keys(attrs).forEach((key) => {
+    const value = attrs[key];
+    if (value === null || value === undefined || value === false) return;
+    if (key === "class") node.className = value;
+    else if (key === "text") node.textContent = String(value);
+    else if (key === "style") node.setAttribute("style", value);
+    else if (key === "value") node.value = String(value);
+    else node.setAttribute(key, value === true ? "" : String(value));
+  });
+  kids.forEach((kid) => {
+    if (kid === null || kid === undefined || kid === false) return;
+    node.append(kid instanceof Node ? kid : document.createTextNode(String(kid)));
+  });
+  return node;
+}
+function clear(node) { while (node.firstChild) node.removeChild(node.firstChild); }
+function setText(node, text) { if (node) node.textContent = text === null || text === undefined ? "" : String(text); }
+function $(id) { return document.getElementById(id); }
+
+// ── Time, in the operator's zone ────────────────────────────────────────────────────
+// ── Systems words region: the clock and the words that read it (D41, D42, D46) ──────────────────
+let clockFmt;
+try {
+  clockFmt = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Sofia", hour: "2-digit", minute: "2-digit", hour12: false });
+} catch (error) {
+  clockFmt = new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit", hour12: false });
+}
+function hhmm(value) {
+  if (value === null || value === undefined || value === "") return "--:--";
+  const at = new Date(value);
+  return isNaN(at.getTime()) ? "--:--" : clockFmt.format(at);
+}
+function minutesSince(ms) { return typeof ms !== "number" || !isFinite(ms) ? null : Math.max(0, Math.round(ms / 60000)); }
+function plural(count, one, many) { return count + " " + (count === 1 ? one : many); }
+function dayKey(date) {
+  const parts = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Sofia", year: "numeric", month: "2-digit", day: "2-digit" }).format(date);
+  return parts;
+}
+
+// ── Systems words (D41, D42, D46): the plan cards' copy, in the operator's zone ─────────────────────────────────────
+// The page owns these words and nothing else: every number a card shows is an owner's (D41), and no threshold is
+// computed here. Kept as one region so the blueprint's own table (D46) is checked against the page itself, without
+// a browser: `extensions/tests/muster-command-center-ccp.test.ts` reads this block as it stands.
+function weekdayOf(date) { return new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Sofia", weekday: "short" }).format(date); }
+function dayMonthOf(date) { return new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Sofia", day: "numeric", month: "short" }).format(date); }
+/** D46: one window's length in words. A named window keeps its name (`windowLabel`). */
+function windowWords(minutes) {
+  const length = Number(minutes);
+  if (!isFinite(length) || length <= 0) return "";
+  if (length === 300) return "5 hours";
+  if (length === 1440) return "Day";
+  if (length === 10080) return "Week";
+  if (length === 43200) return "Month";
+  const value = length < 2880 ? length / 60 : length / 1440;
+  return Math.round(value * 10) / 10 + (length < 2880 ? " hours" : " days");
+}
+/** D46: a window's label: the reading's own name when it carries one, else its length in words. */
+function windowLabel(window) {
+  const name = window && typeof window.name === "string" ? window.name : "";
+  return name !== "" ? name : windowWords(window ? window.windowMinutes : null);
+}
+/** D46: a time as the cards say it: "21:30" today, "Fri 07:00" within six days, "3 Nov" later. */
+function resetWords(value, now) {
+  if (value === null || value === undefined || value === "") return "";
+  const at = new Date(value);
+  if (isNaN(at.getTime())) return "";
+  const today = dayKey(now instanceof Date ? now : new Date(now));
+  const day = dayKey(at);
+  if (day === today) return hhmm(at.getTime());
+  const days = Math.round((Date.parse(day + "T00:00:00Z") - Date.parse(today + "T00:00:00Z")) / 86400000);
+  if (days >= 1 && days <= 6) return weekdayOf(at) + " " + hhmm(at.getTime());
+  return dayMonthOf(at);
+}
+/** A price in a card's words: "$100", never "$100.00". */
+function priceOf(amount) {
+  const value = Number(amount);
+  return isFinite(value) ? "$" + value.toFixed(2).replace(/\.00$/, "") : "";
+}
+/** D41: the plan and its price. "price not given" only when the price is null (subscriptions.ts:24). */
+function planPriceWords(row) {
+  const plan = row && row.plan ? row.plan : null;
+  const price = plan === null ? null : plan.monthlyUsd;
+  if (price === null || price === undefined) return "price not given";
+  if (Number(price) === 0) return "$0 a month (no paid plan)";
+  const name = typeof plan.name === "string" && plan.name !== "" ? plan.name + " · " : "";
+  return name + priceOf(price) + " a month";
+}
+/** D41: the billing line from the row's observed billing only. Until B-1 fills it, the card says it does not know. */
+function billingWords(row, now) {
+  const billing = row && row.billing ? row.billing : null;
+  if (billing === null || billing.renewsAt === undefined || billing.renewsAt === null) return "Renewal date not known yet";
+  const day = dayMonthOf(new Date(billing.renewsAt));
+  if (billing.source === "receipt") return "Renews " + day + " (from the receipt)";
+  const amount = billing.amountUsd === undefined || billing.amountUsd === null ? "" : " · " + priceOf(billing.amountUsd);
+  return "Renews " + day + amount;
+}
+/** D41: what the router does with a provider, from the router's own facts. No threshold is computed here. */
+function routerWords(row, now) {
+  const router = row && row.router ? row.router : {};
+  const lines = [];
+  if (router.spentUntil !== undefined && router.spentUntil !== null) lines.push({ text: "Spent until " + resetWords(router.spentUntil, now), attn: true });
+  if (router.atHeadroom === true) lines.push({ text: "At or over 95% of a window: used only when nothing else is open", attn: true });
+  if (Number(router.runningLanes) > 0) lines.push({ text: plural(Number(router.runningLanes), "lane running", "lanes running") + " now", attn: false });
+  if (router.claudeMax !== undefined && router.claudeMax !== null) lines.push({ text: row.label + " lanes: at most " + router.claudeMax + " at once", attn: false });
+  return lines;
+}
+/** D41: the reading's age and source. A meter row was read in a browser; every other reading is the provider's API. */
+function readWords(row) {
+  if (!row || row.ageMs === null || row.ageMs === undefined) return "";
+  return "Read " + minutesSince(row.ageMs) + " min ago · " + (row.meter === true ? "browser" : "API");
+}
+/** One plan card's words: the name and its account, the price, a bar per window, and the lines under them. */
+function planCardWords(row, now, split) {
+  const account = typeof row.account === "string" && row.account !== "" ? " · " + row.account : "";
+  const windows = (Array.isArray(row.windows) ? row.windows : []).map((window) => {
+    const used = Math.max(0, Math.min(100, Math.round(Number(window.usedPercent) || 0)));
+    return { label: windowLabel(window), right: used + "% · resets " + resetWords(window.resetsAt, now), used };
+  });
+  const lines = (Array.isArray(row.walls) ? row.walls : []).map((wall) => ({ text: "Walled until " + resetWords(wall.until, now), attn: true, dim: false }));
+  const billing = billingWords(row, now);
+  lines.push({ text: billing, attn: false, dim: billing === "Renewal date not known yet" });
+  if (typeof row.unreadable === "string" && row.unreadable !== "") lines.push({ text: row.unreadable, attn: true, dim: false });
+  for (const line of routerWords(row, now)) lines.push({ text: line.text, attn: line.attn, dim: false });
+  const read = readWords(row);
+  if (read !== "") lines.push({ text: read, attn: false, dim: true });
+  return { name: row.label + account, price: planPriceWords(row), note: split ? "The router counts both accounts as one provider" : "", windows, lines };
+}
+/** R7a.1: the cards' order: a walled plan first, then the highest window used. */
+function planCardOrder(left, right) {
+  const walled = (row) => (Array.isArray(row.walls) && row.walls.length > 0 ? 1 : 0);
+  const top = (row) => (Array.isArray(row.windows) ? row.windows : []).reduce((most, window) => Math.max(most, Number(window.usedPercent) || 0), -1);
+  return walled(right) - walled(left) || top(right) - top(left);
+}
+/** D41, UM5: a metered account's balance as the row gives it, an amount and a currency, never a percentage. */
+function balanceWords(row) {
+  const account = typeof row.account === "string" && row.account !== "" ? " · " + row.account : "";
+  const name = row.label + account;
+  const balance = row && row.balance ? row.balance : null;
+  if (balance === null || typeof balance.amount !== "number" || !isFinite(balance.amount)) return { name, value: "Balance not read yet", text: name + " · Balance not read yet", attn: false, dim: true };
+  const amount = String(balance.amount).replace("-", "\u2212");
+  const currency = String(balance.currency || "").trim();
+  const tallied = currency === "" ? amount : amount + " " + currency;
+  if (balance.amount < 0) return { name, value: tallied + " · below zero", text: name + " · " + tallied + " · below zero", attn: true, dim: false };
+  return { name, value: tallied + " left", text: name + " · " + tallied + " left", attn: false, dim: false };
+}
+/** R7a.1: the free row. Its caps show only when they stop a lane, so the row says what it is and lists its walls. */
+function freeRowWords(row, now) {
+  const account = typeof row.account === "string" && row.account !== "" ? " · " + row.account : "";
+  return {
+    name: row.label + account,
+    text: row.label + account + " · free · daily caps show only when they stop a lane",
+    walls: (Array.isArray(row.walls) ? row.walls : []).map((wall) => "Walled until " + resetWords(wall.until, now))
+  };
+}
+/** D42: the digest's own sentence, as written; a gateway with no digest says the value is not computed yet. */
+function valueLineWords(usage) {
+  const line = usage && typeof usage.valueLine === "string" ? usage.valueLine.trim() : "";
+  if (line === "") return "Value against API prices not computed yet";
+  return line.indexOf("- ") === 0 ? line.slice(2) : line;
+}
+/** R7a.1: the line under the cards, when the snapshot is past the router's own freshness rule (`stale`, D41). */
+function staleWords(capturedAt, now) {
+  if (typeof capturedAt !== "number" || !isFinite(capturedAt)) return "";
+  return "Usage snapshot " + minutesSince(now - capturedAt) + " min old: the router is not using it";
+}
+/** R7a.1: the Today card's line, naming the soonest reset among the rows it is given. */
+function nearestResetWords(rows, now) {
+  let best = null;
+  for (const row of Array.isArray(rows) ? rows : []) {
+    for (const window of Array.isArray(row.windows) ? row.windows : []) {
+      const at = Number(window.resetsAt);
+      if (!isFinite(at) || at <= now) continue;
+      if (best === null || at < best.at) best = { at: at, label: row.label };
+    }
+  }
+  return best === null ? "" : best.label + " resets " + resetWords(best.at, now);
+}
+/**
+ * The Your plans card's ring (R7a.1, D3): the number is the outer window's `usedPercent` — the usage snapshot's own
+ * number, the percent of that window that is used, never the percent that is left — and the label under it says so:
+ * which window the number belongs to, that it is used, and the longer window's own value in the same line.
+ */
+function ringOf(row) {
+  const windows = Array.isArray(row.windows) ? row.windows.slice() : [];
+  if (windows.length === 0) return row.unreadable ? { label: row.label, used: 0, sub: "no reading", inner: undefined } : null;
+  windows.sort((a, b) => (Number(a.windowMinutes) || 0) - (Number(b.windowMinutes) || 0));
+  const outer = windows[0];
+  const inner = windows.length > 1 ? windows[windows.length - 1] : null;
+  const walled = Array.isArray(row.walls) && row.walls.length > 0 ? row.walls[0] : null;
+  const used = Math.round(Number(outer.usedPercent) || 0);
+  const parts = [windowLabel(outer) + ": " + used + "% used"];
+  if (inner !== null) parts.push(windowLabel(inner) + ": " + Math.round(Number(inner.usedPercent) || 0) + "% used");
+  if (walled !== null) parts.push("walled, resets " + hhmm(walled.until));
+  else if (row.kind === "metered") parts.push("pay as you go");
+  return {
+    label: row.label + (row.account ? " · " + row.account : ""),
+    used,
+    sub: parts.join(" · "),
+    inner: inner === null ? undefined : Math.max(0, Math.min(1, (Number(inner.usedPercent) || 0) / 100))
+  };
+}
+// ── end of the Systems words ────────────────────────────────────────────────────────────────────────────────────
+
+function daysAgo(ageMs) {
+  if (typeof ageMs !== "number" || !isFinite(ageMs) || ageMs < 0) return "new";
+  const days = Math.floor(ageMs / 86400000);
+  return days < 1 ? "today" : days + " d";
+}
+function elapsedText(sinceMs) {
+  if (typeof sinceMs !== "number" || !isFinite(sinceMs)) return "";
+  const minutes = Math.max(0, Math.round((Date.now() - sinceMs) / 60000));
+  if (minutes < 60) return minutes + "m";
+  const hours = Math.floor(minutes / 60);
+  return hours + "h " + String(minutes % 60).padStart(2, "0") + "m";
+}
+function shortSha(sha) { return typeof sha === "string" && sha !== "" ? sha.slice(0, 7) : null; }
+function todayLine() {
+  const now = new Date();
+  const date = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Sofia", weekday: "long", day: "numeric", month: "long" }).format(now);
+  return date;
+}
+
+// ── State access ─────────────────────────────────────────────────────────────
+// The summary is its own key of the state, as it always was (D32); every other panel hangs under panels.
+function panel(name) {
+  if (!view.state) return null;
+  if (name === "summary") return view.state.summary || null;
+  return view.state.panels ? view.state.panels[name] : null;
+}
+function panelData(name) { const p = panel(name); return p && !p.error && p.data ? p.data : null; }
+function panelMissing(name) { return !panel(name); }
+function panelError(name) { const p = panel(name); return p && p.error ? p.error : null; }
+function stateStages() {
+  const stages = view.state && Array.isArray(view.state.stages) ? view.state.stages : [];
+  return stages.slice(0, STAGE_FACTS.length);
+}
+function stageIndexOf(key) {
+  const stages = stateStages();
+  for (let index = 0; index < stages.length; index += 1) if (stages[index].key === key) return index;
+  return -1;
+}
+function stageLabel(key) {
+  const index = stageIndexOf(key);
+  return index < 0 ? "" : stateStages()[index].label;
+}
+function laneRows() {
+  const data = panelData("lanes");
+  return data && Array.isArray(data.rows) ? data.rows : [];
+}
+function seatLanes() {
+  const data = panelData("team");
+  const members = data && Array.isArray(data.members) ? data.members : [];
+  const heldIds = {};
+  members.forEach((member) => { if (typeof member.lane === "string" && member.lane !== "") heldIds[member.lane] = true; });
+  return heldIds;
+}
+/** The worker lanes: no seat holds them and their origin is not the operator (R5, the composer's own `workerRows` rule). */
+function workerLanes() {
+  const seats = seatLanes();
+  return laneRows().filter((row) => row.origin !== "operator" && !seats[row.laneId]);
+}
+function onBoard(row) { return stageIndexOf(row.stage) >= 0; }
+function goalPanel() { return panelData("goals"); }
+function goalGroups() {
+  const data = goalPanel();
+  return data && Array.isArray(data.groups) ? data.groups : [];
+}
+function goalList() {
+  const out = [];
+  goalGroups().forEach((group) => {
+    (Array.isArray(group.goals) ? group.goals : []).forEach((goal) => {
+      out.push({ ...goal, projectTitle: group.title || String(group.project) });
+    });
+  });
+  return out;
+}
+function goalBy(code) {
+  const list = goalList();
+  for (let index = 0; index < list.length; index += 1) if (list[index].code === code) return list[index];
+  return null;
+}
+/** The library's tint token key for a goal, from the registry's own `colour` (D29): the page maps no colour itself. */
+function tintOf(code) {
+  const goal = code ? goalBy(code) : null;
+  return goal && typeof goal.colour === "string" && goal.colour !== "" ? goal.colour : null;
+}
+function summaryData() {
+  const p = panel("summary");
+  return p && !p.error && p.data ? p.data : null;
+}
+function openGoalsCount() {
+  return goalList().filter((goal) => goal.status !== "done" && goal.status !== "dropped").length;
+}
+
+
+// ── The chrome: nav, island, banner ─────────────────────────────────────────
+function islandIdle() {
+  const summary = summaryData();
+  if (summary && summary.working && summary.review) {
+    const review = summary.review.verifying + summary.review.waiting;
+    return plural(summary.working.count, "working", "working") + " · " + review + " in review";
+  }
+  const workers = workerLanes();
+  const working = workers.filter((row) => { const index = stageIndexOf(row.stage); return index >= 0 && STAGE_FACTS[index].now; }).length;
+  const review = workers.filter((row) => stageIndexOf(row.stage) === 2 || stageIndexOf(row.stage) === 4).length;
+  return plural(working, "working", "working") + " · " + review + " in review";
+}
+
+function activeLaneCount() {
+  return workerLanes().filter((row) => { const index = stageIndexOf(row.stage); return index >= 0 && !STAGE_FACTS[index].merged; }).length;
+}
+
+function teamRows() {
+  const data = panelData("team");
+  const members = data && Array.isArray(data.members) ? data.members : [];
+  // A seat's name is its own role, and its model line is the harness and model the panel sent: the page maps neither.
+  const rows = members.map((member) => {
+    const role = String(member.role || "");
+    const name = role === "" ? "Seat" : role.charAt(0).toUpperCase() + role.slice(1);
+    const model = [member.harness, member.model].filter(Boolean).join(" · ");
+    const state = !member.held ? "Not held" : member.state || "Held";
+    return { name, model, state, line: member.line || null };
+  });
+  return rows.slice(0, 3);
+}
+
+function pcRow() {
+  const data = panelData("machine");
+  if (!data) return { text: panelMissing("machine") ? EMPTY.notWired : (panelError("machine") || "The PC did not answer."), tone: "attention" };
+  const gate = data.gate || {};
+  const kills = Array.isArray(data.kills) ? data.kills : [];
+  const newest = kills.length > 0 ? kills[kills.length - 1] : null;
+  if (data.tone === "red" || gate.wouldAdmit === false) return { text: "PC needs attention · " + (gate.reason || "the gate would refuse a heavy job"), tone: "red" };
+  if (newest !== null && view.ui.killSeen !== newest.at) return { text: "The guard stopped a heavy job at " + hhmm(newest.at) + " · tap to clear", tone: "red" };
+  if (gate.paused || gate.devServerWindow) return { text: gate.paused ? "Heavy jobs paused" : "Dev server window open · " + gate.devServerWindow, tone: "attention" };
+  const free = typeof gate.availableMb === "number" ? Math.max(0, Math.round(gate.availableMb / 1024)) : null;
+  return { text: free === null ? "PC healthy" : "PC healthy · " + free + " GB free", tone: "ok" };
+}
+
+function paintChrome() {
+  const nav = $("nav");
+  if (nav) {
+    nav.data = { items: NAV_ITEMS.map((item) => (item.id === "goals" ? { ...item, count: openGoalsCount() } : item.id === "pipeline" ? { ...item, count: activeLaneCount() } : item)) };
+    const wanted = route.kind === "goal" ? "goals" : route.kind === "lane" ? nav.value : route.kind;
+    if (wanted && nav.value !== wanted) nav.value = wanted;
+  }
+  paintMoreMenu();
+  paintIsland();
+}
+
+function paintIsland() {
+  const island = $("island");
+  if (!island) return;
+  const last = view.loadedAt ? "last change " + hhmm(view.loadedAt) : "reading the gateway";
+  island.data = {
+    idle: view.online ? islandIdle() : "Offline · last update " + hhmm(view.loadedAt),
+    last: view.stale ? "Offline · last update " + hhmm(view.loadedAt) : last,
+    line: view.islandLine,
+    recent: view.recent.slice(-20),
+    team: teamRows(),
+    pc: pcRow()
+  };
+  island.toggleAttribute("offline", !view.online || view.stale);
+}
+
+function showChangeLine(line) {
+  if (typeof line !== "string" || line === "") return;
+  view.islandLine = line;
+  paintIsland();
+  if (changeTimer !== null) clearTimeout(changeTimer);
+  changeTimer = setTimeout(() => { view.islandLine = null; paintIsland(); }, CHANGE_LINE_MS);
+}
+
+// ── The view: what is on the page, built once and then kept up to date ───────
+const views = { kind: null, id: null, root: null };
+function viewRoute() {
+  if (route.kind === "lane") return { kind: views.kind || "today", id: views.id || null };
+  return { kind: route.kind, id: route.id };
+}
+
+function paintView() {
+  const main = $("view");
+  if (!main) return;
+  const next = viewRoute();
+  if (views.kind !== next.kind || views.id !== next.id || !views.root || !main.contains(views.root)) buildView(main, next.kind, next.id);
+  refreshView(views.kind);
+}
+
+function buildView(main, kind, id) {
+  const saved = focusKeyOf();
+  const root = h("div", { class: "view" });
+  clear(main);
+  views.parts = {};
+  if (kind === "goal") buildGoalView(root, id);
+  else if (kind === "pipeline") buildPipelineView(root);
+  else if (kind === "scrum") buildScrumView(root);
+  else if (kind === "history") buildHistoryView(root);
+  else if (kind === "systems") buildSystemsView(root);
+  else buildTodayView(root);
+  main.append(root);
+  views.kind = kind;
+  views.id = id;
+  views.root = root;
+  restoreFocus(saved);
+}
+
+function refreshView(kind) {
+  const saved = focusKeyOf();
+  if (kind === "goal") refreshGoalView();
+  else if (kind === "pipeline") refreshPipelineView();
+  else if (kind === "scrum") refreshScrumView();
+  else if (kind === "history") refreshHistoryView();
+  else if (kind === "systems") refreshSystemsView();
+  else refreshTodayView();
+  paintChrome();
+  restoreFocus(saved);
+}
+
+// ── Today ───────────────────────────────────────────────────────────────────
+function buildTodayView(root) {
+  // R7a.1: the Your plans card is Today's, and a tap on it opens Systems at the plans.
+  const plansCard = h("g-kpi", { id: "kpi-plans" });
+  plansCard.addEventListener("g-tap", (event) => { if (event.detail.action === "systems") go("systems"); });
+  const kpis = h("section", { class: "kpis", "aria-label": "At a glance" },
+    h("g-kpi", { id: "kpi-needs" }), h("g-kpi", { id: "kpi-working" }), h("g-kpi", { id: "kpi-review" }),
+    h("g-kpi", { id: "kpi-shipped" }), plansCard);
+  root.append(
+    h("div", { class: "head" }, h("h1", { class: "title" }, h("span", { text: "Today" }), h("small", { id: "today-sub" }))),
+    kpis,
+    h("div", { class: "today-grid" },
+      h("section", { "aria-labelledby": "gh" },
+        h("div", { class: "sec-h" }, h("h2", { id: "gh", text: "Goals" }), h("span", { class: "aside", text: "Tap a goal to open its board" })),
+        h("div", { class: "goals", id: "goals" })),
+      h("aside", { class: "side" },
+        h("section", { class: "glass", id: "from-pc", hidden: true }, h("h2", { text: "From the PC" }), h("div", { id: "pc-actions" })),
+        h("section", { class: "glass", id: "steps" }, h("h2", { text: "Only you can do these" }), h("ul", { class: "steps", id: "tickets" }),
+          h("button", { class: "linkbtn", id: "all-steps", type: "button" }), h("div", { class: "decided", id: "decided" })),
+        h("section", { class: "glass" }, h("h2", { text: "Shipped today" }), h("ul", { class: "shiplist", id: "shipped" }),
+          h("button", { class: "linkbtn", id: "all-shipped", type: "button" }, "All of them in History")),
+        h("section", { class: "glass" }, h("h2", { text: "Coming up" }), h("ul", { class: "steps", id: "next" })),
+        h("section", { class: "glass", id: "ideas-card" }, h("h2", { text: "Ideas" }), h("ul", { class: "steps", id: "ideas" }), h("div", { id: "ideas-note" })),
+        h("section", { class: "glass", id: "messages-card", hidden: true }, h("h2", { text: "Messages" }), h("div", { id: "msg-strip" }), h("ul", { class: "steps", id: "messages" }))
+      ))
+  );
+}
+
+function refreshTodayView() {
+  const sub = $("today-sub");
+  if (!sub) return;
+  setText(sub, todayLine() + " · " + (view.online ? "live" : "offline") + " · last change " + hhmm(view.loadedAt));
+  paintKpis();
+  paintGoalCards();
+  paintFromPc();
+  paintWaiting();
+  paintShipped();
+  paintNext();
+  paintIdeas();
+  paintMessages();
+}
+
+function paintKpis() {
+  const summary = summaryData();
+  const summaryPanel = panel("summary");
+  const trouble = summaryPanel && summaryPanel.error ? summaryPanel.error : !summary ? "Reading the gateway…" : null;
+
+  // Needs you (D7: the big number is red, and only this card is inverted).
+  const needsHost = $("kpi-needs");
+  if (needsHost) {
+    const needs = summary && summary.needsYou ? summary.needsYou : null;
+    const parts = [];
+    let lines = [];
+    if (needs) {
+      if (needs.decisions > 0) parts.push(plural(needs.decisions, "decision", "decisions"));
+      if (needs.steps > 0) parts.push(plural(needs.steps, "step", "steps"));
+      if (needs.drafts > 0) parts.push(needs.drafts === 1 ? "1 reply waits for your OK" : needs.drafts + " replies wait for your OK");
+      if (needs.pc > 0) parts.push(needs.pc === 1 ? "1 tap on the phone" : needs.pc + " taps on the phone");
+      const decided = Array.isArray(summary.decidedToday) ? summary.decidedToday.length : 0;
+      lines = [parts.length > 0 ? parts.join(" · ") : EMPTY.nothingWaits];
+      lines.push(needs.decisions === 0 ? "No decisions waiting. You decided " + decided + " today." : "You decided " + decided + " today.");
+      if (needs.holdGoals.length > 0) lines.push(plural(needs.holdGoals.length, "goal waits", "goals wait") + " on you");
+    } else {
+      lines = [trouble || EMPTY.nothingWaits];
+    }
+    needsHost.data = {
+      label: "Needs you",
+      aside: needs ? String(needs.total) : "",
+      big: needs ? needs.total : 0,
+      tone: "inv",
+      lines,
+      cta: { action: "steps", label: "See what needs you" }
+    };
+  }
+
+  const workingHost = $("kpi-working");
+  if (workingHost) {
+    const working = summary && summary.working ? summary.working : null;
+    workingHost.data = {
+      label: "Working",
+      big: working ? working.count : 0,
+      lines: working && working.byModel.length === 0 ? ["No lane is working."] : working ? [] : [trouble || "Reading the gateway…"],
+      mix: working ? working.byModel.map((row) => ({ label: row.name, count: row.count })) : []
+    };
+  }
+
+  const reviewHost = $("kpi-review");
+  if (reviewHost) {
+    const review = summary && summary.review ? summary.review : null;
+    const rows = workerLanes().filter((row) => { const index = stageIndexOf(row.stage); return index === 2 || index === 4; });
+    const titles = rows.slice(0, 3).map((row) => row.title).join(" · ");
+    reviewHost.data = {
+      label: "Review and merge",
+      big: review ? review.verifying + review.waiting : 0,
+      lines: review
+        ? [titles === "" ? EMPTY.nothingHere : titles + (rows.length > 3 ? " · and " + (rows.length - 3) + " more" : ""), plural(review.sentBack, "lane sent back", "lanes sent back") + " for fixes"]
+        : [trouble || "Reading the gateway…"]
+    };
+  }
+
+  const shippedHost = $("kpi-shipped");
+  if (shippedHost) {
+    const shipped = summary && summary.shipped ? summary.shipped : null;
+    const nowHour = Number(new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Sofia", hour: "2-digit", hour12: false }).format(new Date())) % 24;
+    shippedHost.data = {
+      label: "Shipped today",
+      aside: shipped ? shipped.thisHour + " this hour" : "",
+      big: shipped ? shipped.today : 0,
+      lines: shipped && shipped.today === 0 ? [EMPTY.noShipped] : shipped ? [] : [trouble || "Reading the gateway…"],
+      bars: shipped ? { values: shipped.perHour.slice(0, nowHour + 1), now: nowHour, label: "Lanes merged per hour today" } : null
+    };
+  }
+
+  const plansHost = $("kpi-plans");
+  if (plansHost) {
+    const usage = panelData("usage");
+    const rows = usage && Array.isArray(usage.rows) ? usage.rows : [];
+    // R7a.1: the rings are the subscription rows'. A gateway that names no kind keeps a ring per row, as before.
+    const subscribed = rows.filter((row) => row.kind === "subscription");
+    const rings = (subscribed.length > 0 ? subscribed : rows).map(ringOf).filter((ring) => ring !== null);
+    const readAt = usage && typeof usage.capturedAt === "number" ? usage.capturedAt : null;
+    const now = Date.now();
+    const nearest = nearestResetWords(subscribed.length > 0 ? subscribed : rows, now);
+    const readLine = readAt === null ? "no reading yet" : "read " + minutesSince(now - readAt) + " min ago";
+    plansHost.data = {
+      label: "Your plans",
+      aside: "share of each window used",
+      big: rings.length,
+      lines: rings.length === 0 ? ["no reading"] : nearest === "" ? [readLine] : [nearest, readLine],
+      rings: rings.slice(0, 4),
+      cta: { action: "systems", label: "All your plans" }
+    };
+    if (rings.length === 0 && panelError("usage")) plansHost.data.lines = [panelError("usage")];
+  }
+}
+
+function paintGoalCards() {
+  const host = $("goals");
+  if (!host) return;
+  const goals = goalList();
+  const noGoalLanes = workerLanes().filter((row) => !row.goal);
+  if (view.state && goals.length === 0 && noGoalLanes.length === 0) {
+    if (host.dataset.empty !== "1") { clear(host); host.append(h("p", { class: "empty", text: EMPTY.noGoals })); host.dataset.empty = "1"; }
+    return;
+  }
+  if (host.dataset.empty === "1") { clear(host); delete host.dataset.empty; }
+  const wanted = goals.map((goal) => goal.code);
+  const keep = {};
+  [...host.querySelectorAll("g-goal-card")].forEach((card) => {
+    const code = card.dataset.code;
+    if (code !== undefined && wanted.indexOf(code) >= 0 && !keep[code]) keep[code] = card;
+    else if (code === "none" && noGoalLanes.length > 0) keep.none = card;
+    else card.remove();
+  });
+  goals.forEach((goal, index) => {
+    const code = goal.code;
+    let card = keep[code];
+    if (!card) {
+      card = document.createElement("g-goal-card");
+      card.dataset.code = code;
+      card.addEventListener("g-select", (event) => openGoal(event.detail.id));
+      host.insertBefore(card, host.children[index] || null);
+    } else if (host.children[index] !== card) host.insertBefore(card, host.children[index] || null);
+    card.data = goalCardData(goal);
+  });
+  if (noGoalLanes.length > 0) {
+    let card = keep.none;
+    if (!card) {
+      card = document.createElement("g-goal-card");
+      card.dataset.code = "none";
+      card.addEventListener("g-select", () => openGoal("none"));
+    }
+    host.append(card);
+    card.data = noGoalCardData(noGoalLanes);
+  } else if (keep.none) keep.none.remove();
+}
+
+function goalCardData(goal) {
+  const lanes = workerLanes().filter((row) => row.goal === goal.code);
+  const counts = stateStages().map((stage) => lanes.filter((row) => row.stage === stage.key).length);
+  const stations = Array.isArray(goal.stations) ? goal.stations : [];
+  const nowStation = stations.filter((station) => station.now)[0] || stations.filter((station) => !station.done)[0] || null;
+  const mergedIndex = STAGE_FACTS.findIndex((fact) => fact.merged);
+  const active = lanes.filter((row) => { const index = stageIndexOf(row.stage); return index >= 0 && !STAGE_FACTS[index].merged; });
+  const tags = [];
+  if (Array.isArray(goal.waitsOn) && goal.waitsOn.length > 0) tags.push({ text: "Waits on you", tone: "you" });
+  active.slice(0, 4).forEach((row) => {
+    tags.push({ text: row.title + " · " + stageLabel(row.stage).toLowerCase(), tone: row.rounds > 0 ? "back" : null });
+  });
+  return {
+    code: goal.code,
+    name: goal.name,
+    project: goal.projectTitle,
+    sub: goal.sub,
+    done: stations.filter((station) => station.done).length,
+    total: stations.length,
+    // The plate under the goal's name is the goal's own progress (the operator, 2026-10-29): one mark per station, filled
+    // for the stations that are done, so 3 of 6 fills half of it — the same count the circle beside it shows.
+    strip: stations.map((item) => ({ key: item.name, label: item.name, count: item.done ? 1 : 0, tone: item.done ? "done" : null })),
+    now: nowStation ? nowStation.name : null,
+    mergedToday: mergedIndex >= 0 ? counts[mergedIndex] : 0,
+    tags,
+    tint: goal.colour
+  };
+}
+
+function noGoalCardData(lanes) {
+  const counts = stateStages().map((stage) => lanes.filter((row) => row.stage === stage.key).length);
+  const mergedIndex = STAGE_FACTS.findIndex((fact) => fact.merged);
+  return {
+    code: null,
+    name: "Lanes with no goal",
+    project: "",
+    sub: "Lanes launched without a goal",
+    done: 0,
+    total: 0,
+    // No stations, no plate: a goal with no stations shows the same nothing its ring does.
+    strip: [],
+    now: null,
+    mergedToday: mergedIndex >= 0 ? counts[mergedIndex] : 0,
+    tags: lanes.slice(0, 4).map((row) => ({ text: row.title + " · " + stageLabel(row.stage).toLowerCase(), tone: row.rounds > 0 ? "back" : null })),
+    tint: null
+  };
+}
+
+// ── The board (goal view and Pipeline) ──────────────────────────────────────
+function laneCardData(row) {
+  const index = stageIndexOf(row.stage);
+  const fact = index >= 0 ? STAGE_FACTS[index] : null;
+  const when = fact && fact.merged ? hhmm(row.since) : elapsedText(row.startedAt) || (row.since ? hhmm(row.since) : "");
+  return {
+    id: row.laneId,
+    title: row.title || row.laneId,
+    chip: [row.class, row.taskKind].filter(Boolean).join(" · ") || null,
+    when,
+    rounds: row.rounds || 0,
+    now: fact && fact.now ? row.now : null,
+    waits: row.waits || null,
+    model: row.modelName || null,
+    attention: row.tone === "attention" ? row.reason || "Needs a look" : null,
+    tint: tintOf(row.goal),
+    goalCode: row.goal || null
+  };
+}
+
+function boardData(rows, options) {
+  const cap = options && Number(options.cap) ? options.cap : 0;
+  const stages = stateStages();
+  let phoneStart = null;
+  const columns = stages.map((stage, index) => {
+    let cards = rows.filter((row) => row.stage === stage.key);
+    if (STAGE_FACTS[index].merged) cards = cards.slice().sort((left, right) => (right.since || 0) - (left.since || 0));
+    const shown = cap > 0 ? cards.slice(0, cap) : cards;
+    if (shown.length > 0 && phoneStart === null) phoneStart = stage.key;
+    return {
+      key: stage.key,
+      label: stage.label,
+      empty: STAGE_FACTS[index].empty,
+      accent: STAGE_FACTS[index].accent,
+      cards: shown.map(laneCardData),
+      more: cards.length - shown.length
+    };
+  });
+  return { phoneStart, columns };
+}
+
+/** R7.1 on a phone: the board opens at the first column that holds a lane, not at an empty one. */
+function startBoardAt(board, data) {
+  if (!board || !data || !data.phoneStart) return;
+  if (!window.matchMedia || !window.matchMedia("(max-width: 760px)").matches) return;
+  const scroller = board.querySelector(".g-board");
+  const column = board.querySelector('.g-col[data-phone-start="true"]');
+  if (scroller && column) scroller.scrollLeft = Math.max(0, column.offsetLeft - scroller.offsetLeft);
+}
+
+function wireBoard(board) {
+  if (board.dataset.wired === "1") return;
+  board.dataset.wired = "1";
+  board.addEventListener("g-select", (event) => openLane(event.detail.id));
+  board.addEventListener("g-tap", (event) => {
+    if (event.detail.action === "more") go("history");
+  });
+}
+
+// ── The goal board view (#goal/<CODE>) ──────────────────────────────────────
+function buildGoalView(root, code) {
+  const hero = h("section", { class: "hero", id: "goal-hero" });
+  const chips = h("g-chips", { id: "goal-chips" });
+  const board = h("g-board", { id: "goal-board" });
+  wireBoard(board);
+  root.append(
+    h("div", { class: "head", style: "margin:0 0 14px" },
+      h("button", { class: "back", id: "goal-back", type: "button" }, "‹ Today"),
+      null),
+    hero,
+    h("div", { class: "chips-row" }, chips),
+    h("section", { class: "board-wrap glass" },
+      h("div", { class: "board-h" }, h("h2", { text: "Board" }), h("span", { class: "aside", text: "Updates as lanes report" })), board)
+  );
+  const back = $("goal-back");
+  if (back) back.addEventListener("click", () => go("today"));
+}
+
+function refreshGoalView() {
+  const code = views.id;
+  const goal = code === "none" ? null : goalBy(code);
+  const hero = $("goal-hero");
+  if (!hero) return;
+  const lanes = workerLanes().filter((row) => (code === "none" ? !row.goal : row.goal === code));
+  const tint = goal ? goal.colour : null;
+  hero.style.setProperty("--tint", tint ? "var(--tint-" + tint + ")" : "var(--ink-3)");
+  clear(hero);
+  hero.append(h("h1", { text: goal ? goal.name : "Lanes with no goal" }));
+  const meta = h("div", { class: "hero-meta" });
+  const codeText = goal ? goal.code : "No goal";
+  if (tint !== null) {
+    const codeNode = h("span", { class: "g-code", text: codeText });
+    codeNode.style.setProperty("--tint", "var(--tint-" + tint + ")");
+    meta.append(codeNode);
+  } else {
+    meta.append(h("span", { class: "g-code", text: codeText }));
+  }
+  if (goal && goal.projectTitle) meta.append(h("span", { class: "dim", text: goal.projectTitle }));
+  hero.append(meta);
+  if (goal && goal.sub) hero.append(h("p", { text: goal.sub }));
+  const stations = goal && Array.isArray(goal.stations) ? goal.stations : [];
+  if (stations.length > 0) {
+    const track = h("div", { class: "track" });
+    stations.forEach((station) => {
+      const cell = h("span", { class: "station" + (station.done ? " done" : "") + (station.now ? " now" : "") },
+        h("span", { class: "s" }), h("span", { text: station.name }));
+      if (station.done) cell.querySelector(".s").textContent = "✓";
+      track.append(cell);
+    });
+    hero.append(track);
+  } else if (!goal) {
+    hero.append(h("p", { class: "dim", text: "The orchestrator attaches a lane when work starts on this line." }));
+  }
+
+  const counts = stateStages().map((stage) => lanes.filter((row) => row.stage === stage.key).length);
+  const mergedIndex = STAGE_FACTS.findIndex((fact) => fact.merged);
+  const workingCount = counts.reduce((sum, count, index) => (STAGE_FACTS[index].now || index === 0 ? sum + count : sum), 0);
+  const reviewCount = counts.reduce((sum, count, index) => (index === 2 || index === 4 ? sum + count : sum), 0);
+  const chipsNode = $("goal-chips");
+  if (chipsNode) {
+    chipsNode.data = {
+      chips: [
+        { label: "working", value: workingCount, icon: "bolt" },
+        { label: "review and merge", value: reviewCount, icon: "eye" },
+        { label: "merged today", value: mergedIndex >= 0 ? counts[mergedIndex] : 0, icon: "merge" }
+      ]
+    };
+  }
+  const board = $("goal-board");
+  if (board) {
+    const data = boardData(lanes, { cap: 3 });
+    board.data = data;
+    startBoardAt(board, data);
+  }
+}
+
+// ── Pipeline (#pipeline) ────────────────────────────────────────────────────
+const NO_GOAL_FILTER = "none";
+
+function buildPipelineView(root) {
+  const board = h("g-board", { id: "pipeline-board" });
+  wireBoard(board);
+  root.append(
+    h("div", { class: "head" },
+      h("h1", { class: "title" }, h("span", { text: "Pipeline" }), h("small", { text: "Every lane today, across goals" })),
+      h("g-chips", { id: "pipeline-chips" })),
+    h("div", { class: "filters", id: "pipeline-filters", role: "group", "aria-label": "Filter by goal" }),
+    h("section", { class: "board-wrap glass" }, board)
+  );
+}
+
+function paintFilters() {
+  const host = $("pipeline-filters");
+  if (!host) return;
+  clear(host);
+  const lanes = workerLanes().filter(onBoard);
+  const add = (value, label, count, tint) => {
+    const button = h("button", { type: "button", "aria-pressed": view.ui.filter === value ? "true" : "false" });
+    if (tint) button.style.setProperty("--tint", "var(--tint-" + tint + ")");
+    button.append(h("i"), h("span", { text: label }), h("span", { class: "num", text: String(count) }));
+    button.addEventListener("click", () => { view.ui.filter = value; refreshPipelineView(); });
+    host.append(button);
+  };
+  add("all", "All", lanes.length, null);
+  goalList().forEach((goal) => add(goal.code, goal.name, lanes.filter((row) => row.goal === goal.code).length, goal.colour));
+  add(NO_GOAL_FILTER, "No goal", lanes.filter((row) => !row.goal).length, null);
+}
+
+function refreshPipelineView() {
+  paintFilters();
+  const lanes = workerLanes().filter(onBoard);
+  const filter = view.ui.filter;
+  const shown = filter === "all" ? lanes : lanes.filter((row) => (filter === NO_GOAL_FILTER ? !row.goal : row.goal === filter));
+  const chips = $("pipeline-chips");
+  if (chips) {
+    const counts = stateStages().map((stage) => lanes.filter((row) => row.stage === stage.key).length);
+    const mergedIndex = STAGE_FACTS.findIndex((fact) => fact.merged);
+    chips.data = {
+      chips: [
+        { label: "working", value: counts.reduce((sum, count, index) => (STAGE_FACTS[index].now ? sum + count : sum), 0), icon: "bolt" },
+        { label: "review and merge", value: counts.reduce((sum, count, index) => (index === 2 || index === 4 ? sum + count : sum), 0), icon: "eye" },
+        { label: "merged today", value: mergedIndex >= 0 ? counts[mergedIndex] : 0, icon: "merge" }
+      ]
+    };
+  }
+  const board = $("pipeline-board");
+  if (board) {
+    const data = boardData(shown, { cap: 6 });
+    board.data = data;
+    startBoardAt(board, data);
+  }
+}
+
+// ── History (#history) ──────────────────────────────────────────────────────
+// ── Systems (#systems): the machinery in human terms, M1 first (D40, D41) ────
+function buildSystemsView(root) {
+  root.append(
+    h("div", { class: "head" }, h("h1", { class: "title" }, h("span", { text: "Systems" }), h("small", { text: "What runs for you, whether it is healthy, and what it needs from you" }))),
+    h("section", { class: "sys-sec", id: "sec-plans", "aria-labelledby": "systems-h-plans" },
+      h("div", { class: "sec-h" }, h("h2", { id: "systems-h-plans", text: "Your AI plans" }), h("span", { class: "aside", text: "Windows, resets and billing, as last read" })),
+      h("p", { class: "lead glass", id: "systems-value" }),
+      h("div", { class: "plans", id: "systems-plans" }),
+      h("p", { class: "note attn", id: "systems-stale", hidden: true }),
+      h("div", { class: "sys-two" },
+        h("section", { class: "panel glass" }, h("h2", { text: "Pay as you go" }), h("ul", { class: "steps", id: "systems-payg" })),
+        h("section", { class: "panel glass" }, h("h2", { text: "Free models" }), h("ul", { class: "steps", id: "systems-free" })))),
+    h("section", { class: "sys-sec", id: "sec-contracts", "aria-labelledby": "systems-h-contracts" },
+      h("div", { class: "sec-h" }, h("h2", { id: "systems-h-contracts", text: "Services" }), h("span", { class: "aside", text: "Every contract the doctor checks, with the age of its proof" })),
+      h("p", { class: "lead glass", id: "systems-contracts-line" }),
+      h("div", { class: "panel glass contracts", id: "systems-contracts" }))
+  );
+}
+
+// ── Services (spec §4, OL6): the doctor's contract rows, as last read ──────────
+function contractAgeWords(ms) {
+  if (typeof ms !== "number" || !isFinite(ms) || ms < 0) return "no proof";
+  const minutes = Math.round(ms / 60000);
+  if (minutes < 60) return minutes + "m";
+  const hours = Math.floor(minutes / 60);
+  return hours < 24 ? hours + "h" : Math.floor(hours / 24) + "d";
+}
+function contractsLineWords(panel) {
+  if (!panel || panel.capturedAt === null) return "The doctor has not written a result yet, so no contract has a proof.";
+  const rows = Array.isArray(panel.rows) ? panel.rows : [];
+  if (rows.length === 0) return "The doctor's result carries no contract yet.";
+  return rows.length + " contracts, as the doctor last checked them: " + panel.ok + " green, " + panel.red + " red.";
+}
+function refreshContracts() {
+  const host = $("systems-contracts");
+  if (!host) return;
+  const panel = panelData("contracts");
+  const trouble = panelMissing("contracts") ? EMPTY.notWired : panelError("contracts");
+  const line = $("systems-contracts-line");
+  if (line) setText(line, trouble || contractsLineWords(panel));
+  clear(host);
+  const entries = panel && Array.isArray(panel.rows) ? panel.rows.map((row, index) => ({ row, index })) : [];
+  // Red first, and inside each group the doctor's own order: what is broken is the first thing read.
+  entries.sort((a, b) => (a.row.ok === b.row.ok ? a.index - b.index : a.row.ok ? 1 : -1));
+  for (const entry of entries) {
+    host.append(h("div", { class: entry.row.ok ? "contract" : "contract red" },
+      h("span", { class: "contract-dot" }),
+      h("span", { class: "cid", text: entry.row.id }),
+      h("span", { class: "age", text: contractAgeWords(entry.row.proofAgeMs), title: entry.row.reason || "" })));
+  }
+  if (entries.length === 0) host.append(h("p", { class: "empty", text: "No contract has a reading yet." }));
+}
+
+function planCardNode(card) {
+  const wins = h("div", { class: "wins" });
+  for (const window of card.windows) {
+    const bar = h("div", { class: "win-bar" }, h("i"));
+    if (bar.firstChild) bar.firstChild.style.width = window.used + "%";
+    wins.append(h("div", { class: "win" },
+      h("div", { class: "win-label" }, h("span", { text: window.label }), h("span", { class: "r num", text: window.right })),
+      bar));
+  }
+  const lines = h("ul", { class: "plan-lines" });
+  for (const line of card.lines) lines.append(h("li", { class: line.attn ? "attn" : line.dim ? "dim" : null, text: line.text }));
+  return h("article", { class: "plan glass" },
+    h("div", { class: "plan-top" }, h("div", { class: "plan-name", text: card.name }), h("div", { class: "plan-price", text: card.price })),
+    card.note === "" ? null : h("p", { class: "plan-note", text: card.note }),
+    wins,
+    lines);
+}
+
+function refreshSystemsView() {
+  refreshContracts();
+  const host = $("systems-plans");
+  if (!host) return;
+  const usage = panelData("usage");
+  const trouble = panelMissing("usage") ? EMPTY.notWired : panelError("usage");
+  const now = Date.now();
+  const rows = usage && Array.isArray(usage.rows) ? usage.rows : [];
+  const value = $("systems-value");
+  if (value) setText(value, trouble || valueLineWords(usage));
+  clear(host);
+  const counted = {};
+  rows.forEach((row) => { counted[row.provider] = (counted[row.provider] || 0) + 1; });
+  const plans = rows.filter((row) => row.kind === "subscription").slice().sort(planCardOrder);
+  plans.forEach((row) => host.append(planCardNode(planCardWords(row, now, counted[row.provider] > 1))));
+  if (plans.length === 0) host.append(h("p", { class: "empty", text: "No plan has a reading yet." }));
+  const stale = $("systems-stale");
+  if (stale) {
+    const line = usage && usage.stale === true ? staleWords(usage.capturedAt, now) : "";
+    stale.hidden = line === "";
+    setText(stale, line);
+  }
+  const payg = $("systems-payg");
+  if (payg) {
+    clear(payg);
+    const metered = rows.filter((row) => row.kind === "metered");
+    for (const row of metered) {
+      const words = balanceWords(row);
+      payg.append(h("li", null, h("span", { class: "t", text: words.name }), h("span", { class: "v num" + (words.attn ? " attn" : words.dim ? " dim" : ""), text: words.value })));
+    }
+    if (metered.length === 0) payg.append(h("li", null, h("span", { class: "t dim", text: "No metered account is listed." })));
+  }
+  const free = $("systems-free");
+  if (free) {
+    clear(free);
+    const freeRows = rows.filter((row) => row.kind === "free");
+    for (const row of freeRows) {
+      const words = freeRowWords(row, now);
+      free.append(h("li", null, h("span", { class: "t", text: words.text })));
+      for (const wall of words.walls) free.append(h("li", null, h("span", { class: "t attn", text: wall })));
+    }
+    if (freeRows.length === 0) free.append(h("li", null, h("span", { class: "t dim", text: "No free model is listed." })));
+  }
+}
+
+// ── The phone's More menu: History and Systems, under one control (D40) ──────
+function openMore() {
+  const button = $("more-btn");
+  const menu = $("more-menu");
+  if (!button || !menu) return;
+  const at = button.getBoundingClientRect();
+  menu.style.top = at.bottom + 8 + "px";
+  menu.style.right = Math.max(12, window.innerWidth - at.right) + "px";
+  menu.classList.add("open");
+  button.setAttribute("aria-expanded", "true");
+}
+
+function closeMore() {
+  const button = $("more-btn");
+  const menu = $("more-menu");
+  if (menu) menu.classList.remove("open");
+  if (button) button.setAttribute("aria-expanded", "false");
+}
+
+function paintMoreMenu() {
+  const button = $("more-btn");
+  const menu = $("more-menu");
+  if (!button) return;
+  const here = route.kind === "goal" ? "goals" : route.kind;
+  const under = here === "scrum" || here === "history" || here === "systems";
+  if (under) button.setAttribute("aria-current", "page"); else button.removeAttribute("aria-current");
+  if (!menu) return;
+  Array.prototype.forEach.call(menu.querySelectorAll("button[data-more]"), (item) => {
+    if (item.getAttribute("data-more") === here) item.setAttribute("aria-current", "page");
+    else item.removeAttribute("aria-current");
+  });
+}
+
+function rangeData() {
+  const data = panelData("history");
+  const ranges = data && Array.isArray(data.ranges) ? data.ranges : [];
+  return ranges.filter((range) => range.range === view.ui.range)[0] || ranges[0] || null;
+}
+
+function buildScrumView(root) {
+  root.append(
+    h("div", { class: "head" }, h("h1", { class: "title" }, h("span", { text: "Scrum" }), h("small", { id: "scrum-sub" }))),
+    h("div", { class: "scrum" },
+      h("section", { class: "panel glass wide" }, h("h2", { text: "Product backlog" }), h("span", { class: "aside", id: "scrum-backlog-sub" }), h("div", { id: "scrum-backlog" })),
+      h("section", { class: "panel glass wide" }, h("h2", { text: "Sprint board" }), h("span", { class: "aside", id: "scrum-sprint-sub" }), h("div", { class: "scrum-cols", id: "scrum-columns" })),
+      h("section", { class: "panel glass wide" }, h("h2", { text: "Burndown" }), h("span", { class: "aside", id: "scrum-burn-sub" }), h("g-line-chart", { id: "scrum-burn" })),
+      h("section", { class: "panel glass wide" }, h("h2", { text: "Epics" }), h("span", { class: "aside", id: "scrum-epics-sub" }), h("g-hbars", { id: "scrum-epics" }))
+    )
+  );
+}
+
+// The record's own states, in the words the board uses. The state vocabulary belongs to muster/work-items.ts;
+// this table only says how each one reads on the page (D1, VR24-229 item 7).
+const SCRUM_STATE_WORDS = {
+  ready: "To do", draft: "Not started", idea: "An idea", "launch-uncertain": "Launch unclear", done: "Done"
+};
+function scrumStateWords(state) {
+  if (typeof state !== "string" || state === "") return "No state";
+  if (state.startsWith("gated:")) return "Held: " + plainWords(state.slice(6)).toLowerCase();
+  if (state.startsWith("launched:")) {
+    const row = laneRow(state.slice(9));
+    return "Under way" + (row && row.title ? " in " + row.title : " in a lane");
+  }
+  return SCRUM_STATE_WORDS[state] || plainWords(state);
+}
+const SCRUM_COLUMN_WORDS = { todo: "To do", held: "Held", underway: "Under way", done: "Done" };
+function pointsWords(points, unestimated) {
+  const estimated = points === 1 ? "1 point" : points + " points";
+  if (!unestimated) return estimated;
+  return estimated + " · " + unestimated + (unestimated === 1 ? " story has no estimate" : " stories have no estimate");
+}
+function scrumRow(item) {
+  const words = [scrumStateWords(item.state)];
+  if (item.goal) words.push("goal " + item.goal);
+  return h("div", { class: "tk-row" },
+    h("span", { class: "c", text: item.priority }),
+    h("span", { class: "t" }, h("span", { text: item.heading }), h("small", { text: words.join(" · ") })),
+    h("span", { class: "age", text: item.points > 0 ? (item.points === 1 ? "1 point" : item.points + " points") : "Not estimated" })
+  );
+}
+function scrumEmpty(text) { return h("p", { class: "note", text }); }
+
+function refreshScrumView() {
+  const backlog = $("scrum-backlog");
+  const columns = $("scrum-columns");
+  const burn = $("scrum-burn");
+  const epics = $("scrum-epics");
+  if (!backlog || !columns || !burn || !epics) return;
+  const sub = $("scrum-sub");
+  const data = panelData("scrum");
+  const trouble = panelMissing("scrum") ? EMPTY.notWired : panelError("scrum");
+  if (sub) setText(sub, trouble ? "muster work items" : "From muster work items · " + (data.read === 1 ? "1 story" : data.read + " stories") + (data.skipped > 0 ? " · " + data.skipped + " it could not read" : ""));
+  const backlogSub = $("scrum-backlog-sub");
+  const sprintSub = $("scrum-sprint-sub");
+  const burnSub = $("scrum-burn-sub");
+  const epicsSub = $("scrum-epics-sub");
+  clear(backlog);
+  clear(columns);
+  if (trouble) {
+    backlog.append(scrumEmpty(trouble));
+    if (backlogSub) setText(backlogSub, "muster work items");
+    if (sprintSub) setText(sprintSub, "muster work items");
+    if (burnSub) setText(burnSub, "muster work items");
+    if (epicsSub) setText(epicsSub, "muster work items");
+    burn.data = { title: "", points: [], unit: "points", labels: [] };
+    epics.data = { rows: [] };
+    return;
+  }
+  const backlogRows = Array.isArray(data.backlog.rows) ? data.backlog.rows : [];
+  if (backlogSub) setText(backlogSub, backlogRows.length === 0 ? "Nothing waits outside a sprint" : backlogRows.length + (backlogRows.length === 1 ? " story · " : " stories · ") + pointsWords(data.backlog.points, data.backlog.unestimated));
+  backlogRows.forEach((item) => backlog.append(scrumRow(item)));
+  if (backlogRows.length > 0) backlog.append(h("p", { class: "note", text: "Ranked by the record's own priority, then the order the records were filed." }));
+
+  const sprint = data.sprint || { id: null, columns: [], count: 0, points: 0, unestimated: 0 };
+  if (sprintSub) setText(sprintSub, sprint.id === null ? "No story is in a sprint yet" : "Sprint " + sprint.id + " · " + (sprint.count === 1 ? "1 story · " : sprint.count + " stories · ") + pointsWords(sprint.points, sprint.unestimated));
+  if (sprint.id === null) columns.append(scrumEmpty("Every story is still in the backlog: no record names a sprint."));
+  else (sprint.columns || []).forEach((column) => {
+    const block = h("div", { class: "scrum-col" });
+    block.append(h("h3", {}, h("span", { text: SCRUM_COLUMN_WORDS[column.key] || "Stories" }), h("small", { text: (column.count === 1 ? "1 story" : column.count + " stories") + " · " + pointsWords(column.points, column.unestimated) })));
+    if (!column.items || column.items.length === 0) block.append(scrumEmpty("Nothing here."));
+    else column.items.forEach((item) => block.append(scrumRow(item)));
+    columns.append(block);
+  });
+
+  const days = data.burndown && Array.isArray(data.burndown.days) ? data.burndown.days : [];
+  if (burnSub) setText(burnSub, days.length === 0 ? "No story in a sprint carries a time yet" : "Points left each day, counted from the first record event because no sprint carries dates");
+  burn.data = days.length === 0
+    ? { title: "", points: [], unit: "points", labels: [] }
+    : { title: "", points: days.map((day) => day.remaining), unit: "points", labels: days.map((day) => day.day.slice(5)) };
+
+  const epicsRows = Array.isArray(data.epics) ? data.epics : [];
+  if (epicsSub) setText(epicsSub, epicsRows.length === 0 ? "No story names a goal yet" : "Stories done against the stories each goal promised");
+  epics.data = { rows: epicsRows.map((epic) => ({ label: epic.goal || "No goal named", value: epic.done, max: epic.total, display: epic.done + "/" + epic.total + " done · " + epic.pointsDone + "/" + epic.pointsTotal + " points", tint: null })) };
+}
+
+function buildHistoryView(root) {
+  const seg = h("div", { class: "seg", id: "history-seg", role: "group", "aria-label": "Range" });
+  root.append(
+    h("div", { class: "head" }, h("h1", { class: "title" }, h("span", { text: "History" }), h("small", { id: "history-sub" })), h("g-chips", { id: "history-chips" })),
+    seg,
+    h("div", { class: "hist" },
+      h("section", { class: "panel glass wide" }, h("h2", { text: "Lanes finished per hour" }), h("span", { class: "aside", id: "history-merge-sub" }), h("g-line-chart", { id: "history-merges" })),
+      h("section", { class: "panel glass" }, h("h2", { text: "Lanes by model" }), h("span", { class: "aside", id: "history-models-sub" }), h("g-donut", { id: "history-models" })),
+      h("section", { class: "panel glass" }, h("h2", { text: "Fix rounds per lane" }), h("span", { class: "aside", text: "Lanes, rounds and the share sent back" }), h("g-hbars", { id: "history-rounds" })),
+      h("section", { class: "panel glass wide" }, h("h2", { text: "Lanes per goal" }), h("span", { class: "aside", text: "Today, including lanes with no goal" }), h("g-hbars", { id: "history-goals" })),
+      h("section", { class: "panel glass wide" }, h("h2", { text: "Median time from launch to merge" }), h("p", { class: "note", id: "history-median" }))
+    )
+  );
+}
+
+function refreshHistoryView() {
+  const seg = $("history-seg");
+  if (!seg) return;
+  clear(seg);
+  ["today", "7d", "30d"].forEach((name) => {
+    const button = h("button", { type: "button", "aria-pressed": view.ui.range === name ? "true" : "false", text: name === "today" ? "Today" : name === "7d" ? "7 days" : "30 days" });
+    button.addEventListener("click", () => { view.ui.range = name; refreshHistoryView(); });
+    seg.append(button);
+  });
+  const sub = $("history-sub");
+  const range = rangeData();
+  const skipped = panelData("history") && typeof panelData("history").skipped === "number" ? panelData("history").skipped : 0;
+  const wording = view.ui.range === "today" ? "Today, from the lane outcomes record" : view.ui.range === "7d" ? "The last seven days, from the lane outcomes record" : "The last thirty days, from the lane outcomes record";
+  if (sub) setText(sub, wording + (skipped > 0 ? " · " + skipped + " rows it could not read" : ""));
+  const trouble = panelMissing("history") ? EMPTY.notWired : panelError("history");
+  const chart = $("history-merges");
+  const donut = $("history-models");
+  const rounds = $("history-rounds");
+  const goals = $("history-goals");
+  const median = $("history-median");
+  if (trouble) {
+    if (chart) chart.data = { title: "", points: [], unit: "lanes", labels: [] };
+    if (donut) donut.data = { segments: [], centre: { big: 0, small: "lanes" } };
+    if (rounds) rounds.data = { rows: [] };
+    if (goals) goals.data = { rows: [] };
+    if (median) setText(median, trouble);
+    return;
+  }
+  if (!range) {
+    if (median) setText(median, "Nothing recorded for this range yet.");
+    return;
+  }
+  const merges = Array.isArray(range.merges) ? range.merges : [];
+  const perDay = view.ui.range !== "today";
+  const byModelRows = Array.isArray(range.byModel) ? range.byModel : [];
+  const chipsNode = $("history-chips");
+  if (chipsNode) {
+    chipsNode.data = {
+      chips: [
+        { label: view.ui.range === "today" ? "lanes done today" : "lanes done", value: range.lanes, icon: "merge" },
+        { label: "fix rounds sent back", value: byModelRows.reduce((sum, row) => sum + row.sentBack, 0), icon: "back" }
+      ]
+    };
+  }
+  // The mockup labels every third hour. The library lays its labels out evenly rather than pinning each to its
+  // hour, so one tick per hour collides on a phone; which ticks to keep is the page's data, not the chart's.
+  const every = perDay ? Math.max(1, Math.ceil(merges.length / 8)) : 3;
+  const labels = merges.map((point, index) => {
+    if (index % every !== 0) return "";
+    const at = new Date(point.at);
+    return perDay
+      ? new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Sofia", day: "2-digit", month: "short" }).format(at)
+      : String(new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Sofia", hour: "2-digit", hour12: false }).format(at)).padStart(2, "0") + ":00";
+  }).filter((label) => label !== "");
+  const peak = merges.reduce((most, point) => Math.max(most, point.count), 0);
+  const mergeSub = $("history-merge-sub");
+  // The axis peak belongs in the panel's own words: the library prints it bare, where a lone "1" reads as a typo.
+  if (mergeSub) setText(mergeSub, "Hover or touch the line to read an hour · peak " + peak + (peak === 1 ? " lane" : " lanes"));
+  if (chart) chart.data = { title: perDay ? "Lanes finished per day" : "Lanes finished per hour today", points: merges.map((point) => point.count), unit: "lanes", labels };
+  const byModel = Array.isArray(range.byModel) ? range.byModel : [];
+  const totalLanes = byModel.reduce((sum, row) => sum + row.lanes, 0);
+  const modelsSub = $("history-models-sub");
+  if (modelsSub) setText(modelsSub, totalLanes === 0 ? "No lane in this range" : totalLanes + " lanes with a recorded model");
+  if (donut) donut.data = { segments: byModel.map((row) => ({ label: row.name, value: row.lanes })), centre: { big: totalLanes, small: "lanes" } };
+  if (rounds) {
+    const maxRounds = Math.max(1, ...byModel.map((row) => row.rounds));
+    rounds.data = { rows: byModel.map((row) => ({ label: row.name, value: row.rounds, max: maxRounds, display: row.rounds + " rounds · " + row.sentBack + "/" + row.lanes + " back", tint: null })) };
+  }
+  if (goals) {
+    const byGoal = Array.isArray(range.byGoal) ? range.byGoal : [];
+    const maxLanes = Math.max(1, ...byGoal.map((row) => row.lanes));
+    goals.data = {
+      rows: byGoal.map((row) => {
+        const goal = row.code ? goalBy(row.code) : null;
+        return {
+          label: row.code === null ? "No goal recorded" : goal ? goal.name : row.code,
+          value: row.lanes,
+          max: maxLanes,
+          display: String(row.lanes),
+          tint: row.code ? tintOf(row.code) : null
+        };
+      })
+    };
+  }
+  if (median) {
+    const ms = range.medianLaunchToMergeMs;
+    setText(median, typeof ms === "number" && isFinite(ms) ? elapsedSpan(ms) : "Not known yet: no merged lane in this range carries both times.");
+  }
+}
+
+function elapsedSpan(ms) {
+  const minutes = Math.round(ms / 60000);
+  if (minutes < 60) return minutes + " min";
+  const hours = minutes / 60;
+  return (hours < 10 ? hours.toFixed(1) : String(Math.round(hours))) + " h";
+}
+
+
+// ── What needs you: decisions, steps, and what you decided today ─────────────
+function tickets() {
+  const data = panelData("decisions");
+  if (!data || !Array.isArray(data.tickets)) return [];
+  return data.tickets.filter((ticket) => ticket.status === "open" || ticket.status === "awaiting-operator");
+}
+function kindLabel(kind) { return KIND_LABELS[kind] || kind; }
+function canSend(id) { return (drafts[id] || "").trim() !== ""; }
+function syncSend(id) { const button = $("send-" + id); if (button) button.disabled = !canSend(id); }
+
+function paintWaiting() {
+  const host = $("tickets");
+  if (!host) return;
+  clear(host);
+  const list = tickets();
+  const more = $("all-steps");
+  const decidedHost = $("decided");
+  if (decidedHost) {
+    clear(decidedHost);
+    const summary = summaryData();
+    const decided = summary && Array.isArray(summary.decidedToday) ? summary.decidedToday : [];
+    decided.forEach((entry) => {
+      const tag = h("span", { class: "tag", text: entry.code + " decided" });
+      if (entry.question) tag.setAttribute("title", entry.question);
+      decidedHost.append(tag);
+    });
+  }
+  if (more) {
+    more.hidden = true;
+    more.textContent = "";
+  }
+  if (!view.state) { host.append(h("li", { class: "empty", text: "Reading the queue…" })); return; }
+  if (panelMissing("decisions")) { host.append(h("li", { class: "empty", text: EMPTY.notWired })); return; }
+  if (panelError("decisions")) { host.append(h("li", { class: "empty", text: panelError("decisions") })); return; }
+  if (list.length === 0) { host.append(h("li", { class: "empty", text: EMPTY.nothingWaits })); return; }
+
+  // R6.1: the steps only the operator can do group into one "Next sitting" card at the place of the highest-ranked step.
+  const units = [];
+  let sitting = null;
+  list.forEach((ticket) => {
+    if (ticket.sitting) {
+      if (!sitting) { sitting = { steps: [] }; units.push(sitting); }
+      sitting.steps.push(ticket);
+    } else units.push({ ticket });
+  });
+  const shown = view.ui.more ? units : units.slice(0, 5);
+  shown.forEach((unit) => { host.append(unit.steps ? sittingNode(unit.steps) : ticketNode(unit.ticket)); });
+  if (units.length > 5 && more) {
+    const hidden = units.slice(5).reduce((sum, unit) => sum + (unit.steps ? unit.steps.length : 1), 0);
+    more.hidden = false;
+    more.textContent = view.ui.more ? "Show fewer" : "Show " + hidden + " more";
+    more.setAttribute("aria-expanded", view.ui.more ? "true" : "false");
+    more.onclick = () => { view.ui.more = !view.ui.more; paintWaiting(); };
+  }
+}
+
+function sittingNode(steps) {
+  const card = h("li", { class: "tk sitting" },
+    h("div", { class: "sit-head" }, h("b", { text: "Next sitting" }), h("span", { text: plural(steps.length, "step", "steps") + " only you can do" })));
+  const list = h("ul", { class: "steps" });
+  steps.forEach((step) => list.append(ticketNode(step)));
+  card.append(list);
+  return card;
+}
+
+function ticketNode(ticket) {
+  const isOpen = view.ui.openTicket === ticket.id;
+  const blocking = Array.isArray(ticket.blocks) && ticket.blocks.length > 0;
+  const item = h("li", { class: "tk" + (blocking ? " bad" : "") });
+  const row = h("button", {
+    class: "tk-row", type: "button", "aria-expanded": isOpen ? "true" : "false", "data-focus": "ticket:" + ticket.id
+  },
+    h("span", { class: "c", text: ticket.code || "" }),
+    h("span", { class: "t" },
+      h("span", { text: ticket.question }),
+      blocking ? h("small", { text: "Blocks " + ticket.blocks.join(", ") }) : null,
+      h("small", { text: kindLabel(ticket.kind) })),
+    h("span", { class: "age" + (ticket.stale ? " stale" : ""), text: daysAgo(ticket.ageMs) }));
+  row.addEventListener("click", () => { view.ui.openTicket = isOpen ? null : ticket.id; paintWaiting(); });
+  item.append(row);
+
+  if (held[ticket.id]) { item.append(heldNode(ticket)); return item; }
+  if (!isOpen) return item;
+
+  const body = h("div", { class: "tk-body" });
+  if (ticket.answerOnCard) { body.append(h("p", { class: "empty", text: "Answer it on its card." })); item.append(body); return item; }
+  const options = Array.isArray(ticket.options) ? ticket.options : [];
+  if (options.length > 0) {
+    // D15/D16: the composer names the recommended option; a tap is a tap answer, never the operator's words.
+    const recommended = typeof ticket.recommended === "string" && options.indexOf(ticket.recommended) >= 0 ? ticket.recommended : null;
+    const ordered = recommended === null ? options : [recommended].concat(options.filter((option) => option !== recommended));
+    body.append(h("div", { class: "kicker", text: "Tap an answer" }));
+    const taps = h("div", { class: "taps", role: "group", "aria-label": "Answers for " + (ticket.code || "this ticket") });
+    ordered.forEach((option, index) => {
+      const main = option === recommended;
+      const button = h("button", { class: "tap" + (main ? " main" : ""), type: "button", "data-focus": "tap:" + ticket.id + ":" + index },
+        h("span", { text: option }), main ? h("small", { text: "Recommended" }) : null);
+      button.addEventListener("click", () => tapAnswer(ticket, option));
+      taps.append(button);
+    });
+    body.append(taps);
+  }
+  const words = h("textarea", {
+    id: "words-" + ticket.id, rows: "2", "data-focus": "ask:" + ticket.id, placeholder: "Your words, in your own way"
+  });
+  words.value = drafts[ticket.id] || "";
+  words.addEventListener("input", (event) => { drafts[ticket.id] = event.target.value; saveDraft(ticket.id, event.target.value); syncSend(ticket.id); });
+  body.append(h("label", { class: "field-label", for: "words-" + ticket.id, text: options.length > 0 ? "Or answer in your own words" : "Your words" }), words);
+  const send = h("button", { class: "btn btn-solid", type: "button", id: "send-" + ticket.id, text: "Send answer" });
+  send.disabled = !canSend(ticket.id);
+  send.addEventListener("click", () => sendAnswer(ticket));
+  body.append(h("div", { class: "send-row" }, send));
+  item.append(body);
+  return item;
+}
+
+function heldNode(ticket) {
+  const record = held[ticket.id];
+  // A tap is never shown as the operator's words (D15).
+  const said = record && typeof record.option === "string"
+    ? (ticket.code || "Ticket") + " answered with " + record.option + "."
+    : (ticket.code || "Ticket") + " answered. It reached the queue as your words.";
+  const undo = h("button", { class: "btn", type: "button", text: "Undo" });
+  undo.addEventListener("click", () => undoAnswer(ticket.id));
+  return h("div", { class: "answered" }, h("span", { text: said }), undo);
+}
+
+// ── From the PC (WP1c) ──────────────────────────────────────────────────────
+function pcPending() {
+  const p = panel("pendingPc");
+  return p && !p.error && Array.isArray(p.data) ? p.data : [];
+}
+function payloadLines(payload) {
+  return Object.keys(payload).map((key) => {
+    const value = payload[key];
+    return key + ": " + (typeof value === "string" ? value : JSON.stringify(value));
+  }).join("\n");
+}
+function minutesLeft(row) {
+  // The state's own clock, so the page and the gateway agree however far apart their clocks are.
+  const left = Date.parse(row.expiresAt) - Date.parse(view.state.generatedAt);
+  if (!(left > 0)) return "expires now";
+  const minutes = Math.ceil(left / 60000);
+  return "expires in " + minutes + (minutes === 1 ? " minute" : " minutes");
+}
+function pcActionNode(row) {
+  const label = PC_KIND_LABELS[row.kind] || row.kind;
+  const head = h("div", { class: "tk-row" }, h("span", { class: "c", text: label }), h("span", { class: "t", text: minutesLeft(row) }));
+  if (!row.payload) return h("div", { class: "tk" }, head, h("p", { class: "empty", text: "Waiting for your tap on the phone" }));
+  const confirm = h("button", { class: "btn btn-solid", type: "button", "data-focus": "pc-confirm:" + row.id, text: "Confirm" });
+  confirm.addEventListener("click", (event) => settlePc(row, true, event.currentTarget));
+  const reject = h("button", { class: "btn", type: "button", "data-focus": "pc-reject:" + row.id, text: "Reject" });
+  reject.addEventListener("click", (event) => settlePc(row, false, event.currentTarget));
+  return h("div", { class: "tk", "data-pending": row.id }, head,
+    h("pre", { class: "report-text", text: payloadLines(row.payload) }),
+    h("div", { class: "send-row" }, confirm, reject));
+}
+function paintFromPc() {
+  const card = $("from-pc");
+  const host = $("pc-actions");
+  if (!card || !host) return;
+  const rows = pcPending();
+  card.hidden = rows.length === 0;
+  clear(host);
+  rows.forEach((row) => host.append(pcActionNode(row)));
+}
+function settlePc(row, confirmIt, button) {
+  const buttons = button.parentNode.querySelectorAll("button");
+  buttons.forEach((node) => { node.disabled = true; });
+  fetch("/cc/api/" + (confirmIt ? "confirm" : "reject") + "/" + encodeURIComponent(row.id), {
+    method: "POST",
+    cache: "no-store",
+    headers: { "content-type": "application/json", "x-cc-csrf": CSRF },
+    body: JSON.stringify(confirmIt ? { digest: row.digest } : {})
+  }).then((response) => response.json().catch(() => null).then((data) => ({ status: response.status, data })))
+    .then((result) => {
+      if (result.status === 200) showToast(confirmIt ? "Done: " + (PC_KIND_LABELS[row.kind] || row.kind) + "." : "Dropped.", null, null);
+      else if (result.status === 403) { showRestart(); return; }
+      else if (result.status === 410) showToast("That action expired or was already handled.", null, null);
+      else if (result.status === 409) showToast("It changed since you saw it. Check it again.", null, null);
+      else showToast(String((result.data && result.data.error) || "The action was refused."), null, null);
+      refresh();
+    })
+    .catch(() => {
+      buttons.forEach((node) => { node.disabled = false; });
+      showToast("The tap did not reach the gateway.", null, null);
+    });
+}
+function showPcWaiting() { showToast("Waiting for your tap on the phone.", null, null); }
+
+// ── Shipped and Coming up ───────────────────────────────────────────────────
+function paintShipped() {
+  const host = $("shipped");
+  if (!host) return;
+  clear(host);
+  if (!view.state) { host.append(h("li", { class: "empty", text: "Reading…" })); return; }
+  if (panelMissing("shipped")) { host.append(h("li", { class: "empty", text: EMPTY.notWired })); return; }
+  if (panelError("shipped")) { host.append(h("li", { class: "empty", text: panelError("shipped") })); return; }
+  const items = panelData("shipped") && Array.isArray(panelData("shipped").items) ? panelData("shipped").items : [];
+  if (items.length === 0) { host.append(h("li", { class: "empty", text: EMPTY.noShipped })); return; }
+  items.slice(0, 6).forEach((item) => {
+    const sha = shortSha(item.sha);
+    const goal = item.goal ? goalBy(item.goal) : null;
+    host.append(h("li", null,
+      h("time", { text: hhmm(item.at) }),
+      h("span", null,
+        h("span", { text: item.title || item.text }),
+        goal ? h("span", { class: "g", text: goal.name }) : null,
+        sha ? h("span", { class: "g num", text: sha }) : null)));
+  });
+  const all = $("all-shipped");
+  if (all) all.onclick = () => go("history");
+}
+
+function paintNext() {
+  const host = $("next");
+  if (!host) return;
+  clear(host);
+  if (!view.state) { host.append(h("li", { class: "empty", text: "Reading…" })); return; }
+  if (panelMissing("next")) { host.append(h("li", { class: "empty", text: EMPTY.notWired })); return; }
+  if (panelError("next")) { host.append(h("li", { class: "empty", text: panelError("next") })); return; }
+  const items = panelData("next") && Array.isArray(panelData("next").items) ? panelData("next").items : [];
+  if (items.length === 0) { host.append(h("li", { class: "empty", text: EMPTY.noNext })); return; }
+  items.slice(0, 3).forEach((item) => {
+    host.append(h("li", null,
+      h("span", { class: "c num", text: item.when }),
+      h("span", { class: "t", text: item.text })));
+  });
+}
+
+// ── Ideas: the research desk's cards (R6.1, D21) ─────────────────────────────
+function httpsUrl(url) {
+  if (typeof url !== "string") return null;
+  try {
+    const parsed = new URL(url);
+    return parsed.protocol === "https:" ? parsed.href : null;
+  } catch (error) { return null; }
+}
+function sourceLabel(card) {
+  if (typeof card.sourceName === "string" && card.sourceName !== "") return card.sourceName;
+  const source = String(card.source || "");
+  if (source.indexOf("x:") === 0) return "@" + source.slice(2) + " on X";
+  if (source.indexOf("youtube:") === 0) return "YouTube";
+  return source;
+}
+const VERDICT_DOT = { signal: "dot-ok", fact: "", hype: "dot-attention", unknown: "" };
+
+function paintIdeas() {
+  const host = $("ideas");
+  const note = $("ideas-note");
+  if (!host || !note) return;
+  clear(host);
+  clear(note);
+  if (!view.state) { host.append(h("li", { class: "empty", text: "Reading…" })); return; }
+  if (panelMissing("ideas")) { host.append(h("li", { class: "empty", text: EMPTY.notWired })); return; }
+  if (panelError("ideas")) { host.append(h("li", { class: "empty", text: panelError("ideas") })); return; }
+  const data = panelData("ideas") || {};
+  const cards = Array.isArray(data.cards) ? data.cards : [];
+  const onPage = {};
+  cards.forEach((card) => { onPage[card.id] = true; });
+  const pinned = Object.keys(failedCards).filter((id) => !onPage[id]).map((id) => failedCards[id].card);
+  const all = pinned.concat(cards);
+  if (data.late) note.append(h("p", { class: "note", text: EMPTY.ideasLate }));
+  if (all.length === 0) {
+    if (!data.late) host.append(h("li", { class: "empty", text: EMPTY.noIdeas }));
+    return;
+  }
+  all.slice(0, 3).forEach((card) => host.append(h("li", null, ideaNode(card))));
+}
+
+function ideaNode(card) {
+  const node = h("article", { class: "idea", "aria-label": "Idea" });
+  const url = httpsUrl(card.url);
+  const verdict = typeof card.verdict === "string" ? card.verdict : "unknown";
+  node.append(h("span", { class: "idea-title", text: card.title }));
+  const meta = h("div", { class: "idea-meta" },
+    h("span", { class: "verdict" }, h("span", { class: "dot " + (VERDICT_DOT[verdict] || "") }), h("span", { text: verdict })),
+    h("span", { text: sourceLabel(card) }));
+  if (url) {
+    meta.append(h("a", { class: "idea-link", href: url, target: "_blank", rel: "noopener noreferrer", "aria-label": "Open the link for " + card.title, text: "Open link" }));
+  } else if (card.url) {
+    meta.append(h("span", { class: "dim", text: String(card.url) }));
+  }
+  node.append(meta);
+  if (card.sentences) node.append(h("p", { class: "idea-why", text: card.sentences }));
+
+  const record = heldCards[card.id];
+  const failed = failedCards[card.id];
+  if (record) {
+    const undo = record.posted ? null : h("button", { class: "btn", type: "button", "data-focus": "card-undo:" + card.id, text: "Undo" });
+    if (undo) undo.addEventListener("click", () => undoCard(card.id));
+    node.append(h("div", { class: "answered" }, h("span", { text: cardSaid(record.tap) }), undo));
+    return node;
+  }
+  if (failed) {
+    const retry = h("button", { class: "btn btn-solid", type: "button", "data-focus": "card-retry:" + card.id, text: "Retry" });
+    retry.addEventListener("click", () => retryCard(card.id));
+    node.append(h("div", { class: "answered" }, h("span", { text: "Saved, not delivered yet. Retry." }), retry));
+    return node;
+  }
+  const taps = Array.isArray(card.taps) ? card.taps : [];
+  const actions = h("div", { class: "idea-actions", role: "group", "aria-label": "Actions for " + card.title });
+  CARD_TAPS.forEach((entry) => {
+    if (entry.tap === "dig-deeper" && (taps.indexOf("dig-deeper") >= 0 || card.hasReport)) {
+      if (card.hasReport) {
+        const open = h("button", { class: "btn btn-solid", type: "button", "data-focus": "card-report:" + card.id, text: "Open the report" });
+        open.addEventListener("click", () => openReport(card));
+        actions.append(open);
+      } else {
+        actions.append(h("span", { class: "tag", text: "Digging deeper" }));
+      }
+      return;
+    }
+    const button = h("button", { class: "btn", type: "button", "data-focus": "card-tap:" + card.id + ":" + entry.tap, text: entry.label });
+    button.addEventListener("click", () => tapCard(card, entry.tap));
+    actions.append(button);
+  });
+  node.append(actions);
+  return node;
+}
+
+function cardSaid(tap) {
+  for (let index = 0; index < CARD_TAPS.length; index += 1) if (CARD_TAPS[index].tap === tap) return CARD_TAPS[index].said;
+  return "Noted.";
+}
+
+// A tap is held for six seconds with Undo, then posted (D9, R6.1).
+function tapCard(card, tap) {
+  if (heldCards[card.id]) return;
+  heldCards[card.id] = { tap, version: card.version, timer: null, posted: false, card };
+  paintIdeas();
+  showToast(cardSaid(tap), "Undo", () => undoCard(card.id));
+  heldCards[card.id].timer = setTimeout(() => postCard(card.id), HOLD_MS);
+}
+
+function undoCard(id) {
+  const record = heldCards[id];
+  if (!record || record.posted) return;
+  if (record.timer !== null) clearTimeout(record.timer);
+  delete heldCards[id];
+  hideToast();
+  paintIdeas();
+  const button = document.querySelector('[data-focus="card-tap:' + id + ':' + record.tap + '"]');
+  if (button) button.focus();
+}
+
+function postCard(id, keepalive) {
+  const record = heldCards[id];
+  if (!record || record.posted) return;
+  if (record.timer !== null) clearTimeout(record.timer);
+  record.posted = true;
+  postAct({ action: "card", id, version: record.version, tap: record.tap }, { keepalive })
+    .then((result) => {
+      if (result.status === 202) { delete heldCards[id]; showPcWaiting(); paintIdeas(); return refresh(); }
+      if (result.status === 200) {
+        delete failedCards[id];
+        hideToast();
+        return refresh().then(() => { delete heldCards[id]; paintIdeas(); });
+      }
+      delete heldCards[id];
+      if (result.status === 502) {
+        failedCards[id] = { card: record.card, tap: record.tap, version: record.version };
+        showToast("Saved, not delivered yet. Retry.", null, null);
+        return refresh();
+      }
+      if (result.status === 403) { showRestart(); paintIdeas(); return null; }
+      if (result.status === 409) showToast("This card changed. Your tap was not sent.", null, null);
+      else if (result.status === 404) showToast("That card is gone.", null, null);
+      else showToast(String((result.data && result.data.error) || "The tap was refused."), null, null);
+      paintIdeas();
+      return refresh();
+    })
+    .catch(() => {
+      delete heldCards[id];
+      showToast("The tap did not reach the gateway.", null, null);
+      paintIdeas();
+    });
+}
+
+function retryCard(id) {
+  const failed = failedCards[id];
+  if (!failed || heldCards[id]) return;
+  heldCards[id] = { tap: failed.tap, version: failed.version, timer: null, posted: false, card: failed.card };
+  delete failedCards[id];
+  postCard(id);
+}
+
+// The report of a card opens in the sheet as plain text (D21).
+function openReport(card) {
+  view.ui.dialog = { kind: "report", card: card.id, title: card.title };
+  if (!view.reports[card.id]) {
+    view.reports[card.id] = { loading: true };
+    fetch("/cc/api/report?card=" + encodeURIComponent(card.id), { cache: "no-store" })
+      .then((response) => {
+        if (response.status === 404) return { error: "No report is attached to this card." };
+        if (!response.ok) return { error: "The gateway answered " + response.status + "." };
+        return response.text().then((text) => ({ text }));
+      })
+      .catch(() => ({ error: "The report could not be read." }))
+      .then((result) => {
+        view.reports[card.id] = result;
+        if (view.ui.dialog && view.ui.dialog.kind === "report" && view.ui.dialog.card === card.id) paintDialog();
+      });
+  }
+  paintDialog();
+}
+
+// ── Messages (MG7) ─────────────────────────────────────────────────────────
+function paintMessages() {
+  const card = $("messages-card");
+  if (!card) return;
+  const list = $("messages");
+  const strip = $("msg-strip");
+  const served = view.state && view.state.panels ? view.state.panels.messages : null;
+  if (!view.state) { card.hidden = false; return; }
+  if (!served && msgView.panel === null && !msgView.countsOnly) { card.hidden = true; return; }
+  card.hidden = false;
+  clear(list);
+  if (msgView.countsOnly) {
+    // The PC view carries the counts and nothing else (G11).
+    const counts = served && served.data && served.data.counts ? served.data.counts : null;
+    strip.className = "msg-strip";
+    setText(strip, counts === null ? "Messages" : plural(counts.draftsWaiting, "draft waits", "drafts wait") + " · open on your phone");
+    return;
+  }
+  if (msgView.error) {
+    strip.className = "msg-strip error";
+    setText(strip, "Messages could not be read");
+    list.append(h("li", { class: "empty", role: "alert", text: msgView.error }));
+    return;
+  }
+  if (!msgView.panel) {
+    strip.className = "msg-strip";
+    setText(strip, "Reading the messages…");
+    return;
+  }
+  strip.className = "msg-strip " + (msgView.panel.strip && msgView.panel.strip.tone ? msgView.panel.strip.tone : "");
+  setText(strip, msgView.panel.strip ? msgView.panel.strip.text : "");
+  if (msgView.panel.empty) list.append(h("li", { class: "empty", text: msgView.panel.empty }));
+  const rows = Array.isArray(msgView.panel.rows) ? msgView.panel.rows : [];
+  rows.forEach((row) => {
+    const inner = h("div", null,
+      h("div", { class: "msg-top" }, h("span", { text: row.name || "Unnamed chat" }), h("span", { class: "msg-side " + row.state, text: row.line })),
+      row.preview ? h("div", { class: "msg-preview", text: row.preview }) : null);
+    if (row.draftId) {
+      const open = h("button", { class: "msg-open", type: "button", "data-draft": row.draftId, "aria-label": "Open the reply with " + (row.name || "this chat") }, inner);
+      open.addEventListener("click", () => openMessageThread(row.draftId));
+      list.append(h("li", { class: "msgrow" }, open));
+    } else {
+      list.append(h("li", { class: "msgrow" }, h("div", { class: "static" }, inner)));
+    }
+  });
+}
+
+function loadMessages() {
+  return fetch("/cc/api/messages", { cache: "no-store", headers: { accept: "application/json" } })
+    .then((response) => {
+      if (response.status === 404) { msgView.countsOnly = true; msgView.error = null; msgView.panel = null; return null; }
+      if (!response.ok) throw new Error("the gateway answered " + response.status);
+      return response.json();
+    })
+    .then((body) => {
+      if (body === null) return;
+      msgView.countsOnly = false;
+      msgView.panel = body.panel || null;
+      msgView.error = null;
+      msgView.loaded = true;
+    })
+    .catch(() => {
+      if (msgView.countsOnly) return;
+      msgView.error = "The messages could not be read.";
+    })
+    .then(() => { paintMessages(); });
+}
+
+function openMessageThread(draftId) {
+  msgView.open = draftId;
+  msgView.thread = null;
+  msgView.threadError = null;
+  msgView.edit = null;
+  msgView.dirty = false;
+  msgView.instruction = "";
+  msgView.actionError = null;
+  view.ui.dialog = { kind: "thread" };
+  paintDialog();
+  fetch("/cc/api/messages?draft=" + encodeURIComponent(draftId), { cache: "no-store", headers: { accept: "application/json" } })
+    .then((response) => {
+      if (response.status === 404) return { error: "That thread is not here any more." };
+      if (!response.ok) return { error: "The thread could not be read." };
+      return response.json();
+    })
+    .catch(() => ({ error: "The thread could not be read." }))
+    .then((body) => {
+      if (msgView.open !== draftId) return;
+      if (body.error) msgView.threadError = body.error;
+      else {
+        msgView.thread = body.thread;
+        msgView.edit = body.thread && body.thread.draft ? body.thread.draft.text : null;
+      }
+      paintDialog();
+    });
+}
+
+function actThread(kind) {
+  const thread = msgView.thread;
+  if (!thread || !thread.draft || msgView.busy !== null) return;
+  const body = { draftId: thread.draft.draftId, hash12: thread.draft.hash12, version: thread.draft.version };
+  if (kind === "send") {
+    body.action = "msg-edit-send";
+    body.text = msgView.edit === null ? thread.draft.text : msgView.edit;
+    if (String(body.text).trim() === "") return;
+  } else if (kind === "drop") {
+    body.action = "msg-drop";
+  } else {
+    body.action = "msg-redraft";
+    const asked = (msgView.instruction || "").trim();
+    if (asked !== "") body.instruction = asked;
+  }
+  msgView.busy = kind;
+  msgView.actionError = null;
+  paintDialog();
+  postAct(body)
+    .then((result) => {
+      msgView.busy = null;
+      if (result.status === 200) {
+        msgView.dirty = false;
+        msgView.open = null;
+        msgView.thread = null;
+        msgView.edit = null;
+        msgView.instruction = "";
+        closeDialog();
+        showToast(kind === "send" ? "Approved. The send gate sends it now." : kind === "drop" ? "Dropped." : "A new draft is waiting.", null, null);
+        return refresh();
+      }
+      if (result.status === 403) { showRestart(); return null; }
+      if (result.status === 409) msgView.actionError = "This draft changed. Open the thread again.";
+      else if (result.status === 404) msgView.actionError = "That draft is gone.";
+      else msgView.actionError = String((result.data && result.data.error) || "The action was refused.");
+      paintDialog();
+      return null;
+    })
+    .catch(() => {
+      msgView.busy = null;
+      msgView.actionError = "The action did not reach the gateway.";
+      paintDialog();
+    });
+}
+
+function paintMessageThread(body) {
+  const thread = msgView.thread;
+  setText($("dialog-title"), thread && thread.name ? thread.name : "Messages");
+  if (msgView.threadError) { body.append(h("p", { class: "empty", role: "alert", text: msgView.threadError })); return; }
+  if (!thread) { body.append(h("p", { class: "empty", text: "Reading the thread…" })); return; }
+  const log = h("div", { class: "thread", tabindex: "0", "aria-label": "The last messages of this chat" });
+  thread.messages.forEach((message) => {
+    log.append(h("div", { class: "thread-msg" + (message.fromMe ? " mine" : "") }, h("p", { text: message.text }), h("time", { text: hhmm(message.at) })));
+  });
+  if (thread.messages.length === 0) log.append(h("p", { class: "empty", text: "No message of this chat is on this PC." }));
+  body.append(log);
+  const tone = thread.state === "sent" ? "ok" : thread.state === "failed" ? "error" : thread.state === "unknown" ? "attention" : "";
+  body.append(h("p", { class: "msg-strip " + tone, text: thread.line }));
+  if (!thread.draft) {
+    const close = h("button", { class: "btn", type: "button", text: "Close" });
+    close.addEventListener("click", () => closeDialog());
+    body.append(h("div", { class: "thread-actions" }, close));
+    return;
+  }
+  const canAct = thread.draft.version !== "" && msgView.busy === null;
+  const box = h("textarea", { id: "cmp-reply", rows: "5", "data-focus": "reply", placeholder: "Write it the way you would say it" });
+  box.value = msgView.edit === null ? thread.draft.text : msgView.edit;
+  box.addEventListener("input", (event) => { msgView.edit = event.target.value; msgView.dirty = true; syncReplySend(); });
+  body.append(h("label", { class: "field-label", for: "cmp-reply", text: "Your reply" }), box);
+  body.append(h("p", { class: "reply-note", text: "Send approves the text in this box. Nothing leaves without your tap." }));
+  const note = h("input", { id: "cmp-redraft", type: "text", maxlength: "500", placeholder: "What to change (optional)" });
+  note.value = msgView.instruction || "";
+  note.addEventListener("input", (event) => { msgView.instruction = event.target.value; });
+  body.append(h("label", { class: "field-label", for: "cmp-redraft", text: "Draft again" }), note);
+  if (msgView.actionError) body.append(h("p", { class: "dialog-error", role: "alert", text: msgView.actionError }));
+  if (msgView.busy !== null) body.append(h("p", { class: "msg-strip attention", role: "status", text: msgView.busy === "redraft" ? "Drafting a new reply…" : "Sending your tap…" }));
+  if (msgView.busy === null && thread.draft.version === "") body.append(h("p", { class: "reply-note", text: "This draft is not waiting for you any more." }));
+  const send = h("button", { class: "btn btn-solid", type: "button", id: "cmp-reply-send", text: "Send" });
+  send.disabled = !canAct || String(box.value || "").trim() === "";
+  send.addEventListener("click", () => actThread("send"));
+  const drop = h("button", { class: "btn", type: "button", text: "Don't send" });
+  drop.disabled = !canAct;
+  drop.addEventListener("click", () => actThread("drop"));
+  const redraft = h("button", { class: "btn", type: "button", text: msgView.busy === "redraft" ? "Drafting…" : "Draft again" });
+  redraft.disabled = !canAct;
+  redraft.addEventListener("click", () => actThread("redraft"));
+  body.append(h("div", { class: "thread-actions" }, drop, redraft, send));
+}
+
+function syncReplySend() {
+  const button = $("cmp-reply-send");
+  if (button) button.disabled = String(msgView.edit || "").trim() === "" || msgView.busy !== null;
+}
+
+// ── The message box (D4/WPC) ───────────────────────────────────────────────
+function openMessage() {
+  view.ui.dialog = { kind: "msg" };
+  view.ui.dialogError = null;
+  paintDialog();
+}
+
+function sendMessage() {
+  const text = (view.ui.msg || "").trim();
+  if (text === "") return;
+  if (text.length > MAX_MESSAGE_CHARS) { view.ui.dialogError = "That is longer than 4000 characters."; paintDialog(); return; }
+  const to = view.ui.to;
+  postAct({ action: "message", to, text })
+    .then((result) => {
+      if (result.status === 202) {
+        view.ui.msg = "";
+        saveDraft("msg", "");
+        view.ui.dialogError = null;
+        closeDialog();
+        showPcWaiting();
+        refresh();
+        return;
+      }
+      if (result.status === 200) {
+        const name = to === "architect" ? "the architect" : to === "henry" ? "Henry" : "the orchestrator";
+        view.ui.msg = "";
+        saveDraft("msg", "");
+        view.ui.dialogError = null;
+        closeDialog();
+        showToast("Sent to " + name + " as your words.", null, null);
+        return;
+      }
+      if (result.status === 403) { showRestart(); closeDialog(); return; }
+      view.ui.dialogError = result.status === 413 || (result.status === 400 && /long|large/i.test(String(result.data && result.data.error)))
+        ? "That message is too long. Keep it under 4000 characters."
+        : String((result.data && result.data.error) || "The message was refused.");
+      paintDialog();
+    })
+    .catch(() => {
+      view.ui.dialogError = "The message did not reach the gateway. It is still in the box.";
+      paintDialog();
+    });
+}
+
+function stopLane(laneId) {
+  postAct({ action: "stop", lane: laneId })
+    .then((result) => {
+      if (result.status === 202) { showPcWaiting(); refresh(); return; }
+      if (result.status === 200) { showToast("Stopping the lane.", null, null); refresh(); return; }
+      if (result.status === 403) { showRestart(); return; }
+      showToast(String((result.data && result.data.error) || "The lane was not stopped."), null, null);
+    })
+    .catch(() => { showToast("The stop did not reach the gateway.", null, null); });
+}
+
+
+// ── Answers: your words or a tap, both held six seconds with Undo (R5, D9) ──
+function sendAnswer(ticket) {
+  const words = (drafts[ticket.id] || "").trim();
+  if (words === "") return;
+  if (held[ticket.id] && held[ticket.id].timer !== null) clearTimeout(held[ticket.id].timer);
+  held[ticket.id] = { code: ticket.code || "", version: ticket.version, words, timer: null };
+  view.ui.openTicket = null;
+  paintWaiting();
+  showToast("Answered. It holds six seconds.", "Undo", () => undoAnswer(ticket.id));
+  held[ticket.id].timer = setTimeout(() => postAnswer(ticket.id), HOLD_MS);
+}
+
+function tapAnswer(ticket, option) {
+  if (held[ticket.id] && held[ticket.id].timer !== null) clearTimeout(held[ticket.id].timer);
+  held[ticket.id] = { code: ticket.code || "", version: ticket.version, option, timer: null };
+  view.ui.openTicket = null;
+  paintWaiting();
+  showToast((ticket.code || "Ticket") + " answered with " + option + ".", "Undo", () => undoAnswer(ticket.id));
+  held[ticket.id].timer = setTimeout(() => postAnswer(ticket.id), HOLD_MS);
+}
+
+function undoAnswer(id) {
+  const record = held[id];
+  if (!record || record.posted) return;
+  if (record.timer !== null) clearTimeout(record.timer);
+  const words = record.words;
+  delete held[id];
+  view.ui.openTicket = id;
+  hideToast();
+  paintWaiting();
+  if (typeof words === "string") {
+    const box = $("words-" + id);
+    if (box) { box.focus(); box.setSelectionRange(box.value.length, box.value.length); }
+  } else {
+    const button = document.querySelector('[data-focus^="tap:' + id + ':"]');
+    if (button) button.focus();
+  }
+}
+
+function postAnswer(id, keepalive) {
+  const record = held[id];
+  if (!record || record.posted) return;
+  if (record.timer !== null) clearTimeout(record.timer);
+  record.posted = true;
+  const body = { action: "answer", id, version: record.version };
+  if (typeof record.words === "string") body.words = record.words;
+  else body.option = record.option;
+  postAct(body, { keepalive: Boolean(keepalive) })
+    .then((result) => {
+      if (result.status === 202) { delete held[id]; showPcWaiting(); return refresh(); }
+      if (result.status === 200) {
+        delete held[id];
+        drafts[id] = "";
+        saveDraft(id, "");
+        hideToast();
+        showToast("Sent.", null, null);
+        return refresh();
+      }
+      // Everything else: the words go back in their box, exactly as they were typed.
+      delete held[id];
+      view.ui.openTicket = id;
+      if (typeof record.words === "string") { drafts[id] = record.words; saveDraft(id, record.words); }
+      if (result.status === 403) { showRestart(); paintWaiting(); return null; }
+      const said = result.status === 409 ? "This ticket changed. Your answer is back in its box." : result.status === 404 ? "That ticket is gone." : result.status === 413 ? "Those words are too long." : String((result.data && result.data.error) || "The answer was refused.");
+      showToast(said, null, null);
+      paintWaiting();
+      return null;
+    })
+    .catch(() => {
+      delete held[id];
+      view.ui.openTicket = id;
+      if (typeof record.words === "string") { drafts[id] = record.words; saveDraft(id, record.words); }
+      showToast("The answer did not reach the gateway. It is back in its box.", null, null);
+      paintWaiting();
+      return null;
+    });
+}
+
+function postAct(body, options) {
+  return fetch("/cc/api/act", {
+    method: "POST",
+    cache: "no-store",
+    keepalive: Boolean(options && options.keepalive),
+    headers: { "content-type": "application/json", "x-cc-csrf": CSRF },
+    body: JSON.stringify(body)
+  }).then((response) => response.json().catch(() => null).then((data) => ({ status: response.status, data })));
+}
+
+// ── The lane sheet (R7.1: a route, so the back gesture closes it) ───────────
+/**
+ * A record's own word, in a person's words (the operator, 2026-10-29): the sheet and the goals showed the record codes
+ * themselves — "review_ready", "sent_back", "decision_conflict" — where a sentence belongs. The record keeps its
+ * code; only what a person reads is written out, and a code nobody has named yet reads as its own spaced words
+ * rather than as a machine string.
+ */
+const RECORD_WORDS = {
+  review_ready: "Review ready",
+  discovery_ready: "Discovery ready",
+  already_done: "Already done",
+  blocked: "Blocked",
+  question: "Question",
+  accepted: "Accepted",
+  accepted_with_notes: "Accepted with notes",
+  rejected: "Sent back",
+  sent_back: "Sent back",
+  decision_conflict: "Conflict with a decision",
+  product_rule: "Product rule",
+  schema_change: "Schema change",
+  outward_facing: "Outward facing",
+  data_deletion: "Deleting data"
+};
+function plainWords(value) {
+  const text = value === null || value === undefined ? "" : String(value);
+  if (text === "") return "";
+  const named = RECORD_WORDS[text.toLowerCase()];
+  if (named !== undefined) return named;
+  const spaced = text.replace(/[_-]+/g, " ").trim();
+  return spaced.charAt(0).toUpperCase() + spaced.slice(1);
+}
+function laneRow(laneId) {
+  for (const row of laneRows()) if (row.laneId === laneId) return row;
+  return null;
+}
+function loadFeed(laneId, older) {
+  const feed = view.feeds[laneId] || { messages: [], more: false, loading: false, error: null, oldest: null };
+  if (feed.loading) return Promise.resolve(feed);
+  feed.loading = true;
+  view.feeds[laneId] = feed;
+  const query = older && feed.oldest ? "&before=" + encodeURIComponent(feed.oldest) : "";
+  return fetch("/cc/api/feed?lane=" + encodeURIComponent(laneId) + query, { cache: "no-store", headers: { accept: "application/json" } })
+    .then((response) => {
+      if (response.status === 404) return { absent: true };
+      if (!response.ok) throw new Error("the gateway answered " + response.status);
+      return response.json();
+    })
+    .then((body) => {
+      feed.loading = false;
+      if (!body || body.absent) { feed.error = null; feed.messages = []; feed.more = false; return feed; }
+      const lines = Array.isArray(body.messages) ? body.messages : [];
+      feed.messages = older ? lines.concat(feed.messages) : lines;
+      feed.more = Boolean(body.more);
+      feed.oldest = body.oldest || feed.oldest;
+      feed.error = null;
+      return feed;
+    })
+    .catch(() => { feed.loading = false; feed.error = "The live session could not be read."; return feed; });
+}
+
+/**
+ * A lane's state in the words the operator uses for it (the operator, 2026-10-29): working, waiting on review, needs a decision,
+ * blocked, done. It reads only what a lane records about itself — its stage, its last report, its tone — so the badge
+ * and the board cannot disagree.
+ */
+function laneStateWords(row, fact) {
+  if (fact && fact.merged) return "Done";
+  const kind = row.report && row.report.kind ? String(row.report.kind) : "";
+  if (kind === "blocked" || row.class === "blocked" || row.tone === "attention") return "Blocked";
+  if (kind === "question") return "Needs a decision";
+  if (kind === "review_ready" || kind === "discovery_ready") return "Waiting on review";
+  if (kind === "already_done") return "Done";
+  return "Working";
+}
+function laneStateTone(state) {
+  if (state === "Done") return "on";
+  if (state === "Blocked" || state === "Needs a decision") return "back";
+  return null;
+}
+
+function laneSheetData(row) {
+  const index = stageIndexOf(row.stage);
+  const fact = index >= 0 ? STAGE_FACTS[index] : null;
+  const goal = row.goal ? goalBy(row.goal) : null;
+  const feed = view.feeds[row.laneId] || { messages: [], more: false, loading: false, error: null };
+  const state = laneStateWords(row, fact);
+  const tags = [];
+  // The badge comes first: the sheet answers "what is this lane doing" before anything else.
+  tags.push({ text: state, tone: laneStateTone(state) });
+  if (goal) tags.push({ text: goal.name, tone: null });
+  if (row.class) tags.push({ text: plainWords(row.class) + (row.taskKind ? " · " + plainWords(row.taskKind) : ""), tone: null });
+  if (row.rounds > 0) tags.push({ text: plural(row.rounds, "fix round", "fix rounds"), tone: "back" });
+
+  const activity = panelData("activity");
+  const activityRow = activity && activity[row.laneId] ? activity[row.laneId] : null;
+  const facts = [
+    { label: "Model", value: row.modelName || "not recorded" },
+    { label: "Harness", value: row.harness || "not recorded" },
+    { label: "Launched", value: row.startedAt ? hhmm(row.startedAt) : "not recorded" },
+    { label: "Elapsed", value: fact && fact.merged ? "merged " + hhmm(row.since) : elapsedText(row.startedAt) || "–" }
+  ];
+  if (activityRow && typeof activityRow.contextPercent === "number") facts.push({ label: "Context", value: Math.round(activityRow.contextPercent) + "%" });
+
+  const timeline = [];
+  if (row.startedAt) timeline.push({ at: hhmm(row.startedAt), text: "Launched", tone: "on" });
+  if (row.report) timeline.push({ at: hhmm(row.report.at), text: plainWords(row.report.kind) + (row.report.summary ? " · " + row.report.summary : ""), tone: "on" });
+  (Array.isArray(row.handoffs) ? row.handoffs : []).forEach((handoff) => {
+    timeline.push({
+      at: hhmm(handoff.at),
+      text: plainWords(handoff.verdict) + (handoff.cause ? " · " + handoff.cause : ""),
+      tone: handoff.verdict === "accepted" ? "on" : "warn"
+    });
+  });
+  if (fact && fact.merged) timeline.push({ at: hhmm(row.since), text: "Finished", tone: "on" });
+
+  // A message with no words of its own is a recorded event, not the word "undefined" (the operator, 2026-10-29).
+  const feedLines = feed.messages.map((message) => {
+    const said = typeof message.text === "string" && message.text.trim() !== "" ? message.text : plainWords(message.kind) || "a line with no words";
+    return hhmm(message.at) + "  " + said;
+  });
+  const actions = [];
+  if (feed.more) actions.push({ action: "older", label: "Older lines" });
+  // Only the lane the gateway says may be stopped: the page never decides that itself (R5).
+  if (row.canStop) actions.push({ action: "stop", label: "Stop this lane" });
+  // A lane waiting on a decision points at the one place a decision is answered; the composer owns the tap (R5).
+  if (state === "Needs a decision") actions.push({ action: "decide", label: "Answer the decision" });
+
+  return {
+    // The sheet names the work, never the lane's own id (the operator, 2026-10-29).
+    title: row.title || "A lane with no name yet",
+    sub: goal ? goal.name : state + " now",
+    tags,
+    facts,
+    timeline,
+    feed: feedLines.length > 0 ? feedLines : undefined,
+    note: feed.error ? feed.error : row.now ? "Now: " + row.now : null,
+    actions
+  };
+}
+
+function openLaneSheet(row) {
+  const sheet = $("lane-sheet");
+  if (!sheet) return;
+  sheet.dataset.lane = row.laneId;
+  sheet.data = laneSheetData(row);
+  sheet.open();
+}
+
+function refreshLaneSheet() {
+  const sheet = $("lane-sheet");
+  if (!sheet || !sheet.isOpen) return;
+  const row = laneRow(sheet.dataset.lane);
+  if (!row) return;
+  sheet.data = laneSheetData(row);
+}
+
+function onLaneSheetTap(event) {
+  const sheet = $("lane-sheet");
+  const row = sheet ? laneRow(sheet.dataset.lane) : null;
+  if (!row) return;
+  if (event.detail.action === "stop") {
+    if (view.ui.killSeen !== null && view.ui.killSeen === row.laneId) return;
+    view.ui.killSeen = row.laneId;
+    showToast("Stopping " + (row.title || row.laneId) + ".", "Undo", () => { view.ui.killSeen = null; hideToast(); });
+    setTimeout(() => {
+      if (view.ui.killSeen !== row.laneId) return;
+      view.ui.killSeen = null;
+      stopLane(row.laneId);
+    }, HOLD_MS);
+    return;
+  }
+  if (event.detail.action === "decide") {
+    // Answering belongs to the ticket composer, which holds the options and the record of a tap: the sheet routes
+    // there instead of growing a second way to answer (D15/D16).
+    // Routing off the lane closes the sheet itself (the back gesture takes the same path).
+    go("today", null);
+    const target = document.querySelector(".tk-row");
+    if (target && typeof target.scrollIntoView === "function") target.scrollIntoView({ block: "center" });
+    return;
+  }
+  if (event.detail.action === "older") {
+    loadFeed(row.laneId, true).then(() => {
+      sheet.data = laneSheetData(row);
+      sheet.open();
+    });
+  }
+}
+
+// ── The sheets with fields: the message box, a thread, a report, the PC facts ─
+function paintDialog() {
+  const wrap = $("dialog-wrap");
+  const body = $("dialog-body");
+  const title = $("dialog-title");
+  if (!wrap || !body || !title) return;
+  const dialog = view.ui.dialog;
+  if (!dialog) { wrap.hidden = true; body.textContent = ""; return; }
+  wrap.hidden = false;
+  clear(body);
+  setText(title, "");
+  if (dialog.kind === "msg") {
+    setText(title, "Message");
+    return paintMessageBox(body);
+  }
+  if (dialog.kind === "thread") return paintMessageThread(body);
+  if (dialog.kind === "report") {
+    const card = dialog.title || "Report";
+    setText(title, card);
+    const report = view.reports[dialog.card];
+    if (!report || report.loading) body.append(h("p", { class: "empty", text: "Reading the report…" }));
+    else if (report.error) body.append(h("p", { class: "empty", role: "alert", text: report.error }));
+    else body.append(h("pre", { class: "report-text", text: report.text }));
+    const close = h("button", { class: "btn", type: "button", text: "Close" });
+    close.addEventListener("click", () => closeDialog());
+    body.append(h("div", { class: "dialog-actions" }, close));
+    return;
+  }
+  if (dialog.kind === "pc") {
+    const data = panelData("machine");
+    setText(title, "This PC");
+    if (!data) { body.append(h("p", { class: "empty", text: panelError("machine") || EMPTY.notWired })); }
+    else {
+      const gate = data.gate || {};
+      const facts = [
+        { label: "Available", value: typeof gate.availableMb === "number" ? Math.round(gate.availableMb / 1024) + " GB" : "not read" },
+        { label: "Gate", value: gate.wouldAdmit === false ? "would refuse" : "would admit" },
+        { label: "Paused", value: gate.paused ? "yes" : "no" },
+        { label: "Dev server", value: gate.devServerWindow || "closed" },
+        { label: "Kills", value: String((Array.isArray(data.kills) ? data.kills.length : 0)) }
+      ];
+      const grid = h("div", { class: "g-facts" });
+      facts.forEach((fact) => grid.append(h("div", { class: "g-fact" }, h("small", { text: fact.label }), h("b", { text: fact.value }))));
+      body.append(grid);
+      if (gate.reason) body.append(h("p", { class: "dialog-note", text: gate.reason }));
+      const kills = Array.isArray(data.kills) ? data.kills : [];
+      if (kills.length > 0) {
+        const clear = h("button", { class: "btn", type: "button", text: "Clear the warning" });
+        clear.addEventListener("click", () => { view.ui.killSeen = kills[kills.length - 1].at; paintIsland(); closeDialog(); });
+        body.append(h("div", { class: "dialog-actions" }, clear));
+      }
+    }
+    const close = h("button", { class: "btn btn-solid", type: "button", text: "Close" });
+    close.addEventListener("click", () => closeDialog());
+    body.append(h("div", { class: "dialog-actions" }, close));
+    return;
+  }
+  closeDialog();
+}
+
+function paintMessageBox(body) {
+  setText($("dialog-title"), "Message the team");
+  body.append(h("div", { class: "to-options", role: "group", "aria-label": "Who to write to" }));
+  const host = body.querySelector(".to-options");
+  // The three targets the message box has always had (MG6, D4). The page names no provider and no model.
+  [["architect", "Architect", "the design session"], ["henry", "Henry", "your assistant"], ["orchestrator", "Orchestrator", "the lanes' controller"]].forEach(([value, label, sub]) => {
+    const picked = view.ui.to === value;
+    const option = h("label", { class: picked ? "picked" : "", "data-focus": "to:" + value },
+      h("input", { type: "radio", name: "cc-to", value, checked: picked ? "checked" : null }),
+      h("span", null, h("span", { text: label }), h("small", { text: sub })));
+    option.querySelector("input").addEventListener("change", () => { view.ui.to = value; paintDialog(); });
+    host.append(option);
+  });
+  const box = h("textarea", { id: "cmp-msg", rows: "5", "data-focus": "msg-text", placeholder: "Write it the way you would say it" });
+  box.value = view.ui.msg || "";
+  box.addEventListener("input", (event) => { view.ui.msg = event.target.value; saveDraft("msg", event.target.value); syncMsgSend(); });
+  body.append(h("label", { class: "field-label", for: "cmp-msg", text: "Your words" }), box);
+  if (view.ui.dialogError) body.append(h("p", { class: "dialog-error", role: "alert", text: view.ui.dialogError }));
+  const send = h("button", { class: "btn btn-solid", type: "button", id: "cmp-send", text: "Send" });
+  send.disabled = String(view.ui.msg || "").trim() === "";
+  send.addEventListener("click", () => sendMessage());
+  const cancel = h("button", { class: "btn", type: "button", text: "Cancel" });
+  cancel.addEventListener("click", () => closeDialog());
+  body.append(h("div", { class: "dialog-actions" }, cancel, send));
+}
+
+function syncMsgSend() {
+  const button = $("cmp-send");
+  if (button) button.disabled = String(view.ui.msg || "").trim() === "";
+}
+
+function openDialog() {
+  const wrap = $("dialog-wrap");
+  if (!wrap || !wrap.hidden) return;
+  opener.node = document.activeElement;
+  wrap.hidden = false;
+  document.addEventListener("keydown", onDialogKey, true);
+  const first = document.querySelector("#dialog-body textarea, #dialog-body input, #dialog-close");
+  if (first) first.focus();
+}
+
+function closeDialog() {
+  const wrap = $("dialog-wrap");
+  if (!wrap || wrap.hidden) return;
+  wrap.hidden = true;
+  document.removeEventListener("keydown", onDialogKey, true);
+  view.ui.dialog = null;
+  view.ui.dialogError = null;
+  const body = $("dialog-body");
+  if (body) body.textContent = "";
+  const back = opener.node;
+  opener.node = null;
+  if (back && typeof back.focus === "function" && back.isConnected) back.focus();
+}
+
+function onDialogKey(event) {
+  if (event.key === "Escape") { event.preventDefault(); closeDialog(); return; }
+  if (event.key !== "Tab") return;
+  const wrap = $("dialog-wrap");
+  if (!wrap) return;
+  const items = Array.prototype.slice.call(wrap.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'))
+    .filter((item) => !item.disabled && item.offsetParent !== null);
+  if (items.length === 0) return;
+  const index = items.indexOf(document.activeElement);
+  const last = items.length - 1;
+  let next;
+  if (event.shiftKey) next = index <= 0 ? last : index - 1;
+  else next = index === last || index < 0 ? 0 : index + 1;
+  event.preventDefault();
+  items[next].focus();
+}
+
+// ── The toast, the banner and the words kept across a reload ────────────────
+let toastUndo = null;
+function showToast(text, undoLabel, undoAction) {
+  const toast = $("toast");
+  if (!toast) return;
+  toastUndo = typeof undoAction === "function" ? undoAction : null;
+  toast.show({ title: text, undo: toastUndo !== null ? undoLabel || "Undo" : null });
+}
+function hideToast() {
+  const toast = $("toast");
+  if (toast) toast.hide();
+  toastUndo = null;
+}
+function showBanner(text, actionLabel, action) {
+  const banner = $("banner");
+  const actionButton = $("banner-action");
+  if (!banner) return;
+  banner.hidden = false;
+  setText($("banner-text"), text);
+  if (actionButton) {
+    actionButton.hidden = typeof action !== "function";
+    actionButton.textContent = actionLabel || "Reload";
+    actionButton.onclick = typeof action === "function" ? action : null;
+  }
+}
+function hideBanner() {
+  const banner = $("banner");
+  if (banner) banner.hidden = true;
+}
+function showRestart() {
+  view.restartPending = true;
+  showBanner("The gateway restarted. Reload for the current state.", "Reload", () => location.reload());
+}
+
+const DRAFT_KEY = "cc-drafts";
+function loadDrafts() {
+  try {
+    const raw = window.localStorage.getItem(DRAFT_KEY);
+    if (!raw) return;
+    const saved = JSON.parse(raw);
+    Object.keys(saved).forEach((key) => {
+      if (typeof saved[key] !== "string" || saved[key] === "") return;
+      if (key === "msg") view.ui.msg = saved[key];
+      else drafts[key] = saved[key];
+    });
+  } catch (error) { /* storage may be off: the box still works for this page */ }
+}
+function saveDraft(key, value) {
+  try {
+    const saved = JSON.parse(window.localStorage.getItem(DRAFT_KEY) || "{}");
+    if (value === "" || value === null || value === undefined) delete saved[key];
+    else saved[key] = String(value);
+    window.localStorage.setItem(DRAFT_KEY, JSON.stringify(saved));
+  } catch (error) { /* nothing to do: the draft lives in memory this time */ }
+}
+function hasUnsentWords() {
+  if (String(view.ui.msg || "").trim() !== "") return true;
+  return Object.keys(drafts).some((key) => String(drafts[key] || "").trim() !== "");
+}
+
+// ── Focus, kept across a repaint ───────────────────────────────────────────
+function focusKeyOf() {
+  const active = document.activeElement;
+  if (!active || !active.closest) return null;
+  const holder = active.closest("[data-focus]");
+  return holder ? holder.dataset.focus : null;
+}
+function restoreFocus(key) {
+  if (!key) return;
+  const target = document.querySelector('[data-focus="' + key.replace(/"/g, '\\"') + '"]');
+  if (target && document.activeElement !== target) {
+    target.focus();
+    if (target.setSelectionRange && typeof target.value === "string") target.setSelectionRange(target.value.length, target.value.length);
+  }
+}
+function restoreFocusRaw(node) { if (node && node.isConnected && typeof node.focus === "function") node.focus(); }
+
+// ── The stream, the offline rule and the poll (Q5, CRW 4) ──────────────────
+function onFrame(kind, event) {
+  frameSeen();
+  if (kind === "state") {
+    let state = null;
+    try { state = JSON.parse(event.data); } catch (error) { return; }
+    if (state) applyState(state);
+    return;
+  }
+  if (kind === "panels") {
+    let frame = null;
+    try { frame = JSON.parse(event.data); } catch (error) { return; }
+    if (frame) applyPanels(frame);
+    return;
+  }
+  // A ping proves the stream is alive and carries nothing else: frameSeen above has already done the work.
+}
+
+function frameSeen() {
+  if (offlineTimer !== null) clearTimeout(offlineTimer);
+  offlineTimer = setTimeout(goOffline, OFFLINE_MS);
+  if (pollTimer !== null) { clearTimeout(pollTimer); pollTimer = null; }
+  if (!view.online) {
+    view.online = true;
+    view.stale = false;
+    hideBanner();
+    paintChrome();
+  }
+}
+
+function goOffline() {
+  offlineTimer = null;
+  view.online = false;
+  view.stale = true;
+  paintChrome();
+  showBanner("Can't reach the gateway. Last update " + hhmm(view.loadedAt) + ".", "Try now", () => refresh());
+  schedulePoll();
+}
+
+function schedulePoll() {
+  if (pollTimer !== null) return;
+  pollTimer = setTimeout(() => { pollTimer = null; refresh().then(() => schedulePoll()); }, POLL_MS);
+}
+
+function openStream() {
+  if (stream || typeof EventSource === "undefined") return;
+  stream = new EventSource("/cc/api/live");
+  stream.addEventListener("state", (event) => onFrame("state", event));
+  stream.addEventListener("panels", (event) => onFrame("panels", event));
+  stream.addEventListener("ping", (event) => onFrame("ping", event));
+  stream.onerror = () => {
+    // The browser retries on its own; a closed stream is reopened when the page is visible again.
+    if (stream && stream.readyState === 2) stream = null;
+  };
+}
+
+function refresh() {
+  return fetch("/cc/api/state", { cache: "no-store", headers: { accept: "application/json" } })
+    .then((response) => {
+      if (response.status === 403) { showRestart(); return null; }
+      if (!response.ok) { showToast("The gateway answered " + response.status + ".", null, null); return null; }
+      return response.json();
+    })
+    .then((state) => {
+      if (!state) return null;
+      applyState(state);
+      // `/cc/api/messages` is a route of the tailnet listener only. The loopback listener does not serve it, so the
+      // state says when the view may have the message text (MG7): the page asks for it only then, and never asks a
+      // listener for a route it does not have.
+      if (!msgView.loaded && !msgView.countsOnly) return loadMessages();
+      return null;
+    })
+    .catch(() => null);
+}
+
+function applyState(state) {
+  view.loadedAt = state.generatedAt || view.loadedAt;
+  const startedAt = typeof state.startedAt === "string" ? state.startedAt : null;
+  if (view.startedAt !== null && startedAt !== null && startedAt !== view.startedAt) {
+    // D11: the gateway restarted. Typed words are kept, so nothing is lost by reloading, but never silently.
+    if (hasUnsentWords()) showRestart();
+    else { location.reload(); return; }
+  }
+  view.startedAt = startedAt;
+  view.state = state;
+  view.recent = Array.isArray(state.recent) ? state.recent.slice(-20) : view.recent;
+  msgView.countsOnly = Boolean(state.countsOnly);
+  renderAll();
+}
+
+function applyPanels(frame) {
+  if (!view.state) return;
+  if (frame.generatedAt) view.loadedAt = frame.generatedAt;
+  if (frame.summary) view.state.summary = frame.summary;
+  if (frame.panels) {
+    Object.keys(frame.panels).forEach((name) => {
+      if (name === "summary") view.state.summary = frame.panels.summary;
+      else view.state.panels[name] = frame.panels[name];
+    });
+  }
+  const changes = Array.isArray(frame.changes) ? frame.changes : [];
+  if (changes.length > 0) {
+    view.recent = view.recent.concat(changes).slice(-20);
+    showChangeLine(changes[changes.length - 1]);
+  }
+  renderAll();
+  refreshLaneSheet();
+}
+
+// ── Routes: a view is a hash, a sheet is a hash on top (CRW 7) ─────────────
+function parseHash() {
+  const raw = String(location.hash || "").replace(/^#/, "");
+  const parts = raw.split("/");
+  const kind = parts[0] || "today";
+  const id = parts.slice(1).join("/") || null;
+  if (kind === "lane" && id) return { kind: "lane", id };
+  if (kind === "goal" && id) return { kind: "goal", id };
+  if (kind === "today" || kind === "goals" || kind === "scrum" || kind === "pipeline" || kind === "history" || kind === "systems") return { kind, id: null };
+  return { kind: "today", id: null };
+}
+
+function hashOf(kind, id) { return "#" + kind + (id ? "/" + id : ""); }
+
+function go(kind, id) {
+  const next = hashOf(kind, id);
+  if (location.hash === next) { applyRoute(); return; }
+  history.pushState(null, "", next);
+  applyRoute();
+}
+
+function openGoal(code) { go("goal", code); }
+
+function openLane(laneId) {
+  const row = laneRow(laneId);
+  if (!row) { showToast("That lane is not in the state any more.", null, null); return; }
+  loadFeed(laneId, false).then(() => {
+    openLaneSheet(laneRow(laneId) || row);
+    if (route.kind !== "lane" || route.id !== laneId) go("lane", laneId);
+  });
+}
+
+function closeLaneSheet(routeAfter) {
+  const sheet = $("lane-sheet");
+  if (sheet && sheet.isOpen) sheet.close({ silent: true });
+  if (route.kind === "lane") {
+    if (routeAfter && routeAfter.kind !== "lane") { applyRoute(); return; }
+    go(viewRoute().kind, viewRoute().id);
+  }
+}
+
+function applyRoute() {
+  const next = parseHash();
+  const wasLane = route.kind === "lane";
+  route.kind = next.kind;
+  route.id = next.id;
+  if (next.kind === "lane") openLaneFromRoute();
+  else if (wasLane) {
+    const sheet = $("lane-sheet");
+    if (sheet && sheet.isOpen) sheet.close({ silent: true });
+  }
+  paintView();
+}
+
+/** A lane route opens its sheet over the view beneath, however late the state arrives (CRW 7). */
+function openLaneFromRoute() {
+  const sheet = $("lane-sheet");
+  if (!sheet || route.kind !== "lane") return;
+  const row = laneRow(route.id);
+  if (!row) {
+    if (!view.state) return;
+    showToast("That lane is not in the state any more.", null, null);
+    if (sheet.isOpen) sheet.close({ silent: true });
+    route.kind = "today";
+    route.id = null;
+    if (location.hash !== hashOf("today", null)) history.replaceState(null, "", hashOf("today", null));
+    paintView();
+    return;
+  }
+  if (sheet.isOpen && sheet.dataset.lane === row.laneId) { sheet.data = laneSheetData(row); return; }
+  if (!view.feeds[row.laneId]) {
+    loadFeed(row.laneId, false).then(() => { if (route.kind === "lane" && route.id === row.laneId) openLaneSheet(laneRow(row.laneId) || row); });
+    return;
+  }
+  openLaneSheet(row);
+}
+
+// ── Modes and the first paint ──────────────────────────────────────────────
+const NS = "http://www.w3.org/2000/svg";
+// Icons are built node by node: this page never parses a string into markup.
+const DARK_ICON = [{ tag: "circle", attrs: { cx: "12", cy: "12", r: "4" } }, { tag: "path", attrs: { d: "M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4" } }];
+const LIGHT_ICON = [{ tag: "path", attrs: { d: "M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z" } }];
+const CLOSE_ICON = [{ tag: "path", attrs: { d: "M6 6l12 12M18 6L6 18" } }];
+
+function svgNode(shapes, className) {
+  const svg = document.createElementNS(NS, "svg");
+  svg.setAttribute("class", className || "g-i");
+  svg.setAttribute("viewBox", "0 0 24 24");
+  svg.setAttribute("fill", "none");
+  svg.setAttribute("stroke", "currentColor");
+  svg.setAttribute("stroke-width", "1.7");
+  svg.setAttribute("stroke-linecap", "round");
+  svg.setAttribute("aria-hidden", "true");
+  shapes.forEach((shape) => {
+    const piece = document.createElementNS(NS, shape.tag);
+    Object.keys(shape.attrs).forEach((name) => piece.setAttribute(name, shape.attrs[name]));
+    svg.append(piece);
+  });
+  return svg;
+}
+
+function applyMode(theme) {
+  const next = theme === "light" ? "light" : "dark";
+  document.documentElement.setAttribute("data-theme", next);
+  const button = $("mode");
+  if (!button) return;
+  const goingLight = next === "dark";
+  button.setAttribute("aria-label", goingLight ? "Switch to light mode" : "Switch to dark mode");
+  const holder = $("mode-icon");
+  if (holder) {
+    clear(holder);
+    holder.append(svgNode(next === "dark" ? DARK_ICON : LIGHT_ICON));
+  }
+}
+
+function currentTheme() {
+  try {
+    const saved = window.localStorage.getItem("cc-theme");
+    if (saved === "light" || saved === "dark") return saved;
+  } catch (error) { /* storage off: follow the system */ }
+  return window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+}
+
+function renderAll() {
+  paintView();
+  paintMessages();
+  openLaneFromRoute();
+}
+
+function wire() {
+  const nav = $("nav");
+  if (nav) nav.addEventListener("g-select", (event) => {
+    const id = event.detail.id;
+    if (!id) return;
+    // Setting the tab from the route must not read back as a tap: only a different view navigates.
+    const current = route.kind === "goal" ? "goals" : route.kind;
+    if (id === current) return;
+    go(id);
+  });
+  const island = $("island");
+  if (island) island.addEventListener("g-tap", (event) => {
+    if (event.detail.action !== "pc") return;
+    view.ui.dialog = { kind: "pc" };
+    paintDialog();
+  });
+  const sheet = $("lane-sheet");
+  if (sheet) sheet.addEventListener("g-tap", onLaneSheetTap);
+  // R7a.1: on a phone History and Systems sit under More, so the row keeps the four controls it had (D40).
+  const moreButton = $("more-btn");
+  if (moreButton) moreButton.addEventListener("click", (event) => {
+    event.stopPropagation();
+    const open = $("more-menu") !== null && $("more-menu").classList.contains("open");
+    closeMore();
+    if (!open) openMore();
+  });
+  const moreMenu = $("more-menu");
+  if (moreMenu) moreMenu.addEventListener("click", (event) => {
+    const target = event.target.closest("button[data-more]");
+    if (!target) return;
+    closeMore();
+    go(target.getAttribute("data-more"));
+  });
+  document.addEventListener("click", (event) => {
+    const menu = $("more-menu");
+    if (!menu || !menu.classList.contains("open")) return;
+    if (menu.contains(event.target) || (moreButton && moreButton.contains(event.target))) return;
+    closeMore();
+  });
+  const toast = $("toast");
+  if (toast) toast.addEventListener("g-undo", () => { if (toastUndo) { const run = toastUndo; toastUndo = null; run(); } });
+  const mode = $("mode");
+  if (mode) mode.addEventListener("click", () => {
+    const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    applyMode(next);
+    try { window.localStorage.setItem("cc-theme", next); } catch (error) { /* nothing to keep */ }
+  });
+  const openMsg = $("open-msg");
+  if (openMsg) openMsg.addEventListener("click", () => openMessage());
+  const closeButton = $("dialog-close");
+  if (closeButton) {
+    closeButton.append(svgNode(CLOSE_ICON));
+    closeButton.addEventListener("click", () => closeDialog());
+  }
+  window.addEventListener("popstate", () => applyRoute());
+  // A typed hash, a link or the phone's back gesture all land here, so one route function serves them all.
+  window.addEventListener("hashchange", () => applyRoute());
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    const menu = $("more-menu");
+    if (menu && menu.classList.contains("open")) { closeMore(); return; }
+    const dialog = $("dialog-wrap");
+    if (dialog && !dialog.hidden) { closeDialog(); return; }
+    const sheet = $("lane-sheet");
+    if (sheet && sheet.isOpen) { if (route.kind === "lane") history.back(); else sheet.close({ silent: true }); }
+  });
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState !== "visible") return;
+    // A phone back from the background: a closed stream is reopened, and the state is read again.
+    if (!stream) openStream();
+    refresh();
+  });
+  window.addEventListener("pagehide", () => {
+    // A tap still inside its six-second hold is sent with keepalive: the tab is going away, the answer is not lost.
+    Object.keys(held).forEach((id) => { if (!held[id].posted) postAnswer(id, true); });
+    Object.keys(heldCards).forEach((id) => { if (!heldCards[id].posted) postCard(id, true); });
+  });
+  window.addEventListener("online", () => { if (!stream) openStream(); refresh(); });
+}
+
+function boot() {
+  applyMode(currentTheme());
+  loadDrafts();
+  wire();
+  const start = parseHash();
+  route.kind = start.kind === "lane" ? "today" : start.kind;
+  route.id = start.kind === "lane" ? null : start.id;
+  paintView();
+  paintChrome();
+  frameSeen();
+  openStream();
+  refresh();
+  // A load never opens a lane sheet: a tap is the only way in (the operator, 2026-10-29). The address is rewritten in
+  // place instead, so a refresh cannot bring the sheet back, and the back gesture still leaves a tapped sheet.
+  if (start.kind === "lane") history.replaceState(null, "", hashOf("today", null));
+}
+
+boot();
+</script>
+</body>
+</html>

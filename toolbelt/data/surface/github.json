@@ -1,0 +1,2058 @@
+{
+ "schemaVersion": 1,
+ "cli": "gh",
+ "cliVersion": "2.45.0",
+ "cliPath": "/usr/bin/gh",
+ "cliMtimeMs": 1752802161000,
+ "generatedAt": "2026-08-29T12:59:11.559Z",
+ "leafCount": 157,
+ "leaves": [
+  {
+   "cmd": "actions",
+   "flags": [],
+   "desc": "Learn about working with GitHub Actions"
+  },
+  {
+   "cmd": "alias delete",
+   "flags": [
+    "all"
+   ],
+   "desc": "Delete set aliases"
+  },
+  {
+   "cmd": "alias import",
+   "flags": [
+    "clobber",
+    "label"
+   ],
+   "desc": "Import aliases from a YAML file"
+  },
+  {
+   "cmd": "alias list",
+   "flags": [],
+   "desc": "List your aliases"
+  },
+  {
+   "cmd": "alias set",
+   "flags": [
+    "assignee",
+    "author",
+    "clobber",
+    "label",
+    "mention",
+    "shell"
+   ],
+   "desc": "Create a shortcut for a gh command"
+  },
+  {
+   "cmd": "api",
+   "flags": [
+    "cache",
+    "field",
+    "header",
+    "hostname",
+    "include",
+    "input",
+    "jq",
+    "method",
+    "paginate",
+    "preview",
+    "raw-field",
+    "silent",
+    "template",
+    "verbose"
+   ],
+   "desc": "Make an authenticated GitHub API request"
+  },
+  {
+   "cmd": "auth login",
+   "flags": [
+    "git-protocol",
+    "hostname",
+    "insecure-storage",
+    "scopes",
+    "web",
+    "with-token"
+   ],
+   "desc": "Log in to a GitHub account"
+  },
+  {
+   "cmd": "auth logout",
+   "flags": [
+    "hostname",
+    "user"
+   ],
+   "desc": "Log out of a GitHub account"
+  },
+  {
+   "cmd": "auth refresh",
+   "flags": [
+    "hostname",
+    "insecure-storage",
+    "remove-scopes",
+    "reset-scopes",
+    "scopes"
+   ],
+   "desc": "Refresh stored authentication credentials"
+  },
+  {
+   "cmd": "auth setup-git",
+   "flags": [
+    "force",
+    "hostname"
+   ],
+   "desc": "Setup git with GitHub CLI"
+  },
+  {
+   "cmd": "auth status",
+   "flags": [
+    "hostname",
+    "show-token"
+   ],
+   "desc": "View authentication status"
+  },
+  {
+   "cmd": "auth switch",
+   "flags": [
+    "hostname",
+    "user"
+   ],
+   "desc": "Switch active GitHub account"
+  },
+  {
+   "cmd": "auth token",
+   "flags": [
+    "hostname",
+    "user"
+   ],
+   "desc": "Print the authentication token gh uses for a hostname and account"
+  },
+  {
+   "cmd": "browse",
+   "flags": [
+    "branch",
+    "commit",
+    "no-browser",
+    "projects",
+    "releases",
+    "repo",
+    "settings",
+    "wiki"
+   ],
+   "desc": "Open the repository in the browser"
+  },
+  {
+   "cmd": "cache delete",
+   "flags": [
+    "all",
+    "repo"
+   ],
+   "desc": "Delete Github Actions caches"
+  },
+  {
+   "cmd": "cache list",
+   "flags": [
+    "jq",
+    "json",
+    "key",
+    "limit",
+    "order",
+    "ref",
+    "repo",
+    "sort",
+    "template"
+   ],
+   "desc": "List Github Actions caches"
+  },
+  {
+   "cmd": "co",
+   "flags": [
+    "branch",
+    "detach",
+    "force",
+    "recurse-submodules",
+    "repo"
+   ],
+   "desc": "Alias for \"pr checkout\""
+  },
+  {
+   "cmd": "codespace code",
+   "flags": [
+    "codespace",
+    "insiders",
+    "repo",
+    "repo-owner",
+    "web"
+   ],
+   "desc": "Open a codespace in Visual Studio Code"
+  },
+  {
+   "cmd": "codespace cp",
+   "flags": [
+    "codespace",
+    "expand",
+    "profile",
+    "recursive",
+    "repo",
+    "repo-owner"
+   ],
+   "desc": "Copy files between local and remote file systems"
+  },
+  {
+   "cmd": "codespace create",
+   "flags": [
+    "branch",
+    "default-permissions",
+    "devcontainer-path",
+    "display-name",
+    "idle-timeout",
+    "location",
+    "machine",
+    "repo",
+    "retention-period",
+    "status",
+    "web"
+   ],
+   "desc": "Create a codespace"
+  },
+  {
+   "cmd": "codespace delete",
+   "flags": [
+    "all",
+    "codespace",
+    "days",
+    "force",
+    "org",
+    "repo",
+    "repo-owner",
+    "user"
+   ],
+   "desc": "Delete codespaces"
+  },
+  {
+   "cmd": "codespace edit",
+   "flags": [
+    "codespace",
+    "display-name",
+    "machine",
+    "repo",
+    "repo-owner"
+   ],
+   "desc": "Edit a codespace"
+  },
+  {
+   "cmd": "codespace jupyter",
+   "flags": [
+    "codespace",
+    "repo",
+    "repo-owner"
+   ],
+   "desc": "Open a codespace in JupyterLab"
+  },
+  {
+   "cmd": "codespace list",
+   "flags": [
+    "jq",
+    "json",
+    "limit",
+    "org",
+    "repo",
+    "template",
+    "user",
+    "web"
+   ],
+   "desc": "List codespaces"
+  },
+  {
+   "cmd": "codespace logs",
+   "flags": [
+    "codespace",
+    "follow",
+    "repo",
+    "repo-owner"
+   ],
+   "desc": "Access codespace logs"
+  },
+  {
+   "cmd": "codespace ports forward",
+   "flags": [
+    "codespace",
+    "repo",
+    "repo-owner"
+   ],
+   "desc": "Forward ports"
+  },
+  {
+   "cmd": "codespace ports visibility",
+   "flags": [
+    "codespace",
+    "repo",
+    "repo-owner"
+   ],
+   "desc": "Change the visibility of the forwarded port"
+  },
+  {
+   "cmd": "codespace rebuild",
+   "flags": [
+    "codespace",
+    "full",
+    "repo",
+    "repo-owner"
+   ],
+   "desc": "Rebuild a codespace"
+  },
+  {
+   "cmd": "codespace ssh",
+   "flags": [
+    "codespace",
+    "config",
+    "debug",
+    "debug-file",
+    "profile",
+    "repo",
+    "repo-owner",
+    "server-port"
+   ],
+   "desc": "SSH into a codespace"
+  },
+  {
+   "cmd": "codespace stop",
+   "flags": [
+    "codespace",
+    "org",
+    "repo",
+    "repo-owner",
+    "user"
+   ],
+   "desc": "Stop a running codespace"
+  },
+  {
+   "cmd": "codespace view",
+   "flags": [
+    "codespace",
+    "jq",
+    "json",
+    "repo",
+    "repo-owner",
+    "template"
+   ],
+   "desc": "View details about a codespace"
+  },
+  {
+   "cmd": "config get",
+   "flags": [
+    "host"
+   ],
+   "desc": "Print the value of a given configuration key"
+  },
+  {
+   "cmd": "config list",
+   "flags": [
+    "host"
+   ],
+   "desc": "Print a list of configuration keys and values"
+  },
+  {
+   "cmd": "config set",
+   "flags": [
+    "host",
+    "wait"
+   ],
+   "desc": "Update configuration with a value for the given key"
+  },
+  {
+   "cmd": "exit-codes",
+   "flags": [],
+   "desc": "Exit codes used by gh"
+  },
+  {
+   "cmd": "extension browse",
+   "flags": [
+    "debug",
+    "single-column"
+   ],
+   "desc": "Enter a UI for browsing, adding, and removing extensions"
+  },
+  {
+   "cmd": "extension create",
+   "flags": [
+    "precompiled"
+   ],
+   "desc": "Create a new extension"
+  },
+  {
+   "cmd": "extension exec",
+   "flags": [],
+   "desc": "Execute an installed extension"
+  },
+  {
+   "cmd": "extension install",
+   "flags": [
+    "force",
+    "pin"
+   ],
+   "desc": "Install a gh extension from a repository"
+  },
+  {
+   "cmd": "extension list",
+   "flags": [],
+   "desc": "List installed extension commands"
+  },
+  {
+   "cmd": "extension remove",
+   "flags": [],
+   "desc": "Remove an installed extension"
+  },
+  {
+   "cmd": "extension search",
+   "flags": [
+    "jq",
+    "json",
+    "license",
+    "limit",
+    "order",
+    "owner",
+    "sort",
+    "template",
+    "topic",
+    "web"
+   ],
+   "desc": "Search extensions to the GitHub CLI"
+  },
+  {
+   "cmd": "extension upgrade",
+   "flags": [
+    "all",
+    "dry-run",
+    "force"
+   ],
+   "desc": "Upgrade installed extensions"
+  },
+  {
+   "cmd": "formatting",
+   "flags": [
+    "jq",
+    "json",
+    "template"
+   ],
+   "desc": "Formatting options for JSON data exported from gh"
+  },
+  {
+   "cmd": "gist clone",
+   "flags": [],
+   "desc": "Clone a gist locally"
+  },
+  {
+   "cmd": "gist create",
+   "flags": [
+    "desc",
+    "filename",
+    "public",
+    "web"
+   ],
+   "desc": "Create a new gist"
+  },
+  {
+   "cmd": "gist delete",
+   "flags": [],
+   "desc": "Delete a gist"
+  },
+  {
+   "cmd": "gist edit",
+   "flags": [
+    "add",
+    "desc",
+    "filename",
+    "remove"
+   ],
+   "desc": "Edit one of your gists"
+  },
+  {
+   "cmd": "gist list",
+   "flags": [
+    "limit",
+    "public",
+    "secret"
+   ],
+   "desc": "List your gists"
+  },
+  {
+   "cmd": "gist rename",
+   "flags": [],
+   "desc": "Rename a file in a gist"
+  },
+  {
+   "cmd": "gist view",
+   "flags": [
+    "filename",
+    "files",
+    "raw",
+    "web"
+   ],
+   "desc": "View a gist"
+  },
+  {
+   "cmd": "gpg-key add",
+   "flags": [
+    "title"
+   ],
+   "desc": "Add a GPG key to your GitHub account"
+  },
+  {
+   "cmd": "gpg-key delete",
+   "flags": [
+    "yes"
+   ],
+   "desc": "Delete a GPG key from your GitHub account"
+  },
+  {
+   "cmd": "gpg-key list",
+   "flags": [],
+   "desc": "Lists GPG keys in your GitHub account"
+  },
+  {
+   "cmd": "issue close",
+   "flags": [
+    "comment",
+    "reason",
+    "repo"
+   ],
+   "desc": "Close issue"
+  },
+  {
+   "cmd": "issue comment",
+   "flags": [
+    "body",
+    "body-file",
+    "edit-last",
+    "editor",
+    "repo",
+    "web"
+   ],
+   "desc": "Add a comment to an issue"
+  },
+  {
+   "cmd": "issue create",
+   "flags": [
+    "assignee",
+    "body",
+    "body-file",
+    "label",
+    "milestone",
+    "project",
+    "recover",
+    "repo",
+    "template",
+    "title",
+    "web"
+   ],
+   "desc": "Create a new issue"
+  },
+  {
+   "cmd": "issue delete",
+   "flags": [
+    "repo",
+    "yes"
+   ],
+   "desc": "Delete issue"
+  },
+  {
+   "cmd": "issue develop",
+   "flags": [
+    "base",
+    "branch-repo",
+    "checkout",
+    "list",
+    "name",
+    "repo"
+   ],
+   "desc": "Manage linked branches for an issue"
+  },
+  {
+   "cmd": "issue edit",
+   "flags": [
+    "add-assignee",
+    "add-label",
+    "add-project",
+    "body",
+    "body-file",
+    "milestone",
+    "remove-assignee",
+    "remove-label",
+    "remove-project",
+    "repo",
+    "title"
+   ],
+   "desc": "Edit issues"
+  },
+  {
+   "cmd": "issue list",
+   "flags": [
+    "app",
+    "assignee",
+    "author",
+    "jq",
+    "json",
+    "label",
+    "limit",
+    "mention",
+    "milestone",
+    "repo",
+    "search",
+    "state",
+    "template",
+    "web"
+   ],
+   "desc": "List issues in a repository"
+  },
+  {
+   "cmd": "issue lock",
+   "flags": [
+    "reason",
+    "repo"
+   ],
+   "desc": "Lock issue conversation"
+  },
+  {
+   "cmd": "issue pin",
+   "flags": [
+    "repo"
+   ],
+   "desc": "Pin a issue"
+  },
+  {
+   "cmd": "issue reopen",
+   "flags": [
+    "comment",
+    "repo"
+   ],
+   "desc": "Reopen issue"
+  },
+  {
+   "cmd": "issue status",
+   "flags": [
+    "jq",
+    "json",
+    "repo",
+    "template"
+   ],
+   "desc": "Show status of relevant issues"
+  },
+  {
+   "cmd": "issue transfer",
+   "flags": [
+    "repo"
+   ],
+   "desc": "Transfer issue to another repository"
+  },
+  {
+   "cmd": "issue unlock",
+   "flags": [
+    "repo"
+   ],
+   "desc": "Unlock issue conversation"
+  },
+  {
+   "cmd": "issue unpin",
+   "flags": [
+    "repo"
+   ],
+   "desc": "Unpin a issue"
+  },
+  {
+   "cmd": "issue view",
+   "flags": [
+    "comments",
+    "jq",
+    "json",
+    "repo",
+    "template",
+    "web"
+   ],
+   "desc": "View an issue"
+  },
+  {
+   "cmd": "label clone",
+   "flags": [
+    "force",
+    "repo"
+   ],
+   "desc": "Clones labels from one repository to another"
+  },
+  {
+   "cmd": "label create",
+   "flags": [
+    "color",
+    "description",
+    "force",
+    "repo"
+   ],
+   "desc": "Create a new label"
+  },
+  {
+   "cmd": "label delete",
+   "flags": [
+    "repo",
+    "yes"
+   ],
+   "desc": "Delete a label from a repository"
+  },
+  {
+   "cmd": "label edit",
+   "flags": [
+    "color",
+    "description",
+    "name",
+    "repo"
+   ],
+   "desc": "Edit a label"
+  },
+  {
+   "cmd": "label list",
+   "flags": [
+    "jq",
+    "json",
+    "limit",
+    "order",
+    "repo",
+    "search",
+    "sort",
+    "template",
+    "web"
+   ],
+   "desc": "List labels in a repository"
+  },
+  {
+   "cmd": "mintty",
+   "flags": [],
+   "desc": "Information about using gh with MinTTY"
+  },
+  {
+   "cmd": "org list",
+   "flags": [
+    "limit"
+   ],
+   "desc": "List organizations for the authenticated user."
+  },
+  {
+   "cmd": "pr checkout",
+   "flags": [
+    "branch",
+    "detach",
+    "force",
+    "recurse-submodules",
+    "repo"
+   ],
+   "desc": "Check out a pull request in git"
+  },
+  {
+   "cmd": "pr checks",
+   "flags": [
+    "fail-fast",
+    "interval",
+    "repo",
+    "required",
+    "watch",
+    "web"
+   ],
+   "desc": "Show CI status for a single pull request"
+  },
+  {
+   "cmd": "pr close",
+   "flags": [
+    "comment",
+    "delete-branch",
+    "repo"
+   ],
+   "desc": "Close a pull request"
+  },
+  {
+   "cmd": "pr comment",
+   "flags": [
+    "body",
+    "body-file",
+    "edit-last",
+    "editor",
+    "repo",
+    "web"
+   ],
+   "desc": "Add a comment to a pull request"
+  },
+  {
+   "cmd": "pr create",
+   "flags": [
+    "assignee",
+    "base",
+    "body",
+    "body-file",
+    "draft",
+    "fill",
+    "fill-first",
+    "fill-verbose",
+    "head",
+    "label",
+    "milestone",
+    "no-maintainer-edit",
+    "project",
+    "recover",
+    "repo",
+    "reviewer",
+    "template",
+    "title",
+    "web"
+   ],
+   "desc": "Create a pull request"
+  },
+  {
+   "cmd": "pr diff",
+   "flags": [
+    "color",
+    "name-only",
+    "patch",
+    "repo",
+    "web"
+   ],
+   "desc": "View changes in a pull request"
+  },
+  {
+   "cmd": "pr edit",
+   "flags": [
+    "add-assignee",
+    "add-label",
+    "add-project",
+    "add-reviewer",
+    "base",
+    "body",
+    "body-file",
+    "milestone",
+    "remove-assignee",
+    "remove-label",
+    "remove-project",
+    "remove-reviewer",
+    "repo",
+    "title"
+   ],
+   "desc": "Edit a pull request"
+  },
+  {
+   "cmd": "pr list",
+   "flags": [
+    "app",
+    "assignee",
+    "author",
+    "base",
+    "draft",
+    "head",
+    "jq",
+    "json",
+    "label",
+    "limit",
+    "repo",
+    "search",
+    "state",
+    "template",
+    "web"
+   ],
+   "desc": "List pull requests in a repository"
+  },
+  {
+   "cmd": "pr lock",
+   "flags": [
+    "reason",
+    "repo"
+   ],
+   "desc": "Lock pull request conversation"
+  },
+  {
+   "cmd": "pr merge",
+   "flags": [
+    "admin",
+    "author-email",
+    "auto",
+    "body",
+    "body-file",
+    "delete-branch",
+    "disable-auto",
+    "match-head-commit",
+    "merge",
+    "rebase",
+    "repo",
+    "squash",
+    "subject"
+   ],
+   "desc": "Merge a pull request"
+  },
+  {
+   "cmd": "pr ready",
+   "flags": [
+    "repo",
+    "undo"
+   ],
+   "desc": "Mark a pull request as ready for review"
+  },
+  {
+   "cmd": "pr reopen",
+   "flags": [
+    "comment",
+    "repo"
+   ],
+   "desc": "Reopen a pull request"
+  },
+  {
+   "cmd": "pr review",
+   "flags": [
+    "approve",
+    "body",
+    "body-file",
+    "comment",
+    "repo",
+    "request-changes"
+   ],
+   "desc": "Add a review to a pull request"
+  },
+  {
+   "cmd": "pr status",
+   "flags": [
+    "conflict-status",
+    "jq",
+    "json",
+    "repo",
+    "template"
+   ],
+   "desc": "Show status of relevant pull requests"
+  },
+  {
+   "cmd": "pr unlock",
+   "flags": [
+    "repo"
+   ],
+   "desc": "Unlock pull request conversation"
+  },
+  {
+   "cmd": "pr view",
+   "flags": [
+    "comments",
+    "jq",
+    "json",
+    "repo",
+    "template",
+    "web"
+   ],
+   "desc": "View a pull request"
+  },
+  {
+   "cmd": "project close",
+   "flags": [
+    "format",
+    "jq",
+    "owner",
+    "template",
+    "undo"
+   ],
+   "desc": "Close a project"
+  },
+  {
+   "cmd": "project copy",
+   "flags": [
+    "drafts",
+    "format",
+    "jq",
+    "source-owner",
+    "target-owner",
+    "template",
+    "title"
+   ],
+   "desc": "Copy a project"
+  },
+  {
+   "cmd": "project create",
+   "flags": [
+    "format",
+    "jq",
+    "owner",
+    "template",
+    "title"
+   ],
+   "desc": "Create a project"
+  },
+  {
+   "cmd": "project delete",
+   "flags": [
+    "format",
+    "jq",
+    "owner",
+    "template"
+   ],
+   "desc": "Delete a project"
+  },
+  {
+   "cmd": "project edit",
+   "flags": [
+    "description",
+    "format",
+    "jq",
+    "owner",
+    "readme",
+    "template",
+    "title",
+    "visibility"
+   ],
+   "desc": "Edit a project"
+  },
+  {
+   "cmd": "project field-list",
+   "flags": [
+    "format",
+    "jq",
+    "limit",
+    "owner",
+    "template"
+   ],
+   "desc": "List the fields in a project"
+  },
+  {
+   "cmd": "project item-add",
+   "flags": [
+    "format",
+    "jq",
+    "owner",
+    "template",
+    "url"
+   ],
+   "desc": "Add a pull request or an issue to a project"
+  },
+  {
+   "cmd": "project item-edit",
+   "flags": [
+    "body",
+    "clear",
+    "date",
+    "field-id",
+    "format",
+    "id",
+    "iteration-id",
+    "jq",
+    "number",
+    "project-id",
+    "single-select-option-id",
+    "template",
+    "text",
+    "title"
+   ],
+   "desc": "Edit an item in a project"
+  },
+  {
+   "cmd": "project item-list",
+   "flags": [
+    "format",
+    "jq",
+    "limit",
+    "owner",
+    "template"
+   ],
+   "desc": "List the items in a project"
+  },
+  {
+   "cmd": "project link",
+   "flags": [
+    "owner",
+    "repo",
+    "team"
+   ],
+   "desc": "Link a project to a repository or a team"
+  },
+  {
+   "cmd": "project list",
+   "flags": [
+    "closed",
+    "format",
+    "jq",
+    "limit",
+    "owner",
+    "template",
+    "web"
+   ],
+   "desc": "List the projects for an owner"
+  },
+  {
+   "cmd": "project unlink",
+   "flags": [
+    "owner",
+    "repo",
+    "team"
+   ],
+   "desc": "Unlink a project from a repository or a team"
+  },
+  {
+   "cmd": "project view",
+   "flags": [
+    "format",
+    "jq",
+    "owner",
+    "template",
+    "web"
+   ],
+   "desc": "View a project"
+  },
+  {
+   "cmd": "reference",
+   "flags": [
+    "add",
+    "add-assignee",
+    "add-label",
+    "add-project",
+    "add-readme",
+    "add-reviewer",
+    "add-topic",
+    "admin",
+    "all",
+    "allow-forking",
+    "allow-update-branch",
+    "allow-write",
+    "app",
+    "approve",
+    "archive",
+    "archived",
+    "assignee",
+    "attempt",
+    "author",
+    "author-date",
+    "author-email",
+    "author-name",
+    "auto",
+    "base",
+    "body",
+    "body-file",
+    "branch",
+    "branch-repo",
+    "cache",
+    "checkout",
+    "checks",
+    "cleanup-tag",
+    "clear",
+    "clobber",
+    "clone",
+    "closed",
+    "codespace",
+    "color",
+    "comment",
+    "commenter",
+    "comments",
+    "commit",
+    "committer",
+    "committer-date",
+    "committer-email",
+    "committer-name",
+    "config",
+    "conflict-status",
+    "created",
+    "data-type",
+    "date",
+    "days",
+    "debug",
+    "debug-file",
+    "default",
+    "default-branch",
+    "default-branch-only",
+    "default-permissions",
+    "delete-branch",
+    "delete-branch-on-merge",
+    "desc",
+    "description",
+    "detach",
+    "devcontainer-path",
+    "dir",
+    "disable-auto",
+    "disable-issues",
+    "disable-wiki",
+    "discussion-category",
+    "display-name",
+    "draft",
+    "drafts",
+    "dry-run",
+    "edit-last",
+    "editor",
+    "enable-auto-merge",
+    "enable-discussions",
+    "enable-issues",
+    "enable-merge-commit",
+    "enable-projects",
+    "enable-rebase-merge",
+    "enable-squash-merge",
+    "enable-wiki",
+    "env",
+    "env-file",
+    "event",
+    "exclude",
+    "exclude-drafts",
+    "exclude-pre-releases",
+    "exit-status",
+    "expand",
+    "extension",
+    "fail-fast",
+    "failed",
+    "field",
+    "field-id",
+    "filename",
+    "files",
+    "fill",
+    "fill-first",
+    "fill-verbose",
+    "follow",
+    "followers",
+    "force",
+    "fork",
+    "fork-name",
+    "forks",
+    "format",
+    "full",
+    "generate-notes",
+    "git-protocol",
+    "gitignore",
+    "good-first-issues",
+    "hash",
+    "head",
+    "header",
+    "help-wanted-issues",
+    "homepage",
+    "host",
+    "hostname",
+    "id",
+    "idle-timeout",
+    "include",
+    "include-all-branches",
+    "include-forks",
+    "include-prs",
+    "input",
+    "insecure-storage",
+    "insiders",
+    "interactions",
+    "internal",
+    "interval",
+    "involves",
+    "iteration-id",
+    "job",
+    "jq",
+    "json",
+    "key",
+    "label",
+    "language",
+    "latest",
+    "license",
+    "limit",
+    "list",
+    "location",
+    "locked",
+    "log",
+    "log-failed",
+    "machine",
+    "match",
+    "match-head-commit",
+    "mention",
+    "mentions",
+    "merge",
+    "merged",
+    "merged-at",
+    "method",
+    "milestone",
+    "name",
+    "name-only",
+    "no-archived",
+    "no-assignee",
+    "no-browser",
+    "no-label",
+    "no-maintainer-edit",
+    "no-milestone",
+    "no-project",
+    "no-store",
+    "notes",
+    "notes-file",
+    "notes-from-tag",
+    "notes-start-tag",
+    "number",
+    "number-topics",
+    "order",
+    "org",
+    "output",
+    "owner",
+    "paginate",
+    "parent",
+    "parents",
+    "patch",
+    "pattern",
+    "pin",
+    "precompiled",
+    "prerelease",
+    "preview",
+    "private",
+    "profile",
+    "project",
+    "project-id",
+    "projects",
+    "public",
+    "push",
+    "raw",
+    "raw-field",
+    "reactions",
+    "readme",
+    "reason",
+    "rebase",
+    "recover",
+    "recurse-submodules",
+    "recursive",
+    "ref",
+    "releases",
+    "remote",
+    "remote-name",
+    "remove",
+    "remove-assignee",
+    "remove-label",
+    "remove-project",
+    "remove-reviewer",
+    "remove-scopes",
+    "remove-topic",
+    "repo",
+    "repo-owner",
+    "repos",
+    "request-changes",
+    "required",
+    "reset-scopes",
+    "retention-period",
+    "review",
+    "review-requested",
+    "reviewed-by",
+    "reviewer",
+    "scopes",
+    "search",
+    "secret",
+    "server-port",
+    "settings",
+    "shell",
+    "show-token",
+    "silent",
+    "single-column",
+    "single-select-option-id",
+    "single-select-options",
+    "size",
+    "skip-existing",
+    "sort",
+    "source",
+    "source-owner",
+    "squash",
+    "stars",
+    "state",
+    "status",
+    "subject",
+    "tag",
+    "target",
+    "target-owner",
+    "team",
+    "team-mentions",
+    "template",
+    "text",
+    "title",
+    "topic",
+    "tree",
+    "type",
+    "undo",
+    "unset",
+    "updated",
+    "upstream-remote-name",
+    "url",
+    "user",
+    "verbose",
+    "verify-tag",
+    "view",
+    "visibility",
+    "watch",
+    "web",
+    "wiki",
+    "with-token",
+    "workflow",
+    "yaml",
+    "yes"
+   ],
+   "desc": "A comprehensive reference of all gh commands"
+  },
+  {
+   "cmd": "release create",
+   "flags": [
+    "discussion-category",
+    "draft",
+    "generate-notes",
+    "latest",
+    "notes",
+    "notes-file",
+    "notes-from-tag",
+    "notes-start-tag",
+    "prerelease",
+    "repo",
+    "tags",
+    "target",
+    "title",
+    "verify-tag"
+   ],
+   "desc": "Create a new release"
+  },
+  {
+   "cmd": "release delete",
+   "flags": [
+    "cleanup-tag",
+    "repo",
+    "yes"
+   ],
+   "desc": "Delete a release"
+  },
+  {
+   "cmd": "release download",
+   "flags": [
+    "archive",
+    "clobber",
+    "dir",
+    "output",
+    "pattern",
+    "repo",
+    "skip-existing"
+   ],
+   "desc": "Download release assets"
+  },
+  {
+   "cmd": "release edit",
+   "flags": [
+    "discussion-category",
+    "draft",
+    "latest",
+    "notes",
+    "notes-file",
+    "prerelease",
+    "repo",
+    "tag",
+    "target",
+    "title",
+    "verify-tag"
+   ],
+   "desc": "Edit a release"
+  },
+  {
+   "cmd": "release list",
+   "flags": [
+    "exclude-drafts",
+    "exclude-pre-releases",
+    "jq",
+    "json",
+    "limit",
+    "order",
+    "repo",
+    "template"
+   ],
+   "desc": "List releases in a repository"
+  },
+  {
+   "cmd": "release upload",
+   "flags": [
+    "clobber",
+    "repo"
+   ],
+   "desc": "Upload assets to a release"
+  },
+  {
+   "cmd": "release view",
+   "flags": [
+    "jq",
+    "json",
+    "repo",
+    "template",
+    "web"
+   ],
+   "desc": "View information about a release"
+  },
+  {
+   "cmd": "repo archive",
+   "flags": [
+    "yes"
+   ],
+   "desc": "Archive a repository"
+  },
+  {
+   "cmd": "repo clone",
+   "flags": [
+    "upstream-remote-name"
+   ],
+   "desc": "Clone a repository locally"
+  },
+  {
+   "cmd": "repo create",
+   "flags": [
+    "add-readme",
+    "clone",
+    "description",
+    "disable-issues",
+    "disable-wiki",
+    "gitignore",
+    "homepage",
+    "include-all-branches",
+    "internal",
+    "license",
+    "private",
+    "public",
+    "push",
+    "remote",
+    "source",
+    "team",
+    "template"
+   ],
+   "desc": "Create a new repository"
+  },
+  {
+   "cmd": "repo delete",
+   "flags": [
+    "yes"
+   ],
+   "desc": "Delete a repository"
+  },
+  {
+   "cmd": "repo deploy-key add",
+   "flags": [
+    "allow-write",
+    "repo",
+    "title"
+   ],
+   "desc": "Add a deploy key to a GitHub repository"
+  },
+  {
+   "cmd": "repo deploy-key delete",
+   "flags": [
+    "repo"
+   ],
+   "desc": "Delete a deploy key from a GitHub repository"
+  },
+  {
+   "cmd": "repo deploy-key list",
+   "flags": [
+    "jq",
+    "json",
+    "repo",
+    "template"
+   ],
+   "desc": "List deploy keys in a GitHub repository"
+  },
+  {
+   "cmd": "repo edit",
+   "flags": [
+    "add-topic",
+    "allow-forking",
+    "allow-update-branch",
+    "default-branch",
+    "delete-branch-on-merge",
+    "description",
+    "enable-auto-merge",
+    "enable-discussions",
+    "enable-issues",
+    "enable-merge-commit",
+    "enable-projects",
+    "enable-rebase-merge",
+    "enable-squash-merge",
+    "enable-wiki",
+    "homepage",
+    "remove-topic",
+    "template",
+    "visibility"
+   ],
+   "desc": "Edit repository settings"
+  },
+  {
+   "cmd": "repo fork",
+   "flags": [
+    "clone",
+    "default-branch-only",
+    "fork-name",
+    "org",
+    "remote",
+    "remote-name"
+   ],
+   "desc": "Create a fork of a repository"
+  },
+  {
+   "cmd": "repo list",
+   "flags": [
+    "archived",
+    "fork",
+    "jq",
+    "json",
+    "language",
+    "limit",
+    "no-archived",
+    "source",
+    "template",
+    "topic",
+    "visibility"
+   ],
+   "desc": "List repositories owned by user or organization"
+  },
+  {
+   "cmd": "repo rename",
+   "flags": [
+    "repo",
+    "yes"
+   ],
+   "desc": "Rename a repository"
+  },
+  {
+   "cmd": "repo sync",
+   "flags": [
+    "branch",
+    "force",
+    "source"
+   ],
+   "desc": "Sync a repository"
+  },
+  {
+   "cmd": "repo unarchive",
+   "flags": [
+    "yes"
+   ],
+   "desc": "Unarchive a repository"
+  },
+  {
+   "cmd": "repo view",
+   "flags": [
+    "branch",
+    "jq",
+    "json",
+    "template",
+    "web"
+   ],
+   "desc": "View a repository"
+  },
+  {
+   "cmd": "ruleset check",
+   "flags": [
+    "default",
+    "org",
+    "repo",
+    "web"
+   ],
+   "desc": "View rules that would apply to a given branch"
+  },
+  {
+   "cmd": "ruleset list",
+   "flags": [
+    "limit",
+    "org",
+    "parents",
+    "repo",
+    "web"
+   ],
+   "desc": "List rulesets for a repository or organization"
+  },
+  {
+   "cmd": "ruleset view",
+   "flags": [
+    "no-parents",
+    "org",
+    "parents",
+    "repo",
+    "web"
+   ],
+   "desc": "View information about a ruleset"
+  },
+  {
+   "cmd": "run cancel",
+   "flags": [
+    "repo"
+   ],
+   "desc": "Cancel a workflow run"
+  },
+  {
+   "cmd": "run delete",
+   "flags": [
+    "repo"
+   ],
+   "desc": "Delete a workflow run"
+  },
+  {
+   "cmd": "run download",
+   "flags": [
+    "dir",
+    "name",
+    "pattern",
+    "repo"
+   ],
+   "desc": "Download artifacts generated by a workflow run"
+  },
+  {
+   "cmd": "run list",
+   "flags": [
+    "branch",
+    "commit",
+    "created",
+    "event",
+    "jq",
+    "json",
+    "limit",
+    "repo",
+    "status",
+    "template",
+    "user",
+    "workflow"
+   ],
+   "desc": "List recent workflow runs"
+  },
+  {
+   "cmd": "run rerun",
+   "flags": [
+    "debug",
+    "failed",
+    "job",
+    "jq",
+    "json",
+    "repo"
+   ],
+   "desc": "Rerun a run"
+  },
+  {
+   "cmd": "run view",
+   "flags": [
+    "attempt",
+    "exit-status",
+    "job",
+    "jq",
+    "json",
+    "log",
+    "log-failed",
+    "repo",
+    "template",
+    "verbose",
+    "web"
+   ],
+   "desc": "View a summary of a workflow run"
+  },
+  {
+   "cmd": "run watch",
+   "flags": [
+    "exit-status",
+    "interval",
+    "repo"
+   ],
+   "desc": "Watch a run until it completes, showing its progress"
+  },
+  {
+   "cmd": "search code",
+   "flags": [
+    "extension",
+    "filename",
+    "jq",
+    "json",
+    "language",
+    "limit",
+    "match",
+    "owner",
+    "repo",
+    "size",
+    "template",
+    "web"
+   ],
+   "desc": "Search within code"
+  },
+  {
+   "cmd": "search commits",
+   "flags": [
+    "author",
+    "author-date",
+    "author-email",
+    "author-name",
+    "committer",
+    "committer-date",
+    "committer-email",
+    "committer-name",
+    "hash",
+    "jq",
+    "json",
+    "limit",
+    "merge",
+    "order",
+    "owner",
+    "parent",
+    "repo",
+    "sort",
+    "template",
+    "tree",
+    "visibility",
+    "web"
+   ],
+   "desc": "Search for commits"
+  },
+  {
+   "cmd": "search issues",
+   "flags": [
+    "app",
+    "archived",
+    "assignee",
+    "author",
+    "closed",
+    "commenter",
+    "comments",
+    "created",
+    "include-prs",
+    "interactions",
+    "involves",
+    "jq",
+    "json",
+    "label",
+    "language",
+    "limit",
+    "locked",
+    "match",
+    "mentions",
+    "milestone",
+    "no-assignee",
+    "no-label",
+    "no-milestone",
+    "no-project",
+    "order",
+    "owner",
+    "project",
+    "reactions",
+    "repo",
+    "sort",
+    "state",
+    "team-mentions",
+    "template",
+    "updated",
+    "visibility",
+    "web"
+   ],
+   "desc": "Search for issues"
+  },
+  {
+   "cmd": "search prs",
+   "flags": [
+    "app",
+    "archived",
+    "assignee",
+    "author",
+    "base",
+    "checks",
+    "closed",
+    "commenter",
+    "comments",
+    "created",
+    "draft",
+    "head",
+    "interactions",
+    "involves",
+    "jq",
+    "json",
+    "label",
+    "language",
+    "limit",
+    "locked",
+    "match",
+    "mentions",
+    "merged",
+    "merged-at",
+    "milestone",
+    "no-assignee",
+    "no-label",
+    "no-milestone",
+    "no-project",
+    "order",
+    "owner",
+    "project",
+    "reactions",
+    "repo",
+    "review",
+    "review-requested",
+    "reviewed-by",
+    "sort",
+    "state",
+    "team-mentions",
+    "template",
+    "updated",
+    "visibility",
+    "web"
+   ],
+   "desc": "Search for pull requests"
+  },
+  {
+   "cmd": "search repos",
+   "flags": [
+    "archived",
+    "created",
+    "followers",
+    "forks",
+    "good-first-issues",
+    "help-wanted-issues",
+    "include-forks",
+    "jq",
+    "json",
+    "language",
+    "license",
+    "limit",
+    "match",
+    "number-topics",
+    "order",
+    "owner",
+    "size",
+    "sort",
+    "stars",
+    "template",
+    "topic",
+    "updated",
+    "visibility",
+    "web"
+   ],
+   "desc": "Search for repositories"
+  },
+  {
+   "cmd": "secret delete",
+   "flags": [
+    "app",
+    "env",
+    "org",
+    "repo",
+    "user"
+   ],
+   "desc": "Delete secrets"
+  },
+  {
+   "cmd": "secret list",
+   "flags": [
+    "app",
+    "env",
+    "jq",
+    "json",
+    "org",
+    "repo",
+    "template",
+    "user"
+   ],
+   "desc": "List secrets"
+  },
+  {
+   "cmd": "secret set",
+   "flags": [
+    "app",
+    "body",
+    "env",
+    "env-file",
+    "no-store",
+    "org",
+    "repo",
+    "repos",
+    "user",
+    "visibility"
+   ],
+   "desc": "Create or update secrets"
+  },
+  {
+   "cmd": "ssh-key add",
+   "flags": [
+    "title",
+    "type"
+   ],
+   "desc": "Add an SSH key to your GitHub account"
+  },
+  {
+   "cmd": "ssh-key delete",
+   "flags": [
+    "yes"
+   ],
+   "desc": "Delete an SSH key from your GitHub account"
+  },
+  {
+   "cmd": "ssh-key list",
+   "flags": [],
+   "desc": "Lists SSH keys in your GitHub account"
+  },
+  {
+   "cmd": "status",
+   "flags": [
+    "exclude",
+    "org"
+   ],
+   "desc": "Print information about relevant issues, pull requests, and notifications across repositories"
+  },
+  {
+   "cmd": "variable delete",
+   "flags": [
+    "env",
+    "org",
+    "repo"
+   ],
+   "desc": "Delete variables"
+  },
+  {
+   "cmd": "variable list",
+   "flags": [
+    "env",
+    "jq",
+    "json",
+    "org",
+    "repo",
+    "template"
+   ],
+   "desc": "List variables"
+  },
+  {
+   "cmd": "variable set",
+   "flags": [
+    "body",
+    "env",
+    "env-file",
+    "org",
+    "repo",
+    "repos",
+    "visibility"
+   ],
+   "desc": "Create or update variables"
+  },
+  {
+   "cmd": "workflow disable",
+   "flags": [
+    "repo"
+   ],
+   "desc": "Disable a workflow"
+  },
+  {
+   "cmd": "workflow enable",
+   "flags": [
+    "repo"
+   ],
+   "desc": "Enable a workflow"
+  },
+  {
+   "cmd": "workflow list",
+   "flags": [
+    "all",
+    "jq",
+    "json",
+    "limit",
+    "repo",
+    "template"
+   ],
+   "desc": "List workflows"
+  },
+  {
+   "cmd": "workflow run",
+   "flags": [
+    "field",
+    "json",
+    "raw-field",
+    "ref",
+    "repo"
+   ],
+   "desc": "Run a workflow by creating a workflow_dispatch event"
+  },
+  {
+   "cmd": "workflow view",
+   "flags": [
+    "ref",
+    "repo",
+    "web",
+    "yaml"
+   ],
+   "desc": "View the summary of a workflow"
+  }
+ ]
+}

@@ -1,0 +1,247 @@
+{
+	"_source": "AR4 (auto-routing blueprint 2026-10-25, section 4.3 and the AR4 row). 30 recorded lane briefs from plans/orchestration-2026-10-05/handoffs/msgs, taken from rows of plans/lane-outcomes.tsv whose class is recorded. `paths` and `flags` were read from each brief by hand once, as the blueprint's acceptance requires; `class` is the row's recorded class and is the expected value.",
+	"_reading": "`paths` is each entry of the brief's 'Owned paths' line, reduced to one path per entry. `flags` holds only what the brief itself states: `perf` where the brief names class H5 performance, `causeUnknown` where it names class H2 with unknown cause, `retry` where it says the lane is a later attempt, `readsOnly` where it says research read and touch no other file. A brief that names a class in prose but no condition the rules read keeps the recorded class as a miss: that is the measurement.",
+	"_project": "The outcomes row's project column, which is the key into routing.kindRules.",
+	"briefs": [
+		{
+			"lane": "coretools-fix",
+			"brief": "lane-prompt-coretools-fix-2234.md",
+			"project": "be",
+			"class": "flash",
+			"paths": ["__tests__/lib/ai/core-tools.test.ts"],
+			"flags": {}
+		},
+		{
+			"lane": "fmig",
+			"brief": "lane-prompt-fmig-2248.md",
+			"project": "be",
+			"class": "flash",
+			"paths": ["vercel.json"],
+			"flags": {}
+		},
+		{
+			"lane": "radarres",
+			"brief": "lane-prompt-radarres-2336.md",
+			"project": "be",
+			"class": "flash",
+			"paths": ["ops/radar/systemd/broker-radar.service", "apps/market-radar/README.md", "ops/radar/run-broker-radar.sh"],
+			"flags": {}
+		},
+		{
+			"lane": "eacoll",
+			"brief": "lane-prompt-eacoll-0019.md",
+			"project": "be",
+			"class": "flash",
+			"paths": ["docs/qa/ea-import-business-code-collisions-2026-10-21.md"],
+			"flags": {}
+		},
+		{
+			"lane": "eac1",
+			"brief": "lane-prompt-eac1-0058.md",
+			"project": "be",
+			"class": "H3",
+			"paths": ["lib/projections/website-dispatch.ts", "__tests__/projections/website-dispatch.test.ts"],
+			"flags": {}
+		},
+		{
+			"lane": "seedowner",
+			"brief": "lane-prompt-seedowner-0154.md",
+			"project": "be",
+			"class": "flash",
+			"paths": ["scripts/seed-preview-synthetic.ts", "__tests__/scripts/seed-preview-synthetic.test.ts"],
+			"flags": {}
+		},
+		{
+			"lane": "seedfix",
+			"brief": "lane-prompt-seedfix-0332.md",
+			"project": "be",
+			"class": "flash",
+			"paths": ["scripts/seed-preview-synthetic.ts", "__tests__/scripts/seed-preview-synthetic.test.ts"],
+			"flags": {}
+		},
+		{
+			"lane": "pf3c",
+			"brief": "lane-prompt-pf3c-0403.md",
+			"project": "be",
+			"class": "H5",
+			"paths": ["components/workspace/RecordShell.tsx", "next.config.mjs", "docs/qa/pf3c-script-cost-2026-10-21.md"],
+			"flags": { "perf": true }
+		},
+		{
+			"lane": "pf3a",
+			"brief": "lane-prompt-pf3a-0245.md",
+			"project": "be",
+			"class": "H5",
+			"paths": ["app/properties/[id]/page.tsx", "components/workspace/RecordShell.tsx", "components/assistant/MemoryTab.tsx"],
+			"flags": { "perf": true }
+		},
+		{
+			"lane": "pf3b",
+			"brief": "lane-prompt-pf3b-0301.md",
+			"project": "be",
+			"class": "H5",
+			"paths": ["components/workspace/TodayOverview.tsx", "components/workspace/TodayData.tsx", "app/layout.tsx"],
+			"flags": { "perf": true }
+		},
+		{
+			"lane": "fonts",
+			"brief": "lane-prompt-fonts-0524.md",
+			"project": "be",
+			"class": "H5",
+			"paths": ["app/layout.tsx", "app/material-symbols.css"],
+			"flags": { "perf": true }
+		},
+		{
+			"lane": "pf3m",
+			"brief": "lane-prompt-pf3m-0526.md",
+			"project": "be",
+			"class": "H5",
+			"paths": ["docs/qa/pf3m-final-measure-2026-10-21.md", "e2e/perf/pf3m-measure.ts"],
+			"flags": { "perf": true }
+		},
+		{
+			"lane": "l1today",
+			"brief": "lane-prompt-l1today-0602.md",
+			"project": "be",
+			"class": "H2",
+			"paths": ["docs/qa/l1-today-warm-regression-2026-10-21.md", "e2e/perf/l1-warm-regression.ts"],
+			"flags": { "causeUnknown": true }
+		},
+		{
+			"lane": "l2hyd",
+			"brief": "lane-prompt-l2hyd-0702.md",
+			"project": "be",
+			"class": "H5",
+			"paths": ["e2e/perf/driver.ts", "docs/qa/l2-today-hydration-2026-10-21.md"],
+			"flags": { "perf": true }
+		},
+		{
+			"lane": "d3chunks",
+			"brief": "lane-prompt-d3chunks-0804.md",
+			"project": "be",
+			"class": "H3",
+			"paths": ["app/layout.tsx", "components/workspace/DeferredSurfaces.tsx", "components/monitor/ReviewDraftProvider.tsx"],
+			"flags": {}
+		},
+		{
+			"lane": "d3chunks3",
+			"brief": "lane-prompt-d3chunks3-1144.md",
+			"project": "be",
+			"class": "H3",
+			"paths": ["app/layout.tsx", "components/workspace/DeferredSurfaces.tsx", "components/monitor/ReviewDraftProvider.tsx"],
+			"flags": { "retry": true }
+		},
+		{
+			"lane": "rc1fix",
+			"brief": "lane-prompt-rc1fix-1325.md",
+			"project": "be",
+			"class": "H3",
+			"paths": ["lib/registers/locate.ts", "lib/registers/questions.ts", "lib/registers/check.ts", "components/properties/PropertyRegisterPanel.tsx"],
+			"flags": {}
+		},
+		{
+			"lane": "pf3m3",
+			"brief": "lane-prompt-pf3m3-1347.md",
+			"project": "be",
+			"class": "H5",
+			"paths": ["docs/qa/pf3m3-d3-gate-2026-10-21.md", "e2e/perf/pf3m3-gate.ts"],
+			"flags": { "retry": true, "perf": true }
+		},
+		{
+			"lane": "clientguard",
+			"brief": "lane-prompt-clientguard-1350.md",
+			"project": "be",
+			"class": "H3",
+			"paths": ["__tests__/guards/client-closure-server-modules.test.ts", "__tests__/guards/static-imports.ts", "lib/registers/locate.ts", "lib/marketing/links.ts"],
+			"flags": {}
+		},
+		{
+			"lane": "bytes",
+			"brief": "lane-prompt-bytes-1558.md",
+			"project": "be",
+			"class": "H5",
+			"paths": ["docs/qa/bytes-per-query-2026-10-21.md", "e2e/perf/bytes-per-query.ts"],
+			"flags": { "perf": true }
+		},
+		{
+			"lane": "portals",
+			"brief": "lane-prompt-portals-1600.md",
+			"project": "be",
+			"class": "flash",
+			"paths": ["docs/qa/portals-dry-verification-2026-10-21.md", "scripts/qa/portals-feed-check.ts"],
+			"flags": {}
+		},
+		{
+			"lane": "rc1qa",
+			"brief": "lane-prompt-rc1qa-1550.md",
+			"project": "be",
+			"class": "flash",
+			"paths": ["docs/qa/rc1-register-check-local-2026-10-21.md", "e2e/qa/rc1-screens.ts"],
+			"flags": {}
+		},
+		{
+			"lane": "resb",
+			"brief": "lane-prompt-resb-1737.md",
+			"project": "research",
+			"class": "flash",
+			"paths": ["~/research/ea-portals-2026-10-21/portals-P-B.md"],
+			"flags": { "readsOnly": true }
+		},
+		{
+			"lane": "bytesfix",
+			"brief": "lane-prompt-bytesfix-1640.md",
+			"project": "be",
+			"class": "H3",
+			"paths": ["lib/deals/portfolio-snapshot.ts", "lib/deals/flow.ts", "lib/deals/service.ts"],
+			"flags": {}
+		},
+		{
+			"lane": "kaisdup",
+			"brief": "lane-prompt-kaisdup-1859.md",
+			"project": "be",
+			"class": "H4",
+			"paths": ["lib/registers/sources/kais.ts", "__tests__/lib/registers/kais.test.ts", "docs/qa/kais-unit-ids-2026-10-21.md"],
+			"flags": {}
+		},
+		{
+			"lane": "regpdf",
+			"brief": "lane-prompt-regpdf-1859.md",
+			"project": "be",
+			"class": "H4",
+			"paths": ["lib/registers/check.ts", "lib/pdf/register-check-pdf.ts", "components/properties/PropertyRegisterPanel.tsx", "app/api/properties/[id]/register-check/route.ts"],
+			"flags": {}
+		},
+		{
+			"lane": "kaisload",
+			"brief": "lane-prompt-kaisload-1859.md",
+			"project": "be",
+			"class": "flash",
+			"paths": ["lib/registers/sources/kais.ts", "__tests__/lib/registers/kais-load.test.ts", "docs/qa/kais-coverage-2026-10-21.md"],
+			"flags": {}
+		},
+		{
+			"lane": "sheet",
+			"brief": "lane-prompt-sheet-1859.md",
+			"project": "be",
+			"class": "flash",
+			"paths": ["components/assistant/AssistantDock.tsx", "__tests__/components/AssistantDock.test.tsx"],
+			"flags": {}
+		},
+		{
+			"lane": "stagesel",
+			"brief": "lane-prompt-stagesel-2101.md",
+			"project": "be",
+			"class": "H3",
+			"paths": ["lib/deals/deal-stages.ts", "lib/deals/next-step.ts", "lib/deals/next-step-read.ts"],
+			"flags": {}
+		},
+		{
+			"lane": "vf2",
+			"brief": "lane-prompt-vf2-2105.md",
+			"project": "website",
+			"class": "H1",
+			"paths": ["lib/district-page.js", "assets/js/listings.js", "assets/css/listings.css", "tests/district-page.test.js"],
+			"flags": {}
+		}
+	]
+}

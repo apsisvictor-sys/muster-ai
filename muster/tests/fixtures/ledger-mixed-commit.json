@@ -1,0 +1,187 @@
+{
+	"note": "recorded from a throwaway ledger by crp-record-fixture.mts",
+	"publications": [
+		{
+			"seq": 2,
+			"changes": [
+				{
+					"type": "entry",
+					"value": {
+						"data": {
+							"type": "STALLED",
+							"lane": "pi-lane-crp",
+							"text": "the event half",
+							"at": 1793019132372,
+							"requestId": "crp-fixture-event"
+						},
+						"kind": "muster.event",
+						"id": 8,
+						"conversationId": 1
+					}
+				},
+				{
+					"type": "document",
+					"record": {
+						"id": 7,
+						"kind": "muster.request",
+						"key": "crp-fixture-event",
+						"scope": {
+							"kind": "session"
+						},
+						"createdAt": 2
+					},
+					"version": 1,
+					"value": {
+						"eventAt": 1793019132372,
+						"result": {}
+					},
+					"ops": []
+				}
+			]
+		},
+		{
+			"seq": 3,
+			"changes": [
+				{
+					"type": "document",
+					"record": {
+						"id": 9,
+						"kind": "muster.cas",
+						"key": "lane-card:pi-lane-crp",
+						"scope": {
+							"kind": "session"
+						},
+						"createdAt": 3
+					},
+					"version": 1,
+					"value": {
+						"record": {
+							"laneId": "pi-lane-crp",
+							"state": "busy"
+						},
+						"revision": 1
+					},
+					"ops": []
+				}
+			]
+		},
+		{
+			"seq": 4,
+			"changes": [
+				{
+					"type": "document",
+					"record": {
+						"id": 10,
+						"kind": "muster.request",
+						"key": "crp-fixture-ask",
+						"scope": {
+							"kind": "session"
+						},
+						"createdAt": 4
+					},
+					"version": 1,
+					"value": {
+						"eventAt": 1793019132376,
+						"result": {
+							"count": 1
+						}
+					},
+					"ops": []
+				},
+				{
+					"type": "document",
+					"record": {
+						"id": 11,
+						"kind": "muster.ask",
+						"key": "ask-crp-fixture",
+						"scope": {
+							"kind": "session"
+						},
+						"createdAt": 4
+					},
+					"version": 1,
+					"value": {
+						"events": [
+							{
+								"v": 1,
+								"at": "2026-10-26T12:52:12.375Z",
+								"id": "ask-crp-fixture-e1",
+								"type": "raised",
+								"by": "architect",
+								"kind": "product-decision",
+								"question": "the ask half"
+							}
+						]
+					},
+					"ops": []
+				}
+			]
+		},
+		{
+			"seq": 5,
+			"changes": [
+				{
+					"type": "entry",
+					"value": {
+						"data": {
+							"type": "REVIEW READY",
+							"lane": "pi-lane-crp",
+							"text": "the mixed commit",
+							"at": 0,
+							"requestId": "crp-fixture-mixed-event"
+						},
+						"kind": "muster.event",
+						"id": 14,
+						"conversationId": 1
+					}
+				},
+				{
+					"type": "document",
+					"record": {
+						"id": 12,
+						"kind": "muster.request",
+						"key": "crp-fixture-mixed",
+						"scope": {
+							"kind": "session"
+						},
+						"createdAt": 5
+					},
+					"version": 1,
+					"value": {
+						"eventAt": 1793019132378,
+						"result": {
+							"revisions": [
+								1
+							],
+							"eventIds": [
+								"14"
+							]
+						}
+					},
+					"ops": []
+				},
+				{
+					"type": "document",
+					"record": {
+						"id": 13,
+						"kind": "muster.cas",
+						"key": "goal:CC",
+						"scope": {
+							"kind": "session"
+						},
+						"createdAt": 5
+					},
+					"version": 1,
+					"value": {
+						"record": {
+							"code": "CC",
+							"name": "Command center"
+						},
+						"revision": 1
+					},
+					"ops": []
+				}
+			]
+		}
+	]
+}

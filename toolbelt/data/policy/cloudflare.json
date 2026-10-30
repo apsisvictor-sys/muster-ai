@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "provider": "cloudflare",
+  "read": [
+    "^(zones-list|zone-get|dns-records-list|dns-record-get)(\\s|$)"
+  ],
+  "destructive": [
+    "^dns-record-delete(\\s|$)"
+  ],
+  "blocked": [],
+  "secretReturning": [],
+  "exact": {
+    "dns-record-create": "mutate",
+    "dns-record-update": "mutate"
+  }
+}

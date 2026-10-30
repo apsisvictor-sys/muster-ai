@@ -1,0 +1,1 @@
+{"schemaVersion":1,"provider":"stitch","dryRunFlag":null,"read":[],"destructive":[],"blocked":[],"secretReturning":[],"exact":{"init":"mutate","generate":"mutate","batch":"mutate"}}

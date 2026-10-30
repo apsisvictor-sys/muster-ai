@@ -1,0 +1,249 @@
+/* graphite-ui tokens
+ *
+ * Colour, glass, radius, type, spacing and motion durations.
+ * Dark values live on :root. Light values live under [data-theme="light"], and the
+ * same light block runs for a page that sets no theme while the system asks for light.
+ * The two light blocks are kept identical on purpose, and test/tokens.test.js fails
+ * if they drift apart.
+ *
+ * Every text token reads at 4.5:1 or more on the surfaces it is used on, in both
+ * themes; test/tokens.test.js holds the matrix. The tints are swatches (dots, bars),
+ * so each one also has a -text variant that is safe for the goal code text.
+ */
+
+:root {
+  /* type */
+  --font: "Segoe UI Variable Text", "Segoe UI", -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", sans-serif;
+  --mono: ui-monospace, "Cascadia Code", "SF Mono", Consolas, monospace;
+  --fs-xs: 11px;
+  --fs-s: 12px;
+  --fs-m: 13px;
+  --fs-body: 14px;
+  --fs-l: 17px;
+  --fs-xl: 26px;
+  --fs-2xl: 34px;
+  --fw-regular: 400;
+  --fw-medium: 550;
+  --fw-semibold: 650;
+  --lh: 1.45;
+
+  /* spacing */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 22px;
+  --s-6: 32px;
+  --gutter: 32px;
+
+  /* radius */
+  --r-card: 22px;
+  --r-lg: 26px;
+  --r-inner: 14px;
+  --r-chip: 6px;
+  --r-pill: 999px;
+
+  /* motion */
+  --dur-fast: 150ms;
+  --dur: 220ms;
+  --dur-slow: 460ms;
+  --dur-count: 850ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-io: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* colour, dark */
+  color-scheme: dark;
+  --ground: #0c0d0f;
+  --ground-2: #131518;
+  --wave: #1b1e22;
+  --glass: rgba(255, 255, 255, 0.045);
+  --glass-2: rgba(255, 255, 255, 0.075);
+  --glass-3: rgba(255, 255, 255, 0.11);
+  --edge: rgba(255, 255, 255, 0.08);
+  --edge-hi: rgba(255, 255, 255, 0.16);
+  --ink: #eceef1;
+  --ink-2: #b0b5bd;
+  --ink-3: #8f959e;
+  --ink-4: #5d636b;
+  --inv: #eceef1;
+  --inv-ink: #101113;
+  --inv-ink-2: #4a4e55;
+  --good: #5fd08f;
+  --bad: #f2736c;
+  --due: #f0b552;
+  --good-ink: #5fd08f;
+  --bad-ink: #f2736c;
+  --due-ink: #f0b552;
+  --chip: rgba(255, 255, 255, 0.08);
+  --track: rgba(255, 255, 255, 0.11);
+  --hatch: rgba(255, 255, 255, 0.16);
+  --sel: rgba(142, 168, 216, 0.35);
+  --tint-blue: #8ea8d8;
+  --tint-blue-text: #8ea8d8;
+  --tint-green: #95c1a2;
+  --tint-green-text: #95c1a2;
+  --tint-violet: #ae9fd8;
+  --tint-violet-text: #ae9fd8;
+  --tint-orange: #d49c7c;
+  --tint-orange-text: #d49c7c;
+  --tint-teal: #87c2bc;
+  --tint-teal-text: #87c2bc;
+  --tint-gold: #d6bf88;
+  --tint-gold-text: #d6bf88;
+  --tint-brown: #b69c85;
+  --tint-brown-text: #b69c85;
+  --tint-magenta: #d197b5;
+  --tint-magenta-text: #d197b5;
+  --tint-cyan: #92c6de;
+  --tint-cyan-text: #92c6de;
+
+  /* glass surface */
+  --blur: blur(22px) saturate(1.25);
+  --shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 18px 40px -18px rgba(0, 0, 0, 0.65);
+  --shadow-lift: 0 20px 40px -16px rgba(0, 0, 0, 0.5);
+}
+
+/* light, when the page asks for it */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --ground: #edebe7;
+  --ground-2: #e4e1dc;
+  --wave: #dcd8d2;
+  --glass: rgba(255, 255, 255, 0.58);
+  --glass-2: rgba(255, 255, 255, 0.78);
+  --glass-3: #ffffff;
+  --edge: rgba(20, 22, 26, 0.07);
+  --edge-hi: rgba(255, 255, 255, 0.9);
+  --ink: #16171a;
+  --ink-2: #474b52;
+  --ink-3: #5b5f66;
+  --ink-4: #9a9ea5;
+  --inv: #16171a;
+  --inv-ink: #f4f3f1;
+  --inv-ink-2: #b9bcc2;
+  --good: #1d9a55;
+  --bad: #d1433b;
+  --due: #8f5c00;
+  --good-ink: #12693a;
+  --bad-ink: #a83028;
+  --due-ink: #8f5c00;
+  --chip: rgba(20, 22, 26, 0.06);
+  --track: rgba(20, 22, 26, 0.1);
+  --hatch: rgba(20, 22, 26, 0.18);
+  --sel: rgba(74, 104, 166, 0.25);
+  --tint-blue: #4a68a6;
+  --tint-blue-text: #3a507c;
+  --tint-green: #4c8a60;
+  --tint-green-text: #3c684b;
+  --tint-violet: #7261a8;
+  --tint-violet-text: #564b7d;
+  --tint-orange: #a8664a;
+  --tint-orange-text: #7c4e3c;
+  --tint-teal: #3d8680;
+  --tint-teal-text: #316561;
+  --tint-gold: #92743a;
+  --tint-gold-text: #6c5830;
+  --tint-brown: #7c624c;
+  --tint-brown-text: #5d4c3d;
+  --tint-magenta: #a1557c;
+  --tint-magenta-text: #77425f;
+  --tint-cyan: #3c7d9c;
+  --tint-cyan-text: #315e75;
+  --shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset, 0 16px 36px -20px rgba(40, 36, 30, 0.28);
+  --shadow-lift: 0 20px 40px -16px rgba(40, 36, 30, 0.32);
+}
+
+/* light, when the page sets no theme and the system asks for it */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    color-scheme: light;
+    --ground: #edebe7;
+    --ground-2: #e4e1dc;
+    --wave: #dcd8d2;
+    --glass: rgba(255, 255, 255, 0.58);
+    --glass-2: rgba(255, 255, 255, 0.78);
+    --glass-3: #ffffff;
+    --edge: rgba(20, 22, 26, 0.07);
+    --edge-hi: rgba(255, 255, 255, 0.9);
+    --ink: #16171a;
+    --ink-2: #474b52;
+    --ink-3: #5b5f66;
+    --ink-4: #9a9ea5;
+    --inv: #16171a;
+    --inv-ink: #f4f3f1;
+    --inv-ink-2: #b9bcc2;
+    --good: #1d9a55;
+    --bad: #d1433b;
+    --due: #8f5c00;
+    --good-ink: #12693a;
+    --bad-ink: #a83028;
+    --due-ink: #8f5c00;
+    --chip: rgba(20, 22, 26, 0.06);
+    --track: rgba(20, 22, 26, 0.1);
+    --hatch: rgba(20, 22, 26, 0.18);
+    --sel: rgba(74, 104, 166, 0.25);
+    --tint-blue: #4a68a6;
+    --tint-blue-text: #3a507c;
+    --tint-green: #4c8a60;
+    --tint-green-text: #3c684b;
+    --tint-violet: #7261a8;
+    --tint-violet-text: #564b7d;
+    --tint-orange: #a8664a;
+    --tint-orange-text: #7c4e3c;
+    --tint-teal: #3d8680;
+    --tint-teal-text: #316561;
+    --tint-gold: #92743a;
+    --tint-gold-text: #6c5830;
+    --tint-brown: #7c624c;
+    --tint-brown-text: #5d4c3d;
+    --tint-magenta: #a1557c;
+    --tint-magenta-text: #77425f;
+    --tint-cyan: #3c7d9c;
+    --tint-cyan-text: #315e75;
+    --shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset, 0 16px 36px -20px rgba(40, 36, 30, 0.28);
+    --shadow-lift: 0 20px 40px -16px rgba(40, 36, 30, 0.32);
+  }
+}
+
+/* a reader who asks for less transparency gets solid surfaces */
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --glass: var(--ground-2);
+    --glass-2: var(--ground-2);
+    --glass-3: var(--ground-2);
+    --blur: none;
+  }
+}
+
+/* forced colours keeps every edge visible */
+@media (forced-colors: active) {
+  :root {
+    --glass: Canvas;
+    --glass-2: Canvas;
+    --glass-3: Canvas;
+    --edge: CanvasText;
+    --edge-hi: CanvasText;
+    --track: CanvasText;
+    --blur: none;
+    --shadow: none;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 1ms;
+    --dur: 1ms;
+    --dur-slow: 1ms;
+    --dur-count: 1ms;
+  }
+}

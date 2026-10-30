@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "provider": "claude-code",
+  "dryRunFlag": null,
+  "read": [],
+  "destructive": [],
+  "blocked": [],
+  "secretReturning": [
+    "^(setup-token|auth (login|logout))(\\s|$)"
+  ],
+  "exact": {
+    "agents": "read",
+    "attach": "read",
+    "auto-mode config": "read",
+    "auto-mode critique": "read",
+    "auto-mode defaults": "read",
+    "doctor": "read",
+    "gateway": "mutate",
+    "import": "mutate",
+    "install": "mutate",
+    "kill": "mutate",
+    "mcp add": "mutate",
+    "plugins autoremove": "destructive",
+    "plugins details": "read",
+    "plugins disable": "mutate",
+    "plugins enable": "mutate",
+    "plugins eval init": "mutate",
+    "plugins init": "mutate",
+    "plugins install": "mutate",
+    "plugins marketplace add": "mutate",
+    "plugins marketplace update": "mutate",
+    "plugins tag": "mutate",
+    "plugins update": "mutate",
+    "plugins validate": "read",
+    "respawn": "mutate",
+    "setup-token": "sensitive",
+    "ultrareview": "read",
+    "upgrade": "read"
+  }
+}

@@ -1,0 +1,278 @@
+{
+	"_source": "S4 (VR24-209, report O1.1): the 30 recorded briefs of the AR4 acceptance (auto-routing blueprint 2026-10-25, section 4.3 and the AR4 row). The briefs are the ones in plans/orchestration-2026-10-05/handoffs/msgs whose row in plans/lane-outcomes.tsv carries a recorded class, plus the website and research rows that keep the set at 30.",
+	"_reading": "`paths` is each brief's owned paths, read from the brief's own 'Owned paths' line once by hand and resolved against the files the lane's merged commit touched in the crm-app repo, so every path is a real path of that repo. Where the brief names a group ('their tests under __tests__/', 'the shell files that mount the three surfaces'), the files the merged commit lists are recorded. `flags` holds only what the brief itself states: `perf` where the brief states class H5 performance, `causeUnknown` where it states class H2 with an unknown cause, `retry` where it states it is a second attempt or a redo of an earlier lane, `readsOnly` where it states it touches no other file. `class` is the recorded class of the lane-outcomes row (the brief's own class statement), and it is the expected value the rate is measured against.",
+	"_project": "`project` is the project the brief works in, keyed into `routing.kindRules`. The canonical project id of the CRM app is `crm-app` (muster-projects.json). `research` and `website` have no kind patterns, so their briefs answer `unclear`: a project without patterns never guesses.",
+	"_expectedKind": "`expectedKind` is the kind the shipped table must answer for that brief. It is the measurement: a pattern that changes a brief's kind fails the test, and a change to a kind needs a recorded decision, not a silent edit.",
+	"briefs": [
+		{
+			"lane": "coretools-fix",
+			"brief": "lane-prompt-coretools-fix-2234.md",
+			"project": "crm-app",
+			"class": "flash",
+			"paths": ["__tests__/lib/ai/core-tools.test.ts"],
+			"flags": {},
+			"expectedKind": "test"
+		},
+		{
+			"lane": "fmig",
+			"brief": "lane-prompt-fmig-2248.md",
+			"project": "crm-app",
+			"class": "flash",
+			"paths": ["vercel.json"],
+			"flags": {},
+			"expectedKind": "config"
+		},
+		{
+			"lane": "radarres",
+			"brief": "lane-prompt-radarres-2336.md",
+			"project": "crm-app",
+			"class": "flash",
+			"paths": ["ops/radar/systemd/broker-radar.service", "apps/market-radar/README.md", "ops/radar/run-broker-radar.sh"],
+			"flags": {},
+			"expectedKind": "unclear"
+		},
+		{
+			"lane": "eacoll",
+			"brief": "lane-prompt-eacoll-0019.md",
+			"project": "crm-app",
+			"class": "flash",
+			"paths": ["docs/qa/ea-import-business-code-collisions-2026-10-21.md"],
+			"flags": {},
+			"expectedKind": "docs"
+		},
+		{
+			"lane": "eac1",
+			"brief": "lane-prompt-eac1-0058.md",
+			"project": "crm-app",
+			"class": "H3",
+			"paths": ["lib/projections/website-dispatch.ts", "__tests__/lib/projections/website-dispatch.test.ts"],
+			"flags": {},
+			"expectedKind": "shared-owner"
+		},
+		{
+			"lane": "seedowner",
+			"brief": "lane-prompt-seedowner-0154.md",
+			"project": "crm-app",
+			"class": "flash",
+			"paths": ["scripts/seed-preview-synthetic.ts", "__tests__/scripts/seed-preview-synthetic.test.ts"],
+			"flags": {},
+			"expectedKind": "unclear"
+		},
+		{
+			"lane": "seedfix",
+			"brief": "lane-prompt-seedfix-0332.md",
+			"project": "crm-app",
+			"class": "flash",
+			"paths": ["scripts/seed-preview-synthetic.ts", "__tests__/scripts/seed-preview-synthetic.test.ts"],
+			"flags": {},
+			"expectedKind": "unclear"
+		},
+		{
+			"lane": "pf3c",
+			"brief": "lane-prompt-pf3c-0403.md",
+			"project": "crm-app",
+			"class": "H5",
+			"paths": ["components/workspace/RecordShell.tsx", "next.config.ts", "docs/qa/pf3c-script-cost-2026-10-21.md", "e2e/perf/pf3c-trace.ts"],
+			"flags": { "perf": true },
+			"expectedKind": "perf"
+		},
+		{
+			"lane": "pf3a",
+			"brief": "lane-prompt-pf3a-0245.md",
+			"project": "crm-app",
+			"class": "H5",
+			"paths": ["app/properties/[id]/page.tsx", "components/workspace/RecordShell.tsx", "components/assistant/MemoryTab.tsx", "docs/qa/pf3a-property-record-lcp-2026-10-21.md", "e2e/perf/pf3a-html.ts"],
+			"flags": { "perf": true },
+			"expectedKind": "perf"
+		},
+		{
+			"lane": "pf3b",
+			"brief": "lane-prompt-pf3b-0301.md",
+			"project": "crm-app",
+			"class": "H5",
+			"paths": ["components/workspace/TodayOverview.tsx", "components/workspace/TodayData.tsx", "app/layout.tsx", "docs/qa/pf3b-today-lcp-2026-10-21.md"],
+			"flags": { "perf": true },
+			"expectedKind": "perf"
+		},
+		{
+			"lane": "fonts",
+			"brief": "lane-prompt-fonts-0524.md",
+			"project": "crm-app",
+			"class": "H5",
+			"paths": ["app/layout.tsx", "app/material-symbols.css", "app/fonts/material-symbols-outlined.woff2", "scripts/icon-font/used-icon-names.ts", "__tests__/guards/font-preload-budget.test.ts", "docs/qa/pf4-fonts-2026-10-21.md"],
+			"flags": { "perf": true },
+			"expectedKind": "perf"
+		},
+		{
+			"lane": "pf3m",
+			"brief": "lane-prompt-pf3m-0526.md",
+			"project": "crm-app",
+			"class": "H5",
+			"paths": ["docs/qa/pf3m-final-measure-2026-10-21.md", "e2e/perf/pf3m-breakdown.ts"],
+			"flags": { "perf": true },
+			"expectedKind": "perf"
+		},
+		{
+			"lane": "l1today",
+			"brief": "lane-prompt-l1today-0602.md",
+			"project": "crm-app",
+			"class": "H2",
+			"paths": ["docs/qa/l1-today-warm-regression-2026-10-21.md", "e2e/perf/l1-aggregate.ts", "e2e/perf/l1-today-direct.ts"],
+			"flags": { "causeUnknown": true },
+			"expectedKind": "unknown-cause-bug"
+		},
+		{
+			"lane": "l2hyd",
+			"brief": "lane-prompt-l2hyd-0702.md",
+			"project": "crm-app",
+			"class": "H5",
+			"paths": ["e2e/perf/driver.ts", "e2e/perf/l2-cpu-profile.ts", "e2e/perf/routes.ts", "docs/qa/l2-today-hydration-2026-10-21.md", "components/workspace/TodayOverview.tsx"],
+			"flags": { "perf": true },
+			"expectedKind": "perf"
+		},
+		{
+			"lane": "d3chunks",
+			"brief": "lane-prompt-d3chunks-0804.md",
+			"project": "crm-app",
+			"class": "H3",
+			"paths": ["components/AppChrome.tsx", "components/BottomNav.tsx", "components/assistant/AssistantSurfaces.tsx", "components/assistant/DeferredSurfaces.tsx", "components/assistant/AssistantVoiceProvider.tsx", "components/assistant/ReviewDraftSession.tsx", "components/monitor/ReviewDraftContext.tsx", "components/monitor/ReviewPanel.tsx", "__tests__/components/DeferredSurfaces.test.tsx", "docs/qa/d3-chunk-policy-2026-10-21.md"],
+			"flags": {},
+			"expectedKind": "shared-owner"
+		},
+		{
+			"lane": "d3chunks3",
+			"brief": "lane-prompt-d3chunks3-1144.md",
+			"project": "crm-app",
+			"class": "H3",
+			"paths": ["components/AppChrome.tsx", "components/BottomNav.tsx", "components/assistant/AssistantSurfaces.tsx", "components/assistant/DeferredSurfaces.tsx", "components/assistant/AssistantVoiceProvider.tsx", "components/assistant/ReviewDraftSession.tsx", "components/monitor/ReviewDraftContext.tsx", "components/monitor/ReviewPanel.tsx", "__tests__/components/DeferredSurfaces.test.tsx", "docs/qa/d3-chunk-policy-2026-10-21.md"],
+			"flags": { "retry": true },
+			"expectedKind": "unclear"
+		},
+		{
+			"lane": "rc1fix",
+			"brief": "lane-prompt-rc1fix-1325.md",
+			"project": "crm-app",
+			"class": "H3",
+			"paths": ["lib/registers/locate.ts", "lib/registers/locate-text.ts", "lib/registers/questions.ts", "__tests__/guards/static-imports.ts", "__tests__/guards/client-closure-server-modules.test.ts", "docs/qa/rc1-build-fix-2026-10-21.md"],
+			"flags": {},
+			"expectedKind": "shared-owner"
+		},
+		{
+			"lane": "pf3m3",
+			"brief": "lane-prompt-pf3m3-1347.md",
+			"project": "crm-app",
+			"class": "H5",
+			"paths": ["docs/qa/pf3m3-d3-gate-2026-10-21.md", "e2e/perf/pf3m3-gate.ts"],
+			"flags": { "retry": true, "perf": true },
+			"expectedKind": "unclear"
+		},
+		{
+			"lane": "clientguard",
+			"brief": "lane-prompt-clientguard-1350.md",
+			"project": "crm-app",
+			"class": "H3",
+			"paths": ["__tests__/guards/client-closure-server-modules.test.ts", "__tests__/guards/static-imports.ts", "lib/registers/check.ts", "lib/registers/locate.ts", "lib/registers/locate-store.ts", "lib/marketing/service.ts", "lib/marketing/carousel.ts", "lib/marketing/document.ts", "lib/marketing/listing-source.ts", "lib/marketing/print-package.ts", "app/api/marketing/projects/[id]/export/route.ts", "docs/qa/client-closure-guard-2026-10-21.md"],
+			"flags": {},
+			"expectedKind": "shared-owner"
+		},
+		{
+			"lane": "bytes",
+			"brief": "lane-prompt-bytes-1558.md",
+			"project": "crm-app",
+			"class": "H5",
+			"paths": ["docs/qa/bytes-per-query-2026-10-21.md", "e2e/perf/bytes-load.ts", "e2e/perf/bytes-proxy.ts", "e2e/perf/bytes-report.ts"],
+			"flags": { "perf": true },
+			"expectedKind": "perf"
+		},
+		{
+			"lane": "portals",
+			"brief": "lane-prompt-portals-1600.md",
+			"project": "crm-app",
+			"class": "flash",
+			"paths": ["docs/qa/portals-dry-verification-2026-10-21.md", "docs/integrations/portali-net-auto-import-2026-08-26.pdf", "scripts/qa/portals-portali-net-spec-check.ts"],
+			"flags": {},
+			"expectedKind": "unclear"
+		},
+		{
+			"lane": "rc1qa",
+			"brief": "lane-prompt-rc1qa-1550.md",
+			"project": "crm-app",
+			"class": "flash",
+			"paths": ["docs/qa/rc1-register-check-local-2026-10-21.md", "docs/qa/rc1-screenshots/rc1-registers-1440-no-id-259.png", "e2e/qa/rc1-register-check-shots.ts"],
+			"flags": {},
+			"expectedKind": "unclear"
+		},
+		{
+			"lane": "resb",
+			"brief": "lane-prompt-resb-1737.md",
+			"project": "research",
+			"class": "flash",
+			"paths": ["~/research/ea-portals-2026-10-21/portals-P-B.md"],
+			"flags": { "readsOnly": true },
+			"expectedKind": "unclear"
+		},
+		{
+			"lane": "bytesfix",
+			"brief": "lane-prompt-bytesfix-1640.md",
+			"project": "crm-app",
+			"class": "H3",
+			"paths": ["lib/deals/portfolio-snapshot.ts", "lib/deals/flow.ts", "lib/deals/service.ts", "lib/deals/checklist-select.ts", "lib/client-read-once.ts", "components/assistant/MemoryTab.tsx", "components/workspace/WorkspaceContextPanel.tsx", "__tests__/lib/client-read-once.test.ts", "e2e/perf/bytes-fixture.ts", "docs/qa/bytes-fix-2026-10-21.md"],
+			"flags": {},
+			"expectedKind": "shared-owner"
+		},
+		{
+			"lane": "kaisdup",
+			"brief": "lane-prompt-kaisdup-1859.md",
+			"project": "crm-app",
+			"class": "H4",
+			"paths": ["lib/registers/contract.ts", "lib/registers/sources/kais.ts", "__tests__/lib/registers/kais-loader.test.ts", "__tests__/lib/registers/kais-synthetic-zip.ts", "docs/qa/kais-unit-ids-2026-10-21.md"],
+			"flags": {},
+			"expectedKind": "security-data"
+		},
+		{
+			"lane": "regpdf",
+			"brief": "lane-prompt-regpdf-1859.md",
+			"project": "crm-app",
+			"class": "H4",
+			"paths": ["lib/registers/check.ts", "lib/pdf/register-check-pdf.ts", "components/properties/PropertyRegisterPanel.tsx", "__tests__/lib/registers/check.test.ts", "__tests__/lib/pdf/register-check-pdf.test.ts", "docs/qa/register-pdf-2026-10-21.md"],
+			"flags": {},
+			"expectedKind": "unclear"
+		},
+		{
+			"lane": "kaisload",
+			"brief": "lane-prompt-kaisload-1859.md",
+			"project": "crm-app",
+			"class": "flash",
+			"paths": ["lib/registers/sources/kais.ts", "scripts/registers/load.ts", "__tests__/lib/registers/kais-loader.test.ts", "docs/qa/kais-coverage-2026-10-21.md"],
+			"flags": {},
+			"expectedKind": "unclear"
+		},
+		{
+			"lane": "sheet",
+			"brief": "lane-prompt-sheet-1859.md",
+			"project": "crm-app",
+			"class": "flash",
+			"paths": ["components/assistant/AssistantDock.tsx", "components/assistant/AIWorkspaceContext.tsx", "components/assistant/AISpaceStrip.tsx", "lib/browser-preferences.ts", "e2e/lib/journey.ts", "e2e/specs/QA-broker-walk.spec.ts", "__tests__/components/AssistantDock-context.test.tsx", "docs/qa/assistant-sheet-2026-10-21.md"],
+			"flags": {},
+			"expectedKind": "unclear"
+		},
+		{
+			"lane": "stagesel",
+			"brief": "lane-prompt-stagesel-2101.md",
+			"project": "crm-app",
+			"class": "H3",
+			"paths": ["lib/deals/deal-stages.ts", "lib/deals/deal-stage-rule.ts", "lib/deals/deal-stage-sql.ts", "lib/deals/next-step.ts", "lib/deals/next-step-read.ts", "lib/deals/next-action.ts", "lib/deals/portfolio-snapshot.ts", "__tests__/lib/deals/deal-stage-rule.test.ts", "e2e/perf/next-step-equivalence.ts", "docs/qa/stagesel-2026-10-21.md"],
+			"flags": {},
+			"expectedKind": "shared-owner"
+		},
+		{
+			"lane": "vf2",
+			"brief": "lane-prompt-vf2-2105.md",
+			"project": "website",
+			"class": "H1",
+			"paths": ["lib/district-page.js", "assets/js/listings.js", "assets/css/listings.css", "tests/district-page.test.js"],
+			"flags": { "retry": true },
+			"expectedKind": "retry"
+		}
+	]
+}

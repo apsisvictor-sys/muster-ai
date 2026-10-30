@@ -1,0 +1,69 @@
+{
+ "schemaVersion": 1,
+ "cli": "/home/operator/.pi/agent/harness/toolbelt/generated/cloudflare/cloudflare",
+ "cliVersion": null,
+ "cliPath": "/home/operator/.pi/agent/harness/toolbelt/generated/cloudflare/cloudflare",
+ "cliMtimeMs": 1789063330982.8254,
+ "generatedAt": "2026-09-10T18:02:37.854Z",
+ "leafCount": 7,
+ "leaves": [
+  {
+   "cmd": "dns-record-create",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "dns-record-delete",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "dns-record-get",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "dns-record-update",
+   "flags": [
+    "args"
+   ],
+   "class": "mutate",
+   "desc": null
+  },
+  {
+   "cmd": "dns-records-list",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "zone-get",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  },
+  {
+   "cmd": "zones-list",
+   "flags": [
+    "args"
+   ],
+   "class": "read",
+   "desc": null
+  }
+ ],
+ "source": "provider_catalog",
+ "note": "Operations take a single --args JSON object."
+}

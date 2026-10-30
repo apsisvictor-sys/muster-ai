@@ -1,0 +1,1811 @@
+{
+ "schemaVersion": 1,
+ "cli": "vercel",
+ "cliVersion": "50.28.0",
+ "cliPath": "/home/operator/.npm-global/bin/vercel",
+ "cliMtimeMs": 1772806417000,
+ "generatedAt": "2026-09-12T13:01:35.477Z",
+ "leafCount": 107,
+ "coverage": {
+  "source": "help_walk",
+  "maxDepth": 3,
+  "helpNodes": 129,
+  "complete": false,
+  "truncatedLeafCount": 2,
+  "truncatedLeaves": [
+   "git connect",
+   "git disconnect"
+  ],
+  "unexpandedGroups": [],
+  "repeatedParentLeaves": [
+   "git connect",
+   "git disconnect"
+  ]
+ },
+ "leaves": [
+  {
+   "cmd": "alias list",
+   "flags": [
+    "cwd",
+    "debug",
+    "format",
+    "global-config",
+    "limit",
+    "local-config",
+    "next",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "Show all aliases"
+  },
+  {
+   "cmd": "alias remove",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token",
+    "yes"
+   ],
+   "desc": "alias Remove an alias using its hostname"
+  },
+  {
+   "cmd": "alias set",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "deployment alias Create a new alias"
+  },
+  {
+   "cmd": "api list",
+   "flags": [
+    "cwd",
+    "debug",
+    "format",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "refresh",
+    "scope",
+    "token"
+   ],
+   "desc": "List all available API endpoints"
+  },
+  {
+   "cmd": "bisect",
+   "flags": [
+    "bad",
+    "cwd",
+    "debug",
+    "global-config",
+    "good",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "open",
+    "path",
+    "run",
+    "scope",
+    "token"
+   ],
+   "desc": "Use binary search to find the deployment that introduced a bug"
+  },
+  {
+   "cmd": "blob copy",
+   "flags": [
+    "access",
+    "add-random-suffix",
+    "cache-control-max-age",
+    "content-type",
+    "cwd",
+    "debug",
+    "global-config",
+    "if-match",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "fromUrlOrPathname toPathname Copy a file in the Blob store"
+  },
+  {
+   "cmd": "blob create-store",
+   "flags": [
+    "access",
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "region",
+    "scope",
+    "token"
+   ],
+   "desc": "Create a new Blob store"
+  },
+  {
+   "cmd": "blob del",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "if-match",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "urlsOrPathnames Delete a file from the Blob store"
+  },
+  {
+   "cmd": "blob delete-store",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "Delete a Blob store"
+  },
+  {
+   "cmd": "blob get",
+   "flags": [
+    "access",
+    "cwd",
+    "debug",
+    "global-config",
+    "if-none-match",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "output",
+    "scope",
+    "token"
+   ],
+   "desc": "urlOrPathname Download a blob by URL or pathname"
+  },
+  {
+   "cmd": "blob get-store",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "Get a Blob store"
+  },
+  {
+   "cmd": "blob list",
+   "flags": [
+    "cursor",
+    "cwd",
+    "debug",
+    "global-config",
+    "limit",
+    "local-config",
+    "mode",
+    "no-color",
+    "non-interactive",
+    "prefix",
+    "scope",
+    "token"
+   ],
+   "desc": "List all files in the Blob store"
+  },
+  {
+   "cmd": "blob put",
+   "flags": [
+    "access",
+    "add-random-suffix",
+    "allow-overwrite",
+    "cache-control-max-age",
+    "content-type",
+    "cwd",
+    "debug",
+    "global-config",
+    "if-match",
+    "local-config",
+    "multipart",
+    "no-color",
+    "non-interactive",
+    "pathname",
+    "scope",
+    "token"
+   ],
+   "desc": "pathToFile Upload a file to the Blob store"
+  },
+  {
+   "cmd": "blob store add",
+   "flags": [
+    "access",
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "region",
+    "scope",
+    "token"
+   ],
+   "desc": "Add a new Blob store"
+  },
+  {
+   "cmd": "blob store get",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "Get a Blob store"
+  },
+  {
+   "cmd": "blob store remove",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "Remove a Blob store"
+  },
+  {
+   "cmd": "build",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "output",
+    "prod",
+    "scope",
+    "standalone",
+    "target",
+    "token",
+    "yes"
+   ],
+   "desc": "Build the project locally into './vercel/output'"
+  },
+  {
+   "cmd": "cache dangerously-delete",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "revalidation-deadline-seconds",
+    "scope",
+    "srcimg",
+    "tag",
+    "token",
+    "yes"
+   ],
+   "desc": "Dangerously delete all cached content by tag"
+  },
+  {
+   "cmd": "cache invalidate",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "srcimg",
+    "tag",
+    "token",
+    "yes"
+   ],
+   "desc": "Invalidate all cached content by tag"
+  },
+  {
+   "cmd": "cache purge",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token",
+    "type",
+    "yes"
+   ],
+   "desc": "Purge cache for the current project"
+  },
+  {
+   "cmd": "certs add",
+   "flags": [
+    "ca",
+    "crt",
+    "cwd",
+    "debug",
+    "global-config",
+    "key",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "Add a new certificate"
+  },
+  {
+   "cmd": "certs issue",
+   "flags": [
+    "ca",
+    "challenge-only",
+    "crt",
+    "cwd",
+    "debug",
+    "global-config",
+    "key",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "cn Issue a new certificate for a domain"
+  },
+  {
+   "cmd": "certs list",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "limit",
+    "local-config",
+    "next",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "Show all available certificates"
+  },
+  {
+   "cmd": "certs remove",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "id Remove a certificate by id"
+  },
+  {
+   "cmd": "curl",
+   "flags": [
+    "cwd",
+    "data",
+    "debug",
+    "deployment",
+    "global-config",
+    "header",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "protection-bypass",
+    "request",
+    "scope",
+    "token",
+    "yes"
+   ],
+   "desc": "cURL requests to your linked project's deployment [beta]"
+  },
+  {
+   "cmd": "deploy",
+   "flags": [
+    "archive",
+    "build-env",
+    "cwd",
+    "debug",
+    "env",
+    "force",
+    "format",
+    "global-config",
+    "guidance",
+    "local-config",
+    "logs",
+    "meta",
+    "no-color",
+    "no-wait",
+    "non-interactive",
+    "prebuilt",
+    "prod",
+    "public",
+    "regions",
+    "scope",
+    "skip-domain",
+    "target",
+    "token",
+    "with-cache",
+    "yes"
+   ],
+   "desc": "Performs a deployment (default)"
+  },
+  {
+   "cmd": "dev",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "listen",
+    "local",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token",
+    "yes"
+   ],
+   "desc": "Start a local development server"
+  },
+  {
+   "cmd": "dns add",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "domain details Add a new DNS entry (see below for examples)"
+  },
+  {
+   "cmd": "dns import",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "domain zonefile Import a DNS zone file (see below for"
+  },
+  {
+   "cmd": "dns list",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "limit",
+    "local-config",
+    "next",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "domain List all DNS entries for a domain"
+  },
+  {
+   "cmd": "dns remove",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token",
+    "yes"
+   ],
+   "desc": "id Remove a DNS entry using its ID"
+  },
+  {
+   "cmd": "domains add",
+   "flags": [
+    "cwd",
+    "debug",
+    "force",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "domain project Add a domain name that you already own to a"
+  },
+  {
+   "cmd": "domains buy",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "domain Purchase a new domain name"
+  },
+  {
+   "cmd": "domains inspect",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "domain Displays information related to a domain"
+  },
+  {
+   "cmd": "domains list",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "Show all domains in a list"
+  },
+  {
+   "cmd": "domains move",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token",
+    "yes"
+   ],
+   "desc": "domain destination Move ownership of a domain name to another"
+  },
+  {
+   "cmd": "domains remove",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token",
+    "yes"
+   ],
+   "desc": "domain Remove ownership of a domain name from a"
+  },
+  {
+   "cmd": "domains transfer-in",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "domain Transfer in a domain name to Vercel"
+  },
+  {
+   "cmd": "env add",
+   "flags": [
+    "cwd",
+    "debug",
+    "force",
+    "global-config",
+    "guidance",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "sensitive",
+    "token",
+    "value",
+    "yes"
+   ],
+   "desc": "name [environment] [git-branch] Add an Environment Variable (see"
+  },
+  {
+   "cmd": "env list",
+   "flags": [
+    "cwd",
+    "debug",
+    "format",
+    "global-config",
+    "guidance",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "List all Environment Variables"
+  },
+  {
+   "cmd": "env pull",
+   "flags": [
+    "cwd",
+    "debug",
+    "environment",
+    "git-branch",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token",
+    "yes"
+   ],
+   "desc": "Pull all Development Environment"
+  },
+  {
+   "cmd": "env remove",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token",
+    "yes"
+   ],
+   "desc": "name [environment] Remove an Environment Variable"
+  },
+  {
+   "cmd": "env run",
+   "flags": [
+    "cwd",
+    "debug",
+    "environment",
+    "git-branch",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "command Run a command with environment"
+  },
+  {
+   "cmd": "env update",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "sensitive",
+    "token",
+    "value",
+    "yes"
+   ],
+   "desc": "name [environment] Update the value of an existing"
+  },
+  {
+   "cmd": "git connect",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "Connect your Vercel Project to your Git repository",
+   "complete": false,
+   "truncatedSubcommands": [
+    "connect",
+    "disconnect"
+   ],
+   "incompleteReason": "repeated_parent_help"
+  },
+  {
+   "cmd": "git disconnect",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "Disconnect the Git repository from your Vercel",
+   "complete": false,
+   "truncatedSubcommands": [
+    "connect",
+    "disconnect"
+   ],
+   "incompleteReason": "repeated_parent_help"
+  },
+  {
+   "cmd": "init",
+   "flags": [
+    "cwd",
+    "debug",
+    "force",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "Initialize an example project"
+  },
+  {
+   "cmd": "inspect",
+   "flags": [
+    "cwd",
+    "debug",
+    "format",
+    "global-config",
+    "local-config",
+    "logs",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "timeout",
+    "token",
+    "wait"
+   ],
+   "desc": "Displays information related to a deployment"
+  },
+  {
+   "cmd": "install",
+   "flags": [
+    "cwd",
+    "debug",
+    "environment",
+    "format",
+    "global-config",
+    "installation-id",
+    "local-config",
+    "metadata",
+    "name",
+    "no-color",
+    "no-connect",
+    "no-env-pull",
+    "non-interactive",
+    "plan",
+    "prefix",
+    "scope",
+    "token"
+   ],
+   "desc": "Install an integration from the Marketplace"
+  },
+  {
+   "cmd": "integration add",
+   "flags": [
+    "cwd",
+    "debug",
+    "environment",
+    "format",
+    "global-config",
+    "installation-id",
+    "local-config",
+    "metadata",
+    "name",
+    "no-color",
+    "no-connect",
+    "no-env-pull",
+    "non-interactive",
+    "plan",
+    "prefix",
+    "scope",
+    "token"
+   ],
+   "desc": "integration Installs a marketplace integration"
+  },
+  {
+   "cmd": "integration balance",
+   "flags": [
+    "cwd",
+    "debug",
+    "format",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "integration Shows the balances and thresholds of a"
+  },
+  {
+   "cmd": "integration discover",
+   "flags": [
+    "cwd",
+    "debug",
+    "format",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "Discover available marketplace integrations"
+  },
+  {
+   "cmd": "integration guide",
+   "flags": [
+    "cwd",
+    "debug",
+    "framework",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "integration Show getting started guides and code snippets"
+  },
+  {
+   "cmd": "integration list",
+   "flags": [
+    "all",
+    "cwd",
+    "debug",
+    "format",
+    "global-config",
+    "integration",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "List resources from marketplace integrations"
+  },
+  {
+   "cmd": "integration open",
+   "flags": [
+    "cwd",
+    "debug",
+    "format",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "name [resource] Opens a marketplace integration's or resource's"
+  },
+  {
+   "cmd": "integration remove",
+   "flags": [
+    "cwd",
+    "debug",
+    "disconnect-all",
+    "format",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token",
+    "yes"
+   ],
+   "desc": "integration Uninstalls a marketplace integration. Resources"
+  },
+  {
+   "cmd": "integration-resource create-threshold",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token",
+    "yes"
+   ],
+   "desc": "resource minimum spend limit Creates a threshold"
+  },
+  {
+   "cmd": "integration-resource disconnect",
+   "flags": [
+    "all",
+    "cwd",
+    "debug",
+    "format",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token",
+    "yes"
+   ],
+   "desc": "resource [project] Disconnect a resource"
+  },
+  {
+   "cmd": "integration-resource remove",
+   "flags": [
+    "cwd",
+    "debug",
+    "disconnect-all",
+    "format",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token",
+    "yes"
+   ],
+   "desc": "resource Delete an integration"
+  },
+  {
+   "cmd": "link add",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "repo",
+    "scope",
+    "token",
+    "yes"
+   ],
+   "desc": "Add additional Vercel Projects to an existing repository link."
+  },
+  {
+   "cmd": "list",
+   "flags": [
+    "all",
+    "cwd",
+    "debug",
+    "environment",
+    "format",
+    "global-config",
+    "local-config",
+    "meta",
+    "next",
+    "no-color",
+    "non-interactive",
+    "policy",
+    "scope",
+    "status",
+    "token",
+    "yes"
+   ],
+   "desc": "Lists deployments"
+  },
+  {
+   "cmd": "login",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "Logs into your account or creates a new one"
+  },
+  {
+   "cmd": "logout",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "Logs out of your account"
+  },
+  {
+   "cmd": "logs",
+   "flags": [
+    "branch",
+    "cwd",
+    "debug",
+    "deployment",
+    "environment",
+    "expand",
+    "follow",
+    "global-config",
+    "json",
+    "level",
+    "limit",
+    "local-config",
+    "no-branch",
+    "no-color",
+    "no-follow",
+    "non-interactive",
+    "project",
+    "query",
+    "request-id",
+    "scope",
+    "search",
+    "since",
+    "source",
+    "status-code",
+    "token",
+    "until"
+   ],
+   "desc": "Displays the logs for a deployment"
+  },
+  {
+   "cmd": "microfrontends pull",
+   "flags": [
+    "cwd",
+    "debug",
+    "dpl",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token",
+    "yes"
+   ],
+   "desc": "Pull a Vercel Microfrontends configuration into your project"
+  },
+  {
+   "cmd": "open",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token",
+    "yes"
+   ],
+   "desc": "Opens the current project in the Vercel Dashboard"
+  },
+  {
+   "cmd": "projects add",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "name Add a new project"
+  },
+  {
+   "cmd": "projects inspect",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token",
+    "yes"
+   ],
+   "desc": "Displays information related to a project"
+  },
+  {
+   "cmd": "projects list",
+   "flags": [
+    "cwd",
+    "debug",
+    "format",
+    "global-config",
+    "local-config",
+    "next",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token",
+    "update-required"
+   ],
+   "desc": "Show all projects in the selected scope"
+  },
+  {
+   "cmd": "projects remove",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "name Delete a project"
+  },
+  {
+   "cmd": "projects token",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token",
+    "yes"
+   ],
+   "desc": "Get a development OIDC token for a project"
+  },
+  {
+   "cmd": "promote status",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "timeout",
+    "token",
+    "yes"
+   ],
+   "desc": "Show the status of any current pending promotions"
+  },
+  {
+   "cmd": "pull",
+   "flags": [
+    "cwd",
+    "debug",
+    "environment",
+    "git-branch",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token",
+    "yes"
+   ],
+   "desc": "Pull your Project Settings from the cloud"
+  },
+  {
+   "cmd": "redeploy",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "no-wait",
+    "non-interactive",
+    "scope",
+    "target",
+    "token"
+   ],
+   "desc": "Rebuild and deploy a previous deployment."
+  },
+  {
+   "cmd": "redirects add",
+   "flags": [
+    "case-sensitive",
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "name",
+    "no-color",
+    "non-interactive",
+    "preserve-query-params",
+    "scope",
+    "status",
+    "token",
+    "yes"
+   ],
+   "desc": "Add a new redirect"
+  },
+  {
+   "cmd": "redirects list",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "page",
+    "per-page",
+    "scope",
+    "search",
+    "staging",
+    "token"
+   ],
+   "desc": "List all redirects for the current"
+  },
+  {
+   "cmd": "redirects list-versions",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "List all versions of redirects"
+  },
+  {
+   "cmd": "redirects promote",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token",
+    "yes"
+   ],
+   "desc": "version-id Promote a staged redirects version to"
+  },
+  {
+   "cmd": "redirects remove",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token",
+    "yes"
+   ],
+   "desc": "source Remove a redirect"
+  },
+  {
+   "cmd": "redirects restore",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token",
+    "yes"
+   ],
+   "desc": "version-id Restore a previous redirects version"
+  },
+  {
+   "cmd": "redirects upload",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "overwrite",
+    "scope",
+    "token",
+    "yes"
+   ],
+   "desc": "file Upload redirects from a CSV or JSON file"
+  },
+  {
+   "cmd": "remove",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "safe",
+    "scope",
+    "token",
+    "yes"
+   ],
+   "desc": "Removes a deployment"
+  },
+  {
+   "cmd": "rollback status",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "timeout",
+    "token"
+   ],
+   "desc": "Show the status of any current pending rollbacks"
+  },
+  {
+   "cmd": "routes add",
+   "flags": [
+    "action",
+    "ai",
+    "append-request-header",
+    "append-request-query",
+    "append-response-header",
+    "cwd",
+    "debug",
+    "delete-request-header",
+    "delete-request-query",
+    "delete-response-header",
+    "description",
+    "dest",
+    "disabled",
+    "global-config",
+    "has",
+    "local-config",
+    "missing",
+    "no-color",
+    "non-interactive",
+    "position",
+    "scope",
+    "set-request-header",
+    "set-request-query",
+    "set-response-header",
+    "src",
+    "src-syntax",
+    "status",
+    "token",
+    "yes"
+   ],
+   "desc": "Add a new routing rule to the project"
+  },
+  {
+   "cmd": "routes delete",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token",
+    "yes"
+   ],
+   "desc": "name-or-id Delete one or more routing rules"
+  },
+  {
+   "cmd": "routes disable",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "name-or-id Disable a routing rule without deleting it"
+  },
+  {
+   "cmd": "routes discard-staging",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token",
+    "yes"
+   ],
+   "desc": "Discard staged routing changes"
+  },
+  {
+   "cmd": "routes edit",
+   "flags": [
+    "action",
+    "ai",
+    "append-request-header",
+    "append-request-query",
+    "append-response-header",
+    "clear-conditions",
+    "clear-headers",
+    "clear-transforms",
+    "cwd",
+    "debug",
+    "delete-request-header",
+    "delete-request-query",
+    "delete-response-header",
+    "description",
+    "dest",
+    "global-config",
+    "has",
+    "local-config",
+    "missing",
+    "name",
+    "no-color",
+    "no-dest",
+    "no-status",
+    "non-interactive",
+    "scope",
+    "set-request-header",
+    "set-request-query",
+    "set-response-header",
+    "src",
+    "src-syntax",
+    "status",
+    "token",
+    "yes"
+   ],
+   "desc": "name-or-id Edit an existing routing rule"
+  },
+  {
+   "cmd": "routes enable",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "name-or-id Enable a disabled routing rule"
+  },
+  {
+   "cmd": "routes export",
+   "flags": [
+    "cwd",
+    "debug",
+    "format",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "Export routes in vercel.json or vercel.ts format"
+  },
+  {
+   "cmd": "routes inspect",
+   "flags": [
+    "cwd",
+    "debug",
+    "diff",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "name-or-id Show detailed information about a specific route"
+  },
+  {
+   "cmd": "routes list",
+   "flags": [
+    "cwd",
+    "debug",
+    "diff",
+    "expand",
+    "filter",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "production",
+    "scope",
+    "search",
+    "token",
+    "version-id"
+   ],
+   "desc": "List all routing rules for the current project."
+  },
+  {
+   "cmd": "routes list-versions",
+   "flags": [
+    "count",
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "List all versions of routing rules"
+  },
+  {
+   "cmd": "routes publish",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token",
+    "yes"
+   ],
+   "desc": "Publish staged routing changes to production"
+  },
+  {
+   "cmd": "routes reorder",
+   "flags": [
+    "cwd",
+    "debug",
+    "first",
+    "global-config",
+    "last",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "position",
+    "scope",
+    "token",
+    "yes"
+   ],
+   "desc": "name-or-id Move a routing rule to a different position"
+  },
+  {
+   "cmd": "routes restore",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token",
+    "yes"
+   ],
+   "desc": "version-id Restore a previous routing version to production"
+  },
+  {
+   "cmd": "switch",
+   "flags": [
+    "scope",
+    "token"
+   ],
+   "desc": "Switches between different scopes"
+  },
+  {
+   "cmd": "teams add",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "Create a new team"
+  },
+  {
+   "cmd": "teams invite",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "email Invite a new member to a team"
+  },
+  {
+   "cmd": "teams list",
+   "flags": [
+    "cwd",
+    "debug",
+    "format",
+    "global-config",
+    "local-config",
+    "next",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "Show all teams that you're a member of"
+  },
+  {
+   "cmd": "teams switch",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "Switch to a different team"
+  },
+  {
+   "cmd": "upgrade",
+   "flags": [
+    "cwd",
+    "debug",
+    "dry-run",
+    "format",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "Upgrade the Vercel CLI to the latest version"
+  },
+  {
+   "cmd": "webhooks create",
+   "flags": [
+    "cwd",
+    "debug",
+    "event",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "project",
+    "scope",
+    "token"
+   ],
+   "desc": "url Create a new webhook"
+  },
+  {
+   "cmd": "webhooks get",
+   "flags": [
+    "cwd",
+    "debug",
+    "format",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "id Displays information related to a webhook"
+  },
+  {
+   "cmd": "webhooks list",
+   "flags": [
+    "cwd",
+    "debug",
+    "format",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "Show all webhooks"
+  },
+  {
+   "cmd": "webhooks remove",
+   "flags": [
+    "cwd",
+    "debug",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token",
+    "yes"
+   ],
+   "desc": "id Remove a webhook"
+  },
+  {
+   "cmd": "whoami",
+   "flags": [
+    "cwd",
+    "debug",
+    "format",
+    "global-config",
+    "local-config",
+    "no-color",
+    "non-interactive",
+    "scope",
+    "token"
+   ],
+   "desc": "Shows the username of the currently logged in user"
+  }
+ ]
+}

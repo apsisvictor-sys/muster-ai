@@ -1,0 +1,266 @@
+#!/usr/bin/env node
+"use strict";
+
+/**
+ * Cloudflare generated CLI — official API v4 (api.cloudflare.com/client/v4).
+ *
+ * Why generated: wrangler 4.x publishes no `dns` or `zone` command group and its
+ * OAuth grant lacks the dns_records scope, so the official CLI cannot cover
+ * Cloudflare DNS at all. This adapter bridges zones + DNS records only.
+ *
+ * Token comes from CLOUDFLARE_API_TOKEN only; the value is never printed,
+ * returned or logged. Mutating DNS operations execute only with an explicit
+ * `--confirm-mutating` plus a non-empty `--reason` (the Toolbelt approval
+ * contract): the conversation in chat is the approval authority; the flags
+ * carry its audit trail.
+ *
+ * Usage: cloudflare <operation> [--zone <name|id>] [--name <zone>] [--id <recordId>] [--args '<json>']
+ *        mutating operations additionally require --confirm-mutating --reason '<why>'
+ */
+
+const TOKEN_ENV = "CLOUDFLARE_API_TOKEN";
+const BASE = "https://api.cloudflare.com/client/v4";
+const ZONE_ID_RE = /^[0-9a-f]{32}$/i;
+const MAX_PAGES = 20;
+const PAGE_SIZE = 100;
+
+// READ map: operation -> API v4 REST path. `{zoneId}` / `{recordId}` placeholders
+// are filled from parsed args; `zone: true` resolves a zone name to its id first.
+const READ = {
+  "zones-list":       { path: "/zones", query: ["name", "status", "type", "page", "per_page", "order", "direction", "match"] },
+  "zone-get":         { path: "/zones/{zoneId}", zone: true },
+  "dns-records-list": { path: "/zones/{zoneId}/dns_records", zone: true, query: ["type", "name", "content", "proxied", "page", "per_page", "order", "direction", "match", "tag"] },
+  "dns-record-get":   { path: "/zones/{zoneId}/dns_records/{recordId}", zone: true, record: true },
+  "whoami":           { path: "/user/tokens/verify", zone: false, record: false },
+};
+
+// Mutating operations: executed only with --confirm-mutating and --reason.
+const MUTATING = {
+  "dns-record-create": { method: "POST",   path: "/zones/{zoneId}/dns_records",             zone: true, record: false, required: ["type", "name", "content"] },
+  "dns-record-update": { method: "PATCH",  path: "/zones/{zoneId}/dns_records/{recordId}", zone: true, record: true,  required: [] },
+  "dns-record-delete": { method: "DELETE", path: "/zones/{zoneId}/dns_records/{recordId}", zone: true, record: true,  required: [] },
+};
+
+function out(obj) { process.stdout.write(JSON.stringify(obj) + "\n"); }
+function fail(code, extra) { out({ ok: false, error: code, valuesPrinted: false, ...(extra || {}) }); process.exit(1); }
+
+function parseArgv(argv) {
+  const operation = argv[0] || "";
+  const opts = {};
+  for (let i = 1; i < argv.length; i += 1) {
+    if (!argv[i].startsWith("--")) continue;
+    const key = argv[i].slice(2);
+    const next = argv[i + 1];
+    if (next && !next.startsWith("--")) { opts[key] = next; i += 1; } else opts[key] = true;
+  }
+  let args = {};
+  if (opts.args) {
+    try { args = JSON.parse(String(opts.args)); } catch { fail("bad_args", { message: "--args must be a JSON object" }); }
+    if (!args || typeof args !== "object" || Array.isArray(args)) fail("bad_args", { message: "--args must be a JSON object" });
+  }
+  const merged = { ...opts, ...args };
+  delete merged.args;
+  return { operation, args: merged };
+}
+
+// Zone is accepted as a 32-hex id or a zone name; --name is the documented flag
+// for `zone-get`, --zone for the DNS operations.
+function zoneRef(operation, args) {
+  const value = args.zone ?? args.zoneId ?? args["zone-id"] ?? args.domain ?? (operation === "zone-get" ? args.name : undefined);
+  return value === undefined || value === null || String(value).trim() === "" ? null : String(value).trim();
+}
+
+function recordRef(args) {
+  const value = args.id ?? args.recordId ?? args["record-id"];
+  return value === undefined || value === null || String(value).trim() === "" ? null : String(value).trim();
+}
+
+function token() {
+  const value = process.env[TOKEN_ENV];
+  if (!value) fail("missing_credentials", { message: `${TOKEN_ENV} is not set`, tokenConfigured: false });
+  return value;
+}
+
+async function apiGet(url, authToken) {
+  let res, body;
+  try {
+    res = await fetch(url, { headers: { Authorization: `Bearer ${authToken}`, Accept: "application/json" }, signal: AbortSignal.timeout(30_000) });
+    const text = await res.text();
+    try { body = JSON.parse(text); } catch { body = { success: false, result: null, raw: text.slice(0, 500) }; }
+  } catch (err) {
+    fail("request_failed", { message: String((err && err.message) || err).slice(0, 200) });
+  }
+  return { res, body };
+}
+
+// Upstream Cloudflare errors travel verbatim: the `errors` array is the only
+// thing that makes a failed call diagnosable.
+function apiError(url, res, body) {
+  fail("cloudflare_api_error", {
+    httpStatus: res.status,
+    path: new URL(url).pathname,
+    errors: body && body.errors !== undefined ? body.errors : null,
+    messages: body && body.messages !== undefined ? body.messages : null,
+  });
+}
+
+async function request(url, authToken) {
+  const { res, body } = await apiGet(url, authToken);
+  if (!res.ok || (body && body.success === false)) apiError(url, res, body);
+  return { httpStatus: res.status, body };
+}
+
+// List endpoints default to 100 per page and walk every page unless the caller
+// pinned --page. result_info from the last page is reported as-is.
+async function requestAll(path, params, authToken) {
+  const pinnedPage = params.page !== undefined && params.page !== null && String(params.page) !== "";
+  const items = [];
+  let resultInfo = null;
+  let httpStatus = 200;
+  for (let page = 1; page <= MAX_PAGES; page += 1) {
+    const url = new URL(BASE + path);
+    for (const [key, value] of Object.entries(params)) {
+      if (value === undefined || value === null || String(value) === "") continue;
+      url.searchParams.set(key, String(value));
+    }
+    if (!pinnedPage) {
+      url.searchParams.set("page", String(page));
+      if (url.searchParams.get("per_page") === null) url.searchParams.set("per_page", String(PAGE_SIZE));
+    }
+    const { res, body } = await apiGet(url, authToken);
+    if (!res.ok || (body && body.success === false)) apiError(url, res, body);
+    httpStatus = res.status;
+    if (Array.isArray(body.result)) items.push(...body.result);
+    resultInfo = body.result_info || resultInfo;
+    const totalPages = body.result_info ? Number(body.result_info.total_pages) : NaN;
+    if (pinnedPage || !Number.isFinite(totalPages) || page >= totalPages) break;
+  }
+  return { httpStatus, data: items, resultInfo };
+}
+
+async function resolveZoneId(ref, authToken) {
+  if (ZONE_ID_RE.test(ref)) return ref;
+  const url = new URL(`${BASE}/zones`);
+  url.searchParams.set("name", ref);
+  url.searchParams.set("per_page", "50");
+  const { body } = await request(url, authToken);
+  const zones = Array.isArray(body.result) ? body.result : [];
+  if (zones.length === 0) fail("zone_not_found", { zone: ref });
+  return String(zones[0].id);
+}
+
+// Writes a JSON body and reports Cloudflare's verdict envelope verbatim.
+async function apiSend(method, url, authToken, payload) {
+  let res, body;
+  try {
+    res = await fetch(url, {
+      method,
+      headers: { Authorization: `Bearer ${authToken}`, Accept: "application/json", ...(payload ? { "Content-Type": "application/json" } : {}) },
+      body: payload ? JSON.stringify(payload) : undefined,
+      signal: AbortSignal.timeout(30_000),
+    });
+    const text = await res.text();
+    try { body = JSON.parse(text); } catch { body = { success: false, result: null, raw: text.slice(0, 500) }; }
+  } catch (err) {
+    fail("request_failed", { message: String((err && err.message) || err).slice(0, 200) });
+  }
+  return { res, body };
+}
+
+async function main() {
+  const { operation, args } = parseArgv(process.argv.slice(2));
+
+  if (operation === "operations") return out({ ok: true, read: Object.keys(READ), mutating: Object.keys(MUTATING), valuesPrinted: false });
+
+  const authToken = token();
+
+  const mutation = MUTATING[operation];
+  if (mutation) {
+    if (args["confirm-mutating"] !== true && args.confirmMutating !== true) {
+      return out({ ok: false, error: "approval_required", operation, mutating: true,
+        message: "Pass --confirm-mutating with a non-empty --reason naming the approved decision.", valuesPrinted: false });
+    }
+    const reason = String(args.reason ?? "").trim();
+    if (!reason) {
+      return out({ ok: false, error: "approval_required", operation, mutating: true,
+        message: "A non-empty --reason is required for the audit trail.", valuesPrinted: false });
+    }
+    for (const field of mutation.required) {
+      if (args[field] === undefined || args[field] === null || String(args[field]).trim() === "") {
+        return fail("missing_required_arg", { required: mutation.required, missing: field });
+      }
+    }
+    let zoneId = null;
+    const zoneRefValue = zoneRef(operation, args);
+    if (!zoneRefValue) return fail("missing_required_arg", { required: ["zone"], hint: "pass --zone <name|id>" });
+    zoneId = await resolveZoneId(zoneRefValue, authToken);
+    let recordId = null;
+    if (mutation.record) {
+      recordId = recordRef(args);
+      if (!recordId) return fail("missing_required_arg", { required: ["id"], hint: "pass --id <recordId>" });
+    }
+    const payloadFields = ["type", "name", "content", "ttl", "proxied", "priority", "comment", "tags"];
+    const payload = {};
+    for (const field of payloadFields) {
+      if (args[field] !== undefined && args[field] !== null) payload[field] = args[field];
+    }
+    if (operation === "dns-record-delete") {
+      // DELETE takes no body; nothing else is forwarded.
+    }
+    const url = BASE + mutation.path
+      .replace("{zoneId}", encodeURIComponent(zoneId))
+      .replace("{recordId}", encodeURIComponent(recordId || ""));
+    const { res, body } = await apiSend(mutation.method, url, authToken, operation === "dns-record-delete" ? null : payload);
+    if (!res.ok || (body && body.success === false)) apiError(url, res, body);
+    return out({ ok: true, operation, httpStatus: res.status, zoneId, recordId: recordId || undefined, reason, data: body.result ?? null, valuesPrinted: false });
+  }
+
+  const spec = READ[operation];
+  if (!spec) return fail("unsupported_operation", { operation: operation || null, allowed: [...Object.keys(READ), ...Object.keys(MUTATING)] });
+
+  let zoneId = null;
+  if (spec.zone) {
+    const ref = zoneRef(operation, args);
+    if (!ref) return fail("missing_required_arg", { required: ["zone"], hint: "pass --zone <name|id> (zone-get also accepts --name)" });
+    zoneId = await resolveZoneId(ref, authToken);
+  }
+  let recordId = null;
+  if (spec.record) {
+    recordId = recordRef(args);
+    if (!recordId) return fail("missing_required_arg", { required: ["id"], hint: "pass --id <recordId>" });
+  }
+
+  // zone-get / dns-record-get are single-object reads.
+  if (operation === "zone-get" || operation === "dns-record-get") {
+    const url = new URL(BASE + spec.path.replace("{zoneId}", encodeURIComponent(zoneId)).replace("{recordId}", encodeURIComponent(recordId || "")));
+    const { httpStatus, body } = await request(url, authToken);
+    return out({ ok: true, operation, httpStatus, data: body.result ?? null, valuesPrinted: false });
+  }
+
+  // whoami is a token identity proof with no zone/record context. Account-owned
+  // tokens are rejected by /user/tokens/verify (code 1000) and verify at the
+  // account-scoped endpoint instead, so fall back when the account id is known.
+  if (operation === "whoami") {
+    const userUrl = BASE + READ.whoami.path;
+    let { res, body } = await apiGet(userUrl, authToken);
+    let endpoint = "/user/tokens/verify";
+    if ((!res.ok || (body && body.success === false))) {
+      // Account-owned tokens cannot use the user endpoints; /accounts works for
+      // them and proves which identities the token can act on.
+      const accountsUrl = `${BASE}/accounts?per_page=50`;
+      const retry = await apiGet(accountsUrl, authToken);
+      if (retry.res.ok && !(retry.body && retry.body.success === false)) {
+        const accounts = Array.isArray(retry.body.result) ? retry.body.result : [];
+        return out({ ok: true, operation, httpStatus: retry.res.status, endpoint: "/accounts", tokenKind: "account-owned", data: accounts.map(a => ({ id: a.id, name: a.name })), valuesPrinted: false });
+      }
+    }
+    if (!res.ok || (body && body.success === false)) apiError(userUrl, res, body);
+    return out({ ok: true, operation, httpStatus: res.status, endpoint, data: body.result ?? null, valuesPrinted: false });  }
+
+  const params = {};
+  for (const name of spec.query || []) if (args[name] !== undefined) params[name] = args[name];
+  const { httpStatus, data, resultInfo } = await requestAll(spec.path.replace("{zoneId}", encodeURIComponent(zoneId || "")), params, authToken);
+  return out({ ok: true, operation, httpStatus, zoneId: zoneId || undefined, data, resultInfo: resultInfo || undefined, valuesPrinted: false });
+}
+
+main().catch((err) => fail("unhandled", { message: String((err && err.message) || err).slice(0, 200) }));

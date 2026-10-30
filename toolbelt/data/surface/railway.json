@@ -1,0 +1,555 @@
+{
+ "schemaVersion": 1,
+ "cli": "railway",
+ "cliVersion": "4.30.5",
+ "cliPath": "/home/operator/.npm-global/bin/railway",
+ "cliMtimeMs": 1772452142000,
+ "generatedAt": "2026-08-29T12:58:57.522Z",
+ "leafCount": 60,
+ "leaves": [
+  {
+   "cmd": "add",
+   "flags": [
+    "database",
+    "image",
+    "json",
+    "repo",
+    "service",
+    "variables",
+    "verbose"
+   ],
+   "desc": "Add a service to your project"
+  },
+  {
+   "cmd": "connect",
+   "flags": [
+    "environment"
+   ],
+   "desc": "Connect to a database's shell (psql for Postgres, mongosh for MongoDB, etc.)"
+  },
+  {
+   "cmd": "delete",
+   "flags": [
+    "json",
+    "project",
+    "yes"
+   ],
+   "desc": "Delete a project"
+  },
+  {
+   "cmd": "deploy",
+   "flags": [
+    "template",
+    "variable"
+   ],
+   "desc": "Provisions a template into your project"
+  },
+  {
+   "cmd": "deployment list",
+   "flags": [
+    "environment",
+    "json",
+    "limit",
+    "service"
+   ],
+   "desc": "List deployments for a service with IDs, statuses and other metadata"
+  },
+  {
+   "cmd": "deployment redeploy",
+   "flags": [
+    "json",
+    "service",
+    "yes"
+   ],
+   "desc": "Redeploy the latest deployment of a service"
+  },
+  {
+   "cmd": "deployment up",
+   "flags": [
+    "ci",
+    "detach",
+    "environment",
+    "json",
+    "message",
+    "no-gitignore",
+    "path-as-root",
+    "project",
+    "service",
+    "verbose"
+   ],
+   "desc": "Upload and deploy project from the current directory"
+  },
+  {
+   "cmd": "dev clean",
+   "flags": [
+    "output"
+   ],
+   "desc": "Stop services and remove volumes/data"
+  },
+  {
+   "cmd": "dev configure",
+   "flags": [
+    "remove",
+    "service"
+   ],
+   "desc": "Configure local code services"
+  },
+  {
+   "cmd": "dev down",
+   "flags": [
+    "output"
+   ],
+   "desc": "Stop services"
+  },
+  {
+   "cmd": "dev up",
+   "flags": [
+    "dry-run",
+    "environment",
+    "no-https",
+    "no-tui",
+    "output",
+    "verbose"
+   ],
+   "desc": "Start services (default when no subcommand provided)"
+  },
+  {
+   "cmd": "docs",
+   "flags": [],
+   "desc": "Open Railway Documentation in default browser"
+  },
+  {
+   "cmd": "domain",
+   "flags": [
+    "json",
+    "port",
+    "service"
+   ],
+   "desc": "Add a custom domain or generate a railway provided domain for a service"
+  },
+  {
+   "cmd": "down",
+   "flags": [
+    "environment",
+    "service",
+    "yes"
+   ],
+   "desc": "Remove the most recent deployment"
+  },
+  {
+   "cmd": "environment config",
+   "flags": [
+    "environment",
+    "json"
+   ],
+   "desc": "Show environment configuration"
+  },
+  {
+   "cmd": "environment delete",
+   "flags": [
+    "json",
+    "yes"
+   ],
+   "desc": "Delete an environment"
+  },
+  {
+   "cmd": "environment edit",
+   "flags": [
+    "environment",
+    "json",
+    "message",
+    "service-config",
+    "stage"
+   ],
+   "desc": "Edit an environment's configuration"
+  },
+  {
+   "cmd": "environment link",
+   "flags": [
+    "json"
+   ],
+   "desc": "Link an environment to the current project"
+  },
+  {
+   "cmd": "environment new",
+   "flags": [
+    "copy",
+    "duplicate",
+    "json",
+    "service-config"
+   ],
+   "desc": "Create a new environment"
+  },
+  {
+   "cmd": "functions delete",
+   "flags": [
+    "function",
+    "yes"
+   ],
+   "desc": "Delete a function [aliases: remove, rm]"
+  },
+  {
+   "cmd": "functions link",
+   "flags": [
+    "function",
+    "path"
+   ],
+   "desc": "Link a function manually"
+  },
+  {
+   "cmd": "functions list",
+   "flags": [],
+   "desc": "List functions [aliases: ls]"
+  },
+  {
+   "cmd": "functions new",
+   "flags": [
+    "cron",
+    "http",
+    "name",
+    "path",
+    "serverless",
+    "watch"
+   ],
+   "desc": "Add a new function [aliases: create]"
+  },
+  {
+   "cmd": "functions pull",
+   "flags": [
+    "path"
+   ],
+   "desc": "Pull changes from the linked function remotely"
+  },
+  {
+   "cmd": "functions push",
+   "flags": [
+    "path",
+    "watch"
+   ],
+   "desc": "Push a new change to the function [aliases: up]"
+  },
+  {
+   "cmd": "init",
+   "flags": [
+    "json",
+    "name",
+    "workspace"
+   ],
+   "desc": "Create a new project"
+  },
+  {
+   "cmd": "link",
+   "flags": [
+    "environment",
+    "json",
+    "project",
+    "service",
+    "team",
+    "workspace"
+   ],
+   "desc": "Associate existing project with current directory, may specify projectId as an argument"
+  },
+  {
+   "cmd": "list",
+   "flags": [
+    "json"
+   ],
+   "desc": "List all projects in your Railway account"
+  },
+  {
+   "cmd": "login",
+   "flags": [
+    "browserless"
+   ],
+   "desc": "Login to your Railway account"
+  },
+  {
+   "cmd": "logout",
+   "flags": [],
+   "desc": "Logout of your Railway account"
+  },
+  {
+   "cmd": "logs",
+   "flags": [
+    "build",
+    "deployment",
+    "environment",
+    "filter",
+    "json",
+    "latest",
+    "lines",
+    "service",
+    "since",
+    "tail",
+    "until"
+   ],
+   "desc": "View build or deploy logs from a Railway deployment"
+  },
+  {
+   "cmd": "open",
+   "flags": [
+    "print"
+   ],
+   "desc": "Open your project dashboard"
+  },
+  {
+   "cmd": "project delete",
+   "flags": [
+    "json",
+    "project",
+    "yes"
+   ],
+   "desc": "Delete a project"
+  },
+  {
+   "cmd": "project link",
+   "flags": [
+    "environment",
+    "json",
+    "project",
+    "service",
+    "team",
+    "workspace"
+   ],
+   "desc": "Link a project to the current directory"
+  },
+  {
+   "cmd": "project list",
+   "flags": [
+    "json"
+   ],
+   "desc": "List all projects in your Railway account"
+  },
+  {
+   "cmd": "redeploy",
+   "flags": [
+    "json",
+    "service",
+    "yes"
+   ],
+   "desc": "Redeploy the latest deployment of a service"
+  },
+  {
+   "cmd": "restart",
+   "flags": [
+    "json",
+    "service",
+    "yes"
+   ],
+   "desc": "Restart the latest deployment of a service (without rebuilding)"
+  },
+  {
+   "cmd": "run",
+   "flags": [
+    "environment",
+    "no-local",
+    "project",
+    "service",
+    "verbose"
+   ],
+   "desc": "Run a local command using variables from the active environment [aliases: local]"
+  },
+  {
+   "cmd": "service link",
+   "flags": [],
+   "desc": "Link a service to the current project"
+  },
+  {
+   "cmd": "service logs",
+   "flags": [
+    "build",
+    "deployment",
+    "environment",
+    "filter",
+    "json",
+    "latest",
+    "lines",
+    "service",
+    "since",
+    "tail",
+    "until"
+   ],
+   "desc": "View logs from a service"
+  },
+  {
+   "cmd": "service redeploy",
+   "flags": [
+    "json",
+    "service",
+    "yes"
+   ],
+   "desc": "Redeploy the latest deployment of a service"
+  },
+  {
+   "cmd": "service restart",
+   "flags": [
+    "json",
+    "service",
+    "yes"
+   ],
+   "desc": "Restart the latest deployment of a service"
+  },
+  {
+   "cmd": "service scale",
+   "flags": [],
+   "desc": "Scale a service across regions"
+  },
+  {
+   "cmd": "service status",
+   "flags": [
+    "all",
+    "environment",
+    "json",
+    "service"
+   ],
+   "desc": "Show deployment status for services"
+  },
+  {
+   "cmd": "shell",
+   "flags": [
+    "service",
+    "silent"
+   ],
+   "desc": "Open a local subshell with Railway variables available"
+  },
+  {
+   "cmd": "ssh",
+   "flags": [
+    "deployment-instance",
+    "environment",
+    "project",
+    "service",
+    "session"
+   ],
+   "desc": "Connect to a service via SSH"
+  },
+  {
+   "cmd": "status",
+   "flags": [
+    "json"
+   ],
+   "desc": "Show information about the current project"
+  },
+  {
+   "cmd": "unlink",
+   "flags": [
+    "json",
+    "service",
+    "yes"
+   ],
+   "desc": "Disassociate project from current directory"
+  },
+  {
+   "cmd": "up",
+   "flags": [
+    "ci",
+    "detach",
+    "environment",
+    "json",
+    "message",
+    "no-gitignore",
+    "path-as-root",
+    "project",
+    "service",
+    "verbose"
+   ],
+   "desc": "Upload and deploy project from the current directory"
+  },
+  {
+   "cmd": "upgrade",
+   "flags": [
+    "check"
+   ],
+   "desc": "Upgrade the Railway CLI to the latest version"
+  },
+  {
+   "cmd": "variable delete",
+   "flags": [
+    "environment",
+    "json",
+    "service"
+   ],
+   "desc": "Delete a variable"
+  },
+  {
+   "cmd": "variable list",
+   "flags": [
+    "environment",
+    "json",
+    "kv",
+    "service"
+   ],
+   "desc": "List variables for a service"
+  },
+  {
+   "cmd": "variable set",
+   "flags": [
+    "environment",
+    "json",
+    "service",
+    "skip-deploys",
+    "stdin"
+   ],
+   "desc": "Set a variable"
+  },
+  {
+   "cmd": "volume add",
+   "flags": [
+    "json",
+    "mount-path"
+   ],
+   "desc": "Add a new volume"
+  },
+  {
+   "cmd": "volume attach",
+   "flags": [
+    "json",
+    "volume",
+    "yes"
+   ],
+   "desc": "Attach a volume to a service"
+  },
+  {
+   "cmd": "volume delete",
+   "flags": [
+    "json",
+    "volume",
+    "yes"
+   ],
+   "desc": "Delete a volume"
+  },
+  {
+   "cmd": "volume detach",
+   "flags": [
+    "json",
+    "volume",
+    "yes"
+   ],
+   "desc": "Detach a volume from a service"
+  },
+  {
+   "cmd": "volume list",
+   "flags": [
+    "json"
+   ],
+   "desc": "List volumes"
+  },
+  {
+   "cmd": "volume update",
+   "flags": [
+    "json",
+    "mount-path",
+    "name",
+    "volume"
+   ],
+   "desc": "Update a volume"
+  },
+  {
+   "cmd": "whoami",
+   "flags": [
+    "json"
+   ],
+   "desc": "Get the current logged in user"
+  }
+ ]
+}

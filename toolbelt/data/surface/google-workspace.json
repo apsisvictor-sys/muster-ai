@@ -1,0 +1,2820 @@
+{
+ "schemaVersion": 1,
+ "cli": "gws",
+ "cliVersion": "0.22.5",
+ "cliPath": "/home/operator/.nvm/versions/node/v24.18.0/bin/gws",
+ "cliMtimeMs": 1785432031965.4883,
+ "generatedAt": "2026-09-12T13:02:09.770Z",
+ "leafCount": 188,
+ "coverage": {
+  "source": "help_walk",
+  "maxDepth": 3,
+  "helpNodes": 251,
+  "complete": false,
+  "truncatedLeafCount": 23,
+  "truncatedLeaves": [
+   "chat spaces members",
+   "chat spaces messages",
+   "chat users availability",
+   "chat users sections",
+   "chat users spaces",
+   "classroom courses aliases",
+   "classroom courses announcements",
+   "classroom courses students",
+   "classroom courses teachers",
+   "classroom courses topics",
+   "forms forms responses",
+   "forms forms watches",
+   "gmail users drafts",
+   "gmail users history",
+   "gmail users labels",
+   "gmail users messages",
+   "gmail users settings",
+   "gmail users threads",
+   "people people connections",
+   "script projects deployments",
+   "script projects versions",
+   "sheets spreadsheets values",
+   "slides presentations pages"
+  ],
+  "unexpandedGroups": [
+   "chat spaces members",
+   "chat spaces messages",
+   "chat users availability",
+   "chat users sections",
+   "chat users spaces",
+   "classroom courses aliases",
+   "classroom courses announcements",
+   "classroom courses students",
+   "classroom courses teachers",
+   "classroom courses topics",
+   "forms forms responses",
+   "forms forms watches",
+   "gmail users drafts",
+   "gmail users history",
+   "gmail users labels",
+   "gmail users messages",
+   "gmail users settings",
+   "gmail users threads",
+   "people people connections",
+   "script projects deployments",
+   "script projects versions",
+   "sheets spreadsheets values",
+   "slides presentations pages"
+  ],
+  "repeatedParentLeaves": []
+ },
+ "leaves": [
+  {
+   "cmd": "admin-reports activities list",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Retrieves a list of activities for a specific customer's account and application such as the Admin console application o"
+  },
+  {
+   "cmd": "admin-reports activities watch",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Start receiving notifications for account activities. For more information, see Receiving Push Notifications."
+  },
+  {
+   "cmd": "admin-reports channels stop",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Stop watching resources through this channel."
+  },
+  {
+   "cmd": "calendar acl delete",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Deletes an access control rule."
+  },
+  {
+   "cmd": "calendar acl get",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Returns an access control rule."
+  },
+  {
+   "cmd": "calendar acl insert",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Creates an access control rule."
+  },
+  {
+   "cmd": "calendar acl list",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Returns the rules in the access control list for the calendar."
+  },
+  {
+   "cmd": "calendar acl patch",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Updates an access control rule. This method supports patch semantics."
+  },
+  {
+   "cmd": "calendar acl update",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Updates an access control rule."
+  },
+  {
+   "cmd": "calendar acl watch",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Watch for changes to ACL resources."
+  },
+  {
+   "cmd": "calendar calendars clear",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Clears a primary calendar. This operation deletes all events associated with the primary calendar of an account."
+  },
+  {
+   "cmd": "calendar calendars delete",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Deletes a secondary calendar. Use calendars.clear for clearing all events on primary calendars."
+  },
+  {
+   "cmd": "calendar calendars get",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Returns metadata for a calendar."
+  },
+  {
+   "cmd": "calendar calendars insert",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Creates a secondary calendar."
+  },
+  {
+   "cmd": "calendar calendars patch",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Updates metadata for a calendar. This method supports patch semantics."
+  },
+  {
+   "cmd": "calendar calendars update",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Updates metadata for a calendar."
+  },
+  {
+   "cmd": "calendar channels stop",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Stop watching resources through this channel"
+  },
+  {
+   "cmd": "calendar colors get",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Returns the color definitions for calendars and events."
+  },
+  {
+   "cmd": "calendar events delete",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Deletes an event."
+  },
+  {
+   "cmd": "calendar events get",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Returns an event based on its Google Calendar ID. To retrieve an event using its iCalendar ID, call the events.list meth"
+  },
+  {
+   "cmd": "calendar events import",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Imports an event. This operation is used to add a private copy of an existing event to a calendar."
+  },
+  {
+   "cmd": "calendar events insert",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Creates an event."
+  },
+  {
+   "cmd": "calendar events instances",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Returns instances of the specified recurring event."
+  },
+  {
+   "cmd": "calendar events list",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Returns events on the specified calendar."
+  },
+  {
+   "cmd": "calendar events move",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Moves an event to another calendar, i.e. changes an event's organizer."
+  },
+  {
+   "cmd": "calendar events patch",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Updates an event. This method supports patch semantics."
+  },
+  {
+   "cmd": "calendar events update",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Updates an event."
+  },
+  {
+   "cmd": "calendar events watch",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Watch for changes to Events resources."
+  },
+  {
+   "cmd": "calendar freebusy query",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Returns free/busy information for a set of calendars."
+  },
+  {
+   "cmd": "calendar settings get",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Returns a single user setting."
+  },
+  {
+   "cmd": "calendar settings list",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Returns all user settings for the authenticated user."
+  },
+  {
+   "cmd": "calendar settings watch",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Watch for changes to Settings resources."
+  },
+  {
+   "cmd": "chat media download",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Downloads media. Download is supported on the URI `/v1/media/{+name}?alt=media`."
+  },
+  {
+   "cmd": "chat media upload",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize",
+    "upload",
+    "upload-content-type"
+   ],
+   "desc": "Uploads an attachment. For an example, see Upload media as a file attachment."
+  },
+  {
+   "cmd": "chat spaces create",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Creates a space. Can be used to create a named space, or a group chat in `Import mode`. For an example, see Create a spa"
+  },
+  {
+   "cmd": "chat spaces delete",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Deletes a named space. Always performs a cascading delete, which means that the space's child resources—like messages po"
+  },
+  {
+   "cmd": "chat spaces get",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Returns details about a space. For an example, see Get details about a space."
+  },
+  {
+   "cmd": "chat spaces list",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Lists spaces the caller is a member of. Group chats and DMs aren't listed until the first message is sent. For an exampl"
+  },
+  {
+   "cmd": "chat spaces members",
+   "flags": [
+    "dry-run",
+    "format",
+    "sanitize"
+   ],
+   "desc": "Operations on the 'members' resource",
+   "complete": false,
+   "truncatedSubcommands": [
+    "create",
+    "delete",
+    "get",
+    "list",
+    "patch"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "chat spaces messages",
+   "flags": [
+    "dry-run",
+    "format",
+    "sanitize"
+   ],
+   "desc": "Operations on the 'messages' resource",
+   "complete": false,
+   "truncatedSubcommands": [
+    "attachments",
+    "create",
+    "delete",
+    "get",
+    "list",
+    "patch",
+    "reactions",
+    "search",
+    "update"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "chat spaces patch",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Updates a space. For an example, see Update a space. If you're updating the `displayName` field and receive the error me"
+  },
+  {
+   "cmd": "chat spaces search",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Returns a list of spaces in a Google Workspace organization. For an example, see Search for and manage spaces."
+  },
+  {
+   "cmd": "chat spaces setup",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Creates a space and adds specified users to it. The calling user is automatically added to the space, and shouldn't be s"
+  },
+  {
+   "cmd": "chat users availability",
+   "flags": [
+    "dry-run",
+    "format",
+    "sanitize"
+   ],
+   "desc": "Operations on the 'availability' resource",
+   "complete": false,
+   "truncatedSubcommands": [
+    "get",
+    "patch"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "chat users sections",
+   "flags": [
+    "dry-run",
+    "format",
+    "sanitize"
+   ],
+   "desc": "Operations on the 'sections' resource",
+   "complete": false,
+   "truncatedSubcommands": [
+    "create",
+    "delete",
+    "items",
+    "list",
+    "patch",
+    "position"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "chat users spaces",
+   "flags": [
+    "dry-run",
+    "format",
+    "sanitize"
+   ],
+   "desc": "Operations on the 'spaces' resource",
+   "complete": false,
+   "truncatedSubcommands": [
+    "threads"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "classroom courses aliases",
+   "flags": [
+    "dry-run",
+    "format",
+    "sanitize"
+   ],
+   "desc": "Operations on the 'aliases' resource",
+   "complete": false,
+   "truncatedSubcommands": [
+    "create",
+    "delete",
+    "list"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "classroom courses announcements",
+   "flags": [
+    "dry-run",
+    "format",
+    "sanitize"
+   ],
+   "desc": "Operations on the 'announcements' resource",
+   "complete": false,
+   "truncatedSubcommands": [
+    "create",
+    "delete",
+    "get",
+    "list",
+    "patch"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "classroom courses create",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Creates a course. The user specified in `ownerId` is the owner of the created course and added as a teacher. A non-admin"
+  },
+  {
+   "cmd": "classroom courses delete",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Deletes a course. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting user is not per"
+  },
+  {
+   "cmd": "classroom courses get",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Returns a course. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting user is not per"
+  },
+  {
+   "cmd": "classroom courses list",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Returns a list of courses that the requesting user is permitted to view, restricted to those that match the request."
+  },
+  {
+   "cmd": "classroom courses patch",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Updates one or more fields in a course."
+  },
+  {
+   "cmd": "classroom courses posts",
+   "flags": [
+    "dry-run",
+    "format",
+    "sanitize"
+   ],
+   "desc": "Operations on the 'posts' resource"
+  },
+  {
+   "cmd": "classroom courses students",
+   "flags": [
+    "dry-run",
+    "format",
+    "sanitize"
+   ],
+   "desc": "Operations on the 'students' resource",
+   "complete": false,
+   "truncatedSubcommands": [
+    "create",
+    "delete",
+    "get",
+    "list"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "classroom courses teachers",
+   "flags": [
+    "dry-run",
+    "format",
+    "sanitize"
+   ],
+   "desc": "Operations on the 'teachers' resource",
+   "complete": false,
+   "truncatedSubcommands": [
+    "create",
+    "delete",
+    "get",
+    "list"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "classroom courses topics",
+   "flags": [
+    "dry-run",
+    "format",
+    "sanitize"
+   ],
+   "desc": "Operations on the 'topics' resource",
+   "complete": false,
+   "truncatedSubcommands": [
+    "create",
+    "delete",
+    "get",
+    "list",
+    "patch"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "classroom courses update",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Updates a course. Note: Unlike other fields, `levels` is not cleared if omitted from the request."
+  },
+  {
+   "cmd": "classroom invitations accept",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Accepts an invitation, removing it and adding the invited user to the teachers or students (as appropriate) of the speci"
+  },
+  {
+   "cmd": "classroom invitations create",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Creates an invitation. Only one invitation for a user and course may exist at a time. Delete and re-create an invitation"
+  },
+  {
+   "cmd": "classroom invitations delete",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Deletes an invitation. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting user is no"
+  },
+  {
+   "cmd": "classroom invitations get",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Returns an invitation. This method returns the following error codes: * `PERMISSION_DENIED` if the requesting user is no"
+  },
+  {
+   "cmd": "classroom invitations list",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Returns a list of invitations that the requesting user is permitted to view, restricted to those that match the list req"
+  },
+  {
+   "cmd": "classroom registrations create",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Creates a `Registration`, causing Classroom to start sending notifications from the provided `feed` to the destination p"
+  },
+  {
+   "cmd": "classroom registrations delete",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Deletes a `Registration`, causing Classroom to stop sending notifications for that `Registration`."
+  },
+  {
+   "cmd": "docs documents create",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Creates a blank document using the title given in the request. Other fields in the request, including any provided conte"
+  },
+  {
+   "cmd": "docs documents get",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Gets the latest version of the specified document."
+  },
+  {
+   "cmd": "drive about get",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Gets information about the user, the user's Drive, and system capabilities. For more information, see Return user info. "
+  },
+  {
+   "cmd": "drive accessproposals get",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Retrieves an access proposal by ID. For more information, see Manage pending access proposals."
+  },
+  {
+   "cmd": "drive accessproposals list",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "List the access proposals on a file. For more information, see Manage pending access proposals. Note: Only approvers are"
+  },
+  {
+   "cmd": "drive accessproposals resolve",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Approves or denies an access proposal. For more information, see Manage pending access proposals."
+  },
+  {
+   "cmd": "drive approvals approve",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Approves an approval. For more information, see Manage approvals. This is used to update the ReviewerResponse of the req"
+  },
+  {
+   "cmd": "drive approvals cancel",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Cancels an approval. For more information, see Manage approvals. Updates the approval Status to `CANCELLED`."
+  },
+  {
+   "cmd": "drive approvals comment",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Comments on an approval. For more information, see Manage approvals. This sends a notification to both the initiator and"
+  },
+  {
+   "cmd": "drive approvals decline",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Declines an approval. For more information, see Manage approvals. This is used to update the ReviewerResponse of the req"
+  },
+  {
+   "cmd": "drive approvals get",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Gets an approval by ID. For more information, see Manage approvals."
+  },
+  {
+   "cmd": "drive approvals list",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Lists the approvals on a file. For more information, see Manage approvals. By default, this method returns a minimal res"
+  },
+  {
+   "cmd": "drive approvals reassign",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Reassigns the reviewers on an approval. For more information, see Manage approvals. Adds or replaces reviewers in the Re"
+  },
+  {
+   "cmd": "drive approvals start",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Starts an approval on a file. For more information, see Manage approvals."
+  },
+  {
+   "cmd": "drive apps get",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Gets a specific app. For more information, see Return user info."
+  },
+  {
+   "cmd": "drive apps list",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Lists a user's installed apps. For more information, see Return user info."
+  },
+  {
+   "cmd": "drive changes list",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Lists the changes for a user or shared drive. For more information, see Retrieve changes."
+  },
+  {
+   "cmd": "drive changes watch",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Subscribes to changes for a user. For more information, see Notifications for resource changes."
+  },
+  {
+   "cmd": "drive channels stop",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Stops watching resources through this channel. For more information, see Notifications for resource changes."
+  },
+  {
+   "cmd": "drive comments create",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Creates a comment on a file. For more information, see Manage comments and replies. Required: The `fields` parameter mus"
+  },
+  {
+   "cmd": "drive comments delete",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Deletes a comment. For more information, see Manage comments and replies."
+  },
+  {
+   "cmd": "drive comments get",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Gets a comment by ID. For more information, see Manage comments and replies. Required: The `fields` parameter must be se"
+  },
+  {
+   "cmd": "drive comments list",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Lists a file's comments. For more information, see Manage comments and replies. Required: The `fields` parameter must be"
+  },
+  {
+   "cmd": "drive comments update",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Updates a comment with patch semantics. For more information, see Manage comments and replies. Required: The `fields` pa"
+  },
+  {
+   "cmd": "drive drives create",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Creates a shared drive. For more information, see Manage shared drives."
+  },
+  {
+   "cmd": "drive drives delete",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Permanently deletes a shared drive for which the user is an `organizer`. The shared drive cannot contain any untrashed i"
+  },
+  {
+   "cmd": "drive drives get",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Gets a shared drive's metadata by ID. For more information, see Manage shared drives."
+  },
+  {
+   "cmd": "drive drives hide",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Hides a shared drive from the default view. For more information, see Manage shared drives."
+  },
+  {
+   "cmd": "drive drives list",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Lists the user's shared drives. This method accepts the `q` parameter, which is a search query combining one or more sea"
+  },
+  {
+   "cmd": "drive drives unhide",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Restores a shared drive to the default view. For more information, see Manage shared drives."
+  },
+  {
+   "cmd": "drive drives update",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Updates the metadata for a shared drive. For more information, see Manage shared drives."
+  },
+  {
+   "cmd": "drive files copy",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Creates a copy of a file and applies any requested updates with patch semantics. For more information, see Create and ma"
+  },
+  {
+   "cmd": "drive files create",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize",
+    "upload",
+    "upload-content-type"
+   ],
+   "desc": "Creates a file. For more information, see Create and manage files."
+  },
+  {
+   "cmd": "drive files delete",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Permanently deletes a file owned by the user without moving it to the trash. For more information, see Trash or delete f"
+  },
+  {
+   "cmd": "drive files download",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Downloads the content of a file. For more information, see Download and export files. Operations are valid for 24 hours "
+  },
+  {
+   "cmd": "drive files export",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Exports a Google Workspace document to the requested MIME type and returns exported byte content. For more information, "
+  },
+  {
+   "cmd": "drive files get",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Gets a file's metadata or content by ID. For more information, see Search for files and folders."
+  },
+  {
+   "cmd": "drive files list",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Lists the user's files. For more information, see Search for files and folders. This method accepts the `q` parameter, w"
+  },
+  {
+   "cmd": "drive files update",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize",
+    "upload",
+    "upload-content-type"
+   ],
+   "desc": "Updates a file's metadata, content, or both. When calling this method, only populate fields in the request that you want"
+  },
+  {
+   "cmd": "drive files watch",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Subscribes to changes to a file. For more information, see Notifications for resource changes."
+  },
+  {
+   "cmd": "drive operations get",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Gets the latest state of a long-running operation. Clients can use this method to poll the operation result at intervals"
+  },
+  {
+   "cmd": "drive permissions create",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Creates a permission for a file or shared drive. For more information, see Share files, folders, and drives."
+  },
+  {
+   "cmd": "drive permissions delete",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Deletes a permission. For more information, see Share files, folders, and drives. **Warning:** Concurrent permissions op"
+  },
+  {
+   "cmd": "drive permissions get",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Gets a permission by ID. For more information, see Share files, folders, and drives."
+  },
+  {
+   "cmd": "drive permissions list",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Lists a file's or shared drive's permissions. For more information, see Share files, folders, and drives."
+  },
+  {
+   "cmd": "drive permissions update",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Updates a permission with patch semantics. For more information, see Share files, folders, and drives."
+  },
+  {
+   "cmd": "drive replies create",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Creates a reply to a comment. For more information, see Manage comments and replies."
+  },
+  {
+   "cmd": "drive replies delete",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Deletes a reply. For more information, see Manage comments and replies."
+  },
+  {
+   "cmd": "drive replies get",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Gets a reply by ID. For more information, see Manage comments and replies."
+  },
+  {
+   "cmd": "drive replies list",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Lists a comment's replies. For more information, see Manage comments and replies."
+  },
+  {
+   "cmd": "drive replies update",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Updates a reply with patch semantics. For more information, see Manage comments and replies."
+  },
+  {
+   "cmd": "drive revisions delete",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Permanently deletes a file version. You can only delete revisions for files with binary content in Google Drive, like im"
+  },
+  {
+   "cmd": "drive revisions get",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Gets a revision's metadata or content by ID. For more information, see Manage file revisions."
+  },
+  {
+   "cmd": "drive revisions list",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Lists a file's revisions. For more information, see Manage file revisions."
+  },
+  {
+   "cmd": "drive revisions update",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Updates a revision with patch semantics. For more information, see Manage file revisions."
+  },
+  {
+   "cmd": "drive teamdrives create",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Deprecated: Use `drives.create` instead."
+  },
+  {
+   "cmd": "drive teamdrives delete",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Deprecated: Use `drives.delete` instead."
+  },
+  {
+   "cmd": "drive teamdrives get",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Deprecated: Use `drives.get` instead."
+  },
+  {
+   "cmd": "drive teamdrives list",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Deprecated: Use `drives.list` instead."
+  },
+  {
+   "cmd": "drive teamdrives update",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Deprecated: Use `drives.update` instead."
+  },
+  {
+   "cmd": "events message stream",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "SendStreamingMessage is a streaming call that will return a stream of task update events until the Task is in an interru"
+  },
+  {
+   "cmd": "events operations get",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Gets the latest state of a long-running operation. Clients can use this method to poll the operation result at intervals"
+  },
+  {
+   "cmd": "events subscriptions create",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Creates a Google Workspace subscription. To learn how to use this method, see Create a Google Workspace subscription."
+  },
+  {
+   "cmd": "events subscriptions delete",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Deletes a Google Workspace subscription. To learn how to use this method, see Delete a Google Workspace subscription."
+  },
+  {
+   "cmd": "events subscriptions get",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Gets details about a Google Workspace subscription. To learn how to use this method, see Get details about a Google Work"
+  },
+  {
+   "cmd": "events subscriptions list",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Lists Google Workspace subscriptions. To learn how to use this method, see List Google Workspace subscriptions."
+  },
+  {
+   "cmd": "events subscriptions patch",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Updates or renews a Google Workspace subscription. To learn how to use this method, see Update or renew a Google Workspa"
+  },
+  {
+   "cmd": "events subscriptions reactivate",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Reactivates a suspended Google Workspace subscription. This method resets your subscription's `State` field to `ACTIVE`."
+  },
+  {
+   "cmd": "events tasks cancel",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Cancel a task from the agent. If supported one should expect no more task updates for the task."
+  },
+  {
+   "cmd": "events tasks get",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Get the current state of a task from the agent."
+  },
+  {
+   "cmd": "events tasks subscribe",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "TaskSubscription is a streaming call that will return a stream of task update events. This attaches the stream to an exi"
+  },
+  {
+   "cmd": "forms forms create",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Create a new form using the title given in the provided form message in the request. *Important:* Only the form.info.tit"
+  },
+  {
+   "cmd": "forms forms get",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Get a form."
+  },
+  {
+   "cmd": "forms forms responses",
+   "flags": [
+    "dry-run",
+    "format",
+    "sanitize"
+   ],
+   "desc": "Operations on the 'responses' resource",
+   "complete": false,
+   "truncatedSubcommands": [
+    "get",
+    "list"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "forms forms watches",
+   "flags": [
+    "dry-run",
+    "format",
+    "sanitize"
+   ],
+   "desc": "Operations on the 'watches' resource",
+   "complete": false,
+   "truncatedSubcommands": [
+    "create",
+    "delete",
+    "list",
+    "renew"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "gmail users drafts",
+   "flags": [
+    "dry-run",
+    "format",
+    "sanitize"
+   ],
+   "desc": "Operations on the 'drafts' resource",
+   "complete": false,
+   "truncatedSubcommands": [
+    "create",
+    "delete",
+    "get",
+    "list",
+    "send",
+    "update"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "gmail users history",
+   "flags": [
+    "dry-run",
+    "format",
+    "sanitize"
+   ],
+   "desc": "Operations on the 'history' resource",
+   "complete": false,
+   "truncatedSubcommands": [
+    "list"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "gmail users labels",
+   "flags": [
+    "dry-run",
+    "format",
+    "sanitize"
+   ],
+   "desc": "Operations on the 'labels' resource",
+   "complete": false,
+   "truncatedSubcommands": [
+    "create",
+    "delete",
+    "get",
+    "list",
+    "patch",
+    "update"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "gmail users messages",
+   "flags": [
+    "dry-run",
+    "format",
+    "sanitize"
+   ],
+   "desc": "Operations on the 'messages' resource",
+   "complete": false,
+   "truncatedSubcommands": [
+    "attachments",
+    "delete",
+    "get",
+    "import",
+    "insert",
+    "list",
+    "modify",
+    "send",
+    "trash",
+    "untrash"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "gmail users settings",
+   "flags": [
+    "dry-run",
+    "format",
+    "sanitize"
+   ],
+   "desc": "Operations on the 'settings' resource",
+   "complete": false,
+   "truncatedSubcommands": [
+    "cse",
+    "delegates",
+    "filters"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "gmail users stop",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Turn off push notification delivery for the given user mailbox. For more information, see Configure push notifications i"
+  },
+  {
+   "cmd": "gmail users threads",
+   "flags": [
+    "dry-run",
+    "format",
+    "sanitize"
+   ],
+   "desc": "Operations on the 'threads' resource",
+   "complete": false,
+   "truncatedSubcommands": [
+    "delete",
+    "get",
+    "list",
+    "modify",
+    "trash",
+    "untrash"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "gmail users watch",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Set up or update a push notification watch on the given user mailbox. For more information, see Configure push notificat"
+  },
+  {
+   "cmd": "keep media download",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Gets an attachment. To download attachment media via REST requires the alt=media query parameter. Returns a 400 bad requ"
+  },
+  {
+   "cmd": "keep notes create",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Creates a new note."
+  },
+  {
+   "cmd": "keep notes delete",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Deletes a note. Caller must have the `OWNER` role on the note to delete. Deleting a note removes the resource immediatel"
+  },
+  {
+   "cmd": "keep notes get",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Gets a note."
+  },
+  {
+   "cmd": "keep notes list",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Lists notes. Every list call returns a page of results with `page_size` as the upper bound of returned items. A `page_si"
+  },
+  {
+   "cmd": "keep notes permissions",
+   "flags": [
+    "dry-run",
+    "format",
+    "sanitize"
+   ],
+   "desc": "Operations on the 'permissions' resource"
+  },
+  {
+   "cmd": "meet spaces create",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Creates a space."
+  },
+  {
+   "cmd": "meet spaces get",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Gets details about a meeting space. For an example, see Get a meeting space."
+  },
+  {
+   "cmd": "meet spaces patch",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Updates details about a meeting space. For an example, see Update a meeting space."
+  },
+  {
+   "cmd": "modelarmor",
+   "flags": [
+    "dry-run",
+    "format",
+    "sanitize"
+   ],
+   "desc": "Filter user-generated content for safety"
+  },
+  {
+   "cmd": "people people connections",
+   "flags": [
+    "dry-run",
+    "format",
+    "sanitize"
+   ],
+   "desc": "Operations on the 'connections' resource",
+   "complete": false,
+   "truncatedSubcommands": [
+    "list"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "people people get",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Provides information about a person by specifying a resource name. Use `people/me` to indicate the authenticated user. T"
+  },
+  {
+   "cmd": "script processes list",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "List information about processes made by or on behalf of a user, such as process type and current status."
+  },
+  {
+   "cmd": "script projects create",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Creates a new, empty script project with no script files and a base manifest file."
+  },
+  {
+   "cmd": "script projects deployments",
+   "flags": [
+    "dry-run",
+    "format",
+    "sanitize"
+   ],
+   "desc": "Operations on the 'deployments' resource",
+   "complete": false,
+   "truncatedSubcommands": [
+    "create",
+    "delete",
+    "get",
+    "list",
+    "update"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "script projects get",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Gets a script project's metadata."
+  },
+  {
+   "cmd": "script projects versions",
+   "flags": [
+    "dry-run",
+    "format",
+    "sanitize"
+   ],
+   "desc": "Operations on the 'versions' resource",
+   "complete": false,
+   "truncatedSubcommands": [
+    "create",
+    "get",
+    "list"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "script scripts",
+   "flags": [
+    "dry-run",
+    "format",
+    "sanitize"
+   ],
+   "desc": "Operations on the 'scripts' resource"
+  },
+  {
+   "cmd": "sheets spreadsheets create",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Creates a spreadsheet, returning the newly created spreadsheet."
+  },
+  {
+   "cmd": "sheets spreadsheets get",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Returns the spreadsheet at the given ID. The caller must specify the spreadsheet ID. By default, data within grids is no"
+  },
+  {
+   "cmd": "sheets spreadsheets sheets",
+   "flags": [
+    "dry-run",
+    "format",
+    "sanitize"
+   ],
+   "desc": "Operations on the 'sheets' resource"
+  },
+  {
+   "cmd": "sheets spreadsheets values",
+   "flags": [
+    "dry-run",
+    "format",
+    "sanitize"
+   ],
+   "desc": "Operations on the 'values' resource",
+   "complete": false,
+   "truncatedSubcommands": [
+    "append",
+    "clear",
+    "get",
+    "update"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "slides presentations create",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Creates a blank presentation using the title given in the request. If a `presentationId` is provided, it is used as the "
+  },
+  {
+   "cmd": "slides presentations get",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Gets the latest version of the specified presentation."
+  },
+  {
+   "cmd": "slides presentations pages",
+   "flags": [
+    "dry-run",
+    "format",
+    "sanitize"
+   ],
+   "desc": "Operations on the 'pages' resource",
+   "complete": false,
+   "truncatedSubcommands": [
+    "get"
+   ],
+   "incompleteReason": "max_depth"
+  },
+  {
+   "cmd": "tasks tasklists delete",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Deletes the authenticated user's specified task list. If the list contains assigned tasks, both the assigned tasks and t"
+  },
+  {
+   "cmd": "tasks tasklists get",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Returns the authenticated user's specified task list."
+  },
+  {
+   "cmd": "tasks tasklists insert",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Creates a new task list and adds it to the authenticated user's task lists. A user can have up to 2000 lists at a time."
+  },
+  {
+   "cmd": "tasks tasklists list",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Returns all the authenticated user's task lists. A user can have up to 2000 lists at a time."
+  },
+  {
+   "cmd": "tasks tasklists patch",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Updates the authenticated user's specified task list. This method supports patch semantics."
+  },
+  {
+   "cmd": "tasks tasklists update",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Updates the authenticated user's specified task list."
+  },
+  {
+   "cmd": "tasks tasks clear",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Clears all completed tasks from the specified task list. The affected tasks will be marked as 'hidden' and no longer be "
+  },
+  {
+   "cmd": "tasks tasks delete",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Deletes the specified task from the task list. If the task is assigned, both the assigned task and the original task (in"
+  },
+  {
+   "cmd": "tasks tasks get",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Returns the specified task."
+  },
+  {
+   "cmd": "tasks tasks insert",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Creates a new task on the specified task list. Tasks assigned from Docs or Chat Spaces cannot be inserted from Tasks Pub"
+  },
+  {
+   "cmd": "tasks tasks list",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Returns all tasks in the specified task list. Doesn't return assigned tasks by default (from Docs, Chat Spaces)."
+  },
+  {
+   "cmd": "tasks tasks move",
+   "flags": [
+    "dry-run",
+    "format",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Moves the specified task to another position in the destination task list. If the destination list is not specified, the"
+  },
+  {
+   "cmd": "tasks tasks patch",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Updates the specified task. This method supports patch semantics."
+  },
+  {
+   "cmd": "tasks tasks update",
+   "flags": [
+    "dry-run",
+    "format",
+    "json",
+    "output",
+    "page-all",
+    "page-delay",
+    "page-limit",
+    "params",
+    "sanitize"
+   ],
+   "desc": "Updates the specified task."
+  },
+  {
+   "cmd": "workflow",
+   "flags": [
+    "dry-run",
+    "format",
+    "sanitize"
+   ],
+   "desc": "Cross-service productivity workflows (also: wf)"
+  }
+ ]
+}
